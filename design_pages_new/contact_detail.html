@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- BOOTSTRAP CSS LINK -->
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../assets/css/bootstrap.min.css.map" rel="stylesheet" />
+    <!-- CSS LINK -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body>
+    <div class="main_container w-100 h-100">
+        <!-- HEADER :: STARTS -->
+        <header class="header d-flex align-items-center" id="myHeader">
+            <div class="header-left-items d-flex justify-content-start align-items-center order-1">
+                <img src="../public/app-icon/logo/logo-header.svg" alt="ubefone" height="33">
+            </div>
+            <div class="header-right-items d-flex justify-content-start align-items-center order-2">
+                <div class="auto-answer">
+                    <p class="__MSG__autoAnswer">Auto Answer</p>
+                    <div class="switch">
+                        <div class="toggle">
+                            <input class="_toggleBtn" name="sipAutoAnswer" value="false" type="checkbox"
+                                id="_autoAnswer" tabindex="7">
+                            <label for="_autoAnswer"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="dnd">
+                    <p class="__MSG__dnd-text">DND</p>
+                    <div class="switch">
+                        <div class="toggle">
+                            <input class="_toggleBtn" name="sipDnd" value="false" type="checkbox" id="_dnd"
+                                tabindex="8">
+
+                            <label for="_dnd"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-dropdown dropdown" tabindex="2">
+                    <div class="user-name dropdown-toggle" href="#" role="button" id="profileDropdown"
+                        data-bs-auto-close="outside" data-bs-toggle="dropdown" aria-expanded="false">
+                        <p class="mb-0 ext_number_box">
+                            <img class="mx-1" src="../assets/img-new/arrow-down.svg" alt="ARROW DOWN" width=""
+                                height="">
+                            <span class="_extName" title="1007 Aarati">1007 Aarati</span>
+                        </p>
+                        <span class="_extNum __MSG__not_registered">NOT REGISTERED</span>
+                    </div>
+
+                    <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+                        <li class="logoutEnable" lang="online" onclick="changeXmppPresence(this.lang)">
+                            <img src="../assets/img-new/online.svg" alt="ONLINE">
+                            <p class="__MSG__online">Online</p>
+                            <!-- CHECKBOX GROUP -->
+                            <div class="checkbox _checkboxStatus" id="id_checkboxOnline" style="display: block;">
+                                <input type="checkbox" value="None" id="name1" name="check" checked="">
+                                <label for="name1"></label>
+                            </div>
+                            <!-- CHECKBOX GROUP -->
+                        </li>
+                        <li class="logoutEnable" lang="away" onclick="changeXmppPresence(this.lang)">
+                            <img src="../assets/img-new/away.svg" alt="AWAY">
+                            <p class="__MSG__Away">Away</p>
+                            <div class="checkbox _checkboxStatus" id="id_checkboxAway" style="display: none;">
+                                <input type="checkbox" value="None" id="name2" name="check" checked="">
+                                <label for="name2"></label>
+                            </div>
+                        </li>
+                        <!-- <li lang="busy" onclick="changeXmppPresence(this.lang)">
+                                <img src="../assets/img-new/busy.svg" alt="BUSY">
+                                <p>Busy</p>
+                                <div class="checkbox _checkboxStatus" id="id_checkboxBusy">
+                                    <input type="checkbox" value="None" id="name3"
+                                        name="check" />
+                                    <label for="name3"></label>
+                                </div>
+                            </li> -->
+
+                        <li class="logoutEnable" lang="dnd" onclick="changeXmppPresence(this.lang)">
+                            <img src="../assets/img-new/dnd.svg" alt="DND">
+                            <p class="__MSG__dnd-text">DND</p>
+                            <div class="checkbox _checkboxStatus" id="id_checkboxDnd" style="display: none;">
+                                <input type="checkbox" value="None" id="name4" name="check" checked="">
+                                <label for="name4"></label>
+                            </div>
+                        </li>
+
+                        <!-- TRAG-5783 - Zain/Xlogix-Logout needs to be out of the setting Option -->
+                        <li onkeydown="if(event.keyCode === 13) { $(this).trigger('click'); }" tabindex="-1"
+                            data-bs-toggle="modal" data-bs-target="#logoutModal">
+                            <!-- <img src="../assets/img-new/logout-new.svg" alt="LOGOUT"> -->
+                            <svg width="12" height="13" viewBox="0 0 12 13" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M6.03565 1.05277C6.0926 1.09626 6.17598 1.18223 6.22092 1.24379C6.3014 1.35404 6.30263 1.39388 6.30263 3.86268C6.30263 6.33148 6.3014 6.37132 6.22092 6.48157C6.06565 6.69423 5.93899 6.76062 5.68838 6.76062C5.43776 6.76062 5.31111 6.69427 5.15584 6.48161C5.07579 6.37197 5.07389 6.32098 5.06247 3.97118C5.05609 2.65203 5.06124 1.51397 5.07397 1.44215C5.10258 1.28059 5.26831 1.07373 5.42881 0.999231C5.58923 0.924816 5.90448 0.95262 6.03565 1.05277Z"
+                                    fill="var(--input-icon)"></path>
+                                <path
+                                    d="M2.88013 2.14301C3.02794 2.22119 3.15618 2.41772 3.18052 2.60339C3.21606 2.87438 3.137 3.01778 2.75533 3.37453C1.20622 4.82257 0.815876 6.99667 1.76587 8.88568C2.60324 10.5508 4.46272 11.5402 6.263 11.2784C7.03554 11.1661 7.86002 10.8092 8.44697 10.3333C9.65206 9.356 10.2985 7.72298 10.0858 6.19319C9.93708 5.12306 9.39522 4.07251 8.64421 3.39816C8.26531 3.05794 8.19045 2.83721 8.33978 2.50089C8.42878 2.30051 8.61052 2.15954 8.81632 2.13133C9.09099 2.09364 9.23528 2.17948 9.70833 2.66192C10.5236 3.49332 11.0419 4.46448 11.2805 5.60724C11.4004 6.1818 11.41 7.2191 11.3009 7.81442C11.0819 9.00918 10.5535 10.0327 9.71067 10.8947C8.8678 11.7567 7.86648 12.2974 6.69893 12.5209C6.15505 12.625 5.22044 12.6249 4.67783 12.5206C2.32298 12.0681 0.517071 10.2212 0.0758784 7.81442C-0.03227 7.22453 -0.0235912 6.18132 0.0941079 5.61814C0.357405 4.35833 0.967299 3.27973 1.89815 2.42765C2.31997 2.04156 2.5579 1.97257 2.88013 2.14301Z"
+                                    fill="var(--input-icon)"></path>
+                            </svg>
+                            <p class="__MSG__logoutHeading">Logout</p>
+                        </li>
+
+                    </ul>
+                    <div class="position-relative profile-pic">
+                        <!-- Upload profile pic icon :: start -->
+                        <div class="upload-profile-pic-icon">
+                            <svg height="14" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M8.22028 6.36544C8.22028 6.87189 8.02501 7.3576 7.67743 7.71572C7.32985 8.07383 6.85843 8.27502 6.36687 8.27502C5.87532 8.27502 5.4039 8.07383 5.05631 7.71572C4.70873 7.3576 4.51346 6.87189 4.51346 6.36544C4.51346 5.85899 4.70873 5.37328 5.05631 5.01517C5.4039 4.65705 5.87532 4.45587 6.36687 4.45587C6.85843 4.45587 7.32985 4.65705 7.67743 5.01517C8.02501 5.37328 8.22028 5.85899 8.22028 6.36544ZM3.84253 1.42919C3.9579 1.1911 4.13537 0.990834 4.35503 0.850857C4.5747 0.710879 4.82788 0.636728 5.08617 0.636719H7.64758C7.90587 0.636728 8.15904 0.710879 8.37871 0.850857C8.59838 0.990834 8.77585 1.1911 8.89122 1.42919L9.43334 2.54629H10.0737C10.5652 2.54629 11.0367 2.74748 11.3843 3.10559C11.7318 3.46371 11.9271 3.94942 11.9271 4.45587V9.2298C11.9271 9.73626 11.7318 10.222 11.3843 10.5801C11.0367 10.9382 10.5652 11.1394 10.0737 11.1394H2.66005C2.1685 11.1394 1.69707 10.9382 1.34949 10.5801C1.00191 10.222 0.806641 9.73626 0.806641 9.2298V4.45587C0.806641 3.94942 1.00191 3.46371 1.34949 3.10559C1.69707 2.74748 2.1685 2.54629 2.66005 2.54629H3.3004L3.84253 1.42919ZM9.14699 6.36544C9.14699 5.60577 8.85408 4.8772 8.33271 4.34003C7.81134 3.80286 7.10421 3.50108 6.36687 3.50108C5.62954 3.50108 4.92241 3.80286 4.40103 4.34003C3.87966 4.8772 3.58676 5.60577 3.58676 6.36544C3.58676 7.12512 3.87966 7.85368 4.40103 8.39085C4.92241 8.92803 5.62954 9.2298 6.36687 9.2298C7.10421 9.2298 7.81134 8.92803 8.33271 8.39085C8.85408 7.85368 9.14699 7.12512 9.14699 6.36544Z"
+                                    fill="var(--white-color)" />
+                            </svg>
+
+                        </div>
+                        <!-- Upload profile pic icon :: end -->
+                        <div class="_userImage"><img
+                                src="data:image/jpeg;base64, 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"
+                                alt="Profile"></div>
+                        <span class="green-dot" id="idMainPresenceIconPresenceHeader"><img
+                                src="../assets/img-new/online.svg" alt="ONLINE" width="" height=""></span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="d-flex align-items-center custom-header__box">
+                <button class="custom-header__option">
+                    <i class="minimize-icon"></i>
+                </button>
+                <button class="custom-header__option fullscreen">
+                    <i class="maximize-icon"></i>
+                </button>
+                <button class="custom-header__option">
+                    <i class="close-win-icon"></i>
+                </button>
+            </div>
+        </header>
+        <!-- HEADER :: ENDS -->
+
+        <div class="main-body-content d-flex position-relative">
+            <!-- LEFT SIDE MENU :: STARTS -->
+            <section class="left-side d-flex align-items-start">
+                <!-- LEFT SIDE NAV :: STARTS -->
+                <div class="left-side-menu nav flex-column nav-pills py-2" id="v-pills-tab" role="tablist"
+                    aria-orientation="vertical">
+                    <a class="nav-link" id="v-pills-dailer-tab" data-bs-toggle="pill" data-bs-target="#v-pills-dailer"
+                        role="tab" aria-controls="v-pills-dailer" aria-selected="false">
+                        <svg width="16" height="22" viewBox="0 0 16 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M8 18.2882C8.21025 18.2882 8.41844 18.3276 8.61269 18.4042C8.80693 18.4808 8.98343 18.593 9.13209 18.7345C9.28076 18.8761 9.39869 19.0441 9.47915 19.229C9.55961 19.4139 9.60102 19.612 9.60102 19.8122C9.60102 20.0123 9.55961 20.2105 9.47915 20.3954C9.39869 20.5803 9.28076 20.7483 9.13209 20.8898C8.98343 21.0313 8.80693 21.1436 8.61269 21.2202C8.41844 21.2968 8.21025 21.3362 8 21.3362C7.57538 21.3362 7.16815 21.1756 6.8679 20.8898C6.56765 20.604 6.39897 20.2164 6.39897 19.8122C6.39897 19.408 6.56765 19.0204 6.8679 18.7345C7.16815 18.4487 7.57538 18.2882 8 18.2882ZM8 12.1921C8.42462 12.1921 8.83184 12.3527 9.13209 12.6385C9.43235 12.9243 9.60102 13.3119 9.60102 13.7161C9.60102 14.1203 9.43235 14.508 9.13209 14.7938C8.83184 15.0796 8.42462 15.2401 8 15.2401C7.57538 15.2401 7.16815 15.0796 6.8679 14.7938C6.56765 14.508 6.39897 14.1203 6.39897 13.7161C6.39897 13.3119 6.56765 12.9243 6.8679 12.6385C7.16815 12.3527 7.57538 12.1921 8 12.1921ZM14.399 12.1921C14.8236 12.1921 15.2308 12.3527 15.5311 12.6385C15.8313 12.9243 16 13.3119 16 13.7161C16 14.1203 15.8313 14.508 15.5311 14.7938C15.2308 15.0796 14.8236 15.2401 14.399 15.2401C13.9744 15.2401 13.5671 15.0796 13.2669 14.7938C12.9666 14.508 12.798 14.1203 12.798 13.7161C12.798 13.3119 12.9666 12.9243 13.2669 12.6385C13.5671 12.3527 13.9744 12.1921 14.399 12.1921ZM1.60102 12.1921C2.02564 12.1921 2.43287 12.3527 2.73312 12.6385C3.03337 12.9243 3.20205 13.3119 3.20205 13.7161C3.20205 14.1203 3.03337 14.508 2.73312 14.7938C2.43287 15.0796 2.02564 15.2401 1.60102 15.2401C1.17641 15.2401 0.76918 15.0796 0.468929 14.7938C0.168679 14.508 0 14.1203 0 13.7161C0 13.3119 0.168679 12.9243 0.468929 12.6385C0.76918 12.3527 1.17641 12.1921 1.60102 12.1921ZM8 6.09606C8.42462 6.09606 8.83184 6.25662 9.13209 6.54243C9.43235 6.82824 9.60102 7.21588 9.60102 7.62007C9.60102 8.02426 9.43235 8.4119 9.13209 8.69771C8.83184 8.98352 8.42462 9.14408 8 9.14408C7.57538 9.14408 7.16815 8.98352 6.8679 8.69771C6.56765 8.4119 6.39897 8.02426 6.39897 7.62007C6.39897 7.21588 6.56765 6.82824 6.8679 6.54243C7.16815 6.25662 7.57538 6.09606 8 6.09606ZM14.399 6.09606C14.8236 6.09606 15.2308 6.25662 15.5311 6.54243C15.8313 6.82824 16 7.21588 16 7.62007C16 8.02426 15.8313 8.4119 15.5311 8.69771C15.2308 8.98352 14.8236 9.14408 14.399 9.14408C13.9744 9.14408 13.5671 8.98352 13.2669 8.69771C12.9666 8.4119 12.798 8.02426 12.798 7.62007C12.798 7.21588 12.9666 6.82824 13.2669 6.54243C13.5671 6.25662 13.9744 6.09606 14.399 6.09606ZM1.60102 6.09606C2.02564 6.09606 2.43287 6.25662 2.73312 6.54243C3.03337 6.82824 3.20205 7.21588 3.20205 7.62007C3.20205 8.02426 3.03337 8.4119 2.73312 8.69771C2.43287 8.98352 2.02564 9.14408 1.60102 9.14408C1.17641 9.14408 0.76918 8.98352 0.468929 8.69771C0.168679 8.4119 0 8.02426 0 7.62007C0 7.21588 0.168679 6.82824 0.468929 6.54243C0.76918 6.25662 1.17641 6.09606 1.60102 6.09606ZM8 0C8.42462 0 8.83184 0.160565 9.13209 0.446373C9.43235 0.732181 9.60102 1.11982 9.60102 1.52401C9.60102 1.92821 9.43235 2.31585 9.13209 2.60165C8.83184 2.88746 8.42462 3.04803 8 3.04803C7.57538 3.04803 7.16815 2.88746 6.8679 2.60165C6.56765 2.31585 6.39897 1.92821 6.39897 1.52401C6.39897 1.11982 6.56765 0.732181 6.8679 0.446373C7.16815 0.160565 7.57538 0 8 0ZM14.399 0C14.8236 0 15.2308 0.160565 15.5311 0.446373C15.8313 0.732181 16 1.11982 16 1.52401C16 1.92821 15.8313 2.31585 15.5311 2.60165C15.2308 2.88746 14.8236 3.04803 14.399 3.04803C13.9744 3.04803 13.5671 2.88746 13.2669 2.60165C12.9666 2.31585 12.798 1.92821 12.798 1.52401C12.798 1.11982 12.9666 0.732181 13.2669 0.446373C13.5671 0.160565 13.9744 0 14.399 0ZM1.60102 0C2.02564 0 2.43287 0.160565 2.73312 0.446373C3.03337 0.732181 3.20205 1.11982 3.20205 1.52401C3.20205 1.92821 3.03337 2.31585 2.73312 2.60165C2.43287 2.88746 2.02564 3.04803 1.60102 3.04803C1.17641 3.04803 0.76918 2.88746 0.468929 2.60165C0.168679 2.31585 0 1.92821 0 1.52401C0 1.11982 0.168679 0.732181 0.468929 0.446373C0.76918 0.160565 1.17641 0 1.60102 0Z" />
+                        </svg>
+                        <span class="__MSG__leftDialpaddialer">Keypad</span>
+                    </a>
+                    <a class="nav-link" id="v-pills-recent-tab" data-bs-toggle="pill" data-bs-target="#v-pills-recent"
+                        role="tab" aria-controls="v-pills-recent" aria-selected="false">
+                        <svg width="21" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.75 20.75">
+                            <path stroke="none"
+                                d="m4.16,2.7c.11,0,.33.21,1.71,1.61,1.37,1.39,1.59,1.63,1.59,1.73s-.12.25-.78.92c-.73.75-.78.81-.8.99-.04.29,0,.39.36,1,.73,1.2,1.39,2.04,2.4,3.07,1.01,1.03,1.85,1.7,3.03,2.43.48.3.64.38.83.38.05,0,.1,0,.15-.01.18-.03.23-.07.93-.77.62-.62.76-.74.86-.74s.35.23,1.71,1.61c1.38,1.4,1.59,1.63,1.59,1.73,0,.11-.15.28-1.12,1.25-1.31,1.32-1.36,1.37-1.98,1.37-.02,0-.04,0-.05,0-.42,0-.44,0-1.02-.24-2.82-1.11-5.08-2.6-7.18-4.72-2.09-2.12-3.56-4.41-4.66-7.27-.23-.59-.23-.61-.23-1.04q0-.67,1.38-2.09c1-1.03,1.18-1.19,1.28-1.19m0-1.5h0c-.76,0-1.03.28-2.36,1.65C.34,4.35,0,4.71,0,5.98c0,.66.06.86.33,1.58,1.17,3.05,2.76,5.52,5,7.79,2.24,2.27,4.68,3.88,7.69,5.07.72.28.91.34,1.57.34h.06c1.25,0,1.67-.42,3.05-1.81,1.26-1.26,1.55-1.57,1.55-2.31,0-.74-.15-.89-2.02-2.78-1.84-1.86-2.03-2.06-2.78-2.06s-1.14.4-1.92,1.18c-.04.04-.09.09-.14.14-1.03-.65-1.77-1.24-2.67-2.16-.93-.94-1.49-1.66-2.16-2.74.07-.07.14-.14.2-.21.82-.85,1.2-1.23,1.2-1.96s-.15-.89-2.02-2.79c-1.88-1.9-2.03-2.05-2.78-2.05h0Z" />
+                            <path stroke-width="0.5"
+                                d="m15.62.25c-.97,0-1.91.29-2.71.83-.8.54-1.43,1.3-1.8,2.2-.37.9-.47,1.88-.28,2.83.19.95.65,1.82,1.34,2.51.68.69,1.55,1.15,2.5,1.34.95.19,1.93.09,2.82-.28.89-.37,1.65-1,2.19-1.81.54-.81.82-1.75.82-2.72,0-1.3-.52-2.55-1.43-3.47-.91-.92-2.16-1.44-3.45-1.44Zm0,9.05c-.82,0-1.62-.24-2.29-.7-.68-.46-1.21-1.1-1.52-1.86-.31-.76-.39-1.59-.23-2.4.16-.8.55-1.54,1.13-2.12.58-.58,1.31-.98,2.11-1.14.8-.16,1.63-.08,2.39.24.75.31,1.4.85,1.85,1.53.45.68.7,1.48.7,2.3,0,1.1-.44,2.15-1.21,2.93-.77.78-1.82,1.22-2.92,1.22Zm3-4.15c0,.1-.04.2-.11.27-.07.07-.17.11-.27.11h-2.63c-.1,0-.2-.04-.27-.11-.07-.07-.11-.17-.11-.27v-2.64c0-.1.04-.2.11-.27.07-.07.17-.11.27-.11s.19.04.27.11c.07.07.11.17.11.27v2.26h2.25c.1,0,.2.04.27.11.07.07.11.17.11.27Z" />
+                        </svg>
+                        <span class="__MSG__leftDialpadRecents">Recents</span>
+                    </a>
+                    <a class="nav-link active" id="v-pills-contact-tab" data-bs-toggle="pill"
+                        data-bs-target="#v-pills-contact" role="tab" aria-controls="v-pills-contact"
+                        aria-selected="true">
+                        <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <ellipse fill="none" cx="12.3288" cy="8.00215" rx="2.70968" ry="2.8" stroke-width="1.5" />
+                            <path fill="none"
+                                d="M15.7156 17.1038V15.0038V15.0038C15.7156 13.844 14.7754 12.9038 13.6156 12.9038H11.0414C9.88161 12.9038 8.94141 13.844 8.94141 15.0038V15.0038V17.1038"
+                                stroke-width="1.5" stroke-linecap="round" />
+                            <rect x="2.16797" y="1.00293" fill="none" width="19.6452" height="21" rx="3.44999"
+                                stroke-width="1.5" />
+                            <path d="M3.52218 6.60352H0.8125" stroke-width="1.5" stroke-linecap="round" />
+                            <path d="M3.52218 11.5029H0.8125" stroke-width="1.5" stroke-linecap="round" />
+                            <path d="M3.52218 16.4023H0.8125" stroke-width="1.5" stroke-linecap="round" />
+                        </svg>
+                        <span class="__MSG__leftDialpadContacts">Contacts</span>
+                    </a>
+                    <a class="nav-link" id="v-pills-message-tab" data-bs-toggle="pill" data-bs-target="#v-pills-message"
+                        role="tab" aria-controls="v-pills-message" aria-selected="false">
+                        <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M6.09375 6.73672H16.5938M6.09375 12.3367H13.9688M11.3438 22.1367L7.40625 17.9367H4.78125C3.73696 17.9367 2.73544 17.4942 1.99702 16.7066C1.25859 15.9189 0.84375 14.8506 0.84375 13.7367V5.33672C0.84375 4.22281 1.25859 3.15452 1.99702 2.36687C2.73544 1.57922 3.73696 1.13672 4.78125 1.13672H17.9062C18.9505 1.13672 19.9521 1.57922 20.6905 2.36687C21.4289 3.15452 21.8437 4.22281 21.8438 5.33672V13.7367C21.8437 14.8506 21.4289 15.9189 20.6905 16.7066C19.9521 17.4942 18.9505 17.9367 17.9062 17.9367H15.2812L11.3438 22.1367Z"
+                                fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <span class="__MSG__leftDialpadMessages">Messages</span>
+                    </a>
+                    <a class="nav-link" id="v-pills-chat-tab" data-bs-toggle="pill" data-bs-target="#v-pills-chat"
+                        role="tab" aria-controls="v-pills-chat" aria-selected="false">
+                        <svg width="24" height="23" viewBox="0 0 24 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M1.5 11.6367C1.5 17.4357 6.20101 22.1367 12 22.1367C13.9434 22.1367 15.7634 21.6088 17.3246 20.6884L22.5 22.1367L21.0517 16.9613C21.972 15.4002 22.5 13.5801 22.5 11.6367C22.5 5.83773 17.799 1.13672 12 1.13672C6.20101 1.13672 1.5 5.83773 1.5 11.6367Z"
+                                fill="none" stroke-width="1.5" stroke-linejoin="round" />
+                            <path d="M14.8966 9.46387H9.10352" fill="none" stroke-width="1.5" stroke-linecap="round" />
+                            <path d="M15.2589 13.4478L10.9141 13.4478" fill="none" stroke-width="1.5"
+                                stroke-linecap="round" />
+                        </svg>
+                        <span id="_showChatLabel" class="__MSG__leftDialpadChats">Chats</span>
+                        <div class="counter">20</div>
+                    </a>
+                    <a class="nav-link last-link" id="v-pills-setting-tab" data-bs-toggle="pill"
+                        data-bs-target="#v-pills-setting" role="tab" aria-controls="v-pills-setting"
+                        aria-selected="false">
+                        <svg width="22" height="21" viewBox="0 0 22 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M18.6633 9.34995L18.3997 9.57454V9.92086V11.0716V11.4078L18.6507 11.6315L20.1107 12.9327L20.1166 12.938L20.1227 12.9432C20.2603 13.0607 20.3481 13.2177 20.3763 13.3855C20.4044 13.553 20.3722 13.726 20.2827 13.8758L20.2826 13.8758L20.2791 13.8817L18.52 16.8866C18.5197 16.8871 18.5194 16.8876 18.5191 16.8881C18.4517 17.0012 18.3535 17.0976 18.2324 17.1658C18.1107 17.2343 17.9712 17.2711 17.8279 17.2713L17.8231 17.2713C17.7354 17.272 17.6484 17.2588 17.5656 17.2326C17.5647 17.2323 17.5638 17.2321 17.563 17.2318L15.6998 16.6171L15.3605 16.5051L15.0597 16.6982C14.7605 16.8902 14.4485 17.0629 14.1256 17.2149L13.787 17.3744L13.7109 17.7408L13.3169 19.6362L13.3163 19.6389C13.2819 19.8078 13.1867 19.9638 13.042 20.0772C12.8968 20.191 12.7122 20.2534 12.5202 20.2499L12.5202 20.2497H12.5062H8.86005V20.2496L8.84606 20.2499C8.65408 20.2534 8.46942 20.191 8.3243 20.0772C8.1796 19.9638 8.08439 19.8078 8.04994 19.6389L8.04937 19.6362L7.6554 17.7408L7.57951 17.3757L7.24258 17.2158C6.92234 17.0639 6.61299 16.8914 6.31654 16.6996L6.01558 16.5049L5.67503 16.6168L3.80331 17.2318C3.80254 17.232 3.80177 17.2323 3.80099 17.2325C3.71807 17.2588 3.63097 17.272 3.54318 17.2713L3.53833 17.2713C3.39511 17.2711 3.25555 17.2343 3.13383 17.1658C3.01223 17.0973 2.91374 17.0004 2.84627 16.8866L2.8463 16.8866L2.84259 16.8805L1.01951 13.872L1.01954 13.8719L1.01575 13.8658C0.922016 13.7144 0.887622 13.5382 0.915823 13.3674C0.944062 13.1964 1.03425 13.0365 1.17583 12.9181L1.1759 12.9182L1.18561 12.9098L2.64562 11.6462L2.90482 11.4219V11.0791V9.92838V9.59217L2.65382 9.36847L1.19381 8.06729L1.18783 8.06196L1.18174 8.05677C1.04417 7.93933 0.956363 7.78229 0.928215 7.61451C0.900204 7.44755 0.932051 7.27519 1.02087 7.12579L2.84259 4.11952L2.84262 4.11954L2.84627 4.11337C2.91374 3.9996 3.01223 3.90266 3.13383 3.83422C3.25555 3.76572 3.39511 3.72885 3.53833 3.72871L3.56276 3.72868L3.58715 3.72707C3.66537 3.72189 3.74382 3.72774 3.81997 3.74431L5.6216 4.37816L5.96727 4.49977L6.27564 4.30183C6.57483 4.10978 6.88688 3.93714 7.20974 3.78509L7.54833 3.62563L7.6245 3.2592L8.01847 1.36384L8.01848 1.36384L8.01903 1.36112C8.05349 1.19222 8.1487 1.0362 8.2934 0.922787C8.43852 0.809042 8.62318 0.746564 8.81516 0.750146L8.81516 0.750276H8.82915H12.4444V0.750407L12.4584 0.750146C12.6504 0.746564 12.835 0.809041 12.9802 0.922787C13.1249 1.0362 13.2201 1.19222 13.2545 1.36112L13.2551 1.36384L13.6491 3.2592L13.725 3.62433L14.0619 3.78418C14.3821 3.93611 14.6915 4.10856 14.9879 4.30036L15.2889 4.49508L15.6294 4.38319L17.5012 3.76821C17.5019 3.76797 17.5027 3.76773 17.5034 3.76748C17.5864 3.7412 17.6735 3.72803 17.7613 3.7287L17.7661 3.72871C17.9094 3.72885 18.0489 3.76572 18.1706 3.83422C18.2922 3.90266 18.3907 3.9996 18.4582 4.11338L18.4582 4.11339L18.4619 4.11952L20.285 7.12804L20.2888 7.13436L20.2927 7.1406C20.3879 7.29086 20.4241 7.46639 20.398 7.63705C20.3719 7.80753 20.2843 7.96766 20.1454 8.08731C20.145 8.08758 20.1447 8.08786 20.1444 8.08813L18.6633 9.34995Z"
+                                fill="none" stroke-width="1.5" />
+                            <path
+                                d="M10.6634 13.8863L10.6634 13.8863H10.6558C9.98605 13.8863 9.33135 13.6877 8.77449 13.3156C8.21762 12.9435 7.78359 12.4147 7.5273 11.7959C7.271 11.1771 7.20394 10.4963 7.3346 9.8394C7.46526 9.18253 7.78777 8.57916 8.26134 8.10558C8.73492 7.63201 9.33829 7.3095 9.99516 7.17884C10.652 7.04818 11.3329 7.11524 11.9517 7.37153C12.5704 7.62783 13.0993 8.06186 13.4714 8.61872C13.8434 9.17559 14.042 9.83029 14.042 10.5H14.042L14.0421 10.5076C14.0466 10.9526 13.9623 11.394 13.7941 11.8059C13.6259 12.2179 13.3772 12.5922 13.0626 12.9068C12.7479 13.2214 12.3737 13.4701 11.9617 13.6383C11.5497 13.8065 11.1084 13.8908 10.6634 13.8863Z"
+                                fill="none" stroke-width="1.5" />
+                        </svg>
+                        <span class="__MSG__leftDialpadSetting">Setting</span>
+                    </a>
+                </div>
+                <!-- LEFT SIDE NAV :: ENDS -->
+            </section>
+            <!-- LEFT SIDE MENU :: ENDS -->
+
+            <!-- MIDDLE CONTENT :: STARTS -->
+            <section class="middle-content">
+                <!-- LEFT SIDE NAV CONTENT :: STARTS -->
+                <div class="tab-content menu-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade" id="v-pills-dailer" role="tabpanel" aria-labelledby="v-pills-dailer-tab">
+                        <div class="menu-header accordion accordion-flush" id="activeCallAccordion">
+                            <div class="accordion-item">
+                                <h3 class="accordion-header" id="active-call-heading ">
+                                    <a class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#activeCallInfo" aria-expanded="false"
+                                        aria-controls="flush-activeCallInfo">
+                                        Active Calls
+                                    </a>
+                                    <div class="divider"></div>
+                                </h3>
+                                <div id="activeCallInfo" class="active-call-info accordion-collapse collapse"
+                                    aria-labelledby="active-call-heading " data-bs-parent="#activeCallAccordion">
+                                    <div
+                                        class="accordion-body px-0 py-1 d-flex justify-content-between align-items-center">
+                                        <div class="caller-detail d-flex justify-content-start align-items-center">
+                                            <div class="person-icon">
+                                                <img src="../assets/img-new/default-img.svg" alt="PERSON" width=""
+                                                    height="">
+                                            </div>
+                                            <div>
+                                                <p class="person-name mb-0">Lucas Gray</p>
+                                                <p class="call-duration mb-0">02:00</p>
+                                            </div>
+                                        </div>
+                                        <div class="call-action-buttons">
+                                            <button class="mute-call-btn">
+                                                <img src="../assets/img-new/mute-active-call.svg" alt="MUTE CALL"
+                                                    width="" height="">
+                                            </button>
+                                            <button class="hold-call-btn">
+                                                <img src="../assets/img-new/hold-active-call.svg" alt="HOLD CALL"
+                                                    width="" height="">
+                                            </button>
+                                            <button class="end-call-btn">
+                                                <img src="../assets/img-new/end-active-call.svg" alt="END CALL" width=""
+                                                    height="">
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main-dialpad">
+                            <div class="caller-id">
+                                <p class="d-flex align-items-center mb-0">Caller Id : <span class="mx-1"> 1234</span>
+                                    <img class="mx-1" src="../assets/img-new/arrow-down-primary.svg" alt="ARROW DOWN"
+                                        width="" height="">
+                                    </a>
+                            </div>
+                            <div class="entered-number">
+                                <div class="call-suggestion-dropdown dropdown">
+                                    <input class="dropdown-toggle " type="text" value=""
+                                        placeholder="Enter a name or number " href="#" role="button" id="callerId"
+                                        data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                    <div class="dropdown-menu" aria-labelledby="callerId">
+                                        <ul>
+                                            <li>
+                                                <a class="d-flex justify-content-between align-items-center dropdown-item"
+                                                    href="#">
+                                                    <div class="caller-info">
+                                                        <div class="caller-icon">
+                                                            AC
+                                                        </div>
+                                                        <p class="caller-name">
+                                                            Alferd camron
+                                                            <span class="caller-number">3267662252</span>
+                                                        </p>
+                                                    </div>
+                                                    <!-- CHECKBOX GROUP -->
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" value="None" id="name1" name="check"
+                                                            checked />
+                                                        <label for="name1"></label>
+                                                    </div>
+                                                    <!-- CHECKBOX GROUP -->
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="d-flex justify-content-between align-items-center dropdown-item"
+                                                    href="#">
+                                                    <div class="caller-info">
+                                                        <div class="caller-icon">
+                                                            AC
+                                                        </div>
+                                                        <p class="caller-name">
+                                                            Alferd camron
+                                                            <span class="caller-number">3267662252</span>
+                                                        </p>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="d-flex justify-content-between align-items-center dropdown-item"
+                                                    href="#">
+                                                    <div class="caller-info">
+                                                        <div class="caller-icon">
+                                                            KM
+                                                        </div>
+                                                        <p class="caller-name">
+                                                            Karen Marcus
+                                                            <span class="caller-number">3267662252</span>
+                                                        </p>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="d-flex justify-content-between align-items-center dropdown-item"
+                                                    href="#">
+                                                    <div class="caller-info">
+                                                        <div class="caller-icon">
+                                                            LG
+                                                        </div>
+                                                        <p class="caller-name">
+                                                            Lucas Gray
+                                                            <span class="caller-number">3267662252</span>
+                                                        </p>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <img src="../assets/img-new/clear.svg" alt="clear" height="" width="">
+                            </div>
+                            <div class="row keypad">
+                                <div class="col-4 col-lg-4 col-md-4 col-sm-4 mb-2 ">
+                                    <div class="digit" id="one">1</div>
+                                </div>
+                                <div class="col-4 col-lg-4 col-md-4 col-sm-4 mb-2">
+                                    <div class="digit" id="two">2
+                                        <div class="sub">ABC</div>
+                                    </div>
+                                </div>
+                                <div class="col-4 col-lg-4 col-md-4 col-sm-4 mb-2">
+                                    <div class="digit" id="three">3
+                                        <div class="sub">DEF</div>
+                                    </div>
+                                </div>
+                                <div class="col-4 col-lg-4 col-md-4 col-sm-4 mb-2">
+                                    <div class="digit" id="four">4
+                                        <div class="sub">GHI</div>
+                                    </div>
+                                </div>
+                                <div class="col-4 col-lg-4 col-md-4 col-sm-4 mb-2">
+                                    <div class="digit" id="five">5
+                                        <div class="sub">JKL</div>
+                                    </div>
+                                </div>
+                                <div class="col-4 col-lg-4 col-md-4 col-sm-4 mb-2">
+                                    <div class="digit">6
+                                        <div class="sub">MNO</div>
+                                    </div>
+                                </div>
+                                <div class="col-4 col-lg-4 col-md-4 col-sm-4 mb-2">
+                                    <div class="digit">7
+                                        <div class="sub">PQRS</div>
+                                    </div>
+                                </div>
+                                <div class="col-4 col-lg-4 col-md-4 col-sm-4 mb-2">
+                                    <div class="digit">8
+                                        <div class="sub">TUV</div>
+                                    </div>
+                                </div>
+                                <div class="col-4 col-lg-4 col-md-4 col-sm-4 mb-2">
+                                    <div class="digit">9
+                                        <div class="sub">WXYZ</div>
+                                    </div>
+                                </div>
+                                <div class="col-4 col-lg-4 col-md-4 col-sm-4 mb-2">
+                                    <div class="digit">
+                                        *
+                                    </div>
+                                </div>
+                                <div class="col-4 col-lg-4 col-md-4 col-sm-4 mb-2">
+                                    <div class="digit">
+                                        0
+                                        <div class="sub">+</div>
+                                    </div>
+                                </div>
+                                <div class="col-4 col-lg-4 col-md-4 col-sm-4 mb-2">
+                                    <div class="digit">
+                                        #
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="call-buttons">
+                                <button class="audio-call-btn">
+                                    <svg width="21" height="21" viewBox="0 0 21 21" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M4.56846 9.28991C6.14214 12.36 8.64538 14.8575 11.7227 16.4275L14.1111 14.0446C14.2531 13.9027 14.432 13.8032 14.6276 13.7573C14.8231 13.7114 15.0277 13.7209 15.2182 13.7847C16.469 14.1947 17.7774 14.4031 19.094 14.4021C19.3817 14.4028 19.6574 14.5172 19.8608 14.7202C20.0642 14.9231 20.1789 15.1982 20.1796 15.4852V19.265C20.1789 19.552 20.0642 19.8271 19.8608 20.0301C19.6574 20.233 19.3817 20.3474 19.094 20.3482C16.6703 20.3484 14.2704 19.8723 12.0312 18.9471C9.79195 18.0219 7.75736 16.6656 6.04358 14.9558C4.3298 13.246 2.97041 11.2161 2.04302 8.98212C1.11564 6.74811 0.638438 4.35372 0.638672 1.9357C0.639455 1.64866 0.75409 1.37361 0.957524 1.17065C1.16096 0.967689 1.43665 0.85332 1.72435 0.852539H5.52125C5.80894 0.85332 6.08464 0.967689 6.28807 1.17065C6.49151 1.37361 6.60614 1.64866 6.60692 1.9357C6.60496 3.24932 6.81387 4.55479 7.2257 5.80251C7.28715 5.99363 7.29434 6.19799 7.24649 6.39294C7.19863 6.58789 7.09759 6.76581 6.95458 6.90697L4.56609 9.28991H4.56846Z"
+                                            fill="var(--white-color)" />
+                                    </svg>
+                                </button>
+                                <button class="video-call-btn">
+                                    <svg width="22" height="14" viewBox="0 0 22 14" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M16.6048 5.20699V1.2218C16.604 0.920015 16.4835 0.630812 16.2696 0.417416C16.0557 0.20402 15.7658 0.083789 15.4633 0.0830078H1.7684C1.46591 0.083789 1.17603 0.20402 0.962139 0.417416C0.748246 0.630812 0.627736 0.920015 0.626953 1.2218V12.608C0.627736 12.9098 0.748246 13.199 0.962139 13.4124C1.17603 13.6257 1.46591 13.746 1.7684 13.7468H15.4633C15.7658 13.746 16.0557 13.6257 16.2696 13.4124C16.4835 13.199 16.604 12.9098 16.6048 12.608V8.62278L21.17 13.1774V0.652405L16.6048 5.20699Z"
+                                            fill="var(--white-color)" />
+                                    </svg>
+                                </button>
+                                <button class="voice-mail-btn">
+                                    <svg width="23" height="11" viewBox="0 0 23 11" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M4.87972 9.46564C7.17344 9.46564 9.03287 7.61066 9.03287 5.32242C9.03287 3.03418 7.17344 1.1792 4.87972 1.1792C2.58599 1.1792 0.726562 3.03418 0.726562 5.32242C0.726562 7.61066 2.58599 9.46564 4.87972 9.46564Z"
+                                            stroke="#474747" stroke-width="1.18662" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                        <path
+                                            d="M17.3387 9.46564C19.6324 9.46564 21.4919 7.61066 21.4919 5.32242C21.4919 3.03418 19.6324 1.1792 17.3387 1.1792C15.045 1.1792 13.1855 3.03418 13.1855 5.32242C13.1855 7.61066 15.045 9.46564 17.3387 9.46564Z"
+                                            stroke="#474747" stroke-width="1.18662" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                        <path d="M4.87891 9.46631H17.3384" stroke="#474747" stroke-width="1.18662"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-recent" role="tabpanel" aria-labelledby="v-pills-recent-tab">
+                        Recents</div>
+                    <div class="tab-pane fade show active" id="v-pills-contact" role="tabpanel"
+                        aria-labelledby="v-pills-contact-tab">
+                        <div class="menu-header">
+                            <h3>
+                                Contacts
+                            </h3>
+                            <div class="divider"></div>
+                            <ul class="nav nav-pills mb-3 p-0 contact-list-item" id="pills-tab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link" id="pills-allContact-tab" data-bs-toggle="pill"
+                                        data-bs-target="#pills-allContact" role="tab" aria-controls="pills-allContact"
+                                        aria-selected="false">
+                                        All Contacts
+                                        <img class="mx-1" src="../assets/img-new/all-contacts.svg" alt="ALL CONTACTS"
+                                            width="" height="">
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="pills-enterpriseContact-tab" data-bs-toggle="pill"
+                                        data-bs-target="#pills-enterpriseContact" role="tab"
+                                        aria-controls="pills-enterpriseContact" aria-selected="true">
+                                        Enterprise Contacts
+                                        <img class="mx-1" src="../assets/img-new/enterprise.svg"
+                                            alt="ENTERPRISE CONTACTS" width="" height="">
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="pills-favoriteContact-tab" data-bs-toggle="pill"
+                                        data-bs-target="#pills-favoriteContact" role="tab"
+                                        aria-controls="pills-favoriteContact" aria-selected="false">
+                                        Favourites
+                                        <img class="mx-1" src="../assets/img-new/star-contact.svg"
+                                            alt="FACOURITES CONTACTS" width="" height="">
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="pills-cloudContact-tab" data-bs-toggle="pill"
+                                        data-bs-target="#pills-cloudContact" role="tab"
+                                        aria-controls="pills-cloudContact" aria-selected="false">
+                                        Cloud Contacts<span class="google-mark">Google</span>
+                                        <img src="../assets/img-new/cloud-contacts.svg" alt="CLOUD CONTACTS" width=""
+                                            height="">
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-chat" role="tabpanel" aria-labelledby="v-pills-chat-tab">
+                        Chats</div>
+                    <div class="tab-pane fade" id="v-pills-message" role="tabpanel"
+                        aria-labelledby="v-pills-message-tab">Message</div>
+                    <div class="tab-pane fade" id="v-pills-setting" role="tabpanel"
+                        aria-labelledby="v-pills-setting-tab">Setting</div>
+                </div>
+                <!-- LEFT SIDE NAV CONTENT :: ENDS -->
+            </section>
+            <!-- MIDDLE CONTENT :: ENDS -->
+
+            <!-- CONTACTS DETAILS :: RIGHT SIDE CONTENT :: STARTS -->
+            <section class="right-side">
+                <div class="tab-content " id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-allContact" role="tabpanel"
+                        aria-labelledby="pills-allContact-tab">
+                        <!-- HEADER -->
+                        <div class="header">
+                            <img src="../assets/img-new/back-btn.svg" alt="BACK" width="" height="">
+                            <sapn class="fav-remove-fav">
+                                <img src="../assets/img-new/star.svg" alt="FAVORITE" width="" height="">
+                            </sapn>
+                        </div>
+                        <div class="divider"></div>
+                        <!-- HEADER -->
+                        <div class="open-contact-detail">
+                            <!-- NAME AND IMG/ICON -->
+                            <div class="contact-name">
+                                <div class="icon">AJ</div>
+                                <p>Alex Jamson</p>
+                            </div>
+                            <!-- NAME AND IMG/ICON -->
+                            <!-- NUMBER AND EMAIL -->
+                            <div class="other-contact-details">
+                                
+                                <div class="contact-detail-item">
+                                    <div>
+                                        <h6>
+                                            Directory
+                                        </h6>
+                                        <p>
+                                            Tragofone Ltd
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="contact-detail-item">
+                                    <div>
+                                        <h6>
+                                            Title
+                                        </h6>
+                                        <p>
+                                            02342350
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="contact-detail-item">
+                                    <div>
+                                        <h6>
+                                            Company
+                                        </h6>
+                                        <p>
+                                            Company Name
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="contact-detail-item">
+                                    <div>
+                                        <h6>
+                                            Role
+                                        </h6>
+                                        <p>
+                                            CEO
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="contact-detail-item">
+                                    <div>
+                                        <h6>
+                                            Business phone number
+                                        </h6>
+                                        <p>
+                                            100500600
+                                        </p>
+                                    </div>
+                                    <div class="calling-options">
+                                        <div onkeypress="makeCallFromList('3267662127','Abbasali Akbarali Aglodiya',  'video')"
+                                            class="video-call-otpion tooltip" id="clickToAudioCallCmnDiv" tabindex="0"
+                                            title="Click to dial">
+                                            <span class="tooltiptext __MSG__globalVideoCall">Video Call</span>
+                                            <span id="clickToVideoCallCmn" class=""
+                                                onclick="makeCallFromList('3267662127','Abbasali Akbarali Aglodiya' , 'video')">
+                                                <svg width="18" height="13" viewBox="0 0 18 13" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M-0.00585938 10.5164C-0.00585938 11.6277 0.844511 12.5312 1.89044 12.5312H9.47562C10.5215 12.5312 11.3719 11.6277 11.3719 10.5164V2.45718C11.3719 1.34588 10.5215 0.442361 9.47562 0.442361H1.89044C0.844511 0.442361 -0.00585938 1.34588 -0.00585938 2.45718V10.5164ZM16.5601 11.4042C16.8682 11.2279 17.0608 10.8879 17.0608 10.5164V2.45718C17.0608 2.08569 16.8682 1.74569 16.5601 1.5694C16.2519 1.3931 15.8786 1.41199 15.5853 1.61977L12.7408 3.63458L12.3201 3.93366V9.03995L12.7408 9.33903L15.5853 11.3538C15.8756 11.5585 16.249 11.5805 16.5601 11.4042Z"
+                                                        fill="currentColor"></path>
+                                                </svg>
+                                            </span>
+                                        </div>
+                                        <div onkeypress="makeCallFromList('3267662127','Abbasali Akbarali Aglodiya' , 'audio')"
+                                            class="audio-call-otpion tooltip" id="clickToAudioCallCmnDiv" tabindex="0"
+                                            title="Click to dial">
+                                            <span class="tooltiptext __MSG__globalAudioCall">Audio Call</span>
+                                            <span id="clickToAudioCallCmn" class=""
+                                                onclick="makeCallFromList('3267662127','Abbasali Akbarali Aglodiya' , 'audio')">
+                                                <svg width="14" height="15" viewBox="0 0 14 15" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M12.8285 9.80517C11.9053 9.80517 11.0121 9.64714 10.1789 9.3627C10.0483 9.31612 9.90799 9.30921 9.7739 9.34275C9.63981 9.37629 9.51742 9.44892 9.42074 9.55233L8.24228 11.1089C6.11803 10.0422 4.12889 8.02739 3.07052 5.71233L4.53423 4.40072C4.73689 4.17949 4.79694 3.87134 4.71437 3.5948C4.43665 2.71776 4.29403 1.77751 4.29403 0.80566C4.29403 0.378993 3.95625 0.0234375 3.55092 0.0234375H0.953781C0.548448 0.0234375 0.0605469 0.213067 0.0605469 0.80566C0.0605469 8.14591 5.86282 14.2457 12.8285 14.2457C13.3615 14.2457 13.5717 13.7479 13.5717 13.3133V10.5874C13.5717 10.1607 13.2339 9.80517 12.8285 9.80517Z"
+                                                        fill="currentColor"></path>
+                                                </svg>
+                                            </span>
+                                        </div>
+                                        <div onkeypress="messageRedirectionFromContact('3267662127');"
+                                            class="message-option tooltip"
+                                            onclick="messageRedirectionFromContact('3267662127')" tabindex="0">
+                                            <span class="tooltiptext __MSG__globalMessage">Message</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="18"
+                                                viewBox="0 0 16 18" fill="none">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M4.5405 2.2373H13.6195C14.454 2.2373 15.1326 2.91596 15.1326 3.75046V9.8031C15.1326 10.6376 14.454 11.3163 13.6195 11.3163V5.26362C13.6195 4.42912 12.9408 3.75046 12.1063 3.75046H3.02734C3.02734 2.91596 3.706 2.2373 4.5405 2.2373ZM3.02632 14.3426H1.51316C0.678652 14.3426 0 13.664 0 12.8295V6.77683C0 5.94232 0.678652 5.26367 1.51316 5.26367H10.5921C11.4266 5.26367 12.1053 5.94232 12.1053 6.77683V12.8295C12.1053 13.664 11.4266 14.3426 10.5921 14.3426H6.88563L3.02632 17.4302V14.3426Z"
+                                                    fill="currentColor"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="contact-detail-item">
+                                    <div>
+                                        <h6>
+                                            Extension
+                                        </h6>
+                                        <p>
+                                            811
+                                        </p>
+                                    </div>
+                                    <div class="calling-options">
+                                        <div onkeypress="makeCallFromList('3267662127','Abbasali Akbarali Aglodiya',  'video')"
+                                            class="video-call-otpion tooltip" id="clickToAudioCallCmnDiv" tabindex="0"
+                                            title="Click to dial">
+                                            <span class="tooltiptext __MSG__globalVideoCall">Video Call</span>
+                                            <span id="clickToVideoCallCmn" class=""
+                                                onclick="makeCallFromList('3267662127','Abbasali Akbarali Aglodiya' , 'video')">
+                                                <svg width="18" height="13" viewBox="0 0 18 13" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M-0.00585938 10.5164C-0.00585938 11.6277 0.844511 12.5312 1.89044 12.5312H9.47562C10.5215 12.5312 11.3719 11.6277 11.3719 10.5164V2.45718C11.3719 1.34588 10.5215 0.442361 9.47562 0.442361H1.89044C0.844511 0.442361 -0.00585938 1.34588 -0.00585938 2.45718V10.5164ZM16.5601 11.4042C16.8682 11.2279 17.0608 10.8879 17.0608 10.5164V2.45718C17.0608 2.08569 16.8682 1.74569 16.5601 1.5694C16.2519 1.3931 15.8786 1.41199 15.5853 1.61977L12.7408 3.63458L12.3201 3.93366V9.03995L12.7408 9.33903L15.5853 11.3538C15.8756 11.5585 16.249 11.5805 16.5601 11.4042Z"
+                                                        fill="currentColor"></path>
+                                                </svg>
+                                            </span>
+                                        </div>
+                                        <div onkeypress="makeCallFromList('3267662127','Abbasali Akbarali Aglodiya' , 'audio')"
+                                            class="audio-call-otpion tooltip" id="clickToAudioCallCmnDiv" tabindex="0"
+                                            title="Click to dial">
+                                            <span class="tooltiptext __MSG__globalAudioCall">Audio Call</span>
+                                            <span id="clickToAudioCallCmn" class=""
+                                                onclick="makeCallFromList('3267662127','Abbasali Akbarali Aglodiya' , 'audio')">
+                                                <svg width="14" height="15" viewBox="0 0 14 15" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M12.8285 9.80517C11.9053 9.80517 11.0121 9.64714 10.1789 9.3627C10.0483 9.31612 9.90799 9.30921 9.7739 9.34275C9.63981 9.37629 9.51742 9.44892 9.42074 9.55233L8.24228 11.1089C6.11803 10.0422 4.12889 8.02739 3.07052 5.71233L4.53423 4.40072C4.73689 4.17949 4.79694 3.87134 4.71437 3.5948C4.43665 2.71776 4.29403 1.77751 4.29403 0.80566C4.29403 0.378993 3.95625 0.0234375 3.55092 0.0234375H0.953781C0.548448 0.0234375 0.0605469 0.213067 0.0605469 0.80566C0.0605469 8.14591 5.86282 14.2457 12.8285 14.2457C13.3615 14.2457 13.5717 13.7479 13.5717 13.3133V10.5874C13.5717 10.1607 13.2339 9.80517 12.8285 9.80517Z"
+                                                        fill="currentColor"></path>
+                                                </svg>
+                                            </span>
+                                        </div>
+                                        <div onkeypress="messageRedirectionFromContact('3267662127');"
+                                            class="message-option tooltip"
+                                            onclick="messageRedirectionFromContact('3267662127')" tabindex="0">
+                                            <span class="tooltiptext __MSG__globalMessage">Message</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="18"
+                                                viewBox="0 0 16 18" fill="none">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M4.5405 2.2373H13.6195C14.454 2.2373 15.1326 2.91596 15.1326 3.75046V9.8031C15.1326 10.6376 14.454 11.3163 13.6195 11.3163V5.26362C13.6195 4.42912 12.9408 3.75046 12.1063 3.75046H3.02734C3.02734 2.91596 3.706 2.2373 4.5405 2.2373ZM3.02632 14.3426H1.51316C0.678652 14.3426 0 13.664 0 12.8295V6.77683C0 5.94232 0.678652 5.26367 1.51316 5.26367H10.5921C11.4266 5.26367 12.1053 5.94232 12.1053 6.77683V12.8295C12.1053 13.664 11.4266 14.3426 10.5921 14.3426H6.88563L3.02632 17.4302V14.3426Z"
+                                                    fill="currentColor"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="contact-detail-item">
+                                    <div>
+                                        <h6 class="__MSG__detailMobile">
+                                            Mobile
+                                        </h6>
+                                        <div class="d-inline-flex align-items-center gap-2">
+                                            <svg width="11" height="17" viewBox="0 0 11 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M9.13867 0.205078H2.13867C1.31055 0.205078 0.638672 0.876953 0.638672 1.70508V14.7051C0.638672 15.5332 1.31055 16.2051 2.13867 16.2051H9.13867C9.9668 16.2051 10.6387 15.5332 10.6387 14.7051V1.70508C10.6387 0.876953 9.9668 0.205078 9.13867 0.205078ZM5.63867 15.2051C5.08555 15.2051 4.63867 14.7582 4.63867 14.2051C4.63867 13.652 5.08555 13.2051 5.63867 13.2051C6.1918 13.2051 6.63867 13.652 6.63867 14.2051C6.63867 14.7582 6.1918 15.2051 5.63867 15.2051ZM9.13867 11.8301C9.13867 12.0363 8.96992 12.2051 8.76367 12.2051H2.51367C2.30742 12.2051 2.13867 12.0363 2.13867 11.8301V2.08008C2.13867 1.87383 2.30742 1.70508 2.51367 1.70508H8.76367C8.96992 1.70508 9.13867 1.87383 9.13867 2.08008V11.8301Z" fill="var(--input-icon)"/>
+                                            </svg>
+                                                                                               
+                                            <p>3267662252</p>
+                                        </div>
+                                    </div>
+                                    <div class="calling-options">
+                                        <div onkeypress="makeCallFromList('3267662127','Abbasali Akbarali Aglodiya',  'video')"
+                                            class="video-call-otpion tooltip" id="clickToAudioCallCmnDiv" tabindex="0"
+                                            title="Click to dial">
+                                            <span class="tooltiptext __MSG__globalVideoCall">Video Call</span>
+                                            <span id="clickToVideoCallCmn" class=""
+                                                onclick="makeCallFromList('3267662127','Abbasali Akbarali Aglodiya' , 'video')">
+                                                <svg width="18" height="13" viewBox="0 0 18 13" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M-0.00585938 10.5164C-0.00585938 11.6277 0.844511 12.5312 1.89044 12.5312H9.47562C10.5215 12.5312 11.3719 11.6277 11.3719 10.5164V2.45718C11.3719 1.34588 10.5215 0.442361 9.47562 0.442361H1.89044C0.844511 0.442361 -0.00585938 1.34588 -0.00585938 2.45718V10.5164ZM16.5601 11.4042C16.8682 11.2279 17.0608 10.8879 17.0608 10.5164V2.45718C17.0608 2.08569 16.8682 1.74569 16.5601 1.5694C16.2519 1.3931 15.8786 1.41199 15.5853 1.61977L12.7408 3.63458L12.3201 3.93366V9.03995L12.7408 9.33903L15.5853 11.3538C15.8756 11.5585 16.249 11.5805 16.5601 11.4042Z"
+                                                        fill="currentColor"></path>
+                                                </svg>
+                                            </span>
+                                        </div>
+                                        <div onkeypress="makeCallFromList('3267662127','Abbasali Akbarali Aglodiya' , 'audio')"
+                                            class="audio-call-otpion tooltip" id="clickToAudioCallCmnDiv" tabindex="0"
+                                            title="Click to dial">
+                                            <span class="tooltiptext __MSG__globalAudioCall">Audio Call</span>
+                                            <span id="clickToAudioCallCmn" class=""
+                                                onclick="makeCallFromList('3267662127','Abbasali Akbarali Aglodiya' , 'audio')">
+                                                <svg width="14" height="15" viewBox="0 0 14 15" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M12.8285 9.80517C11.9053 9.80517 11.0121 9.64714 10.1789 9.3627C10.0483 9.31612 9.90799 9.30921 9.7739 9.34275C9.63981 9.37629 9.51742 9.44892 9.42074 9.55233L8.24228 11.1089C6.11803 10.0422 4.12889 8.02739 3.07052 5.71233L4.53423 4.40072C4.73689 4.17949 4.79694 3.87134 4.71437 3.5948C4.43665 2.71776 4.29403 1.77751 4.29403 0.80566C4.29403 0.378993 3.95625 0.0234375 3.55092 0.0234375H0.953781C0.548448 0.0234375 0.0605469 0.213067 0.0605469 0.80566C0.0605469 8.14591 5.86282 14.2457 12.8285 14.2457C13.3615 14.2457 13.5717 13.7479 13.5717 13.3133V10.5874C13.5717 10.1607 13.2339 9.80517 12.8285 9.80517Z"
+                                                        fill="currentColor"></path>
+                                                </svg>
+                                            </span>
+                                        </div>
+                                        <div onkeypress="messageRedirectionFromContact('3267662127');"
+                                            class="message-option tooltip"
+                                            onclick="messageRedirectionFromContact('3267662127')" tabindex="0">
+                                            <span class="tooltiptext __MSG__globalMessage">Message</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="18"
+                                                viewBox="0 0 16 18" fill="none">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M4.5405 2.2373H13.6195C14.454 2.2373 15.1326 2.91596 15.1326 3.75046V9.8031C15.1326 10.6376 14.454 11.3163 13.6195 11.3163V5.26362C13.6195 4.42912 12.9408 3.75046 12.1063 3.75046H3.02734C3.02734 2.91596 3.706 2.2373 4.5405 2.2373ZM3.02632 14.3426H1.51316C0.678652 14.3426 0 13.664 0 12.8295V6.77683C0 5.94232 0.678652 5.26367 1.51316 5.26367H10.5921C11.4266 5.26367 12.1053 5.94232 12.1053 6.77683V12.8295C12.1053 13.664 11.4266 14.3426 10.5921 14.3426H6.88563L3.02632 17.4302V14.3426Z"
+                                                    fill="currentColor"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="contact-detail-item">
+                                    <div>
+                                        <h6>
+                                            Landline
+                                        </h6>
+                                        <div class="d-inline-flex align-items-center gap-2">
+                                            <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M3.01099 0.972063C2.01259 0.775085 1.02912 1.41651 0.828591 2.41064C0.0428134 6.28975 0.0428134 9.51962 0.828591 13.4002C1.00424 14.2713 1.77935 14.8743 2.64548 14.8743C2.76637 14.8743 2.88868 14.8629 3.0117 14.8387C4.01579 14.6403 4.66788 13.6739 4.46664 12.6798C3.77117 9.24371 3.77117 6.56566 4.46664 3.12957C4.66717 2.13686 4.01508 1.17046 3.01099 0.972063ZM11.614 2.21651H5.52406C5.58078 2.55586 5.57668 2.90259 5.51197 3.24051C4.84637 6.59695 4.84637 9.21242 5.51197 12.5703C5.58166 12.9187 5.57597 13.2622 5.52406 13.5943H11.614C12.3962 13.5943 13.0362 12.9543 13.0362 12.1721V3.63873C13.0362 2.85651 12.3969 2.21651 11.614 2.21651ZM8.05846 11.1054C7.77547 11.1053 7.5041 10.9928 7.30406 10.7926C7.10402 10.5924 6.9917 10.321 6.99179 10.038C6.99189 9.75503 7.10439 9.48366 7.30457 9.28362C7.50474 9.08358 7.77618 8.97126 8.05917 8.97135C8.34216 8.97145 8.61353 9.08395 8.81356 9.28413C9.0136 9.4843 9.12593 9.75574 9.12584 10.0387C9.12574 10.3217 9.01323 10.5931 8.81306 10.7931C8.61289 10.9932 8.34145 11.1055 8.05846 11.1054ZM11.614 7.19428H6.63624V4.34984H11.614V7.19428Z" fill="var(--input-icon)"/>
+                                            </svg>                                                
+                                            <p>02342350</p>
+                                        </div>
+                                    </div>
+                                    <div class="calling-options">
+                                        <div onkeypress="makeCallFromList('3267662127','Abbasali Akbarali Aglodiya',  'video')"
+                                            class="video-call-otpion tooltip" id="clickToAudioCallCmnDiv" tabindex="0"
+                                            title="Click to dial">
+                                            <span class="tooltiptext __MSG__globalVideoCall">Video Call</span>
+                                            <span id="clickToVideoCallCmn" class=""
+                                                onclick="makeCallFromList('3267662127','Abbasali Akbarali Aglodiya' , 'video')">
+                                                <svg width="18" height="13" viewBox="0 0 18 13" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M-0.00585938 10.5164C-0.00585938 11.6277 0.844511 12.5312 1.89044 12.5312H9.47562C10.5215 12.5312 11.3719 11.6277 11.3719 10.5164V2.45718C11.3719 1.34588 10.5215 0.442361 9.47562 0.442361H1.89044C0.844511 0.442361 -0.00585938 1.34588 -0.00585938 2.45718V10.5164ZM16.5601 11.4042C16.8682 11.2279 17.0608 10.8879 17.0608 10.5164V2.45718C17.0608 2.08569 16.8682 1.74569 16.5601 1.5694C16.2519 1.3931 15.8786 1.41199 15.5853 1.61977L12.7408 3.63458L12.3201 3.93366V9.03995L12.7408 9.33903L15.5853 11.3538C15.8756 11.5585 16.249 11.5805 16.5601 11.4042Z"
+                                                        fill="currentColor"></path>
+                                                </svg>
+                                            </span>
+                                        </div>
+                                        <div onkeypress="makeCallFromList('3267662127','Abbasali Akbarali Aglodiya' , 'audio')"
+                                            class="audio-call-otpion tooltip" id="clickToAudioCallCmnDiv" tabindex="0"
+                                            title="Click to dial">
+                                            <span class="tooltiptext __MSG__globalAudioCall">Audio Call</span>
+                                            <span id="clickToAudioCallCmn" class=""
+                                                onclick="makeCallFromList('3267662127','Abbasali Akbarali Aglodiya' , 'audio')">
+                                                <svg width="14" height="15" viewBox="0 0 14 15" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M12.8285 9.80517C11.9053 9.80517 11.0121 9.64714 10.1789 9.3627C10.0483 9.31612 9.90799 9.30921 9.7739 9.34275C9.63981 9.37629 9.51742 9.44892 9.42074 9.55233L8.24228 11.1089C6.11803 10.0422 4.12889 8.02739 3.07052 5.71233L4.53423 4.40072C4.73689 4.17949 4.79694 3.87134 4.71437 3.5948C4.43665 2.71776 4.29403 1.77751 4.29403 0.80566C4.29403 0.378993 3.95625 0.0234375 3.55092 0.0234375H0.953781C0.548448 0.0234375 0.0605469 0.213067 0.0605469 0.80566C0.0605469 8.14591 5.86282 14.2457 12.8285 14.2457C13.3615 14.2457 13.5717 13.7479 13.5717 13.3133V10.5874C13.5717 10.1607 13.2339 9.80517 12.8285 9.80517Z"
+                                                        fill="currentColor"></path>
+                                                </svg>
+                                            </span>
+                                        </div>
+                                        <div onkeypress="messageRedirectionFromContact('3267662127');"
+                                            class="message-option tooltip"
+                                            onclick="messageRedirectionFromContact('3267662127')" tabindex="0">
+                                            <span class="tooltiptext __MSG__globalMessage">Message</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="18"
+                                                viewBox="0 0 16 18" fill="none">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M4.5405 2.2373H13.6195C14.454 2.2373 15.1326 2.91596 15.1326 3.75046V9.8031C15.1326 10.6376 14.454 11.3163 13.6195 11.3163V5.26362C13.6195 4.42912 12.9408 3.75046 12.1063 3.75046H3.02734C3.02734 2.91596 3.706 2.2373 4.5405 2.2373ZM3.02632 14.3426H1.51316C0.678652 14.3426 0 13.664 0 12.8295V6.77683C0 5.94232 0.678652 5.26367 1.51316 5.26367H10.5921C11.4266 5.26367 12.1053 5.94232 12.1053 6.77683V12.8295C12.1053 13.664 11.4266 14.3426 10.5921 14.3426H6.88563L3.02632 17.4302V14.3426Z"
+                                                    fill="currentColor"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="contact-detail-item">
+                                    <div>
+                                        <h6>
+                                            Other number
+                                        </h6>
+                                        <div class="d-inline-flex align-items-center gap-2">
+                                            <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M10.2483 15.1492C10.3292 15.1492 10.4043 15.1432 10.47 15.1252C11.2165 14.9395 11.8939 14.5407 12.5356 13.9081C12.6944 13.7493 12.7841 13.5365 12.7841 13.3116C12.7841 13.0868 12.6973 12.8768 12.5384 12.7179L10.722 10.8983C10.4043 10.5835 9.85862 10.5775 9.53493 10.9043C8.8004 11.6417 8.50356 11.6957 7.5562 11.2672L7.50849 11.246C6.65997 10.8895 5.87459 10.2661 5.29892 9.48929C5.29606 9.48358 5.29006 9.48043 5.28692 9.47443C4.63353 8.69191 4.24699 7.99053 4.07271 7.27115C3.98615 6.92346 4.037 6.67747 4.2407 6.45263C4.37869 6.30293 4.53468 6.11408 4.68753 5.93124C4.81939 5.77079 4.88662 5.56691 4.87605 5.3595C4.86548 5.15209 4.77788 4.95609 4.63039 4.80988L2.81994 2.99943C2.73879 2.91994 2.64271 2.85731 2.53724 2.81514C2.43176 2.77297 2.31898 2.7521 2.20541 2.75373C2.09346 2.75575 1.98315 2.78102 1.88149 2.82794C1.77983 2.87486 1.68904 2.9424 1.61487 3.02629C0.397809 4.36334 0.217821 5.33756 0.877492 7.03431C1.45288 8.51221 2.40025 9.77413 3.24877 10.8175C4.16299 11.9357 4.52268 12.2294 5.63489 13.0776C6.75882 13.9381 8.01474 14.7715 9.54692 15.0441C9.65777 15.0741 9.97547 15.1492 10.2483 15.1492ZM12.9193 2.62174C10.4463 0.145618 6.42027 0.145618 3.94415 2.62174C3.8333 2.73259 3.72816 2.8463 3.62931 2.96343L4.055 3.38912C4.15385 3.26913 4.25898 3.15513 4.36983 3.04428C6.60912 0.805003 10.2543 0.805003 12.4967 3.04428C14.736 5.28357 14.736 8.9319 12.4967 11.1712C12.3872 11.2807 12.2731 11.3857 12.1548 11.4857L12.5804 11.9086C12.6976 11.8126 12.8113 11.7046 12.9193 11.5969C15.3954 9.12074 15.3954 5.09472 12.9193 2.62174Z" fill="var(--input-icon"/>
+                                                <path d="M5.59277 6.49183C5.59277 6.72268 5.84476 6.98037 6.28244 7.19322C6.56195 7.3233 6.85428 7.42384 7.15467 7.4932C7.11896 7.16922 7.09468 6.83324 7.09468 6.49183C7.09468 6.15043 7.11896 5.81416 7.15467 5.49047C6.82812 5.56847 6.53128 5.67046 6.28244 5.79331C5.84476 6.00615 5.59277 6.26099 5.59277 6.49183ZM7.25381 8.1283C6.78898 8.03573 6.36929 7.90089 6.0216 7.7329C5.94172 7.69365 5.86373 7.65065 5.7879 7.60405C5.98348 8.14611 6.31594 8.62836 6.75298 9.00396C7.05644 9.26161 7.40375 9.46261 7.77834 9.59735C7.73635 9.52249 7.69435 9.4505 7.65264 9.36365C7.48151 9.01595 7.3498 8.59284 7.25381 8.1283ZM5.7879 5.37991C5.8599 5.33762 5.93475 5.29563 6.01875 5.25363C6.36644 5.08278 6.78898 4.95079 7.25381 4.85508C7.3498 4.3934 7.48151 3.97086 7.65235 3.62317C7.69435 3.53603 7.73635 3.46118 7.78149 3.38918C7.40504 3.52208 7.05636 3.72335 6.75298 3.98286C6.3151 4.35653 5.98243 4.83812 5.7879 5.37991ZM7.88919 8.22744C7.96719 8.55427 8.06918 8.85082 8.18917 9.09966C8.40487 9.53735 8.65972 9.78933 8.89056 9.78933C9.1214 9.78933 9.37624 9.53735 9.59194 9.09966C9.71193 8.85111 9.81393 8.55399 9.89192 8.22744C9.22674 8.30735 8.55438 8.30735 7.88919 8.22744ZM9.89192 4.75595C9.81393 4.4294 9.71193 4.13542 9.59194 3.88658C9.37624 3.44603 9.1214 3.19434 8.89056 3.19434C8.65972 3.19434 8.40487 3.44575 8.18917 3.88658C8.06918 4.13542 7.96719 4.4294 7.88919 4.75595C8.21317 4.71995 8.54887 4.69595 8.89056 4.69595C9.23225 4.69595 9.56794 4.71995 9.89192 4.75595ZM7.69435 6.49183C7.69435 6.87838 7.72149 7.25607 7.77235 7.60976C8.12604 7.6609 8.50373 7.68776 8.89056 7.68776C9.27739 7.68776 9.65508 7.6609 10.0088 7.60976C10.0596 7.25607 10.0868 6.87838 10.0868 6.49183C10.0872 6.11772 10.0611 5.74405 10.0088 5.37362C9.63835 5.32115 9.26467 5.29508 8.89056 5.29563C8.50373 5.29563 8.12604 5.32248 7.77235 5.37362C7.71997 5.74405 7.69391 6.11772 7.69435 6.49183ZM12.1881 6.49183C12.1881 6.26099 11.9364 6.00615 11.4987 5.79331C11.2467 5.67046 10.953 5.56847 10.6262 5.49047C10.7061 6.15566 10.7061 6.82801 10.6262 7.4932C10.953 7.4152 11.2498 7.31321 11.4987 7.19322C11.9364 6.98037 12.1881 6.72268 12.1881 6.49183ZM10.1316 9.36336C10.0896 9.44736 10.0445 9.52249 10.0028 9.59735C10.3783 9.46254 10.7265 9.26146 11.031 9.00367C11.4681 8.62877 11.7998 8.14622 11.9932 7.60376C11.9177 7.65101 11.8395 7.69403 11.7592 7.73261C11.4147 7.9006 10.9918 8.03545 10.5273 8.1283C10.4313 8.59313 10.2993 9.01567 10.1316 9.36336ZM11.0278 3.98286C10.7257 3.72335 10.3782 3.52198 10.0028 3.38889C10.0448 3.46089 10.0868 3.53603 10.1285 3.62288C10.2993 3.97057 10.4313 4.39026 10.5273 4.8548C10.9918 4.95079 11.4115 5.08278 11.7592 5.25363C11.8464 5.29563 11.9212 5.33762 11.9932 5.37934C11.7997 4.83704 11.4667 4.35558 11.0278 3.98286Z" fill="var(--input-icon)"/>
+                                            </svg>
+                                            <p>02342350</p>
+                                        </div>
+                                    </div>
+                                    <div class="calling-options">
+                                        <div onkeypress="makeCallFromList('3267662127','Abbasali Akbarali Aglodiya',  'video')"
+                                            class="video-call-otpion tooltip" id="clickToAudioCallCmnDiv" tabindex="0"
+                                            title="Click to dial">
+                                            <span class="tooltiptext __MSG__globalVideoCall">Video Call</span>
+                                            <span id="clickToVideoCallCmn" class=""
+                                                onclick="makeCallFromList('3267662127','Abbasali Akbarali Aglodiya' , 'video')">
+                                                <svg width="18" height="13" viewBox="0 0 18 13" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M-0.00585938 10.5164C-0.00585938 11.6277 0.844511 12.5312 1.89044 12.5312H9.47562C10.5215 12.5312 11.3719 11.6277 11.3719 10.5164V2.45718C11.3719 1.34588 10.5215 0.442361 9.47562 0.442361H1.89044C0.844511 0.442361 -0.00585938 1.34588 -0.00585938 2.45718V10.5164ZM16.5601 11.4042C16.8682 11.2279 17.0608 10.8879 17.0608 10.5164V2.45718C17.0608 2.08569 16.8682 1.74569 16.5601 1.5694C16.2519 1.3931 15.8786 1.41199 15.5853 1.61977L12.7408 3.63458L12.3201 3.93366V9.03995L12.7408 9.33903L15.5853 11.3538C15.8756 11.5585 16.249 11.5805 16.5601 11.4042Z"
+                                                        fill="currentColor"></path>
+                                                </svg>
+                                            </span>
+                                        </div>
+                                        <div onkeypress="makeCallFromList('3267662127','Abbasali Akbarali Aglodiya' , 'audio')"
+                                            class="audio-call-otpion tooltip" id="clickToAudioCallCmnDiv" tabindex="0"
+                                            title="Click to dial">
+                                            <span class="tooltiptext __MSG__globalAudioCall">Audio Call</span>
+                                            <span id="clickToAudioCallCmn" class=""
+                                                onclick="makeCallFromList('3267662127','Abbasali Akbarali Aglodiya' , 'audio')">
+                                                <svg width="14" height="15" viewBox="0 0 14 15" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M12.8285 9.80517C11.9053 9.80517 11.0121 9.64714 10.1789 9.3627C10.0483 9.31612 9.90799 9.30921 9.7739 9.34275C9.63981 9.37629 9.51742 9.44892 9.42074 9.55233L8.24228 11.1089C6.11803 10.0422 4.12889 8.02739 3.07052 5.71233L4.53423 4.40072C4.73689 4.17949 4.79694 3.87134 4.71437 3.5948C4.43665 2.71776 4.29403 1.77751 4.29403 0.80566C4.29403 0.378993 3.95625 0.0234375 3.55092 0.0234375H0.953781C0.548448 0.0234375 0.0605469 0.213067 0.0605469 0.80566C0.0605469 8.14591 5.86282 14.2457 12.8285 14.2457C13.3615 14.2457 13.5717 13.7479 13.5717 13.3133V10.5874C13.5717 10.1607 13.2339 9.80517 12.8285 9.80517Z"
+                                                        fill="currentColor"></path>
+                                                </svg>
+                                            </span>
+                                        </div>
+                                        <div onkeypress="messageRedirectionFromContact('3267662127');"
+                                            class="message-option tooltip"
+                                            onclick="messageRedirectionFromContact('3267662127')" tabindex="0">
+                                            <span class="tooltiptext __MSG__globalMessage">Message</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="18"
+                                                viewBox="0 0 16 18" fill="none">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M4.5405 2.2373H13.6195C14.454 2.2373 15.1326 2.91596 15.1326 3.75046V9.8031C15.1326 10.6376 14.454 11.3163 13.6195 11.3163V5.26362C13.6195 4.42912 12.9408 3.75046 12.1063 3.75046H3.02734C3.02734 2.91596 3.706 2.2373 4.5405 2.2373ZM3.02632 14.3426H1.51316C0.678652 14.3426 0 13.664 0 12.8295V6.77683C0 5.94232 0.678652 5.26367 1.51316 5.26367H10.5921C11.4266 5.26367 12.1053 5.94232 12.1053 6.77683V12.8295C12.1053 13.664 11.4266 14.3426 10.5921 14.3426H6.88563L3.02632 17.4302V14.3426Z"
+                                                    fill="currentColor"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="contact-detail-item">
+                                    <div>
+                                        <h6 class="__MSG__detailEmail">
+                                            Email
+                                        </h6>
+                                        <div class="d-inline-flex align-items-center gap-2">
+                                            <svg width="15" height="12" viewBox="0 0 15 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M13.3273 0.535156H1.94957C1.16734 0.535156 0.534455 1.17516 0.534455 1.95738L0.527344 9.7796C0.527344 10.5618 1.16734 11.2018 1.94957 11.2018H13.3273C14.1096 11.2018 14.7496 10.5618 14.7496 9.7796V1.95738C14.7496 1.17516 14.1096 0.535156 13.3273 0.535156ZM13.0429 3.55738L8.01534 6.70049C7.78779 6.84271 7.48912 6.84271 7.26157 6.70049L2.23401 3.55738C2.16271 3.51735 2.10026 3.46327 2.05046 3.39841C2.00067 3.33355 1.96454 3.25926 1.94429 3.18004C1.92403 3.10082 1.92006 3.01831 1.93261 2.93751C1.94516 2.85671 1.97398 2.77929 2.01732 2.70995C2.06066 2.64061 2.11762 2.58078 2.18475 2.53409C2.25188 2.48739 2.32779 2.45481 2.40787 2.4383C2.48796 2.4218 2.57057 2.42171 2.65069 2.43805C2.73081 2.4544 2.80678 2.48682 2.87401 2.53338L7.63845 5.51293L12.4029 2.53338C12.4701 2.48682 12.5461 2.4544 12.6262 2.43805C12.7063 2.42171 12.7889 2.4218 12.869 2.4383C12.9491 2.45481 13.025 2.48739 13.0922 2.53409C13.1593 2.58078 13.2162 2.64061 13.2596 2.70995C13.3029 2.77929 13.3317 2.85671 13.3443 2.93751C13.3569 3.01831 13.3529 3.10082 13.3326 3.18004C13.3124 3.25926 13.2762 3.33355 13.2264 3.39841C13.1766 3.46327 13.1142 3.51735 13.0429 3.55738Z" fill="var(--input-icon)"/>
+                                            </svg>
+                                            <p>alex.hames@mail.com</p>
+                                        </div>
+                                    </div>
+                                    <div class="calling-options">
+                                        <div class="message-option tooltip">
+                                            <span class="tooltiptext">Mail</span>
+                                            <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M13.8521 0.700195H1.54781C0.701885 0.700195 0.0174558 1.39231 0.0174558 2.23824L0.00976562 10.6975C0.00976562 11.5434 0.701885 12.2355 1.54781 12.2355H13.8521C14.6981 12.2355 15.3902 11.5434 15.3902 10.6975V2.23824C15.3902 1.39231 14.6981 0.700195 13.8521 0.700195ZM13.5445 3.96854L8.10756 7.36761C7.86147 7.52141 7.53848 7.52141 7.2924 7.36761L1.85542 3.96854C1.77831 3.92525 1.71078 3.86676 1.65692 3.79662C1.60307 3.72648 1.56401 3.64615 1.5421 3.56047C1.52019 3.4748 1.5159 3.38557 1.52947 3.29819C1.54305 3.2108 1.57421 3.12708 1.62108 3.05209C1.66795 2.9771 1.72955 2.9124 1.80214 2.86191C1.87474 2.81142 1.95683 2.77618 2.04344 2.75833C2.13005 2.74047 2.21938 2.74038 2.30603 2.75806C2.39268 2.77573 2.47484 2.8108 2.54754 2.86115L7.69998 6.08334L12.8524 2.86115C12.9251 2.8108 13.0073 2.77573 13.0939 2.75806C13.1806 2.74038 13.2699 2.74047 13.3565 2.75833C13.4431 2.77618 13.5252 2.81142 13.5978 2.86191C13.6704 2.9124 13.732 2.9771 13.7789 3.05209C13.8257 3.12708 13.8569 3.2108 13.8705 3.29819C13.8841 3.38557 13.8798 3.4748 13.8579 3.56047C13.836 3.64615 13.7969 3.72648 13.743 3.79662C13.6892 3.86676 13.6217 3.92525 13.5445 3.96854Z" fill="currentColor"/>
+                                            </svg>                                                    
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- NUMBER AND EMAIL -->
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pills-enterpriseContact" role="tabpanel"
+                        aria-labelledby="pills-enterpriseContact-tab">
+                        <!-- HEADER -->
+                        <div class="header">
+                            <img src="../assets/img-new/back-btn.svg" alt="BACK" width="" height="">
+                            <span class="fav-remove-fav">
+                                <img src="../assets/img-new/star.svg" alt="FAVORITE" width="" height="">
+                            </span>
+                        </div>
+                        <div class="divider"></div>
+                        <!-- HEADER -->
+                        <div class="open-contact-detail">
+                            <!-- NAME AND IMG/ICON -->
+                            <div class="contact-name">
+                                <div class="icon">AJ</div>
+                                <p>Alex Jamson</p>
+                            </div>
+                            <!-- NAME AND IMG/ICON -->
+                            <!-- NUMBER AND EMAIL -->
+                            <div class="other-contact-details">
+                                <div class="mobile-detail">
+                                    <div>
+                                        <h6>
+                                            Mobile
+                                        </h6>
+                                        <p>
+                                            3267662252
+                                        </p>
+                                    </div>
+                                    <div class="calling-options">
+                                        <div class="video-call-otpion">
+                                            <img src="../assets/img-new/calling-video.svg" alt="VIDEO CALL" width=""
+                                                height="">
+                                        </div>
+                                        <div class="audio-call-otpion">
+                                            <img src="../assets/img-new/calling-audio.svg" alt="AUDIO CALL" width=""
+                                                height="">
+                                        </div>
+                                        <div class="message-option">
+                                            <img src="../assets/img-new/calling-message.svg" alt="MESSAGE" width=""
+                                                height="">
+                                        </div>
+                                        <div class="chat-otpion">
+                                            <img src="../assets/img-new/calling-chat.svg" alt="CHAT" width="" height="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="landline-detail">
+                                    <div>
+                                        <h6>
+                                            Landline
+                                        </h6>
+                                        <p>
+                                            <img src="../assets/img-new/landline.svg" alt="LANDLINE" width="" height="">
+                                            <span>02342350</span>
+                                        </p>
+                                    </div>
+                                    <div class="calling-options">
+                                        <div class="video-call-otpion">
+                                            <img src="../assets/img-new/calling-video.svg" alt="VIDEO CALL" width=""
+                                                height="">
+                                        </div>
+                                        <div class="audio-call-otpion">
+                                            <img src="../assets/img-new/calling-audio.svg" alt="AUDIO CALL" width=""
+                                                height="">
+                                        </div>
+                                        <div class="message-option">
+                                            <img src="../assets/img-new/calling-message.svg" alt="MESSAGE" width=""
+                                                height="">
+                                        </div>
+                                        <div class="chat-otpion">
+                                            <img src="../assets/img-new/calling-chat.svg" alt="CHAT" width="" height="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="email-detail">
+                                    <div>
+                                        <h6>
+                                            Email
+                                        </h6>
+                                        <p>
+                                            <img src="../assets/img-new/email.svg" alt="EMAIL" width="" height="">
+                                            <span>alex.hames@mail.com</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- NUMBER AND EMAIL -->
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pills-cloudContact" role="tabpanel"
+                        aria-labelledby="pills-cloudContact-tab">
+                        <!-- HEADER -->
+                        <div class="header">
+                            <img src="../assets/img-new/back-btn.svg" alt="BACK" width="" height="">
+                            <span class="fav-remove-fav">
+                                <img src="../assets/img-new/remove-fav.svg" alt="FAVORITE" width="" height="">
+                                Remove Favourites
+                            </span>
+                        </div>
+                        <div class="divider"></div>
+                        <!-- HEADER -->
+                        <div class="open-contact-detail">
+                            <!-- NAME AND IMG/ICON -->
+                            <div class="contact-name">
+                                <div class="icon">AJ</div>
+                                <p>Alex Jamson</p>
+                            </div>
+                            <!-- NAME AND IMG/ICON -->
+                            <!-- NUMBER AND EMAIL -->
+                            <div class="other-contact-details">
+                                <div class="mobile-detail">
+                                    <div>
+                                        <h6>
+                                            Mobile
+                                        </h6>
+                                        <p>
+                                            3267662252
+                                        </p>
+                                    </div>
+                                    <div class="calling-options">
+                                        <div class="video-call-otpion">
+                                            <img src="../assets/img-new/calling-video.svg" alt="VIDEO CALL" width=""
+                                                height="">
+                                        </div>
+                                        <div class="audio-call-otpion">
+                                            <img src="../assets/img-new/calling-audio.svg" alt="AUDIO CALL" width=""
+                                                height="">
+                                        </div>
+                                        <div class="message-option">
+                                            <img src="../assets/img-new/calling-message.svg" alt="MESSAGE" width=""
+                                                height="">
+                                        </div>
+                                        <div class="chat-otpion">
+                                            <img src="../assets/img-new/calling-chat.svg" alt="CHAT" width="" height="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mobile-detail">
+                                    <div>
+                                        <h6>
+                                            Mobile
+                                        </h6>
+                                        <p>
+                                            3267662252
+                                        </p>
+                                    </div>
+                                    <div class="calling-options">
+                                        <div class="video-call-otpion">
+                                            <img src="../assets/img-new/calling-video.svg" alt="VIDEO CALL" width=""
+                                                height="">
+                                        </div>
+                                        <div class="audio-call-otpion">
+                                            <img src="../assets/img-new/calling-audio.svg" alt="AUDIO CALL" width=""
+                                                height="">
+                                        </div>
+                                        <div class="message-option">
+                                            <img src="../assets/img-new/calling-message.svg" alt="MESSAGE" width=""
+                                                height="">
+                                        </div>
+                                        <div class="chat-otpion">
+                                            <img src="../assets/img-new/calling-chat.svg" alt="CHAT" width="" height="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="email-detail">
+                                    <div>
+                                        <h6>
+                                            Email
+                                        </h6>
+                                        <p>
+                                            <img src="../assets/img-new/email.svg" alt="EMAIL" width="" height="">
+                                            <span>alex.hames@mail.com</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- NUMBER AND EMAIL -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- CONTACTS DETAILS :: RIGHT SIDE CONTENT :: ENDS -->
+        </div>
+    </div>
+
+    <!-- BOOTSTRAP JQUERY/POPPER JS LINK -->
+    <script src="../assets/js/popper.min.js"></script>
+    <script src="../assets/js/jquery.min.js" type="text/javascript"></script>
+    <script src="../assets/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+</body>
+
+</html>

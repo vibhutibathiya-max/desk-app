@@ -1,0 +1,99 @@
+.flatpickr-calendar {
+  border: none;
+  border-radius: 8px;
+  background-color: var(--dropdown-bg);
+  box-shadow: -14px 14px 25px 0 rgb(0 0 0 / 5%);
+}
+
+.flatpickr-calendar.hasTime {
+  width: 180px;
+}
+
+.flatpickr-calendar.hasTime .flatpickr-time {
+  border: none;
+}
+
+.flatpickr-calendar.arrowTop:before {
+  border-bottom-color: var(--dropdown-bg);
+}
+.flatpickr-calendar.arrowBottom:before{
+  border-top-color: var(--dropdown-bg);
+}
+
+.flatpickr-calendar.arrowTop:after {
+  border-bottom-color: var(--dropdown-bg);
+}
+.flatpickr-calendar.arrowBottom:after {
+  border-top-color: var(--dropdown-bg);
+}
+
+.flatpickr-months {
+  padding: 0 10px;
+}
+.flatpickr-months .flatpickr-prev-month svg,
+.flatpickr-months .flatpickr-next-month svg {
+  margin-top: -12px;
+  fill: var(--black-to-white-text);
+}
+
+.flatpickr-months .flatpickr-prev-month,
+.flatpickr-months .flatpickr-next-month {
+  border-radius: 50%;
+}
+
+.flatpickr-months .flatpickr-prev-month:hover,
+.flatpickr-months .flatpickr-next-month:hover {
+  background-color: var(--primary-bg);
+}
+
+.flatpickr-months .flatpickr-prev-month:hover svg,
+.flatpickr-months .flatpickr-next-month:hover svg {
+  fill: var(--white-color);
+}
+
+.flatpickr-current-month {
+  font-size: 105%;
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months,
+.flatpickr-time input,
+.flatpickr-time .flatpickr-am-pm,
+.flatpickr-time input:hover,
+.flatpickr-time .flatpickr-am-pm:hover,
+.flatpickr-time input:focus,
+.flatpickr-time .flatpickr-am-pm:focus,
+.numInputWrapper:hover,
+.flatpickr-current-month input.cur-year,
+.flatpickr-time .flatpickr-time-separator, .flatpickr-time .flatpickr-am-pm {
+  background:var(--dropdown-bg) !important;
+  color: var(--black-to-white-text) !important;
+}
+
+.flatpickr-current-month .numInputWrapper span.arrowUp:after,
+.flatpickr-time .numInputWrapper span.arrowUp:after {
+  border-bottom-color: var(--black-to-white-text) !important;
+}
+
+.flatpickr-current-month .numInputWrapper span.arrowDown:after,
+.flatpickr-time .numInputWrapper span.arrowDown:after {
+  border-top-color: var(--black-to-white-text) !important;
+}
+
+span.flatpickr-weekday,
+.flatpickr-day:not(.selected) {
+  color: var(--black-to-white-text) !important;
+}
+
+.flatpickr-day:not(.selected):hover {
+  background-color: var(--hover-light-bg) !important;
+}
+
+.flatpickr-day.prevMonthDay,
+.flatpickr-day.nextMonthDay {
+  opacity: 0.3;
+}
+
+.flatpickr-day.prevMonthDay:hover,
+.flatpickr-day.nextMonthDay:hover {
+  cursor: not-allowed;
+}

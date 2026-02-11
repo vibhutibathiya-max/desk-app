@@ -1,0 +1,154 @@
+html[data-theme="dark"] {
+  /* gradient */
+  --main-gradient: var(--main-gradient-color-dark);
+  --header-gadient: var(--header-gadient-color-dark);
+  --btn-gradient: var(--button-gradient-dark);
+  /* text colors - also override direct var usage (e.g. SVG stroke/fill) */
+  --black-color: var(--black-color-dark);
+  --primary-color: var(--primary-color-dark);
+  --white-color: var(--white-color-dark);
+  --black-to-white-text: var(--black-color-dark);
+  --text-dark-gray-to-white: var(--text-dark-gray-dark);
+  --text-gray-to-white: var(--gray-color-dark);
+  --secondary-color-to-white: var(--white-color-dark);
+  /* input colors */
+  --crm-bg:var(--crm-primary-dark);
+  --crm-text:var(--crm-secondary-dark);
+  --input-bg: var(--highlights);
+  --input-border-color: var(--highlights);
+  --input-border-focused-color: var(--focused-element-border-dark);
+  --input-shadow-color: var(--highlights);
+  --placeholder-color: var(--gray-color-dark);
+  --input-icon: var(--white-color-dark);
+  --hover-icon-bg: var(--hover-icon-dark);
+  /* background colors */
+  --bg-color: var(--background-dark);
+  --bg-image: var(--background-image-dark);
+  --bg-card-color: var(--card-color-dark);
+  --dropdown-bg: var(--dropdowns-dark);
+  --dropdown-secondary-bg: var(--dropdown-secondary-dark);
+  --dropdown-item-bg: var(--dropdown-item-dark);
+  --primary-bg: var(--primary-color-dark);
+  --secondary-bg: var(--secondary-color-dark);
+  --modal-bg: var(--modal-background-dark);
+  --digit-background: var(--keypad-color-dark);
+  --element-active-bg: var(--hover-element-dark);
+  --hover-light-bg: var(--hover_states_light-dark);
+  --scrollbar-bg: var(--scroll-color-dark);
+  --light-bg-color: var(--sidebar-dark);
+  --bg-white-to-dark-color: var(--highlights);
+  --call-btn-bg: var(--call-btn-color-dark);
+  --hover-dark-bg: var(--hover-states-dark_dark);
+  --blue-color-to-primary: var(--primary-color-dark);
+  --bg-header-hover: var(--header-hover-dark);
+  --label-icon: var(--label-color-dark);
+  /* Sidebar */
+  --sidebar-bg: var(--sidebar-dark);
+  --sidebar-item-hover-bg: var(--sidebar-hover-dark);
+  --sidebar-item-active-bg: var(--sidebar-active-bg-dark);
+  --sidebar-item-active-icon: var(--sidebar-active-icon-dark);
+  /* border color */
+  --divider-border: var(--separator-dark);
+  /* Chat */
+  --my-chat: var(--my-chat-color-dark);
+  --my-chat-color: var(--my-chat-color-dark);
+  --other-chat: var(--other-chat-color-dark);
+  --doc-bg-reciever: var(--doc-background-reciever-dark);
+  --doc-bg-sender: var(--doc-background-sender-dark);
+  --sended-chat-bubble-color: var(--sended-chat-bubble-dark);
+  --received-chat-bubble-color: var(--received-chat-bubble-dark);
+  --sended-chat-file-icon-bg: var(--sended-chat-bubble-file-bg-dark);
+  --received-chat-file-icon-bg: var(--received-chat-bubble-file-bg-dark);
+  --sended-chat-bubble-file-icon-color: var(--sended-chat-bubble-file-icon-dark);
+  --received-chat-bubble-file-icon-color: var(--received-chat-bubble-file-icon-dark);
+  /* call popup */
+  --call-popup-bg: var(--call-popup-bg-dark);
+  --highlight-txt:var(--highlight-txt-dark);
+  --tertiary-color: var(--tertiary-dark);
+  --blur-bg: var(--blur-bg-dark);
+  --login-bg-color: var(--login-bg-color-dark);
+  --login-version-color: var(--login-version-color-dark);
+  --curves-bg-image: var(--curves-bg-image-dark);
+  --recording-red-color: var(--recording-dark-red-color);
+  --recording-orange-color: var(--recording-dark-orange-color);
+  --recording-orange-color-text: var(--recording-orange-color-text-dark);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(html[data-theme="light"]):not(html[data-theme="dark"]) {
+    /* gradient */
+    --main-gradient: var(--main-gradient-color-dark);
+    --header-gadient: var(--header-gadient-color-dark);
+    --btn-gradient: var(--button-gradient-dark);
+    /* text colors - also override direct var usage */
+    --black-color: var(--black-color-dark);
+    --primary-color: var(--primary-color-dark);
+    --white-color: var(--white-color-dark);
+    --black-to-white-text: var(--black-color-dark);
+    --text-dark-gray-to-white: var(--text-dark-gray-dark);
+    --text-gray-to-white: var(--gray-color-dark);
+    --secondary-color-to-white: var(--white-color-dark);
+    /* input colors */
+    --input-bg: var(--highlights);
+    --input-border-color: var(--highlights);
+    --input-border-focused-color: var(--focused-element-border-dark);
+    --input-shadow-color: var(--highlights);
+    --placeholder-color: var(--gray-color-dark);
+    --input-icon: var(--white-color-dark);
+    --hover-icon-bg: var(--hover-icon-dark);
+
+    --crm-bg:var(--crm-primary-dark);
+    --crm-text:var(--crm-secondary-dark);
+    /* background colors */
+    --bg-color: var(--background-dark);
+    --bg-image: var(--background-image-dark);
+    --bg-card-color: var(--card-color-dark);
+    --dropdown-bg: var(--dropdowns-dark);
+    --dropdown-secondary-bg: var(--dropdown-secondary-dark);
+    --dropdown-item-bg: var(--dropdown-item-dark);
+    --primary-bg: var(--primary-color-dark);
+    --secondary-bg: var(--secondary-color-dark);
+    --modal-bg: var(--modal-background-dark);
+    --digit-background: var(--keypad-color-dark);
+    --element-active-bg: var(--hover-element-dark);
+    --hover-light-bg: var(--hover_states_light-dark);
+    --scrollbar-bg: var(--scroll-color-dark);
+    --light-bg-color: var(--sidebar-dark);
+    --bg-white-to-dark-color: var(--highlights);
+    --call-btn-bg: var(--call-btn-color-dark);
+    --hover-dark-bg: var(--hover-states-dark_dark);
+    --blue-color-to-primary: var(--primary-color-dark);
+    --bg-header-hover: var(--header-hover-dark);
+    --label-icon: var(--label-color-dark);
+    /* Sidebar */
+    --sidebar-bg: var(--sidebar-dark);
+    --sidebar-item-hover-bg: var(--sidebar-hover-dark);
+    --sidebar-item-active-bg: var(--sidebar-active-bg-dark);
+    --sidebar-item-active-icon: var(--sidebar-active-icon-dark);
+    /* border color */
+    --divider-border: var(--separator-dark);
+    /* Chat */
+    --my-chat: var(--my-chat-color-dark);
+    --my-chat-color: var(--my-chat-color-dark);
+    --other-chat: var(--other-chat-color-dark);
+    --doc-bg-reciever: var(--doc-background-reciever-dark);
+    --doc-bg-sender: var(--doc-background-sender-dark);
+    --sended-chat-bubble-color: var(--sended-chat-bubble-dark);
+    --received-chat-bubble-color: var(--received-chat-bubble-dark);
+    --sended-chat-file-icon-bg: var(--sended-chat-bubble-file-bg-dark);
+    --received-chat-file-icon-bg: var(--received-chat-bubble-file-bg-dark);
+    --sended-chat-bubble-file-icon-color: var(--sended-chat-bubble-file-icon-dark);
+    --received-chat-bubble-file-icon-color: var(--received-chat-bubble-file-icon-dark);
+    /* call popup */
+    --call-popup-bg: var(--call-popup-bg-dark);
+    --tertiary-color: var(--tertiary-dark);
+    --blur-bg: var(--blur-bg-dark);
+    --highlight-txt:var(--highlight-txt-dark);
+    --login-bg-color: var(--login-bg-color-dark);
+    --login-version-color: var(--login-version-color-dark);
+    --curves-bg-image: var(--curves-bg-image-dark);
+    --recording-red-color: var(--recording-dark-red-color);
+    --recording-orange-color: var(--recording-dark-orange-color);
+    --recording-orange-color-text: var(--recording-orange-color-text-dark);
+  }
+}
