@@ -1,0 +1,114 @@
+/* Default and light mode Global */
+:root {
+  --primary-color: #614b98;
+  --secondary-color: #57a1d7;
+  --main-gradient-color: linear-gradient(223.54deg, #6533e2 6.23%, #7349de 35.08%, #1f97ef 99.36%,
+  #57a1d7 147.44%);
+  --header-gadient-color: linear-gradient(270deg, #6533e2 0.26%, #7349de 30.28%, #1f97ef 97.16%);
+  --button-gradient: linear-gradient(270deg, #6533e2 0.26%, #7349de 30.28%, #1f97ef 97.16%);
+  --dynamic-bar-color: #5834d3;
+  --dynamic-bar-icon-color: #6940de;
+  --hover_states_light: #f7fafd;
+  --hover-states-dark: #dbe8f7;
+  --call-btn-color: #e5e5e5;
+  --my-chat-color: #eef6fb;
+  --other-chat-color: #efedf5;
+  --doc-background-reciever: #e6e3ef;
+  --doc-background-sender: #dbe8f7;
+  --scroll-color: #b5d6ed;
+  --focused-element-border: #70a0ff;
+  --hover-element: #e9f0f8;
+  --header-hover: #5e9acb;
+  --hover-icon: #e3e3e3;
+  --label-color: #006be0;
+  /* that's var newly added */
+  --background: #fff;
+  --crm-primary-light:#fff;
+  --crm-secondary-light:#000000;
+  --background-image: linear-gradient(0deg, transparent, transparent);
+  --dropdowns: #fff;
+  --dropdown-secondary: #f2f2f2;
+  --sidebar: #f2f2f2;
+  --sidebar-hover: #e9f0f8; /* based on --hover-element */
+  --sidebar-active-bg: transparent;
+  --sidebar-active-icon: #614b98; /* based on --primary-color */
+  --separator: #f1f1f1;
+  --card-color: #fff;
+  --keypad-color: #f2f2f2;
+  --dropdown-item: #e9f0f8; /* based on --hover-element */
+  --white-color-light: #ffffff;
+  --black-color: #000000;
+  --text-dark-gray: #474747;
+  --gray-color: #949494;
+  --modal-background: #fff;
+  --sended-chat-bubble-light: #C4E5FF;
+  --received-chat-bubble-light: #E0E0E0;
+  --sended-chat-bubble-file-bg: #ABDAFF;
+  --received-chat-bubble-file-bg: #bdbdbd66;
+  --sended-chat-bubble-file-icon-light: #006be0;
+  --received-chat-bubble-file-icon-light: #614b98; /* based on --primary-color */
+  --call-popup-bg-light: #4A4A4A;
+  --highlight-txt-light: #FFDF39;
+  --tertiary-light:#7962B1;
+  --blur-bg-light: rgba(255,255,255,0.9);
+  --login-bg-color-light: #fff;
+  --login-version-color-light: #ffffff;
+  /* Background image control for curves.svg */
+  --curves-bg-image: url(../img-new/curves.svg);
+}
+
+/* Dark Mode Global */
+:root {
+  --primary-color-dark: #3F3D52;
+  --secondary-color-dark: #6B6778;
+  --main-gradient-color-dark: linear-gradient(255.04deg, #18162C 6.1%, #2B2A3C 30.7%, #18162C 85.52%);
+  --header-gadient-color-dark: linear-gradient(255.04deg, #18162C 6.1%, #2B2A3C 30.7%, #18162C 85.52%);
+  --button-gradient-dark: linear-gradient(90deg, #2A2744 0%, #2D2C3A 100%);
+  --hover_states_light-dark: #363546;
+  --hover-states-dark_dark: #363546;
+  --call-btn-color-dark: #2b2933;
+  --my-chat-color-dark: #403e46;
+  --other-chat-color-dark: #2c2a32;
+  --doc-background-reciever-dark: #4f4d56;
+  --doc-background-sender-dark: #4f4d56;
+  --scroll-color-dark: #4f4d56;
+  --focused-element-border-dark: #363546;
+  --hover-element-dark: #363546;
+  --header-hover-dark: #4f4d56;
+  --hover-icon-dark: #4f4d56;
+  --label-color-dark: #D9D9D9;
+  --background-dark: #18162C;
+  --crm-primary-dark:#18162C;
+  --crm-secondary-dark:#D9D9D9;
+  --background-image-dark: linear-gradient(0deg, transparent, transparent);
+  --dropdowns-dark: #1d1c22;
+  --dropdown-secondary-dark: #2b2933;
+  --sidebar-dark: #1D1C31;
+  --sidebar-hover-dark: #4f4d56; /* based on --hover-element-dark */
+  --sidebar-active-bg-dark: transparent;
+  --sidebar-active-icon-dark: #D9D9D9;
+  --separator-dark: #2b2933;
+  --card-color-dark: #201F33;
+  --keypad-color-dark: #2B293C;
+  --highlights: #282735;
+  --dropdown-item-dark: #424049;
+  --white-color-dark: #D9D9D9;
+  --black-color-dark: #D9D9D9;
+  --text-dark-gray-dark: #D9D9D9;
+  --gray-color-dark: #D9D9D9;
+  --modal-background-dark: #1d1c22;
+  --sended-chat-bubble-dark: #433D80;
+  --received-chat-bubble-dark: #39374F;
+  --sended-chat-bubble-file-bg-dark: #363166;
+  --received-chat-bubble-file-bg-dark: #2E2D40;
+  --sended-chat-bubble-file-icon-dark: #D9D9D9;
+  --received-chat-bubble-file-icon-dark: #D9D9D9;
+  --call-popup-bg-dark: #4A4A4A;
+  --highlight-txt-dark:#76729C;
+  --tertiary-dark:#6B6778;
+  --blur-bg-dark: #2b293382;
+  --login-bg-color-dark: #18162C;
+  --login-version-color-dark: #ffffff;
+  /* Background image control for curves.svg - Dark mode */
+  --curves-bg-image-dark: url(../img-new/curves.svg);
+}

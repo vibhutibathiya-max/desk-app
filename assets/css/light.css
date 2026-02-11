@@ -1,0 +1,147 @@
+html[data-theme="light"] {
+  /* gradient */
+  --main-gradient: var(--main-gradient-color);
+  --header-gadient: var(--header-gadient-color);
+  --btn-gradient: var(--button-gradient);
+  /* text colors */
+  --white-color: var(--white-color-light);
+  --black-to-white-text: var(--black-color);
+  --text-dark-gray-to-white: var(--text-dark-gray);
+  --text-gray-to-white: var(--gray-color);
+  --secondary-color-to-white: var(--secondary-color);
+  --tertiary-color: var(--tertiary-light);
+  /* input colors */
+
+  --crm-bg:var(--crm-primary-light);
+  --crm-text:var(--crm-secondary-light);
+  --input-bg: #fff;
+  --input-border-color: #cbcbcb;
+  --input-border-focused-color: var(--focused-element-border);
+  --input-shadow-color: var(--hover-element);
+  --placeholder-color: var(--gray-color);
+  --input-icon: var(--primary-color);
+  --hover-icon-bg: var(--hover-icon);
+  /* background colors */
+  --bg-color: var(--background);
+  --bg-image: var(--background-image);
+  --bg-card-color: var(--card-color);
+  --dropdown-bg: var(--dropdowns);
+  --dropdown-secondary-bg: var(--dropdown-secondary);
+  --primary-bg: var(--primary-color);
+  --secondary-bg: var(--secondary-color);
+  --dropdown-item-bg: var(--dropdown-item);
+  --modal-bg: var(--modal-background);
+  --digit-background: var(--keypad-color);
+  --element-active-bg: var(--hover-element);
+  --hover-light-bg: var(--hover_states_light);
+  --scrollbar-bg: var(--scroll-color);
+  --light-bg-color: var(--hover_states_light);
+  --call-btn-bg: var(--call-btn-color);
+  --hover-dark-bg: var(--hover-states-dark);
+  --bg-white-to-dark-color: #fff;
+  --blue-color-to-primary: #006be0;
+  --bg-header-hover: var(--header-hover);
+  --label-icon: var(--label-color);
+  /* Sidebar */
+  --sidebar-bg: var(--sidebar);
+  --sidebar-item-hover-bg: var(--sidebar-hover);
+  --sidebar-item-active-bg: var(--sidebar-active-bg);
+  --sidebar-item-active-icon: var(--sidebar-active-icon);
+  /* border color */
+  --divider-border: var(--separator);
+  /* Chat */
+  --my-chat: var(--my-chat-color);
+  --other-chat: var(--other-chat-color);
+  --doc-bg-reciever: var(--doc-background-reciever);
+  --doc-bg-sender: var(--doc-background-sender);
+  --sended-chat-bubble-color: var(--sended-chat-bubble-light);
+  --received-chat-bubble-color: var(--received-chat-bubble-light);
+  --sended-chat-file-icon-bg: var(--sended-chat-bubble-file-bg);
+  --received-chat-file-icon-bg: var(--received-chat-bubble-file-bg);
+  --sended-chat-bubble-file-icon-color: var(--sended-chat-bubble-file-icon-light);
+  --received-chat-bubble-file-icon-color: var(--received-chat-bubble-file-icon-light);
+  /* call popup */
+  --call-popup-bg: var(--call-popup-bg-light);
+  --highlight-txt:var(--highlight-txt-light);
+  --blur-bg: var(--blur-bg-light);
+  --login-bg-color: var(--login-bg-color-light);
+  --login-version-color: var(--login-version-color-light);
+  --recording-red-color: var(--recording-light-red-color);
+  --recording-orange-color: var(--recording-light-orange-color);
+  --recording-orange-color-text: var(--recording-orange-color-text-light);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(html[data-theme="light"]):not(html[data-theme="dark"]) {
+    /* gradient */
+    --main-gradient: var(--main-gradient-color);
+    --header-gadient: var(--header-gadient-color);
+    --btn-gradient: var(--button-gradient);
+    /* text colors */
+    --white-color: var(--white-color-light);
+    --black-to-white-text: var(--black-color);
+    --text-dark-gray-to-white: var(--text-dark-gray);
+    --text-gray-to-white: var(--gray-color);
+    --secondary-color-to-white: var(--secondary-color);
+    /* input colors */
+    --input-bg: #fff;
+    --input-border-color: #cbcbcb;
+    --input-border-focused-color: var(--focused-element-border);
+    --input-shadow-color: var(--hover-element);
+    --placeholder-color: var(--gray-color);
+    --input-icon: var(--primary-color);
+    --hover-icon-bg: var(--hover-icon);
+
+    --crm-bg:var(--crm-primary-light);
+    --crm-text:var(--crm-secondary-light);
+    /* background colors */
+    --bg-color: var(--modal-background);
+    --bg-image: var(--background-image);
+    --bg-card-color: var(--card-color);
+    --dropdown-bg: var(--dropdowns);
+    --dropdown-secondary-bg: var(--dropdown-secondary);
+    --primary-bg: var(--primary-color);
+    --secondary-bg: var(--secondary-color);
+    --dropdown-item-bg: var(--dropdown-item);
+    --modal-bg: var(--background);
+    --digit-background: var(--keypad-color);
+    --element-active-bg: var(--hover-element);
+    --hover-light-bg: var(--hover_states_light);
+    --scrollbar-bg: var(--scroll-color);
+    --light-bg-color: var(--hover_states_light);
+    --call-btn-bg: var(--call-btn-color);
+    --hover-dark-bg: var(--hover-states-dark);
+    --bg-white-to-dark-color: #fff;
+    --blue-color-to-primary: #006be0;
+    --bg-header-hover: var(--header-hover);
+    --label-icon: var(--label-color);
+    /* Sidebar */
+    --sidebar-bg: var(--sidebar);
+    --sidebar-item-hover-bg: var(--sidebar-hover);
+    --sidebar-item-active-bg: var(--sidebar-active-bg);
+    --sidebar-item-active-icon: var(--sidebar-active-icon);
+    /* border color */
+    --divider-border: var(--separator);
+    /* Chat */
+    --my-chat: var(--my-chat-color);
+    --other-chat: var(--other-chat-color);
+    --doc-bg-reciever: var(--doc-background-reciever);
+    --doc-bg-sender: var(--doc-background-sender);
+    --sended-chat-bubble-color: var(--sended-chat-bubble-light);
+    --received-chat-bubble-color: var(--received-chat-bubble-light);
+    --sended-chat-file-icon-bg: var(--sended-chat-bubble-file-bg);
+    --received-chat-file-icon-bg: var(--received-chat-bubble-file-bg);
+    --sended-chat-bubble-file-icon-color: var(--sended-chat-bubble-file-icon-light);
+    --received-chat-bubble-file-icon-color: var(--received-chat-bubble-file-icon-light);
+    /* call popup */
+    --call-popup-bg: var(--call-popup-bg-light);
+    --tertiary-color: var(--tertiary-light);
+    --blur-bg: var(--blur-bg-light);
+    --highlight-txt:var(--highlight-txt-light);
+    --login-bg-color: var(--login-bg-color-light);
+    --login-version-color: var(--login-version-color-light);
+    --recording-red-color: var(--recording-light-red-color);
+    --recording-orange-color: var(--recording-light-orange-color);
+    --recording-orange-color-text: var(--recording-orange-color-text-light);
+  } 
+}

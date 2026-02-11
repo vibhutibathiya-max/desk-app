@@ -1,0 +1,7 @@
+._h6rem{
+   height: 6rem; 
+}
+
+._border_botton_default {
+   border-bottom: 1px solid var(--input-border-color);
+}

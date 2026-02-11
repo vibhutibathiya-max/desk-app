@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS LINK -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- BOOTSTRAP CSS LINK -->
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../assets/css/bootstrap.min.css.map" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link href="../assets/css/datepicker.css" rel="stylesheet" />
+    <link href="../assets/css/select2.css" rel="stylesheet" />
+    <link href="../assets/css/custom-select-input-style.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="main_container w-100 h-100">
+        <!-- HEADER :: STARTS -->
+        <header class="header d-flex justify-content-sm-between align-items-center">
+            <div class="header-left-items d-flex justify-content-start align-items-center">
+                <img src="../assets/img-new/logo.svg" alt="LOGO" height="" width="">
+            </div>
+            <div class="header-right-items d-flex justify-content-start align-items-center">
+                <div class="auto-answer">
+                    <p>Auto Answer</p>
+                    <div class="switch">
+                        <div class="toggle">
+                            <input type="checkbox" id="check-1" checked />
+                            <label for="check-1"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="dnd">
+                    <p>DND</p>
+                    <div class="switch">
+                        <div class="toggle">
+                            <input type="checkbox" id="check-1" checked />
+                            <label for="check-1"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-dropdown dropdown">
+                    <div class="user-name dropdown-toggle" href="#" role="button" id="profileDropdown"
+                        data-bs-auto-close="outside" data-bs-toggle="dropdown" aria-expanded="false">
+                        <p class="mb-0 ext_number_box">
+                            <img class="mx-1" src="../assets/img-new/arrow-down.svg" alt="ARROW DOWN" width=""
+                                height="">
+                            Charles Hagens
+                        </p>
+                        <span>REGISTERED</span>
+                    </div>
+                    <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+                        <li>
+                            <img src="../assets/img-new/online.svg" alt="ONLINE">
+                            <p>Online</p>
+                            <!-- CHECKBOX GROUP -->
+                            <div class="checkbox">
+                                <input type="checkbox" value="None" id="name1" name="check" checked />
+                                <label for="name1"></label>
+                            </div>
+                            <!-- CHECKBOX GROUP -->
+                        </li>
+                        <li>
+                            <img src="../assets/img-new/offline.svg" alt="OFFLINE">
+                            <p>Offline</p>
+                        </li>
+                        <li>
+                            <img src="../assets/img-new/busy.svg" alt="BUSY">
+                            <p>Busy</p>
+                        </li>
+                        <li>
+                            <img src="../assets/img-new/dnd.svg" alt="DND">
+                            <p>DND</p>
+                        </li>
+                    </ul>
+                    <div class="position-relative profile-pic">
+                        <img src="../assets/img-new/header-profile-pic.svg" alt="PROFILE PIC" width="" height="">
+                        <img src="../assets/img-new/online.svg" alt="ONLINE" width="" height="" class="green-dot">
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- HEADER :: ENDS -->
+
+        <div class="main-body-content d-flex position-relative">
+            <!-- LEFT SIDE MENU :: STARTS -->
+            <section class="left-side d-flex align-items-start">
+                <!-- LEFT SIDE NAV :: STARTS -->
+                <div class="left-side-menu nav flex-column nav-pills py-2" id="v-pills-tab" role="tablist"
+                    aria-orientation="vertical">
+                    <a class="nav-link " id="v-pills-dailer-tab" data-bs-toggle="pill" data-bs-target="#v-pills-dailer"
+                        role="tab" aria-controls="v-pills-dailer" aria-selected="true">
+                        <svg width="16" height="22" viewBox="0 0 16 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M8 18.2882C8.21025 18.2882 8.41844 18.3276 8.61269 18.4042C8.80693 18.4808 8.98343 18.593 9.13209 18.7345C9.28076 18.8761 9.39869 19.0441 9.47915 19.229C9.55961 19.4139 9.60102 19.612 9.60102 19.8122C9.60102 20.0123 9.55961 20.2105 9.47915 20.3954C9.39869 20.5803 9.28076 20.7483 9.13209 20.8898C8.98343 21.0313 8.80693 21.1436 8.61269 21.2202C8.41844 21.2968 8.21025 21.3362 8 21.3362C7.57538 21.3362 7.16815 21.1756 6.8679 20.8898C6.56765 20.604 6.39897 20.2164 6.39897 19.8122C6.39897 19.408 6.56765 19.0204 6.8679 18.7345C7.16815 18.4487 7.57538 18.2882 8 18.2882ZM8 12.1921C8.42462 12.1921 8.83184 12.3527 9.13209 12.6385C9.43235 12.9243 9.60102 13.3119 9.60102 13.7161C9.60102 14.1203 9.43235 14.508 9.13209 14.7938C8.83184 15.0796 8.42462 15.2401 8 15.2401C7.57538 15.2401 7.16815 15.0796 6.8679 14.7938C6.56765 14.508 6.39897 14.1203 6.39897 13.7161C6.39897 13.3119 6.56765 12.9243 6.8679 12.6385C7.16815 12.3527 7.57538 12.1921 8 12.1921ZM14.399 12.1921C14.8236 12.1921 15.2308 12.3527 15.5311 12.6385C15.8313 12.9243 16 13.3119 16 13.7161C16 14.1203 15.8313 14.508 15.5311 14.7938C15.2308 15.0796 14.8236 15.2401 14.399 15.2401C13.9744 15.2401 13.5671 15.0796 13.2669 14.7938C12.9666 14.508 12.798 14.1203 12.798 13.7161C12.798 13.3119 12.9666 12.9243 13.2669 12.6385C13.5671 12.3527 13.9744 12.1921 14.399 12.1921ZM1.60102 12.1921C2.02564 12.1921 2.43287 12.3527 2.73312 12.6385C3.03337 12.9243 3.20205 13.3119 3.20205 13.7161C3.20205 14.1203 3.03337 14.508 2.73312 14.7938C2.43287 15.0796 2.02564 15.2401 1.60102 15.2401C1.17641 15.2401 0.76918 15.0796 0.468929 14.7938C0.168679 14.508 0 14.1203 0 13.7161C0 13.3119 0.168679 12.9243 0.468929 12.6385C0.76918 12.3527 1.17641 12.1921 1.60102 12.1921ZM8 6.09606C8.42462 6.09606 8.83184 6.25662 9.13209 6.54243C9.43235 6.82824 9.60102 7.21588 9.60102 7.62007C9.60102 8.02426 9.43235 8.4119 9.13209 8.69771C8.83184 8.98352 8.42462 9.14408 8 9.14408C7.57538 9.14408 7.16815 8.98352 6.8679 8.69771C6.56765 8.4119 6.39897 8.02426 6.39897 7.62007C6.39897 7.21588 6.56765 6.82824 6.8679 6.54243C7.16815 6.25662 7.57538 6.09606 8 6.09606ZM14.399 6.09606C14.8236 6.09606 15.2308 6.25662 15.5311 6.54243C15.8313 6.82824 16 7.21588 16 7.62007C16 8.02426 15.8313 8.4119 15.5311 8.69771C15.2308 8.98352 14.8236 9.14408 14.399 9.14408C13.9744 9.14408 13.5671 8.98352 13.2669 8.69771C12.9666 8.4119 12.798 8.02426 12.798 7.62007C12.798 7.21588 12.9666 6.82824 13.2669 6.54243C13.5671 6.25662 13.9744 6.09606 14.399 6.09606ZM1.60102 6.09606C2.02564 6.09606 2.43287 6.25662 2.73312 6.54243C3.03337 6.82824 3.20205 7.21588 3.20205 7.62007C3.20205 8.02426 3.03337 8.4119 2.73312 8.69771C2.43287 8.98352 2.02564 9.14408 1.60102 9.14408C1.17641 9.14408 0.76918 8.98352 0.468929 8.69771C0.168679 8.4119 0 8.02426 0 7.62007C0 7.21588 0.168679 6.82824 0.468929 6.54243C0.76918 6.25662 1.17641 6.09606 1.60102 6.09606ZM8 0C8.42462 0 8.83184 0.160565 9.13209 0.446373C9.43235 0.732181 9.60102 1.11982 9.60102 1.52401C9.60102 1.92821 9.43235 2.31585 9.13209 2.60165C8.83184 2.88746 8.42462 3.04803 8 3.04803C7.57538 3.04803 7.16815 2.88746 6.8679 2.60165C6.56765 2.31585 6.39897 1.92821 6.39897 1.52401C6.39897 1.11982 6.56765 0.732181 6.8679 0.446373C7.16815 0.160565 7.57538 0 8 0ZM14.399 0C14.8236 0 15.2308 0.160565 15.5311 0.446373C15.8313 0.732181 16 1.11982 16 1.52401C16 1.92821 15.8313 2.31585 15.5311 2.60165C15.2308 2.88746 14.8236 3.04803 14.399 3.04803C13.9744 3.04803 13.5671 2.88746 13.2669 2.60165C12.9666 2.31585 12.798 1.92821 12.798 1.52401C12.798 1.11982 12.9666 0.732181 13.2669 0.446373C13.5671 0.160565 13.9744 0 14.399 0ZM1.60102 0C2.02564 0 2.43287 0.160565 2.73312 0.446373C3.03337 0.732181 3.20205 1.11982 3.20205 1.52401C3.20205 1.92821 3.03337 2.31585 2.73312 2.60165C2.43287 2.88746 2.02564 3.04803 1.60102 3.04803C1.17641 3.04803 0.76918 2.88746 0.468929 2.60165C0.168679 2.31585 0 1.92821 0 1.52401C0 1.11982 0.168679 0.732181 0.468929 0.446373C0.76918 0.160565 1.17641 0 1.60102 0Z" />
+                        </svg>
+                        <span>Dialer</span>
+                    </a>
+                    <a class="nav-link" id="v-pills-recent-tab" data-bs-toggle="pill" data-bs-target="#v-pills-recent"
+                        role="tab" aria-controls="v-pills-recent" aria-selected="false">
+                        <svg width="21" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.75 20.75">
+                            <path stroke="none"
+                                d="m4.16,2.7c.11,0,.33.21,1.71,1.61,1.37,1.39,1.59,1.63,1.59,1.73s-.12.25-.78.92c-.73.75-.78.81-.8.99-.04.29,0,.39.36,1,.73,1.2,1.39,2.04,2.4,3.07,1.01,1.03,1.85,1.7,3.03,2.43.48.3.64.38.83.38.05,0,.1,0,.15-.01.18-.03.23-.07.93-.77.62-.62.76-.74.86-.74s.35.23,1.71,1.61c1.38,1.4,1.59,1.63,1.59,1.73,0,.11-.15.28-1.12,1.25-1.31,1.32-1.36,1.37-1.98,1.37-.02,0-.04,0-.05,0-.42,0-.44,0-1.02-.24-2.82-1.11-5.08-2.6-7.18-4.72-2.09-2.12-3.56-4.41-4.66-7.27-.23-.59-.23-.61-.23-1.04q0-.67,1.38-2.09c1-1.03,1.18-1.19,1.28-1.19m0-1.5h0c-.76,0-1.03.28-2.36,1.65C.34,4.35,0,4.71,0,5.98c0,.66.06.86.33,1.58,1.17,3.05,2.76,5.52,5,7.79,2.24,2.27,4.68,3.88,7.69,5.07.72.28.91.34,1.57.34h.06c1.25,0,1.67-.42,3.05-1.81,1.26-1.26,1.55-1.57,1.55-2.31,0-.74-.15-.89-2.02-2.78-1.84-1.86-2.03-2.06-2.78-2.06s-1.14.4-1.92,1.18c-.04.04-.09.09-.14.14-1.03-.65-1.77-1.24-2.67-2.16-.93-.94-1.49-1.66-2.16-2.74.07-.07.14-.14.2-.21.82-.85,1.2-1.23,1.2-1.96s-.15-.89-2.02-2.79c-1.88-1.9-2.03-2.05-2.78-2.05h0Z" />
+                            <path stroke-width="0.5"
+                                d="m15.62.25c-.97,0-1.91.29-2.71.83-.8.54-1.43,1.3-1.8,2.2-.37.9-.47,1.88-.28,2.83.19.95.65,1.82,1.34,2.51.68.69,1.55,1.15,2.5,1.34.95.19,1.93.09,2.82-.28.89-.37,1.65-1,2.19-1.81.54-.81.82-1.75.82-2.72,0-1.3-.52-2.55-1.43-3.47-.91-.92-2.16-1.44-3.45-1.44Zm0,9.05c-.82,0-1.62-.24-2.29-.7-.68-.46-1.21-1.1-1.52-1.86-.31-.76-.39-1.59-.23-2.4.16-.8.55-1.54,1.13-2.12.58-.58,1.31-.98,2.11-1.14.8-.16,1.63-.08,2.39.24.75.31,1.4.85,1.85,1.53.45.68.7,1.48.7,2.3,0,1.1-.44,2.15-1.21,2.93-.77.78-1.82,1.22-2.92,1.22Zm3-4.15c0,.1-.04.2-.11.27-.07.07-.17.11-.27.11h-2.63c-.1,0-.2-.04-.27-.11-.07-.07-.11-.17-.11-.27v-2.64c0-.1.04-.2.11-.27.07-.07.17-.11.27-.11s.19.04.27.11c.07.07.11.17.11.27v2.26h2.25c.1,0,.2.04.27.11.07.07.11.17.11.27Z" />
+                        </svg>
+                        <span>Recents</span>
+                    </a>
+                    <a class="nav-link" id="v-pills-contact-tab" data-bs-toggle="pill" data-bs-target="#v-pills-contact"
+                        role="tab" aria-controls="v-pills-contact" aria-selected="false">
+                        <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <ellipse fill="none" cx="12.3288" cy="8.00215" rx="2.70968" ry="2.8" stroke-width="1.5" />
+                            <path fill="none"
+                                d="M15.7156 17.1038V15.0038V15.0038C15.7156 13.844 14.7754 12.9038 13.6156 12.9038H11.0414C9.88161 12.9038 8.94141 13.844 8.94141 15.0038V15.0038V17.1038"
+                                stroke-width="1.5" stroke-linecap="round" />
+                            <rect x="2.16797" y="1.00293" fill="none" width="19.6452" height="21" rx="3.44999"
+                                stroke-width="1.5" />
+                            <path d="M3.52218 6.60352H0.8125" stroke-width="1.5" stroke-linecap="round" />
+                            <path d="M3.52218 11.5029H0.8125" stroke-width="1.5" stroke-linecap="round" />
+                            <path d="M3.52218 16.4023H0.8125" stroke-width="1.5" stroke-linecap="round" />
+                        </svg>
+                        <span>Contacts</span>
+                    </a>
+                    <a class="nav-link" id="v-pills-chat-tab" data-bs-toggle="pill" data-bs-target="#v-pills-chat"
+                        role="tab" aria-controls="v-pills-chat" aria-selected="false">
+                        <svg width="24" height="23" viewBox="0 0 24 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M1.5 11.6367C1.5 17.4357 6.20101 22.1367 12 22.1367C13.9434 22.1367 15.7634 21.6088 17.3246 20.6884L22.5 22.1367L21.0517 16.9613C21.972 15.4002 22.5 13.5801 22.5 11.6367C22.5 5.83773 17.799 1.13672 12 1.13672C6.20101 1.13672 1.5 5.83773 1.5 11.6367Z"
+                                fill="none" stroke-width="1.5" stroke-linejoin="round" />
+                            <path d="M14.8966 9.46387H9.10352" fill="none" stroke-width="1.5" stroke-linecap="round" />
+                            <path d="M15.2589 13.4478L10.9141 13.4478" fill="none" stroke-width="1.5"
+                                stroke-linecap="round" />
+                        </svg>
+                        <span>Chats</span>
+                        <div class="counter">20</div>
+                    </a>
+                    <a class="nav-link active" id="v-pills-meeting-tab" data-bs-toggle="pill"
+                        data-bs-target="#v-pills-meeting" role="tab" aria-controls="v-pills-meeting"
+                        aria-selected="false">
+                        <svg width="26" height="19" viewBox="0 0 26 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M17.0137 6.47922L23.0843 3.38835C23.2876 3.28492 23.5134 3.23609 23.7403 3.2465C23.9673 3.25691 24.1879 3.32622 24.3811 3.44784C24.5744 3.56947 24.734 3.73937 24.8447 3.94144C24.9554 4.14351 25.0136 4.37103 25.0137 4.60243V13.7881C25.0136 14.0195 24.9554 14.247 24.8447 14.4491C24.734 14.6512 24.5744 14.8211 24.3811 14.9427C24.1879 15.0643 23.9673 15.1336 23.7403 15.144C23.5134 15.1544 23.2876 15.1056 23.0843 15.0022L17.0137 11.9113M3.68034 17.3434H14.347C15.0542 17.3434 15.7325 17.0573 16.2326 16.5479C16.7327 16.0385 17.0137 15.3477 17.0137 14.6274V3.76317C17.0137 3.04283 16.7327 2.35199 16.2326 1.84263C15.7325 1.33327 15.0542 1.04712 14.347 1.04712H3.68034C2.97309 1.04712 2.29482 1.33327 1.79472 1.84263C1.29462 2.35199 1.01367 3.04283 1.01367 3.76317V14.6274C1.01367 15.3477 1.29462 16.0385 1.79472 16.5479C2.29482 17.0573 2.97309 17.3434 3.68034 17.3434Z"
+                                fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <line x1="9.12695" y1="6.72314" x2="9.12695" y2="11.6693" fill="none" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <line x1="11.5742" y1="9.26294" x2="6.62808" y2="9.26294" fill="none" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <span>Meeting</span>
+                    </a>
+                    <a class="nav-link last-link" id="v-pills-setting-tab" data-bs-toggle="pill"
+                        data-bs-target="#v-pills-setting" role="tab" aria-controls="v-pills-setting"
+                        aria-selected="false">
+                        <svg width="22" height="21" viewBox="0 0 22 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M18.6633 9.34995L18.3997 9.57454V9.92086V11.0716V11.4078L18.6507 11.6315L20.1107 12.9327L20.1166 12.938L20.1227 12.9432C20.2603 13.0607 20.3481 13.2177 20.3763 13.3855C20.4044 13.553 20.3722 13.726 20.2827 13.8758L20.2826 13.8758L20.2791 13.8817L18.52 16.8866C18.5197 16.8871 18.5194 16.8876 18.5191 16.8881C18.4517 17.0012 18.3535 17.0976 18.2324 17.1658C18.1107 17.2343 17.9712 17.2711 17.8279 17.2713L17.8231 17.2713C17.7354 17.272 17.6484 17.2588 17.5656 17.2326C17.5647 17.2323 17.5638 17.2321 17.563 17.2318L15.6998 16.6171L15.3605 16.5051L15.0597 16.6982C14.7605 16.8902 14.4485 17.0629 14.1256 17.2149L13.787 17.3744L13.7109 17.7408L13.3169 19.6362L13.3163 19.6389C13.2819 19.8078 13.1867 19.9638 13.042 20.0772C12.8968 20.191 12.7122 20.2534 12.5202 20.2499L12.5202 20.2497H12.5062H8.86005V20.2496L8.84606 20.2499C8.65408 20.2534 8.46942 20.191 8.3243 20.0772C8.1796 19.9638 8.08439 19.8078 8.04994 19.6389L8.04937 19.6362L7.6554 17.7408L7.57951 17.3757L7.24258 17.2158C6.92234 17.0639 6.61299 16.8914 6.31654 16.6996L6.01558 16.5049L5.67503 16.6168L3.80331 17.2318C3.80254 17.232 3.80177 17.2323 3.80099 17.2325C3.71807 17.2588 3.63097 17.272 3.54318 17.2713L3.53833 17.2713C3.39511 17.2711 3.25555 17.2343 3.13383 17.1658C3.01223 17.0973 2.91374 17.0004 2.84627 16.8866L2.8463 16.8866L2.84259 16.8805L1.01951 13.872L1.01954 13.8719L1.01575 13.8658C0.922016 13.7144 0.887622 13.5382 0.915823 13.3674C0.944062 13.1964 1.03425 13.0365 1.17583 12.9181L1.1759 12.9182L1.18561 12.9098L2.64562 11.6462L2.90482 11.4219V11.0791V9.92838V9.59217L2.65382 9.36847L1.19381 8.06729L1.18783 8.06196L1.18174 8.05677C1.04417 7.93933 0.956363 7.78229 0.928215 7.61451C0.900204 7.44755 0.932051 7.27519 1.02087 7.12579L2.84259 4.11952L2.84262 4.11954L2.84627 4.11337C2.91374 3.9996 3.01223 3.90266 3.13383 3.83422C3.25555 3.76572 3.39511 3.72885 3.53833 3.72871L3.56276 3.72868L3.58715 3.72707C3.66537 3.72189 3.74382 3.72774 3.81997 3.74431L5.6216 4.37816L5.96727 4.49977L6.27564 4.30183C6.57483 4.10978 6.88688 3.93714 7.20974 3.78509L7.54833 3.62563L7.6245 3.2592L8.01847 1.36384L8.01848 1.36384L8.01903 1.36112C8.05349 1.19222 8.1487 1.0362 8.2934 0.922787C8.43852 0.809042 8.62318 0.746564 8.81516 0.750146L8.81516 0.750276H8.82915H12.4444V0.750407L12.4584 0.750146C12.6504 0.746564 12.835 0.809041 12.9802 0.922787C13.1249 1.0362 13.2201 1.19222 13.2545 1.36112L13.2551 1.36384L13.6491 3.2592L13.725 3.62433L14.0619 3.78418C14.3821 3.93611 14.6915 4.10856 14.9879 4.30036L15.2889 4.49508L15.6294 4.38319L17.5012 3.76821C17.5019 3.76797 17.5027 3.76773 17.5034 3.76748C17.5864 3.7412 17.6735 3.72803 17.7613 3.7287L17.7661 3.72871C17.9094 3.72885 18.0489 3.76572 18.1706 3.83422C18.2922 3.90266 18.3907 3.9996 18.4582 4.11338L18.4582 4.11339L18.4619 4.11952L20.285 7.12804L20.2888 7.13436L20.2927 7.1406C20.3879 7.29086 20.4241 7.46639 20.398 7.63705C20.3719 7.80753 20.2843 7.96766 20.1454 8.08731C20.145 8.08758 20.1447 8.08786 20.1444 8.08813L18.6633 9.34995Z"
+                                fill="none" stroke-width="1.5" />
+                            <path
+                                d="M10.6634 13.8863L10.6634 13.8863H10.6558C9.98605 13.8863 9.33135 13.6877 8.77449 13.3156C8.21762 12.9435 7.78359 12.4147 7.5273 11.7959C7.271 11.1771 7.20394 10.4963 7.3346 9.8394C7.46526 9.18253 7.78777 8.57916 8.26134 8.10558C8.73492 7.63201 9.33829 7.3095 9.99516 7.17884C10.652 7.04818 11.3329 7.11524 11.9517 7.37153C12.5704 7.62783 13.0993 8.06186 13.4714 8.61872C13.8434 9.17559 14.042 9.83029 14.042 10.5H14.042L14.0421 10.5076C14.0466 10.9526 13.9623 11.394 13.7941 11.8059C13.6259 12.2179 13.3772 12.5922 13.0626 12.9068C12.7479 13.2214 12.3737 13.4701 11.9617 13.6383C11.5497 13.8065 11.1084 13.8908 10.6634 13.8863Z"
+                                fill="none" stroke-width="1.5" />
+                        </svg>
+                        <span>Setting</span>
+                    </a>
+                </div>
+                <!-- LEFT SIDE NAV :: ENDS -->
+            </section>
+            <!-- LEFT SIDE MENU :: ENDS -->
+
+            <!-- MIDDLE CONTENT :: STARTS -->
+            <section class="middle-content">
+                <!-- LEFT SIDE NAV CONTENT :: STARTS -->
+                <div class="tab-content menu-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade" id="v-pills-dailer" role="tabpanel" aria-labelledby="v-pills-dailer-tab">
+                        Dailer</div>
+                    <div class="tab-pane fade" id="v-pills-recent" role="tabpanel" aria-labelledby="v-pills-recent-tab">
+                        Recents</div>
+                    <div class="tab-pane fade" id="v-pills-contact" role="tabpanel"
+                        aria-labelledby="v-pills-contact-tab">
+                        Contact</div>
+                    <div class="tab-pane fade" id="v-pills-chat" role="tabpanel" aria-labelledby="v-pills-chat-tab">
+                        Chats</div>
+                    <!-- Meeting Tab :: Start -->
+                    <div class="tab-pane fade show active" id="v-pills-meeting" role="tabpanel"
+                        aria-labelledby="v-pills-meeting-tab">
+                        <div class="menu-header">
+
+                            <div class="nav flex-row nav-pills py-0" id="meetings-tab" role="tablist">
+                                <a class="nav-link active" id="meetings-non-recurring-tab" data-bs-toggle="pill"
+                                    data-bs-target="#meetings-non-recurring" role="tab"
+                                    aria-controls="meetings-non-recurring" aria-selected="true">
+                                    Non-Recurring Meetings
+                                </a>
+                                <a class="nav-link" id="meetings-recurring-tab" data-bs-toggle="pill"
+                                    data-bs-target="#meetings-recurring" role="tab" aria-controls="meetings-recurring"
+                                    aria-selected="true">
+                                    Recurring Meetings
+                                </a>
+                            </div>
+                            <div class="divider"></div>
+
+                            <!-- Meeting Container :: START -->
+                            <div class="tab-pane meeting-container fade show active" id="meetings-non-recurring"
+                                role="tabpanel" aria-labelledby="meetings-non-recurring-tab">
+                                <!-- DAY HEADING :: START -->
+                                <div class="day-heading">
+                                    <h3 class="mb-0">
+                                        Today
+                                    </h3>
+                                    <div class="divider"></div>
+                                </div>
+                                <!-- DAY HEADING :: END -->
+                                <!-- MEETINGS ITEMS :: START -->
+                                <div class="meeting-items">
+                                    <!-- MEETING ITEM :: START -->
+                                    <div class="d-flex align-items-baseline py-3 meeting-item">
+                                        <div class="time w-100">
+                                            09:00
+                                            PM
+                                        </div>
+                                        <div class="px-2 meeting-details">
+                                            <h6 class="mb-0">Design Thinking Startup</h6>
+                                            <p class="mb-0">Meeting ID : 177 6571 2345</p>
+                                        </div>
+                                        <button class="meeting-btn">Start</button>
+                                    </div>
+                                    <div class="divider"></div>
+                                    <!-- MEETING ITEM :: END -->
+                                    <!-- MEETING ITEM :: START -->
+                                    <div class="d-flex align-items-baseline py-3 meeting-item">
+                                        <div class="time w-100">
+                                            14:30
+                                        </div>
+                                        <div class="px-2 meeting-details">
+                                            <h6 class="mb-0">Meeting with client</h6>
+                                            <p class="mb-0">Meeting ID : 177 6571 2345</p>
+                                        </div>
+                                        <button class="meeting-btn">Start</button>
+                                    </div>
+                                    <div class="divider"></div>
+                                    <!-- MEETING ITEM :: END -->
+                                    <!-- MEETING ITEM :: START -->
+                                    <div class="d-flex align-items-baseline py-3 meeting-item">
+                                        <div class="time w-100">
+                                            09:00
+                                            PM
+                                        </div>
+                                        <div class="px-2 meeting-details">
+                                            <h6 class="mb-0">Design Thinking Startup</h6>
+                                            <p class="mb-0">Meeting ID : 177 6571 2345</p>
+                                        </div>
+                                        <button class="meeting-btn">Start</button>
+                                    </div>
+                                    <div class="divider"></div>
+                                    <!-- MEETING ITEM :: END -->
+                                    <!-- MEETING ITEM :: START -->
+                                    <div class="d-flex align-items-baseline py-3 meeting-item">
+                                        <div class="time w-100">
+                                            14:30
+                                        </div>
+                                        <div class="px-2 meeting-details">
+                                            <h6 class="mb-0">Meeting with client</h6>
+                                            <p class="mb-0">Meeting ID : 177 6571 2345</p>
+                                        </div>
+                                        <button class="meeting-btn">Start</button>
+                                    </div>
+                                    <div class="divider"></div>
+                                    <!-- MEETING ITEM :: END -->
+                                </div>
+                                <!-- MEETINGS ITEMS :: END -->
+                                <!-- DAY HEADING :: START -->
+                                <div class="day-heading">
+                                    <h3 class="mb-0">
+                                        Tomorrow
+                                    </h3>
+                                    <div class="divider"></div>
+                                </div>
+                                <!-- DAY HEADING :: END -->
+                                <!-- MEETINGS ITEMS :: START -->
+                                <div class="meeting-items">
+                                    <!-- MEETING ITEM :: START -->
+                                    <div class="d-flex align-items-baseline py-3 meeting-item">
+                                        <div class="time w-100">
+                                            10:30
+                                            PM
+                                        </div>
+                                        <div class="px-2 meeting-details">
+                                            <h6 class="mb-0">Data Science Training</h6>
+                                            <p class="mb-0">Meeting ID : 177 6571 2345</p>
+                                        </div>
+                                        <button class="meeting-btn">Start</button>
+                                    </div>
+                                    <div class="divider"></div>
+                                    <!-- MEETING ITEM :: END -->
+                                    <!-- MEETING ITEM :: START -->
+                                    <div class="d-flex align-items-baseline py-3 meeting-item">
+                                        <div class="time w-100">
+                                            14:30
+                                        </div>
+                                        <div class="px-2 meeting-details">
+                                            <h6 class="mb-0">Creative Brainstorming</h6>
+                                            <p class="mb-0">Meeting ID : 177 6571 2345</p>
+                                        </div>
+                                        <button class="meeting-btn">Start</button>
+                                    </div>
+                                    <div class="divider"></div>
+                                    <!-- MEETING ITEM :: END -->
+                                    <!-- MEETING ITEM :: START -->
+                                    <div class="d-flex align-items-baseline py-3 meeting-item">
+                                        <div class="time w-100">
+                                            14:30
+                                        </div>
+                                        <div class="px-2 meeting-details">
+                                            <h6 class="mb-0">Creative Brainstorming</h6>
+                                            <p class="mb-0">Meeting ID : 177 6571 2345</p>
+                                        </div>
+                                        <button class="meeting-btn">Start</button>
+                                    </div>
+                                    <div class="divider"></div>
+                                    <!-- MEETING ITEM :: END -->
+                                    <!-- MEETING ITEM :: START -->
+                                    <div class="d-flex align-items-baseline py-3 meeting-item">
+                                        <div class="time w-100">
+                                            10:30
+                                            PM
+                                        </div>
+                                        <div class="px-2 meeting-details">
+                                            <h6 class="mb-0">Data Science Training</h6>
+                                            <p class="mb-0">Meeting ID : 177 6571 2345</p>
+                                        </div>
+                                        <button class="meeting-btn">Start</button>
+                                    </div>
+                                    <div class="divider"></div>
+                                    <!-- MEETING ITEM :: END -->
+                                    <!-- MEETING ITEM :: START -->
+                                    <div class="d-flex align-items-baseline py-3 meeting-item">
+                                        <div class="time w-100">
+                                            14:30
+                                        </div>
+                                        <div class="px-2 meeting-details">
+                                            <h6 class="mb-0">Creative Brainstorming</h6>
+                                            <p class="mb-0">Meeting ID : 177 6571 2345</p>
+                                        </div>
+                                        <button class="meeting-btn">Start</button>
+                                    </div>
+                                    <div class="divider"></div>
+                                    <!-- MEETING ITEM :: END -->
+                                    <!-- MEETING ITEM :: START -->
+                                    <div class="d-flex align-items-baseline py-3 meeting-item">
+                                        <div class="time w-100">
+                                            14:30
+                                        </div>
+                                        <div class="px-2 meeting-details">
+                                            <h6 class="mb-0">Creative Brainstorming</h6>
+                                            <p class="mb-0">Meeting ID : 177 6571 2345</p>
+                                        </div>
+                                        <button class="meeting-btn">Start</button>
+                                    </div>
+                                    <div class="divider"></div>
+                                    <!-- MEETING ITEM :: END -->
+                                </div>
+                                <!-- MEETINGS ITEMS :: END -->
+                                <!-- DAY HEADING :: START -->
+                                <div class="day-heading">
+                                    <h3 class="mb-0">
+                                        Jul 20, 2023
+                                    </h3>
+                                    <div class="divider"></div>
+                                </div>
+                                <!-- DAY HEADING :: END -->
+                                <!-- MEETINGS ITEMS :: START -->
+                                <div class="meeting-items">
+                                    <!-- MEETING ITEM :: START -->
+                                    <div class="d-flex align-items-baseline py-3 meeting-item">
+                                        <div class="time w-100">
+                                            10:30
+                                            PM
+                                        </div>
+                                        <div class="px-2 meeting-details">
+                                            <h6 class="mb-0">Data Science Training</h6>
+                                            <p class="mb-0">Meeting ID : 177 6571 2345</p>
+                                        </div>
+                                        <button class="meeting-btn">Start</button>
+                                    </div>
+                                    <div class="divider"></div>
+                                    <!-- MEETING ITEM :: END -->
+                                    <!-- MEETING ITEM :: START -->
+                                    <div class="d-flex align-items-baseline py-3 meeting-item">
+                                        <div class="time w-100">
+                                            14:30
+                                        </div>
+                                        <div class="px-2 meeting-details">
+                                            <h6 class="mb-0">Creative Brainstorming</h6>
+                                            <p class="mb-0">Meeting ID : 177 6571 2345</p>
+                                        </div>
+                                        <button class="meeting-btn">Start</button>
+                                    </div>
+                                    <div class="divider"></div>
+                                    <!-- MEETING ITEM :: END -->
+                                    <!-- MEETING ITEM :: START -->
+                                    <div class="d-flex align-items-baseline py-3 meeting-item">
+                                        <div class="time w-100">
+                                            14:30
+                                        </div>
+                                        <div class="px-2 meeting-details">
+                                            <h6 class="mb-0">Creative Brainstorming</h6>
+                                            <p class="mb-0">Meeting ID : 177 6571 2345</p>
+                                        </div>
+                                        <button class="meeting-btn">Start</button>
+                                    </div>
+                                    <div class="divider"></div>
+                                    <!-- MEETING ITEM :: END -->
+                                </div>
+                                <!-- MEETINGS ITEMS :: END -->
+                            </div>
+                            <!-- Meeting Container :: END -->
+                            <!-- Meeting Container :: START -->
+                            <div class="tab-pane meeting-container fade" id="meetings-recurring" role="tabpanel"
+                                aria-labelledby="meetings-recurring-tab">
+                                <!-- NO MEETING STATE :: START -->
+                                <div class="d-flex flex-column justify-content-center align-items-center no-meetings">
+                                    <img class="img-fluid" src="../assets/img-new/no-meetings.svg" alt="NO MEETINGS"
+                                        width="" height="">
+                                    <p>No Meeting Scheduled</p>
+                                </div>
+                                <!-- NO MEETING STATE :: END -->
+                            </div>
+                            <!-- Meeting Container :: END -->
+                        </div>
+                        <!-- powered by zoom -->
+                        <div class="d-flex flex-column justify-content-center align-items-center py-2 pawerBy">
+                            <img class="img-fluid" width="80" src="../assets/img-new/light/zoom-communications-logo.png"
+                                alt="zoom-communications-logo">
+                        </div>
+                        <!-- powered by zoom -->
+
+                    </div>
+                    <!-- Meeting Tab :: End -->
+                    <div class="tab-pane fade" id="v-pills-setting" role="tabpanel"
+                        aria-labelledby="v-pills-setting-tab">Setting</div>
+                </div>
+                <!-- LEFT SIDE NAV CONTENT :: ENDS -->
+            </section>
+            <!-- MIDDLE CONTENT :: ENDS -->
+
+            <!-- CONTACTS :: RIGHT SIDE CONTENT :: STARTS -->
+            <section class="right-side">
+                <div class="header justify-content-start">
+                    <button class="tooltip backButton" tabindex="19">
+                        <span class="tooltiptext">Back</span>
+                        <svg class="img-fluid" width="18" height="18" viewBox="0 0 18 18" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8.38462 17L1 9L8.38462 1M2.02564 9H17" stroke="var(--black-to-white-text)"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                    </button>
+                    <h3 class="px-2">
+                        Schedule Meetings
+                    </h3>
+                </div>
+                <!-- Schedule Meetings Form :: START -->
+                <form class="meeting-form d-flex flex-column">
+                    <!-- FORM CONTAINER :: START -->
+                    <div class="row gx-0 gy-2 mx-0 meeting-form-container">
+                        <!-- Meeting Title :: START -->
+                        <div class="col-12">
+                            <label for="meeting_title">Meeting Title</label>
+                        </div>
+                        <div class="col-12">
+                            <input class="new-input" type="text" placeholder="Enter the title" name="meeting_title"
+                                id="meeting_title">
+                        </div>
+                        <!-- Meeting Title :: END -->
+                    </div>
+                    <!-- FORM CONTAINER :: END -->
+
+                    <!-- Meeting FORM Title :: START -->
+                    <div class="meeting-form-title text-uppercase">
+                        Schedule
+                    </div>
+                    <!-- Meeting FORM Title :: End -->
+
+                    <!-- FORM CONTAINER :: START -->
+                    <div class="row gy-3 gx-0 mx-0 meeting-form-container">
+                        <!-- Date & Time :: START -->
+                        <div class="col-12">
+                            <div class="d-flex align-items-center justify-content-start flex-wrap gap-2">
+                                <div class="schedule-lable">
+                                    <label for="start_date">Date & Time</label>
+                                </div>
+                                <div class="flex-shrink-0 flex-grow-1 mw-100">
+                                    <div class="d-flex align-items-center justify-content-start gap-2">
+                                        <div class="flex-shrink-0 date-container">
+                                            <input class="new-select-input form-select date-selector" type="text"
+                                                placeholder="Selet Date" name="start_date" id="start_date">
+                                        </div>
+                                        <div class="flex-shrink-0 time-container">
+                                            <input
+                                                class="new-select-input form-select time-selector time-start-selector"
+                                                type="text" placeholder="Select Time" name="start_time" id="start_time">
+                                        </div>
+                                        <!-- <div class="to mx-auto">to</div>
+                                        <div class="flex-shrink-0 time-container">
+                                            <input class="new-select-input form-select time-selector time-end-selector"
+                                                type="text" placeholder="Select Time" name="end_time" id="end_time">
+                                        </div>
+                                        <div class="flex-shrink-0 date-container">
+                                            <input class="new-select-input form-select date-selector" type="text"
+                                                placeholder="Selet Date" name="end_date" id="end_date">
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Date & Time :: END -->
+
+                        <!-- Date & Time To :: START -->
+                        <div class="col-12">
+                            <div class="d-flex align-items-center justify-content-start flex-wrap gap-2">
+                                <div class="schedule-lable to px-3">
+                                    <label for="start_date">to</label>
+                                </div>
+                                <div class="flex-shrink-0 flex-grow-1 mw-100">
+                                    <div class="d-flex align-items-center justify-content-start gap-2">
+                                        <div class="flex-shrink-0 date-container">
+                                            <input class="new-select-input form-select date-selector" type="text"
+                                                placeholder="Selet Date" name="start_date" id="start_date">
+                                        </div>
+                                        <div class="flex-shrink-0 time-container">
+                                            <input
+                                                class="new-select-input form-select time-selector time-start-selector"
+                                                type="text" placeholder="Select Time" name="start_time" id="start_time">
+                                        </div>
+                                        <div class="flex-shrink-0 flex-grow-1 meeting-duration">
+                                            1h
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Date & Time  To :: END -->
+
+                        <!-- Duration :: START -->
+                        <div class="col-12">
+                            <div class="d-flex align-items-center justify-content-start gap-2">
+                                <div class="schedule-lable">
+                                    <label for="duration">Duration:</label>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <select class="form-select new-select-input custom-select-input" name="duration"
+                                        id="duration">
+                                        <option value="15 Minutes" selected>15 Minutes</option>
+                                        <option value="20 Minutes">20 Minutes</option>
+                                        <option value="25 Minutes">25 Minutes</option>
+                                        <option value="30 Minutes">30 Minutes</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Duration :: END -->
+
+                        <!-- Time Zone :: START -->
+                        <div class="col-12">
+                            <div class="d-flex align-items-center justify-content-start gap-2">
+                                <div class="schedule-lable">
+                                    <label for="timeZone">Time Zone:</label>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <select class="form-select new-select-input custom-select-input" name="timeZone"
+                                        id="timeZone">
+                                        <option value="+5:30" selected>Mumbai, Kolkata, New Delhi</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Time Zone :: END -->
+
+                        <!-- Repeat :: START -->
+                        <div class="col-12">
+                            <div class="d-flex align-items-center justify-content-start gap-2">
+                                <div class="schedule-lable">
+                                    <label for="repeat">Repeat:</label>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <select class="form-select new-select-input custom-select-input" name="repeat"
+                                        id="repeat">
+                                        <option value="None" selected>None</option>
+                                        <option value="Every Day">Every Day</option>
+                                        <option value="Every Week">Every Week</option>
+                                        <option value="Every Month">Every Month</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Repeat :: END -->
+
+                        <!-- Repeat Every Daily Example :: START -->
+                        <div class="col-12">
+                            <div class="d-flex align-items-center justify-content-start gap-2">
+                                <div class="schedule-lable">
+                                    <label for="repeatEveryDay">Repeat Every:</label>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <select class="form-select new-select-input custom-select-input w-50"
+                                        name="repeatEveryDay" id="repeatEveryDay">
+                                        <option value="1" selected>1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Repeat Every Daily Example :: END -->
+
+                        <!-- Repeat Every Weekly Example :: START -->
+                        <div class="col-12">
+                            <div class="d-flex align-items-start justify-content-start gap-2">
+                                <div class="schedule-lable">
+                                    <label for="repeatEveryWeek">Repeat Every:</label>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="row gx-0 mx-0">
+                                        <div class="col-3">
+                                            <span class="occurs-on-text">Occurs on</span>
+                                        </div>
+                                        <div class="col-8 offset-1">
+                                            <div class="row g-3 mx-0 week-check-group">
+                                                <div class="col-4">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="1"
+                                                            id="Sun">
+                                                        <label class="form-check-label" for="Sun">
+                                                            Sun
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="1"
+                                                            id="Mon">
+                                                        <label class="form-check-label" for="Mon">
+                                                            Mon
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="1"
+                                                            id="Tue">
+                                                        <label class="form-check-label" for="Tue">
+                                                            Tue
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="1"
+                                                            id="Wed">
+                                                        <label class="form-check-label" for="Wed">
+                                                            Wed
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="1"
+                                                            id="Thu">
+                                                        <label class="form-check-label" for="Thu">
+                                                            Thu
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="1"
+                                                            id="Fri">
+                                                        <label class="form-check-label" for="Fri">
+                                                            Fri
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="1"
+                                                            id="Sat">
+                                                        <label class="form-check-label" for="Sat">
+                                                            Sat
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Repeat Every Weekly Example :: END -->
+
+                        <!-- Repeat Every Monthly Example :: START -->
+                        <div class="col-12">
+                            <div class="d-flex align-items-start justify-content-start gap-2">
+                                <div class="flex-grow-1">
+                                    <div class="row gx-0 mx-0">
+                                        <div class="col-12">
+                                            <span class="occurs-on-text">Occurs on</span>
+                                        </div>
+                                        <div class="col-12 monthly-radio-group">
+                                            <div class="form-check py-2 d-flex align-items-center gap-2 w-100">
+                                                <input class="form-check-input mt-0" checked type="radio"
+                                                    name="repeatEveryMonthly" id="day">
+                                                <label for="day" class="row gx-2 mx-0 w-100 align-items-center">
+                                                    <span class="occurs-on-text col-1">Day</span>
+                                                    <div class="col-3">
+                                                        <select class="form-select new-select-input custom-select-input"
+                                                            name="monthDays" id="monthDays">
+                                                            <option value="1" selected>1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                            <option value="6">6</option>
+                                                            <option value="7">7</option>
+                                                        </select>
+                                                    </div>
+                                                    <span class="occurs-on-text col-auto">Of the month</span>
+                                                </label>
+                                            </div>
+                                            <div class="form-check py-2 d-flex align-items-center gap-2 w-100">
+                                                <input class="form-check-input mt-0" checked type="radio"
+                                                    name="repeatEveryMonthly" id="dayOf">
+                                                <label for="dayOf" class="row gx-2 mx-0 w-100 align-items-center">
+                                                    <span class="col-1"></span>
+                                                    <div class="col-3">
+                                                        <select class="form-select new-select-input custom-select-input"
+                                                            name="dayOfMonth" id="dayOfMonth">
+                                                            <option value="first" selected>First</option>
+                                                            <option value="second">Second</option>
+                                                            <option value="third">Third</option>
+                                                            <option value="last">Last</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <select class="form-select new-select-input custom-select-input"
+                                                            name="daysOfMonth" id="daysOfMonth">
+                                                            <option value="Sun" selected>Sun</option>
+                                                            <option value="Mon">Mon</option>
+                                                            <option value="Tue">Tue</option>
+                                                            <option value="Wed">Wed</option>
+                                                            <option value="Thu">Thu</option>
+                                                            <option value="Fri">Fri</option>
+                                                            <option value="Sat">Sat</option>
+                                                        </select>
+                                                    </div>
+                                                    <span class="occurs-on-text col-auto">Of the month</span>
+                                                </label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Repeat Every Monthly Example :: END -->
+
+                        <!-- End Repeat :: START -->
+                        <div class="col-12">
+                            <div class="d-flex align-items-center justify-content-start gap-2">
+                                <div class="schedule-lable">
+                                    <label for="endRepeat">End Repeat:</label>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <input class="new-select-input form-select date-selector w-50" type="text"
+                                        placeholder="Select Date" name="endRepeat" id="endRepeat">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Repeat :: END -->
+
+                        <!-- Attendees :: START -->
+                        <div class="col-12">
+                            <div class="d-flex flex-column justify-content-start  gap-2">
+                                <div class="schedule-lable">
+                                    <label for="attendees">Attendees</label>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="attendees-search-bar dropdown">
+                                        <input type="search" value="" placeholder="Search for a person by name"
+                                            class="new-input dropdown-toggle h-100" id="attendees"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                        <div class="selected-list-item">
+                                            <div class="d-flex justify-content-center align-items-center">
+                                                aatif.shaikh@ecosmob.com
+                                                <svg class="mx-1" width="8" height="7" viewBox="0 0 8 7" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M6.82623 6.17975L1.46094 0.814453M6.82623 0.814453L1.46094 6.17975"
+                                                        stroke="var(--text-dark-gray-to-white)" stroke-width="1.34132"
+                                                        stroke-linecap="round"></path>
+                                                </svg>
+                                            </div>
+                                            <div class="d-flex justify-content-center align-items-center">
+                                                aatif.shaikh@ecosmob.com
+                                                <svg class="mx-1" width="8" height="7" viewBox="0 0 8 7" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M6.82623 6.17975L1.46094 0.814453M6.82623 0.814453L1.46094 6.17975"
+                                                        stroke="var(--text-dark-gray-to-white)" stroke-width="1.34132"
+                                                        stroke-linecap="round"></path>
+                                                </svg>
+                                            </div>
+                                            <div class="d-flex justify-content-center align-items-center">
+                                                aatif.shaikh@ecosmob.com
+                                                <svg class="mx-1" width="8" height="7" viewBox="0 0 8 7" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M6.82623 6.17975L1.46094 0.814453M6.82623 0.814453L1.46094 6.17975"
+                                                        stroke="var(--text-dark-gray-to-white)" stroke-width="1.34132"
+                                                        stroke-linecap="round"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div class="dropdown-menu chat-suggestion" aria-labelledby="attendees">
+                                            <ul>
+                                                <li>
+                                                    <div>
+                                                        <img src="../assets/img-new/person1.svg">
+                                                    </div>
+                                                    <p>Jason Marcus</p>
+                                                </li>
+                                                <li>
+                                                    <div>
+                                                        aj
+                                                    </div>
+                                                    <p>Alex Jamson</p>
+                                                </li>
+                                                <li>
+                                                    <div>
+                                                        km
+                                                    </div>
+                                                    <p>Karen Marcus</p>
+                                                </li>
+                                                <li>
+                                                    <div>
+                                                        mj
+                                                    </div>
+                                                    <p>Mathus Jeff</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Attendees :: END -->
+
+                    </div>
+                    <!-- FORM CONTAINER :: END -->
+
+                    <!-- Meeting FORM Title :: START -->
+                    <div class="meeting-form-title text-uppercase">
+                        Security
+                    </div>
+                    <!-- Meeting FORM Title :: End -->
+
+                    <!-- PASSCODE :: START -->
+                    <div class="passcode-sec d-flex justify-content-between align-items-center gap-2">
+                        <div class="passcode-left">
+                            <h6>Passcode</h6>
+                            <p>Only users who have the invite link or passcode can join the meeting</p>
+                        </div>
+                        <div class="passcode">xPOOSL</div>
+                    </div>
+                    <!-- PASSCODE :: ENDS -->
+
+                    <!-- Meeting FORM Title :: START -->
+                    <div class="meeting-form-title text-uppercase">
+                        Calendar
+                    </div>
+                    <!-- Meeting FORM Title :: End -->
+
+                    <!-- PASSCODE :: START -->
+                    <div class="d-flex gap-2 align-items-center meeting-form-container monthly-radio-group">
+                        <div class="d-flex align-items-center gap-2">
+                            <input class="form-check-input mt-0" checked type="radio" name="calendar_type" id="google">
+                            <label class="form-check-label" for="google">
+                                Google
+                            </label>
+                        </div>
+                        <div class="d-flex align-items-center gap-2 px-4">
+                            <input class="form-check-input mt-0" type="radio" name="calendar_type" id="outlook">
+                            <label class="form-check-label" for="outlook">
+                                Outlook
+                            </label>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <input class="form-check-input mt-0" type="radio" name="calendar_type" id="other_calendar">
+                            <label class="form-check-label" for="other_calendar">
+                                Other calendar
+                            </label>
+                        </div>
+                    </div>
+                    <!-- PASSCODE :: ENDS -->
+
+                    <!-- Meeting FORM Title :: START -->
+                    <div class="meeting-form-title text-uppercase">
+                        Meeting Options
+                    </div>
+                    <!-- Meeting FORM Title :: End -->
+
+                    <!-- FORM OPTION :: START -->
+                    <div class="row gx-0 gy-2 mx-0 meeting-form-container">
+                        <div class="col-12">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h6 class="mb-0 option-heading">Host Video</h6>
+                                <div class="blf-option meeting-switch">
+                                    <p class="mb-0">Off</p>
+                                    <div class="switch">
+                                        <div class="toggle">
+                                            <input type="checkbox" id="host_vodeo">
+                                            <label for="host_vodeo"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="divider"></div>
+                        </div>
+                        <div class="col-12">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h6 class="mb-0 option-heading">Participant Video</h6>
+                                <div class="blf-option meeting-switch">
+                                    <p class="mb-0">On</p>
+                                    <div class="switch">
+                                        <div class="toggle">
+                                            <input type="checkbox" checked id="participantVideo">
+                                            <label for="participantVideo"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="divider"></div>
+                        </div>
+                        <div class="col-12">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h6 class="mb-0 option-heading">Add to Calendar</h6>
+                                <div class="blf-option meeting-switch">
+                                    <p class="mb-0">On</p>
+                                    <div class="switch">
+                                        <div class="toggle">
+                                            <input type="checkbox" checked id="addToCalendar">
+                                            <label for="addToCalendar"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="divider"></div>
+                        </div>
+                    </div>
+                    <!-- FORM OPTION :: END -->
+
+                    <!-- FORM ACTION BUTTON :: START -->
+                    <div class="meeting-form-container">
+                        <div
+                            class="row mx-0 gx-2 justify-content-end align-items-center login-content action-button-content p-0">
+                            <div class="col-3">
+                                <button class="cancel-btn rounded-pill w-100 m-0" type="button">Cancel</button>
+                            </div>
+                            <div class="col-3">
+                                <button class="gradient-btn rounded-pill w-100 m-0" type="button"
+                                    tabindex="22">Done</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FORM ACTION BUTTON :: END -->
+                </form>
+                <!-- Schedule Meetings Form :: ENDS -->
+            </section>
+            <!-- CONTACTS :: RIGHT SIDE CONTENT :: ENDS -->
+        </div>
+    </div>
+
+    <!-- BOOTSTRAP JQUERY/POPPER JS LINK -->
+    <script src="../assets/js/popper.min.js"></script>
+    <script src="../assets/js/jquery.min.js" type="text/javascript"></script>
+    <script src="../assets/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="../assets/js/select2.js"></script>
+    <script>
+        $(".date-selector").flatpickr({
+            altInput: true,
+            altFormat: "d/m/Y",
+            dateFormat: "Y-m-d",
+            minDate: "2020-01-01",
+            position: "auto left",
+            defaultDate: new Date()
+        });
+        $(".time-start-selector").flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            position: "auto left",
+            time_24hr: false,
+            defaultDate: new Date(),
+        });
+        $(".time-end-selector").flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            position: "auto left",
+            time_24hr: false,
+            defaultDate: new Date(new Date().getTime() + 15 * 60000),
+        });
+        $(".custom-select-input").select2();
+    </script>
+
+</body>
+
+</html>

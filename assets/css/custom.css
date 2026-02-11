@@ -1,0 +1,91 @@
+/** Css Added By Developer: Start */
+.disable {
+    pointer-events: none;
+
+}
+
+.show {
+    display: block !important;
+}
+
+.hide {
+    display: none !important;
+}
+
+.display-show {
+    display: block !important;
+}
+
+.display-none {
+    display: none !important;
+}
+
+.action-disabled {
+    pointer-events: none;
+    opacity: 0.7;
+    color: #808080 !important;
+}
+
+.dial-disabled {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.user-registered {
+    background-color: #2de466 !important;
+}
+
+.user-unregistered {
+    background-color: #E6404E !important;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+/**Loader Css */
+#loading {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1999;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(192, 192, 192, 0.5);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 5%;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+}
+
+.back-button {
+    margin-bottom: 40px;
+}
+
+.back-button img {
+    width: 20px;
+    height: auto;
+}
+
+.blurme {
+    -webkit-filter: blur(2px) grayscale(.5) opacity(0.8);
+}
+
+.blur-image {
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+}
+
+.input-disabled {
+    background-color: #f5f5f5 !important;
+    color: #a0a0a0 !important;
+    cursor: not-allowed !important;
+    opacity: 1 !important;
+}
+
+/** Css Added By Developer: End */

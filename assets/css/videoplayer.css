@@ -1,0 +1,138 @@
+@import url(global.css);
+
+.xdContainer{
+	height: 310px;
+	width: 100%;
+	position: relative;
+	border-radius: 20px;
+}
+
+.xdContainer video{
+	width: -webkit-fill-available;
+    height: 100%;
+    object-fit: cover;
+	border-radius: 20px;
+	background-color: var(--hover-dark-bg);
+}
+
+#video-controls {
+    position: absolute;
+    bottom: 15px;
+    width: 95%;
+	left: 2%;
+	right: 2%;
+}
+
+#video-controls .progress {
+    cursor: pointer;
+    width: 100%;
+    margin: auto;
+    border-radius: 20px !important;
+	background-color: unset !important;
+	height: fit-content !important;
+	line-height: unset !important;
+	display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+	padding: 2px 10px;
+}
+
+#video-controls .plybtn button{
+	width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--white-color);
+    border: none;
+    outline: none;
+}
+
+.current-time,
+.total-time,
+.slash  {
+	color: var(--white-color) !important;	
+	font-size: 11px;
+	font-weight: 500;
+	line-height: 17px;
+	letter-spacing: 0em;
+}
+input[type='range'] {
+	overflow: hidden;
+	-webkit-appearance: none;
+	background-color: var(--white-color);
+	border-radius: 19px;
+  }
+  
+  input[type='range']::-webkit-slider-runnable-track {
+	height: 10px;
+	-webkit-appearance: none;
+	color: var(--call-activity-green);
+	margin-top: -1px;
+  }
+  
+  input[type='range']::-webkit-slider-thumb {
+	width: 10px;
+	-webkit-appearance: none;
+	height: 10px;
+	cursor: ew-resize;
+	background: transparent;
+	box-shadow:-500px 0 0 500px var(--chat-online), inset -500px 0 0 500px var(--chat-online);
+  }
+  
+  /* Input Track */
+  input[type=range]::-webkit-slider-runnable-track  {
+	-webkit-appearance: none;
+	box-shadow: none;
+	border: none;
+	background: transparent;
+  }
+  
+  input[type=range]::-moz-range-track {
+	-webkit-appearance: none;
+	box-shadow: none;
+	border: none;
+	background: transparent;
+  }
+  
+  input[type="range"]::-ms-track {
+	-webkit-appearance: none;
+	box-shadow: none;
+	border: none;
+	background: transparent;
+  }
+#seek{
+	cursor: pointer;
+	grid-area: seek;
+	width: 100%;
+	outline: none;
+	height: 5px;
+	margin: auto;
+}
+
+.controls-main {
+	width: 95%;
+	margin: auto;
+	display: flex;
+	margin-top: 8px;
+}
+
+.volume{
+	display: flex;
+	align-items: center;
+}
+
+.volume .icon{
+	position: absolute;
+    right: 10px;
+}
+
+#superplay {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	display: block;
+}
