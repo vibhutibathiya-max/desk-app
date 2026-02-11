@@ -51,9 +51,10 @@ Click **Export Full Theme (ZIP)** to download:
 To share the preview as a live link:
 
 1. Push this repo to GitHub.
-2. Go to **Settings > Pages** in the repo.
-3. Under **Build and deployment**, set **Source** to **GitHub Actions**.
-4. Push to `main` or `master` – the workflow deploys automatically.
+2. Go to **Settings > Pages** in the **repo** (not account settings).
+3. Under **Build and deployment**, set **Source** to **Deploy from a branch**.
+4. Select branch **gh-pages** and folder **/ (root)**.
+5. Save. Push to `main` – the workflow deploys to `gh-pages` automatically.
 
 **Live URL:** `https://<username>.github.io/<repo-name>/`  
 The root redirects to the whitelabel preview. Direct link: `.../design_pages_new/whitelabel-preview.html`
