@@ -1,4 +1,4 @@
-﻿<html lang="en" dir="ltr" data-theme="system" data-os-type="windows">
+<html lang="en" dir="ltr" data-theme="system" data-os-type="windows">
 
 <head>
     <meta charset="UTF-8">
@@ -1147,6 +1147,22 @@
                 </div>
             </section>
         </div>
+    <!-- Apply logo overrides from logo-gallery uploads (preview-asset:*) -->
+    <script>
+        (function() {
+            try {
+                var keys = Object.keys(localStorage).filter(function(k) { return k.indexOf('preview-asset:') === 0; });
+                keys.forEach(function(key) {
+                    var filename = key.replace('preview-asset:', '');
+                    var dataUrl = localStorage.getItem(key);
+                    if (!dataUrl) return;
+                    document.querySelectorAll('img[src*="' + filename + '"]').forEach(function(img) {
+                        img.src = dataUrl;
+                    });
+                });
+            } catch (e) {}
+        })();
+    </script>
 </body>
 
 </html>

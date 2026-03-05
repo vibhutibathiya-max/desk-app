@@ -72,8 +72,9 @@
             <h2>White-Label Theme</h2>
             
             <label style="font-size:12px;color:#aaa;display:block;margin-bottom:4px">Preview Page</label>
-            <select class="page-select" id="pageSelect">
-                <option value="login.html">Login</option>
+            <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+                <select class="page-select" id="pageSelect" style="flex:1;min-width:0;margin-bottom:0">
+                    <option value="login.html">Login</option>
                 <option value="call_history.html">Call History</option>
                 <option value="call_connecting.html">Call Connecting</option>
                 <option value="call_connecting_video.html">Call Connecting (Video)</option>
@@ -88,7 +89,14 @@
                 <option value="attachment_preview.html">Attachment Preview</option>
                 <option value="loader.html">Loader</option>
                 <option value="chat_loader.html">Chat Loader</option>
-            </select>
+                <option value="autostartup.html">Auto Startup</option>
+                <option value="setting.html">Setting</option>
+                <option value="logo-gallery.html">Logo Gallery</option>
+                <option value="icon-gallery.html">Icon Gallery</option>
+                </select>
+                <a href="logo-gallery.html" target="_blank" rel="noopener" class="btn btn-primary" style="flex-shrink:0;text-decoration:none;display:inline-flex;align-items:center">Logo Gallery</a>
+                <a href="icon-gallery.html" target="_blank" rel="noopener" class="btn btn-primary" style="flex-shrink:0;text-decoration:none;display:inline-flex;align-items:center">Icon Gallery</a>
+            </div>
             
             <label style="font-size:12px;color:#aaa;display:block;margin-bottom:4px">Theme Mode</label>
             <div class="theme-toggle">
@@ -96,43 +104,14 @@
                 <button type="button" id="btnDark">Dark</button>
             </div>
             
-            <div class="section">
+            <div id="lightColorsSection" class="section">
                 <h3>Light Mode Colors</h3>
                 <div id="lightColors"></div>
             </div>
             
-            <div class="section">
+            <div id="darkColorsSection" class="section" style="display:none">
                 <h3>Dark Mode Colors</h3>
                 <div id="darkColors"></div>
-            </div>
-            
-            <div class="section">
-                <h3>Upload Assets (Logo, Icons)</h3>
-                <input type="file" id="assetFileInput" accept=".svg,.png,.jpg,.jpeg,.gif,.webp" multiple style="display:none">
-                <input type="file" id="assetFolderInput" webkitdirectory directory multiple style="display:none">
-                <div class="btn-group">
-                    <button class="btn btn-secondary" id="btnUploadAssets">Upload Images</button>
-                    <button class="btn btn-secondary" id="btnUploadFolder">Upload Folder</button>
-                    <button class="btn btn-secondary" id="btnClearAssets" style="display:none">Clear Assets</button>
-                </div>
-                <p class="gradient-note" id="uploadedAssetsInfo"></p>
-                <details class="asset-details">
-                    <summary>Which images can I change? How does it work?</summary>
-                    <div class="asset-slots-list">
-                        <p><strong>Upload a file with the same filename</strong> – it replaces that asset in the preview and export.</p>
-                        <table class="asset-table">
-                            <tr><th>Asset</th><th>Filename</th><th>Where it appears</th></tr>
-                            <tr><td>Login logo</td><td>logo-color.svg</td><td>Login page</td></tr>
-                            <tr><td>Header logo</td><td>logo-header.svg</td><td>Navbar, all pages</td></tr>
-                            <tr><td>Device illustration</td><td>right-side-vector.svg</td><td>Login page</td></tr>
-                            <tr><td>Login curves bg</td><td>curves.svg</td><td>Login background</td></tr>
-                            <tr><td>Status icons</td><td>online.svg, away.svg, busy.svg, dnd.svg</td><td>Contact list</td></tr>
-                            <tr><td>Sidebar icons</td><td>logout.svg, transfer, etc.</td><td>public/app-icon/icon/</td></tr>
-                            <tr><td>Other icons</td><td>Same as project</td><td>assets/img-new/ or public/app-icon/</td></tr>
-                        </table>
-                        <p><strong>Folder upload:</strong> Use structure <code>assets/img-new/</code> or <code>public/app-icon/logo/</code> or <code>public/app-icon/icon/light/</code> &amp; <code>dark/</code></p>
-                    </div>
-                </details>
             </div>
             
             <div class="section">
@@ -153,9 +132,8 @@
             </div>
             
             <p style="font-size:10px;color:#666;margin-top:16px;line-height:1.4">
-                <strong>Upload Images/Folder</strong> – Replace logo & icons from <code>assets/img-new/</code> and <code>public/app-icon/</code>. Use same filenames.<br>
-                <strong>Export Full Theme</strong> – ZIP with global.css + assets. Extract to project root – no code changes.<br>
-                <strong>Click "Which images..."</strong> above for the full list of replaceable assets.
+                <strong>Logo Gallery</strong> – Upload logos via Logo Gallery button above. Replace by same filename, export as logo.zip.<br>
+                <strong>Export Full Theme</strong> – ZIP with global.css. Extract to project root – no code changes.
             </p>
         </aside>
         
@@ -216,11 +194,20 @@
         }
         
         function parseGradientColors(str) {
-            const matches = (str || '').match(/#[0-9A-Fa-f]{6}/g);
-            return matches ? [...matches.slice(0, 4)] : ['#6533e2', '#7349de', '#1f97ef'];
+            const matches = (str || '').match(/#[0-9A-Fa-f]{6}|#[0-9A-Fa-f]{3}(?![0-9A-Fa-f])/g);
+            return matches ? [...matches.slice(0, 4)].map(c => toHex6(c) || c) : ['#6533e2', '#7349de', '#1f97ef'];
+        }
+        function toHex6(hex) {
+            if (!hex || !/^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/.test(String(hex).trim())) return hex;
+            const h = String(hex).trim().slice(1);
+            if (h.length === 3) return '#' + h[0]+h[0]+h[1]+h[1]+h[2]+h[2];
+            return hex;
+        }
+        function isHexColor(val) {
+            return val && /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/.test(String(val).trim());
         }
         function buildGradient(colors, angle) {
-            const c = colors.filter(x => x && /^#[0-9A-Fa-f]{6}$/.test(x));
+            const c = colors.filter(x => x && isHexColor(x)).map(x => toHex6(x));
             if (!c.length) return 'linear-gradient(270deg, #6533e2 0%, #1f97ef 100%)';
             const pcts = c.length === 2 ? [0, 100] : c.length === 3 ? [0, 50, 100] : [0, 33, 66, 100];
             const stops = c.map((col, i) => `${col} ${pcts[i] || 0}%`).join(', ');
@@ -263,21 +250,20 @@
                     textInput.placeholder = '#000000';
                     textInput.title = 'Enter hex (e.g. #ff0000)';
                     const updateGradient = () => {
-                        const hex = (colorInput.value && /^#[0-9A-Fa-f]{6}$/.test(colorInput.value))
-                            ? colorInput.value
-                            : (/^#[0-9A-Fa-f]{6}$/.test(textInput.value) ? textInput.value : col);
+                        let hex = colorInput.value;
+                        if (!hex || !isHexColor(hex)) hex = isHexColor(textInput.value) ? toHex6(textInput.value) : toHex6(col) || col;
+                        hex = toHex6(hex) || hex;
                         colorInput.value = hex;
                         textInput.value = hex;
                         const allColorInputs = gradientEl.querySelectorAll('input[type="color"]');
                         const collected = Array.from(allColorInputs).map(inp => (inp.value || '').trim()).filter(Boolean);
                         const grad = buildGradient(collected.length ? collected : [hex], angle);
-                        gradientVars.forEach(v => applyVar(v, grad));
                         injectOverrideStyle();
                     };
                     colorInput.addEventListener('input', updateGradient);
                     colorInput.addEventListener('change', updateGradient);
                     textInput.addEventListener('input', () => {
-                        if (/^#[0-9A-Fa-f]{6}$/.test(textInput.value)) colorInput.value = textInput.value;
+                        if (isHexColor(textInput.value)) colorInput.value = toHex6(textInput.value);
                         updateGradient();
                     });
                     itemEl.appendChild(span);
@@ -329,36 +315,31 @@
                 inputsWrap.appendChild(uploadBtn);
                 wrapper.appendChild(inputsWrap);
             } else {
-                const isHexColor = item.value && /^#[0-9A-Fa-f]{6}$/.test(String(item.value).trim());
+                const isHex = isHexColor(item.value);
                 const inputsWrap = document.createElement('div');
                 inputsWrap.className = 'color-inputs';
                 const textInput = document.createElement('input');
                 textInput.type = 'text';
-                textInput.value = item.value || (isHexColor ? '#614b98' : '');
-                textInput.placeholder = isHexColor ? '#000000' : 'e.g. transparent, url(...)';
-                textInput.title = isHexColor ? 'Enter hex color (e.g. #ff0000)' : 'Enter CSS value';
+                textInput.value = item.value || (isHex ? '#614b98' : '');
+                textInput.placeholder = isHex ? '#000000' : 'e.g. transparent, url(...)';
+                textInput.title = isHex ? 'Enter hex color (e.g. #ff0000 or #f00)' : 'Enter CSS value';
                 textInput.style.flex = '1';
-                if (isHexColor) {
+                if (isHex) {
                     const colorInput = document.createElement('input');
                     colorInput.type = 'color';
                     colorInput.title = 'Click to pick color';
-                    colorInput.value = item.value || '#614b98';
+                    colorInput.value = toHex6(item.value) || '#614b98';
                     colorInput.addEventListener('input', () => {
                         textInput.value = colorInput.value;
-                        applyVar(item.var, colorInput.value);
                         injectOverrideStyle();
                     });
                     textInput.addEventListener('input', () => {
-                        if (/^#[0-9A-Fa-f]{6}$/.test(textInput.value)) colorInput.value = textInput.value;
-                        applyVar(item.var, textInput.value);
+                        if (isHexColor(textInput.value)) colorInput.value = toHex6(textInput.value);
                         injectOverrideStyle();
                     });
                     inputsWrap.appendChild(colorInput);
                 } else {
-                    textInput.addEventListener('input', () => {
-                        applyVar(item.var, textInput.value);
-                        injectOverrideStyle();
-                    });
+                    textInput.addEventListener('input', () => injectOverrideStyle());
                 }
                 inputsWrap.appendChild(textInput);
                 wrapper.appendChild(inputsWrap);
@@ -370,23 +351,26 @@
         function renderControls() {
             const lightEl = document.getElementById('lightColors');
             const darkEl = document.getElementById('darkColors');
+            if (!lightEl) return;
             lightEl.innerHTML = '';
-            darkEl.innerHTML = '';
+            if (darkEl) darkEl.innerHTML = '';
             
-            for (const [key, item] of Object.entries(config.light)) {
+            for (const [key, item] of Object.entries(config.light || {})) {
                 if (item.type === 'gradient') continue;
                 lightEl.appendChild(createColorInput(key, item, 'light'));
             }
-            for (const [key, item] of Object.entries(config.light)) {
+            for (const [key, item] of Object.entries(config.light || {})) {
                 if (item.type === 'gradient') lightEl.appendChild(createColorInput(key, item, 'light'));
             }
             
-            for (const [key, item] of Object.entries(config.dark)) {
-                if (item.type === 'gradient') continue;
-                darkEl.appendChild(createColorInput(key, item, 'dark'));
-            }
-            for (const [key, item] of Object.entries(config.dark)) {
-                if (item.type === 'gradient') darkEl.appendChild(createColorInput(key, item, 'dark'));
+            if (config.dark && darkEl) {
+                for (const [key, item] of Object.entries(config.dark)) {
+                    if (item.type === 'gradient') continue;
+                    darkEl.appendChild(createColorInput(key, item, 'dark'));
+                }
+                for (const [key, item] of Object.entries(config.dark)) {
+                    if (item.type === 'gradient') darkEl.appendChild(createColorInput(key, item, 'dark'));
+                }
             }
         }
         
@@ -418,7 +402,7 @@
                 style.id = OVERRIDE_STYLE_ID;
                 (doc.head || doc.documentElement).appendChild(style);
             }
-            const colors = currentTheme === 'light' ? config.light : config.dark;
+            const colors = currentTheme === 'light' ? (config.light || {}) : (config.dark || {});
             const lines = [];
             const valueByVar = {};
             for (const [key, item] of Object.entries(colors)) {
@@ -428,10 +412,8 @@
                     const val = getGradientValueFromWrapper(wrapper);
                     if (val) {
                         const vars = new Set(item.gradientVars || [item.var]);
-                        if (key === 'buttonGradient' || key === 'headerGradient') {
-                            vars.add('--header-gadient');
-                            vars.add('--btn-gradient');
-                        }
+                        if (key === 'buttonGradient') vars.add('--btn-gradient');
+                        if (key === 'headerGradient') vars.add('--header-gadient');
                         vars.forEach(v => { lines.push(`${v}: ${val};`); valueByVar[v] = val; });
                     }
                 } else {
@@ -451,6 +433,10 @@
         
         function applyTheme(theme) {
             currentTheme = theme;
+            const lightSection = document.getElementById('lightColorsSection');
+            const darkSection = document.getElementById('darkColorsSection');
+            if (lightSection) lightSection.style.display = theme === 'light' ? 'block' : 'none';
+            if (darkSection) darkSection.style.display = theme === 'dark' ? 'block' : 'none';
             applyAllStored();
         }
         
@@ -527,28 +513,25 @@
             if (uploadedAssets[assetPath]?.blobUrl) URL.revokeObjectURL(uploadedAssets[assetPath].blobUrl);
             uploadedAssets[assetPath] = { file, blobUrl: URL.createObjectURL(file) };
         }
-        
-        const ASSET_LABELS = { 'logo-color.svg': 'Login logo', 'logo.svg': 'Logo', 'logo-header.svg': 'Header logo', 'logo-white.svg': 'Logo white', 'right-side-vector.svg': 'Device illustration', 'curves.svg': 'Login curves', 'online.svg': 'Online', 'away.svg': 'Away', 'busy.svg': 'Busy', 'dnd.svg': 'DND', 'logout.svg': 'Logout', 'arrow-down.svg': 'Arrow', 'blind-trasferred.svg': 'Transfer', 'autoStartup.svg': 'Auto start', 'clear-history.svg': 'Clear history', 'no-calls-found.svg': 'No calls', 'no-contacts-found.svg': 'No contacts', 'start-chat.svg': 'Start chat', 'sip-configuration.svg': 'SIP config' };
-        function getAssetLabel(path) { const fn = path.split('/').pop(); return ASSET_LABELS[fn] || fn; }
         function updateAssetsInfo() {
-            const paths = Object.keys(uploadedAssets);
-            const count = paths.length;
             const el = document.getElementById('uploadedAssetsInfo');
-            if (count) {
-                const unique = [...new Set(paths.map(p => p.split('/').pop()))];
-                const labels = unique.slice(0, 5).map(f => getAssetLabel(f)).join(', ');
-                el.innerHTML = '<strong>' + count + ' path(s)</strong> updated: ' + labels + (unique.length > 5 ? ' +' + (unique.length - 5) + ' more' : '');
-                document.getElementById('btnClearAssets').style.display = 'inline-block';
-            } else {
-                el.textContent = '';
-                document.getElementById('btnClearAssets').style.display = 'none';
-            }
+            if (el) el.textContent = Object.keys(uploadedAssets).length ? Object.keys(uploadedAssets).length + ' asset(s)' : '';
         }
         
+        
+        let applyRetryCount = 0;
         function applyAllStored() {
             const doc = getFrameDoc();
-            if (!doc || !doc.documentElement) return;
+            if (!doc || !doc.documentElement) {
+                if (applyRetryCount < 3) {
+                    applyRetryCount++;
+                    setTimeout(() => applyAllStored(), 300);
+                }
+                return;
+            }
+            applyRetryCount = 0;
             doc.documentElement.setAttribute('data-theme', currentTheme);
+            doc.documentElement.dataset.theme = currentTheme;
             if (uploadedCssContent) injectUploadedStyle();
             else removeUploadedStyle();
             injectOverrideStyle();
@@ -568,7 +551,7 @@
                 } else val = (wrapper?.querySelector('input[type="text"]') || wrapper?.querySelector('input[type="color"]'))?.value;
                 light[key] = val || item.value;
             }
-            for (const [key, item] of Object.entries(config.dark)) {
+            for (const [key, item] of Object.entries(config.dark || {})) {
                 const wrapper = document.querySelector(`[data-var="${item.var}"][data-mode="dark"]`);
                 let val;
                 if (item.type === 'gradient') val = getGradientValueFromWrapper(wrapper);
@@ -591,7 +574,7 @@
                 dark: {}
             };
             for (const [k, v] of Object.entries(light)) exportData.light[k] = { var: config.light[k]?.var, value: v };
-            for (const [k, v] of Object.entries(dark)) exportData.dark[k] = { var: config.dark[k]?.var, value: v };
+            for (const [k, v] of Object.entries(dark)) exportData.dark[k] = { var: config.dark?.[k]?.var, value: v };
             const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
             const a = document.createElement('a');
             a.href = URL.createObjectURL(blob);
@@ -600,120 +583,33 @@
             URL.revokeObjectURL(a.href);
         }
         
+        /* Maps whitelabel keys to CSS vars in global.css. Derived vars (based on primary, etc.) get same value. */
         const GLOBAL_CSS_MAP = {
             light: {
-                primaryColor: ['--primary-color'],
+                primaryColor: ['--primary-color', '--sidebar-active-icon', '--received-chat-bubble-file-icon-light'],
                 secondaryColor: ['--secondary-color'],
-                background: ['--background'],
-                loginBg: ['--login-bg-color-light'],
-                cardColor: ['--card-color'],
-                sidebar: ['--sidebar'],
-                sidebarHover: ['--sidebar-hover'],
-                sidebarActiveIcon: ['--sidebar-active-icon'],
-                textPrimary: ['--black-color'],
-                textSecondary: ['--text-dark-gray'],
-                textGray: ['--gray-color'],
-                textOnDark: ['--white-color-light'],
-                placeholder: ['--gray-color'],
-                divider: ['--separator'],
-                scrollbar: ['--scroll-color'],
-                modalBg: ['--modal-background'],
-                dropdowns: ['--dropdowns'],
-                hoverElement: ['--hover-element'],
-                inputBorderFocused: ['--focused-element-border'],
                 mainGradientStart: ['--main-gradient-color'],
-                buttonGradient: ['--button-gradient', '--header-gadient-color'],
-                headerGradient: ['--button-gradient', '--header-gadient-color'],
+                buttonGradient: ['--button-gradient'],
+                headerGradient: ['--header-gadient-color'],
                 dynamicBarColor: ['--dynamic-bar-color'],
                 dynamicBarIconColor: ['--dynamic-bar-icon-color'],
-                hoverStatesLight: ['--hover_states_light'],
-                hoverStatesDark: ['--hover-states-dark'],
-                callBtnColor: ['--call-btn-color'],
-                myChatColor: ['--my-chat-color'],
-                otherChatColor: ['--other-chat-color'],
-                docBackgroundReciever: ['--doc-background-reciever'],
-                docBackgroundSender: ['--doc-background-sender'],
-                headerHover: ['--header-hover'],
-                hoverIcon: ['--hover-icon'],
-                labelColor: ['--label-color'],
                 crmPrimaryLight: ['--crm-primary-light'],
-                crmSecondaryLight: ['--crm-secondary-light'],
-                backgroundImage: ['--background-image'],
-                dropdownSecondary: ['--dropdown-secondary'],
-                sidebarActiveBg: ['--sidebar-active-bg'],
-                keypadColor: ['--keypad-color'],
-                dropdownItem: ['--dropdown-item'],
-                sendedChatBubble: ['--sended-chat-bubble-light'],
-                receivedChatBubble: ['--received-chat-bubble-light'],
-                sendedChatBubbleFileBg: ['--sended-chat-bubble-file-bg'],
-                receivedChatBubbleFileBg: ['--received-chat-bubble-file-bg'],
-                sendedChatBubbleFileIcon: ['--sended-chat-bubble-file-icon-light'],
-                receivedChatBubbleFileIcon: ['--received-chat-bubble-file-icon-light'],
-                callPopupBg: ['--call-popup-bg-light'],
-                highlightTxt: ['--highlight-txt-light'],
-                tertiary: ['--tertiary-light'],
-                blurBg: ['--blur-bg-light'],
-                loginVersionColor: ['--login-version-color-light'],
-                curvesBgImage: ['--curves-bg-image']
+                tertiary: ['--tertiary-light']
             },
             dark: {
-                primaryColor: ['--primary-color-dark'],
+                primaryColor: ['--primary-color-dark', '--sidebar-active-icon-dark'],
                 secondaryColor: ['--secondary-color-dark'],
-                background: ['--background-dark'],
-                loginBg: ['--login-bg-color-dark'],
-                cardColor: ['--card-color-dark'],
-                sidebar: ['--sidebar-dark'],
-                sidebarHover: ['--sidebar-hover-dark'],
-                sidebarActiveIcon: ['--sidebar-active-icon-dark'],
-                textPrimary: ['--black-color-dark'],
-                textSecondary: ['--text-dark-gray-dark'],
-                textGray: ['--gray-color-dark'],
-                textOnDark: ['--white-color-dark'],
-                placeholder: ['--gray-color-dark'],
-                divider: ['--separator-dark'],
-                scrollbar: ['--scroll-color-dark'],
-                modalBg: ['--modal-background-dark'],
-                dropdowns: ['--dropdowns-dark'],
-                hoverElement: ['--hover-element-dark'],
-                inputBorderFocused: ['--focused-element-border-dark'],
                 mainGradient: ['--main-gradient-color-dark'],
                 buttonGradient: ['--button-gradient-dark'],
                 headerGradient: ['--header-gadient-color-dark'],
-                inputBg: ['--highlights'],
-                hoverStatesLight: ['--hover_states_light-dark'],
-                hoverStatesDark: ['--hover-states-dark_dark'],
-                callBtnColor: ['--call-btn-color-dark'],
-                myChatColor: ['--my-chat-color-dark'],
-                otherChatColor: ['--other-chat-color-dark'],
-                docBackgroundReciever: ['--doc-background-reciever-dark'],
-                docBackgroundSender: ['--doc-background-sender-dark'],
-                headerHover: ['--header-hover-dark'],
-                hoverIcon: ['--hover-icon-dark'],
-                labelColor: ['--label-color-dark'],
+                dynamicBarColor: ['--dynamic-bar-color'],
+                dynamicBarIconColor: ['--dynamic-bar-icon-color'],
                 crmPrimaryDark: ['--crm-primary-dark'],
-                crmSecondaryDark: ['--crm-secondary-dark'],
-                backgroundImage: ['--background-image-dark'],
-                dropdownSecondary: ['--dropdown-secondary-dark'],
-                sidebarActiveBg: ['--sidebar-active-bg-dark'],
-                keypadColor: ['--keypad-color-dark'],
-                highlights: ['--highlights'],
-                dropdownItem: ['--dropdown-item-dark'],
-                sendedChatBubble: ['--sended-chat-bubble-dark'],
-                receivedChatBubble: ['--received-chat-bubble-dark'],
-                sendedChatBubbleFileBg: ['--sended-chat-bubble-file-bg-dark'],
-                receivedChatBubbleFileBg: ['--received-chat-bubble-file-bg-dark'],
-                sendedChatBubbleFileIcon: ['--sended-chat-bubble-file-icon-dark'],
-                receivedChatBubbleFileIcon: ['--received-chat-bubble-file-icon-dark'],
-                callPopupBg: ['--call-popup-bg-dark'],
-                highlightTxt: ['--highlight-txt-dark'],
-                tertiary: ['--tertiary-dark'],
-                blurBg: ['--blur-bg-dark'],
-                loginVersionColor: ['--login-version-color-dark'],
-                curvesBgImage: ['--curves-bg-image-dark']
+                tertiary: ['--tertiary-dark']
             }
         };
         
-        const GLOBAL_CSS_FALLBACK = `/* Default and light mode Global */
+        const GLOBAL_CSS_FALLBACK = `/* Main product defaults - 9 whitelabel vars */
 :root {
   --primary-color: #614b98;
   --secondary-color: #57a1d7;
@@ -722,106 +618,18 @@
   --button-gradient: linear-gradient(270deg, #6533e2 0.26%, #7349de 30.28%, #1f97ef 97.16%);
   --dynamic-bar-color: #5834d3;
   --dynamic-bar-icon-color: #6940de;
-  --hover_states_light: #f7fafd;
-  --hover-states-dark: #dbe8f7;
-  --call-btn-color: #e5e5e5;
-  --my-chat-color: #eef6fb;
-  --other-chat-color: #efedf5;
-  --doc-background-reciever: #e6e3ef;
-  --doc-background-sender: #dbe8f7;
-  --scroll-color: #b5d6ed;
-  --focused-element-border: #70a0ff;
-  --hover-element: #e9f0f8;
-  --header-hover: #5e9acb;
-  --hover-icon: #e3e3e3;
-  --label-color: #006be0;
-  --background: #fff;
-  --crm-primary-light:#fff;
-  --crm-secondary-light:#000000;
-  --background-image: linear-gradient(0deg, transparent, transparent);
-  --dropdowns: #fff;
-  --dropdown-secondary: #f2f2f2;
-  --sidebar: #f2f2f2;
-  --sidebar-hover: #e9f0f8;
-  --sidebar-active-bg: transparent;
-  --sidebar-active-icon: #614b98;
-  --separator: #f1f1f1;
-  --card-color: #fff;
-  --keypad-color: #f2f2f2;
-  --dropdown-item: #e9f0f8;
-  --white-color-light: #ffffff;
-  --black-color: #000000;
-  --text-dark-gray: #474747;
-  --gray-color: #949494;
-  --modal-background: #fff;
-  --sended-chat-bubble-light: #C4E5FF;
-  --received-chat-bubble-light: #E0E0E0;
-  --sended-chat-bubble-file-bg: #ABDAFF;
-  --received-chat-bubble-file-bg: #bdbdbd66;
-  --sended-chat-bubble-file-icon-light: #006be0;
-  --received-chat-bubble-file-icon-light: #614b98;
-  --call-popup-bg-light: #4A4A4A;
-  --highlight-txt-light: #FFDF39;
-  --tertiary-light:#7962B1;
-  --blur-bg-light: rgba(255,255,255,0.9);
-  --login-bg-color-light: #fff;
-  --login-version-color-light: #ffffff;
-  --curves-bg-image: url(../img-new/curves.svg);
+  --crm-primary-light: #fff;
+  --tertiary-light: #7962B1;
 }
 
-/* Dark Mode Global */
 :root {
   --primary-color-dark: #3F3D52;
   --secondary-color-dark: #6B6778;
   --main-gradient-color-dark: linear-gradient(255.04deg, #18162C 6.1%, #2B2A3C 30.7%, #18162C 85.52%);
   --header-gadient-color-dark: linear-gradient(255.04deg, #18162C 6.1%, #2B2A3C 30.7%, #18162C 85.52%);
   --button-gradient-dark: linear-gradient(90deg, #2A2744 0%, #2D2C3A 100%);
-  --hover_states_light-dark: #363546;
-  --hover-states-dark_dark: #363546;
-  --call-btn-color-dark: #2b2933;
-  --my-chat-color-dark: #403e46;
-  --other-chat-color-dark: #2c2a32;
-  --doc-background-reciever-dark: #4f4d56;
-  --doc-background-sender-dark: #4f4d56;
-  --scroll-color-dark: #4f4d56;
-  --focused-element-border-dark: #363546;
-  --hover-element-dark: #363546;
-  --header-hover-dark: #4f4d56;
-  --hover-icon-dark: #4f4d56;
-  --label-color-dark: #D9D9D9;
-  --background-dark: #18162C;
-  --crm-primary-dark:#18162C;
-  --crm-secondary-dark:#D9D9D9;
-  --background-image-dark: linear-gradient(0deg, transparent, transparent);
-  --dropdowns-dark: #1d1c22;
-  --dropdown-secondary-dark: #2b2933;
-  --sidebar-dark: #1D1C31;
-  --sidebar-hover-dark: #4f4d56;
-  --sidebar-active-bg-dark: transparent;
-  --sidebar-active-icon-dark: #D9D9D9;
-  --separator-dark: #2b2933;
-  --card-color-dark: #201F33;
-  --keypad-color-dark: #2B293C;
-  --highlights: #282735;
-  --dropdown-item-dark: #424049;
-  --white-color-dark: #D9D9D9;
-  --black-color-dark: #D9D9D9;
-  --text-dark-gray-dark: #D9D9D9;
-  --gray-color-dark: #D9D9D9;
-  --modal-background-dark: #1d1c22;
-  --sended-chat-bubble-dark: #433D80;
-  --received-chat-bubble-dark: #39374F;
-  --sended-chat-bubble-file-bg-dark: #363166;
-  --received-chat-bubble-file-bg-dark: #2E2D40;
-  --sended-chat-bubble-file-icon-dark: #D9D9D9;
-  --received-chat-bubble-file-icon-dark: #D9D9D9;
-  --call-popup-bg-dark: #4A4A4A;
-  --highlight-txt-dark:#76729C;
-  --tertiary-dark:#6B6778;
-  --blur-bg-dark: #2b293382;
-  --login-bg-color-dark: #18162C;
-  --login-version-color-dark: #ffffff;
-  --curves-bg-image-dark: url(../img-new/curves.svg);
+  --crm-primary-dark: #18162C;
+  --tertiary-dark: #6B6778;
 }`;
 
         function exportCss() {
@@ -866,12 +674,40 @@
             for (const [assetPath, data] of Object.entries(uploadedAssets)) {
                 zip.file(assetPath, data.file);
             }
+            const iconFiles = ['api-test-connection.svg','autoStartup.svg','blind-trasferred.svg','check-mail.svg','clear-history.svg','cloud-contact-banner.svg','done.svg','export-icon.svg','import-icon.svg','logout.svg','no-calls-found.svg','no-contacts-found.svg','no-favoritecontact-found.svg','qr-vector.svg','re-register.svg','right-side-vector.svg','sip-configuration.svg','start-chat.svg','web-socket-connection.svg','web-socket-failed.svg'];
+            function dataUrlToBinary(dataUrl) {
+                if (!dataUrl || !dataUrl.startsWith('data:')) return null;
+                const comma = dataUrl.indexOf(',');
+                if (comma < 0) return null;
+                const payload = dataUrl.slice(comma + 1);
+                if (dataUrl.slice(0, comma).includes('base64')) {
+                    try {
+                        const binary = atob(payload);
+                        const bytes = new Uint8Array(binary.length);
+                        for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+                        return bytes;
+                    } catch (e) { return null; }
+                }
+                try { return new TextEncoder().encode(decodeURIComponent(payload)); } catch (e) { return null; }
+            }
+            for (const filename of iconFiles) {
+                const lightData = localStorage.getItem('preview-asset:icon-light:' + filename);
+                const darkData = localStorage.getItem('preview-asset:icon-dark:' + filename);
+                const lightPath = 'public/app-icon/icon/light/' + filename;
+                const darkPath = 'public/app-icon/icon/dark/' + filename;
+                let bin;
+                if (lightData && (bin = dataUrlToBinary(lightData))) zip.file(lightPath, bin);
+                else try { const r = await fetch('../public/app-icon/icon/light/' + filename); if (r.ok) zip.file(lightPath, await r.blob()); } catch (e) {}
+                if (darkData && (bin = dataUrlToBinary(darkData))) zip.file(darkPath, bin);
+                else try { const r = await fetch('../public/app-icon/icon/dark/' + filename); if (r.ok) zip.file(darkPath, await r.blob()); } catch (e) {}
+            }
             zip.file('WHITELABEL-INSTALL.txt', 'White-Label Theme Installation\n' +
                 '================================\n\n' +
                 '1. Extract this ZIP to your project ROOT directory.\n' +
                 '2. Overwrite existing files when prompted.\n' +
                 '3. No code changes required - assets and CSS are replaced.\n\n' +
-                'Contents: assets/css/global.css (colors) + uploaded images (logo, icons).\n');
+                'Contents: assets/css/global.css (colors) + uploaded images (logo, icons from Logo/Icon Gallery).\n' +
+                'Icons: public/app-icon/icon/light/*.svg and dark/*.svg\n');
             const blob = await zip.generateAsync({ type: 'blob' });
             const a = document.createElement('a');
             a.href = URL.createObjectURL(blob);
@@ -885,7 +721,6 @@
                 if (data.blobUrl) URL.revokeObjectURL(data.blobUrl);
             }
             uploadedAssets = {};
-            updateAssetsInfo();
             loadConfig().then(() => {
                 renderControls();
                 document.getElementById('btnLight').classList.add('active');
@@ -895,6 +730,18 @@
                 document.getElementById('uploadedFileName').textContent = '';
                 document.getElementById('btnClearUploaded').style.display = 'none';
                 document.getElementById('styleFileInput').value = '';
+                applyTheme('light');
+                if (frame && currentSrc) { frame.src = ''; frame.src = currentSrc; }
+            }).catch(() => {
+                renderControls();
+                document.getElementById('btnLight').classList.add('active');
+                document.getElementById('btnDark').classList.remove('active');
+                currentTheme = 'light';
+                uploadedCssContent = null;
+                document.getElementById('uploadedFileName').textContent = '';
+                document.getElementById('btnClearUploaded').style.display = 'none';
+                document.getElementById('styleFileInput').value = '';
+                if (frame && currentSrc) { frame.src = ''; frame.src = currentSrc; }
                 applyTheme('light');
             });
         }
@@ -938,55 +785,19 @@
             applyAllStored();
         });
         
-        document.getElementById('btnUploadAssets').addEventListener('click', () => document.getElementById('assetFileInput').click());
-        document.getElementById('assetFileInput').addEventListener('change', (e) => {
-            const files = Array.from(e.target.files || []);
-            files.forEach(file => {
-                const paths = getAssetPaths(file.name);
-                paths.forEach(p => addUploadedAsset(p, file));
-            });
-            updateAssetsInfo();
-            applyAllStored();
-            e.target.value = '';
-        });
-        
-        document.getElementById('btnUploadFolder').addEventListener('click', () => document.getElementById('assetFolderInput').click());
-        document.getElementById('assetFolderInput').addEventListener('change', (e) => {
-            const files = Array.from(e.target.files || []);
-            files.forEach(file => {
-                let path = file.webkitRelativePath || file.name;
-                const parts = path.replace(/\\/g, '/').split('/');
-                if (parts.length > 1) {
-                    const idx = parts.findIndex(p => p === 'assets' || p === 'public' || p === 'img-new');
-                    path = idx >= 0 ? parts.slice(idx).join('/') : parts.slice(1).join('/');
-                } else {
-                    path = getAssetPaths(file.name)[0];
-                }
-                if (path && /\.(svg|png|jpg|jpeg|gif|webp)$/i.test(file.name)) {
-                    addUploadedAsset(path, file);
-                }
-            });
-            updateAssetsInfo();
-            applyAllStored();
-            e.target.value = '';
-        });
-        
-        document.getElementById('btnClearAssets').addEventListener('click', () => {
-            for (const data of Object.values(uploadedAssets)) {
-                if (data.blobUrl) URL.revokeObjectURL(data.blobUrl);
-            }
-            uploadedAssets = {};
-            updateAssetsInfo();
-            applyAllStored();
-        });
-        
         document.getElementById('btnExport').addEventListener('click', exportTheme);
         document.getElementById('btnExportFull').addEventListener('click', () => exportFullTheme());
         document.getElementById('btnExportCss').addEventListener('click', exportCss);
         document.getElementById('btnReset').addEventListener('click', resetAll);
         
         document.getElementById('previewFrame').addEventListener('load', () => {
-            setTimeout(() => applyAllStored(), 400);
+            setTimeout(() => applyAllStored(), 600);
+        });
+        window.addEventListener('storage', function(e) {
+            if (e.key && e.key.indexOf('preview-asset:icon-') === 0) {
+                const frame = document.getElementById('previewFrame');
+                if (frame && frame.src) { frame.src = frame.src; }
+            }
         });
         
         loadConfig().then(() => {

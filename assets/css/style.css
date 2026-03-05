@@ -1571,7 +1571,7 @@ li {
     margin-bottom: 15px;
     align-items: center !important;
     border-radius: 3px;
-    width: 312px;
+    width: 312px !important;
     transition: all 0.5s ease;
 }
 
@@ -18104,7 +18104,7 @@ body img {
 
 #loaderModal .modal-content {
     max-width: max-content;
-    background: var(--white-color);
+    background: var(--hover-light-bg);
     align-items: center;
     margin: 0 auto;
     display: flex;
