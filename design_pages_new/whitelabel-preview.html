@@ -177,8 +177,7 @@
             're-register.svg': ['public/app-icon/icon/light/re-register.svg', 'public/app-icon/icon/dark/re-register.svg'],
             'sip-configuration.svg': ['public/app-icon/icon/light/sip-configuration.svg', 'public/app-icon/icon/dark/sip-configuration.svg'],
             'start-chat.svg': ['public/app-icon/icon/light/start-chat.svg', 'public/app-icon/icon/dark/start-chat.svg'],
-            'web-socket-connection.svg': ['public/app-icon/icon/light/web-socket-connection.svg', 'public/app-icon/icon/dark/web-socket-connection.svg'],
-            'web-socket-failed.svg': ['public/app-icon/icon/light/web-socket-failed.svg', 'public/app-icon/icon/dark/web-socket-failed.svg']
+            'web-socket-connection.svg': ['public/app-icon/icon/light/web-socket-connection.svg', 'public/app-icon/icon/dark/web-socket-connection.svg']
         };
         function getAssetPaths(filename) {
             const mapped = ASSET_PATH_MAP[filename];
@@ -674,7 +673,7 @@
             for (const [assetPath, data] of Object.entries(uploadedAssets)) {
                 zip.file(assetPath, data.file);
             }
-            const iconFiles = ['api-test-connection.svg','autoStartup.svg','blind-trasferred.svg','check-mail.svg','clear-history.svg','cloud-contact-banner.svg','done.svg','export-icon.svg','import-icon.svg','logout.svg','no-calls-found.svg','no-contacts-found.svg','no-favoritecontact-found.svg','qr-vector.svg','re-register.svg','right-side-vector.svg','sip-configuration.svg','start-chat.svg','web-socket-connection.svg','web-socket-failed.svg'];
+            const iconFiles = ['api-test-connection.svg','autoStartup.svg','blind-trasferred.svg','check-mail.svg','clear-history.svg','cloud-contact-banner.svg','done.svg','export-icon.svg','import-icon.svg','logout.svg','no-calls-found.svg','no-contacts-found.svg','no-favoritecontact-found.svg','qr-vector.svg','re-register.svg','right-side-vector.svg','sip-configuration.svg','start-chat.svg','web-socket-connection.svg'];
             function dataUrlToBinary(dataUrl) {
                 if (!dataUrl || !dataUrl.startsWith('data:')) return null;
                 const comma = dataUrl.indexOf(',');
