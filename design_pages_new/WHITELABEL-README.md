@@ -33,7 +33,6 @@ Click **Export Full Theme (ZIP)** to download:
 |-------|----------|------------------|
 | Login logo | logo-color.svg | Login page |
 | Header logo | logo-header.svg | Navbar, all pages |
-| Device illustration | right-side-vector.svg | Login page |
 | Login curves bg | curves.svg | Login background |
 | Status icons | online.svg, away.svg, busy.svg, dnd.svg | Contact list |
 | Sidebar icons | logout.svg, blind-trasferred.svg, etc. | public/app-icon/icon/light & dark |
