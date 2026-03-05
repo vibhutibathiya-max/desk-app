@@ -1,4 +1,4 @@
-﻿<html lang="en" dir="ltr" data-theme="system" data-os-type="windows">
+<html lang="en" dir="ltr" data-theme="system" data-os-type="windows">
 
 <head>
     <meta charset="UTF-8">
@@ -2587,6 +2587,64 @@
         </div>
     </div>
     <span role="status" aria-live="polite" class="select2-hidden-accessible"></span>
+    <!-- Apply logo overrides from logo-gallery uploads (preview-asset:*) -->
+    <script>
+        (function() {
+            try {
+                var keys = Object.keys(localStorage).filter(function(k) { return k.indexOf('preview-asset:') === 0 && k.indexOf('icon-light:') === -1 && k.indexOf('icon-dark:') === -1; });
+                keys.forEach(function(key) {
+                    var filename = key.replace('preview-asset:', '');
+                    var dataUrl = localStorage.getItem(key);
+                    if (!dataUrl) return;
+                    document.querySelectorAll('img[src*="' + filename + '"]').forEach(function(img) {
+                        img.src = dataUrl;
+                    });
+                });
+            } catch (e) {}
+        })();
+    </script>
+    <!-- Apply icon overrides from icon-gallery (preview-asset:icon-light:* / icon-dark:*) -->
+    <script>
+        function applyIconOverrides() {
+            try {
+                document.querySelectorAll('img[data-src][data-mode]').forEach(function(img) {
+                    var dataSrc = img.getAttribute('data-src');
+                    var mode = img.getAttribute('data-mode');
+                    if (!dataSrc || !mode) return;
+                    var key = 'preview-asset:icon-' + mode + ':' + dataSrc;
+                    var dataUrl = localStorage.getItem(key);
+                    if (dataUrl && dataUrl.indexOf('data:') === 0) img.src = dataUrl;
+                    else img.src = '../public/app-icon/icon/' + mode + '/' + dataSrc;
+                });
+            } catch (e) {}
+        }
+        applyIconOverrides();
+        window.addEventListener('storage', function(e) {
+            if (e.key && e.key.indexOf('preview-asset:icon-') === 0) applyIconOverrides();
+        });
+    </script>
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/bootstrap.bundle.min.js"></script>
+    <script>
+        (function() {
+            if (window.location.hash !== '#blindTransferModal') return;
+            function showBlindTransferModal() {
+                var el = document.getElementById('blindTransferModal');
+                if (!el) return;
+                if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+                    var modal = new bootstrap.Modal(el);
+                    modal.show();
+                } else if (typeof $ !== 'undefined' && $.fn.modal) {
+                    $(el).modal('show');
+                }
+            }
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', function() { setTimeout(showBlindTransferModal, 100); });
+            } else {
+                setTimeout(showBlindTransferModal, 100);
+            }
+        })();
+    </script>
 </body>
 
 </html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- BOOTSTRAP CSS LINK -->
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css.map">
+    <!-- FONT AWESOME LINK -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    
+</head>
+<body>
+<!-- MAIN CONTAINER :: STARTS -->
+<!-- RESET PASSWORD : BEGINS -->
+<div class="container-fluid main-container show" id="resetPasswordSection">
+    <div class="login-content reset-password-content">
+      <div class="row">
+        <!-- LOGIN CONTENT :: STARTS -->
+        <div class="col-lg-5 col-md-5 col-sm-12">
+          <div class="login-left-section">
+            <div class="logo">
+              <img src="public/app-icon/logo/logo.svg" alt="LOGO" />
+            </div>
+  
+            <button class="back _backToLoginScreen" id="backToLoginScreenHeader" >
+              <svg width="16" height="28" viewBox="0 0 16 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 26L2 14L14 2" stroke="var(--black-to-white-text)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+              <span class="__MSG__resetBack">Back</span>
+            </button>
+  
+            <div class="login-form">
+              <h3 class="heading __MSG__resetheading">Reset Password</h3>
+              <p class="sub-heading __MSG__enterNameReset">Enter your username.</p>
+              <form onsubmit="handleResetSubmit(event)">
+                <div class="col-lg-12">
+                  <div class="input-group focusActive">
+                    <div class="input-group-text border-end-0">
+                      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7.84366 7.73548C8.54252 7.73548 9.22569 7.52824 9.80677 7.13998C10.3879 6.75171 10.8408 6.19985 11.1082 5.55419C11.3756 4.90852 11.4456 4.19805 11.3093 3.51262C11.1729 2.82718 10.8364 2.19757 10.3422 1.7034C9.84805 1.20923 9.21844 0.872695 8.53301 0.736354C7.84758 0.600013 7.1371 0.669988 6.49144 0.937431C5.84577 1.20487 5.29392 1.65777 4.90565 2.23886C4.51738 2.81994 4.31014 3.50311 4.31014 4.20197C4.30996 4.66605 4.40123 5.12562 4.57874 5.55441C4.75624 5.9832 5.01651 6.3728 5.34467 6.70096C5.67282 7.02911 6.06243 7.28938 6.49122 7.46689C6.92001 7.6444 7.37958 7.73567 7.84366 7.73548ZM7.84366 9.50188C5.48561 9.50188 0.777344 10.6859 0.777344 13.0354V14.8018H14.91V13.0354C14.91 10.6859 10.2024 9.50188 7.84366 9.50188Z" fill="var(--input-icon)"/>
+                      </svg> 
+                    </div>
+                    <input type="text" id="username" class="form-control border-start-0 __MSG__forgotPasswordUsername" placeholder="Enter Username">
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <button id="clickToResetPassword" type="button" class="col-lg-12 col-md-12 col-sm-12 common-btn gradient-btn __MSG__restContinue">Continue</button>
+                </div>
+                </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-1 col-md-1"></div>
+        <!-- LOGIN CONTENT :: ENDS -->
+        <!-- RIGHTSIDE CONTENT :: STARTS -->
+        <div class="col-lg-6 col-md-6 col-sm-12 p-0">
+          <div class="login-right-section">
+            <div class="device-img">
+              <img data-theme="true" data-mode="light" data-path="public/app-icon/icon/" data-src="right-side-vector.svg" src="public/app-icon/icon/light/right-side-vector.svg" class="laptop-img" alt="DEVICE">
+            </div>
+            <p class="version-number"><span class="__MSG__sipVersion">Version</span> <span class="_version"></span>
+               <span class="hide" id="_loginInstallerType"></span> <!-- Installer type: (scope-format) -->
+              <span class="hide _loginSandBoxEnvironment"></span>       <!-- TRAG-5915-->
+            </p>
+          </div>
+        </div>
+        <!-- RIGHTSIDE CONTENT :: ENDS -->
+      </div>
+    </div>
+  </div>
+  <!-- RESET PASSWORD : ENDS -->
+  
+  <!-- CHECK MAIL : BEGINS -->
+  <div class="container-fluid main-container hide" id="checkMailSection">
+    <div class="login-left-section">
+      <div class="row">
+        <!-- LOGIN CONTENT :: STARTS -->
+        <div class="col-lg-5 col-md-5 col-sm-12">
+          <div class="check-mail-content">
+            <div class="logo">
+              <img src="public/app-icon/logo/logo.svg" alt="LOGO" />
+            </div>
+            <div>
+              <h3 class="heading __MSG__resetCheckMail">Check your email</h3>
+              <p class="sub-heading __MSG__resentMailText">We have sent password recovery instructions<br>
+                to your Email address</p>
+              <div class="col-lg-12">
+                <button id="backToLoginScreen" type="button" class="col-lg-12 col-md-12 col-sm-12 common-btn gradient-btn _backToLoginScreen __MSG__backToLoginText" autofocus>Back to Login</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-1 col-md-1"></div>
+        <!-- LOGIN CONTENT :: ENDS -->
+        <!-- RIGHTSIDE CONTENT :: STARTS -->
+        <div class="col-lg-6 col-md-6 col-sm-12 p-0">
+          <div class="login-right-section check-mail">
+            <div class="right-side-logo">            
+              <img src="public/app-icon/logo/logo-white.svg" alt="LOGO">
+            </div>
+            <p class="version"><span class="__MSG__sipVersion">Version</span> <span class="_version"></span>
+              <span class="hide _loginSandBoxEnvironment"></span>       <!-- TRAG-5915-->
+            </p>
+            <div class="vectors">
+              <img data-theme="true" data-mode="light" data-path="public/app-icon/icon/" data-src="check-mail.svg" src="public/app-icon/icon/light/check-mail.svg" alt="QR_IMAGE" height="" width="">
+            </div>
+          </div>
+        </div>
+        <!-- RIGHTSIDE CONTENT :: ENDS -->
+      </div>
+    </div>
+  </div>
+  <!-- CHECK MAIL : ENDS -->
+  
+  
+  <!-- MAIN CONTAINER :: ENDS -->
+  
+  <script>
+    // ADD CLASS WHEN FILED IS FOCUSED
+    $("#username").focus();
+    $("input").focus(function (){
+        $(this).parent().addClass('focusActive');
+    });
+  
+    // REMOVE CLASS WHEN FILED IS NOT FOCUSED
+    $("input").focusout(function (){
+        $(this).parent().removeClass('focusActive');
+    });
+  
+    function handleResetSubmit(event){
+      event.preventDefault();
+      $("#clickToResetPassword").trigger("click");
+    }
+  
+  
+    // TRAG-913 - Reset password - Document dot ready
+    $( document ).ready( async () => {
+  
+      await showVersionDetails();
+  
+      await manageSections( "reset-password" );
+      _changePlatformLanguage();
+    } );
+  
+    //  TRAG-913 - Reset password
+    $( "#clickToResetPassword" ).click( () => {
+      console.log( "reset-password.html - Click to reset password triggered" );
+  
+      _apiUserName = getVal( "#username" );
+  
+      if ( validate( _apiUserName ) ) {
+        myEvent.notify( "Username is required.", "Reset Password" );
+        return false;
+      }
+  
+      resetPassword();
+      return false;
+    } );
+  
+    //  TRAG-913 - Reset password
+    var resetPassword = async () => {
+      console.log( 'reset-password.html - Reset password function triggered' );
+      setVisible( '#loading', true );
+      try {
+        var dataCollection = JSON.stringify( {
+          "_apiUserName": getVal( "#username" )
+        } );
+  
+        //  Reset password API
+        await resetPasswordAPI( dataCollection ).then( async ( data ) => {
+          // data = typeof data !== "object" ? JSON.parse( data ) : data;
+          console.log( 'reset-password.html - Reset password API data ==> ', data );
+  
+          if ( data && Object.keys( data ).length > 0 ) {
+            setVisible( '#loading', false );
+            myEvent.notify( data.message, "Reset Password",{ skipMessageConversion: true });
+  
+            if ( data.data.type === "email" ) {
+              //  Check your email screen
+              // window.location.href = 'main.html?page_id=email-confirmation&page_url=/views/email-confirmation.html';
+              await manageSections( "check-mail" );
+            }
+            //   else {
+            //     //  Check your SMS screen
+            //     window.location.href = 'main.html?page_id=sms-confirmation&page_url=/views/sms-confirmation.html';
+            //   }
+          }
+        } ).catch( error => {
+          console.log( 'Reset password API error ==> ', error );
+          console.log( 'Reset password API err.message ==> ', error.message );
+  
+          setVisible( '#loading', false );
+          myEvent.notify( error.message, "Reset Password",{ skipMessageConversion: true } );
+  
+        } )
+      } catch ( error ) {
+        console.log( 'Reset password error ==> ', error );
+  
+        setVisible( '#loading', false );
+      }
+    }
+  
+  
+    //  TRAG-913 - Reset password - Back to login screen
+    $( "._backToLoginScreen" ).click( () => {
+      console.log( "email-confirmation.html - Back to login screen triggered" );
+      localStorage.setItem( '_backFromSso', true );
+      localStorage.setItem( '_backtoLogin', true );
+      myEvent.sendToBackground( {
+        action: 'back-to-login'
+      } );
+    } );
+  
+    //  Manage resetPasswordSection and checkMailSection
+    var manageSections = ( tag = "reset-password" ) => {
+      if ( tag === "check-mail" ) {
+        $( '#resetPasswordSection' ).removeClass( 'show' ).addClass( 'hide' );
+        $( '#checkMailSection' ).removeClass( 'hide' ).addClass( 'show' );
+        $("#username").focusout();
+        $("#backToLoginScreen").focus();
+      } else {
+        $( '#resetPasswordSection' ).removeClass( 'hide' ).addClass( 'show' );
+        $( '#checkMailSection' ).removeClass( 'show' ).addClass( 'hide' );
+      }
+    }
+  
+  
+  </script>
+    <!-- BOOTSTRAP JS LINK -->
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/bootstrap.min.js"></script>
+
+</body>
+</html>

@@ -21,7 +21,7 @@
         <!-- LOGIN CONTENT :: STARTS -->
         <div class="login-left-section">
             <div class="logo">
-                <img src="../assets/img-new/logo-color.svg" alt="LOGO" width="" height="">
+                <img src="../public/app-icon/logo/logo.svg" alt="LOGO" width="" height="">
             </div>
             <div class="back">
                 <svg width="12" height="20" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -36,32 +36,7 @@
                 <p class="sub-heading">Login with username and password</p>
                 <!-- INPUT FILED :: STARTS -->
                 <div class="login-fields">
-                    <div class="input-group mb-3">
-                        <div class="protocol-select-wrapper">
-                            <select class="form-select" id="protocolSelect">
-                                <option value="https" selected>HTTPS</option>
-                                <option value="http">HTTP</option>
-                            </select>
-                            <span class="protocol-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19"
-                                    fill="none">
-                                    <path
-                                        d="M9.5 16.625C10.4357 16.625 11.3622 16.4407 12.2266 16.0826C13.0911 15.7246 13.8765 15.1998 14.5381 14.5381C15.1998 13.8765 15.7246 13.0911 16.0826 12.2266C16.4407 11.3622 16.625 10.4357 16.625 9.5C16.625 8.56433 16.4407 7.63783 16.0826 6.77338C15.7246 5.90894 15.1998 5.12348 14.5381 4.46186C13.8765 3.80025 13.0911 3.27542 12.2266 2.91736C11.3622 2.55929 10.4357 2.375 9.5 2.375M9.5 16.625C8.56433 16.625 7.63783 16.4407 6.77338 16.0826C5.90894 15.7246 5.12348 15.1998 4.46186 14.5381C3.80025 13.8765 3.27542 13.0911 2.91736 12.2266C2.55929 11.3622 2.375 10.4357 2.375 9.5C2.375 8.56433 2.55929 7.63783 2.91736 6.77338C3.27542 5.90894 3.80025 5.12348 4.46186 4.46186C5.12348 3.80025 5.90894 3.27542 6.77338 2.91736C7.63783 2.55929 8.56433 2.375 9.5 2.375M9.5 16.625C11.6858 16.625 12.62 12.5376 12.62 9.5C12.62 6.46238 11.6858 2.375 9.5 2.375M9.5 16.625C7.31421 16.625 6.38004 12.5376 6.38004 9.5C6.38004 6.46238 7.31421 2.375 9.5 2.375M2.77083 7.125H16.2292M2.77083 11.875H16.2292"
-                                        stroke="var(--primary-color)" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
-                            </span>
-                            <span class="protocol-chevron">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="5" viewBox="0 0 9 5"
-                                    fill="none">
-                                    <path d="M7.59961 0.599609L4.09961 4.09961L0.599609 0.599609"
-                                        stroke="var(--text-gray-to-white)" stroke-width="1.2" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
-                            </span>
-                        </div>
-                        <input type="text" class="form-control border-start-0 ms-2" placeholder="Domain">
-                    </div>
+                  
                     <div class="input-group">
                         <div class="input-group-text border-end-0">
                             <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
@@ -121,6 +96,42 @@
         <!-- RIGHTSIDE CONTENT :: ENDS -->
     </div>
     <!-- MAIN CONTAINER :: ENDS -->
+    <!-- Apply logo overrides from logo-gallery uploads (preview-asset:*) -->
+    <script>
+        (function() {
+            try {
+                var keys = Object.keys(localStorage).filter(function(k) { return k.indexOf('preview-asset:') === 0 && k.indexOf('icon-light:') === -1 && k.indexOf('icon-dark:') === -1; });
+                keys.forEach(function(key) {
+                    var filename = key.replace('preview-asset:', '');
+                    var dataUrl = localStorage.getItem(key);
+                    if (!dataUrl) return;
+                    document.querySelectorAll('img[src*="' + filename + '"]').forEach(function(img) {
+                        img.src = dataUrl;
+                    });
+                });
+            } catch (e) {}
+        })();
+    </script>
+    <!-- Apply icon overrides from icon-gallery (preview-asset:icon-light:* / icon-dark:*) -->
+    <script>
+        function applyIconOverrides() {
+            try {
+                document.querySelectorAll('img[data-src][data-mode]').forEach(function(img) {
+                    var dataSrc = img.getAttribute('data-src');
+                    var mode = img.getAttribute('data-mode');
+                    if (!dataSrc || !mode) return;
+                    var key = 'preview-asset:icon-' + mode + ':' + dataSrc;
+                    var dataUrl = localStorage.getItem(key);
+                    if (dataUrl && dataUrl.indexOf('data:') === 0) img.src = dataUrl;
+                    else img.src = '../public/app-icon/icon/' + mode + '/' + dataSrc;
+                });
+            } catch (e) {}
+        }
+        applyIconOverrides();
+        window.addEventListener('storage', function(e) {
+            if (e.key && e.key.indexOf('preview-asset:icon-') === 0) applyIconOverrides();
+        });
+    </script>
     <!-- BOOTSTRAP JS LINK -->
     <script src="../assets/js/jquery.min.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>

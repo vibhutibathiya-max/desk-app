@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS LINK -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- BOOTSTRAP CSS LINK -->
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../assets/css/bootstrap.min.css.map" rel="stylesheet" />
+</head>
+
+<body>
+   
+    <!-- SPLASH SCREEN CONTAINER :: STARTS -->
+    <div class="splash-screen">
+        <div class="splash-screen-content">
+            <img src="../public/app-icon/logo/logo-white.svg" class="logo" alt="LOGO" height="" width="">
+            <!-- <span class="loader"></span> -->
+        </div>
+    </div>
+    <!-- SPLASH SCREEN CONTAINER :: ENDS -->
+
+    <!-- Apply logo overrides from logo-gallery uploads (preview-asset:*) -->
+    <script>
+        (function() {
+            try {
+                var keys = Object.keys(localStorage).filter(function(k) { return k.indexOf('preview-asset:') === 0; });
+                keys.forEach(function(key) {
+                    var filename = key.replace('preview-asset:', '');
+                    var dataUrl = localStorage.getItem(key);
+                    if (!dataUrl) return;
+                    document.querySelectorAll('img[src*="' + filename + '"]').forEach(function(img) {
+                        img.src = dataUrl;
+                    });
+                });
+            } catch (e) {}
+        })();
+    </script>
+    <!-- BOOTSTRAP JQUERY/POPPER JS LINK -->
+    <script src="../assets/js/popper.min.js"></script>
+    <script src="../assets/js/jquery.min.js" type="text/javascript"></script>
+    <script src="../assets/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+    <script>
+            var internetAlert = $('#internet-alert');
+            var firstLoad = true;
+
+            function showOfflineAlert() {
+                internetAlert.removeClass('online').addClass('offline').slideDown(250);
+            }
+
+            function showOnlineAlert() {
+                internetAlert.removeClass('offline').addClass('online').slideDown(250);
+
+                setTimeout(function () {
+                    internetAlert.slideUp();
+                }, 2000);
+            }
+
+            function checkInternetConnection() {
+                if (navigator.onLine) {
+                    showOnlineAlert();
+                } else {
+                    showOfflineAlert();
+                }
+            }
+
+            window.addEventListener('online', function () {
+                showOnlineAlert();
+            });
+
+            window.addEventListener('offline', function () {
+                showOfflineAlert();
+            });
+
+            if (!navigator.onLine || !firstLoad) {
+                checkInternetConnection();
+                firstLoad = false;
+            }
+    </script>
+</body>
+
+</html>

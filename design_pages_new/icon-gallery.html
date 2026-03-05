@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Icon Gallery</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: #1a1a2e; color: #eee; min-height: 100vh; }
+        
+        .page-layout { display: flex; flex-direction: column; min-height: 100vh; }
+        
+        .header-bar {
+            background: #16213e; border-bottom: 1px solid #0f3460;
+            padding: 16px 24px; flex-shrink: 0; display: flex; align-items: center; gap: 16px;
+        }
+        .header-bar h1 { font-size: 18px; color: #8ecae6; font-weight: 600; }
+        
+        .btn { padding: 10px 20px; font-size: 13px; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; }
+        .btn-primary { background: linear-gradient(270deg, #6533e2, #1f97ef); color: #fff; }
+        .btn-primary:hover { opacity: 0.9; }
+        .btn-secondary { background: #0f3460; color: #8ecae6; }
+        .btn-secondary:hover { background: #1a4a6e; }
+        
+        input[type="file"] { display: none; }
+        
+        .preview-section {
+            flex: 1; padding: 24px; overflow-y: auto; background: #0d0d1a;
+        }
+        .preview-section h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: #8ecae6; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #0f3460; }
+        
+        .icon-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+        .icon-card {
+            background: #16213e; border: 1px solid #0f3460; border-radius: 8px;
+            overflow: hidden; transition: border-color 0.2s;
+        }
+        .icon-card:hover { border-color: #8ecae6; }
+        
+        .icon-preview-row {
+            display: flex; min-height: 100px;
+        }
+        .icon-preview-swatch {
+            flex: 1; padding: 16px; display: flex; align-items: center; justify-content: center;
+            border-bottom: 1px solid #0f3460;
+        }
+        .icon-preview-swatch.light { background: #f5f5f5; }
+        .icon-preview-swatch.dark { background: #0d0d1a; border-left: 1px solid #0f3460; }
+        .icon-preview-swatch img { max-width: 48px; max-height: 48px; object-fit: contain; }
+        
+        .icon-info {
+            padding: 12px 16px; font-size: 12px; color: #e0e0e0;
+        }
+        .icon-info .name { font-weight: 600; color: #fff; margin-bottom: 8px; word-break: break-all; }
+        .icon-actions { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+        .icon-actions .btn { padding: 6px 12px; font-size: 11px; }
+        
+        .empty-state {
+            text-align: center; padding: 60px 20px; color: #666;
+        }
+        .empty-state p { margin-top: 12px; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="page-layout">
+        <header class="header-bar">
+            <h1>Icon Gallery</h1>
+            <button class="btn btn-primary" id="btnDownloadIcons">Download Icons (icon.zip)</button>
+            <button class="btn btn-secondary" id="btnResetAll">Reset All</button>
+        </header>
+        
+        <input type="file" id="fileInput" accept=".svg,.png,.jpg,.jpeg,.gif,.webp">
+        <script src="../assets/js/jszip.js"></script>
+        <section class="preview-section">
+            <h2>Icons (Light & Dark)</h2>
+            <div id="iconGrid" class="icon-grid"></div>
+            <div id="emptyState" class="empty-state">
+                <p>Icons load from public/app-icon/icon/light/ and dark/. Use Upload Light/Dark on each card to replace.</p>
+                <p style="margin-top:8px;font-size:11px">Download Icons (icon.zip) – exports all icons as public/app-icon/icon/light/ and dark/ folders. Extract to project root.</p>
+            </div>
+        </section>
+    </div>
+    
+    <script>
+        const ICON_FILES = [
+            'api-test-connection.svg', 'autoStartup.svg', 'blind-trasferred.svg', 'check-mail.svg',
+            'clear-history.svg', 'cloud-contact-banner.svg', 'done.svg', 'export-icon.svg',
+            'import-icon.svg', 'logout.svg', 'no-calls-found.svg', 'no-contacts-found.svg',
+            'no-favoritecontact-found.svg', 'qr-vector.svg', 're-register.svg', 'right-side-vector.svg',
+            'sip-configuration.svg', 'start-chat.svg', 'web-socket-connection.svg', 'web-socket-failed.svg'
+        ];
+        const ICON_PATH_LIGHT = '../public/app-icon/icon/light/';
+        const ICON_PATH_DARK = '../public/app-icon/icon/dark/';
+        const PREVIEW_PREFIX_LIGHT = 'preview-asset:icon-light:';
+        const PREVIEW_PREFIX_DARK = 'preview-asset:icon-dark:';
+        /** Icon filename -> page where it appears. Preview opens that page. Hash = tab to show. */
+        const ICON_TO_PAGE = {
+            'right-side-vector.svg': 'login.html',
+            'blind-trasferred.svg': 'call_connecting.html#blindTransferModal',
+            're-register.svg': 'setting.html#pills-reRegister',
+            'done.svg': 'setting.html',
+            'api-test-connection.svg': 'setting.html',
+            'web-socket-connection.svg': 'setting.html',
+            'web-socket-failed.svg': 'setting.html',
+            'autoStartup.svg': 'autostartup.html'
+        };
+
+        let icons = [];
+        const fileInput = document.getElementById('fileInput');
+        
+        function addIcon(data) {
+            icons.push(data);
+            renderGrid();
+        }
+        
+        function updateIcon(index, data) {
+            const icon = icons[index];
+            if (icon?.lightSrc?.startsWith('blob:')) URL.revokeObjectURL(icon.lightSrc);
+            if (icon?.darkSrc?.startsWith('blob:')) URL.revokeObjectURL(icon.darkSrc);
+            icons[index] = { ...icons[index], ...data };
+            renderGrid();
+        }
+        
+        function tryLoadIcon(url, onSuccess, onFail) {
+            const img = new Image();
+            img.onload = () => onSuccess(url, img);
+            img.onerror = () => onFail();
+            img.src = url;
+        }
+        
+        function loadOneIcon(filename, mode, onDone) {
+            const path = mode === 'light' ? ICON_PATH_LIGHT : ICON_PATH_DARK;
+            const url = path + filename;
+            tryLoadIcon(url, (u) => onDone(mode, u), () => onDone(mode, ''));
+        }
+        
+        function loadIconPair(filename) {
+            const result = { name: filename, lightSrc: '', darkSrc: '' };
+            let done = 0;
+            const check = (mode, url) => {
+                if (mode === 'light') result.lightSrc = url;
+                else result.darkSrc = url;
+                done++;
+                if (done === 2) {
+                    icons.push(result);
+                    icons.sort((a, b) => ICON_FILES.indexOf(a.name) - ICON_FILES.indexOf(b.name));
+                    renderGrid();
+                }
+            };
+            loadOneIcon(filename, 'light', check);
+            loadOneIcon(filename, 'dark', check);
+        }
+        
+        function loadBuiltInIcons() {
+            ICON_FILES.forEach((filename) => {
+                if (!icons.find(i => i.name === filename)) {
+                    loadIconPair(filename);
+                }
+            });
+        }
+        
+        function getIconDisplaySrc(filename, mode) {
+            const prefix = mode === 'light' ? PREVIEW_PREFIX_LIGHT : PREVIEW_PREFIX_DARK;
+            const stored = localStorage.getItem(prefix + filename);
+            if (stored && stored.startsWith('data:')) return stored;
+            const icon = icons.find(i => i.name === filename);
+            return mode === 'light' ? (icon?.lightSrc || '') : (icon?.darkSrc || '');
+        }
+        
+        const EMPTY_IMG = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+        
+        function renderGrid() {
+            const grid = document.getElementById('iconGrid');
+            const empty = document.getElementById('emptyState');
+            grid.innerHTML = '';
+            
+            icons.forEach((icon, index) => {
+                const card = document.createElement('div');
+                card.className = 'icon-card';
+                const esc = (s) => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+                const lightSrc = getIconDisplaySrc(icon.name, 'light');
+                const darkSrc = getIconDisplaySrc(icon.name, 'dark');
+                const escName = esc(icon.name);
+                const escLight = esc(lightSrc || EMPTY_IMG);
+                const escDark = esc(darkSrc || EMPTY_IMG);
+                card.innerHTML = `
+                    <div class="icon-preview-row">
+                        <div class="icon-preview-swatch light">
+                            <img src="${escLight}" alt="Light" loading="lazy">
+                        </div>
+                        <div class="icon-preview-swatch dark">
+                            <img src="${escDark}" alt="Dark" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="icon-info">
+                        <div class="name">${escName}</div>
+                        <div class="icon-actions">
+                            <button class="btn btn-primary btn-upload-light" data-index="${index}">Upload Light</button>
+                            <button class="btn btn-primary btn-upload-dark" data-index="${index}">Upload Dark</button>
+                            <button class="btn btn-secondary btn-preview" data-index="${index}" ${ICON_TO_PAGE[icon.name] ? '' : 'disabled'} title="${ICON_TO_PAGE[icon.name] ? 'Open page where icon appears' : 'No preview page'}">Preview</button>
+                            <button class="btn btn-secondary btn-clear-override" data-index="${index}" title="Clear overrides">Clear</button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            
+            grid.querySelectorAll('.btn-upload-light').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    fileInput.dataset.uploadIndex = btn.dataset.index;
+                    fileInput.dataset.uploadMode = 'light';
+                    fileInput.click();
+                });
+            });
+            grid.querySelectorAll('.btn-upload-dark').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    fileInput.dataset.uploadIndex = btn.dataset.index;
+                    fileInput.dataset.uploadMode = 'dark';
+                    fileInput.click();
+                });
+            });
+            grid.querySelectorAll('.btn-preview').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (btn.disabled) return;
+                    const idx = parseInt(btn.dataset.index, 10);
+                    const icon = icons[idx];
+                    if (!icon) return;
+                    const page = ICON_TO_PAGE[icon.name];
+                    if (page) window.open(page, '_blank', 'noopener');
+                });
+            });
+            grid.querySelectorAll('.btn-clear-override').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const idx = parseInt(btn.dataset.index, 10);
+                    const icon = icons[idx];
+                    if (!icon) return;
+                    if (icon.lightSrc?.startsWith('blob:')) URL.revokeObjectURL(icon.lightSrc);
+                    if (icon.darkSrc?.startsWith('blob:')) URL.revokeObjectURL(icon.darkSrc);
+                    localStorage.removeItem(PREVIEW_PREFIX_LIGHT + icon.name);
+                    localStorage.removeItem(PREVIEW_PREFIX_DARK + icon.name);
+                    const lightUrl = ICON_PATH_LIGHT + icon.name;
+                    const darkUrl = ICON_PATH_DARK + icon.name;
+                    updateIcon(idx, { lightSrc: lightUrl, darkSrc: darkUrl });
+                });
+            });
+            
+            empty.style.display = icons.length ? 'none' : 'block';
+        }
+        
+        fileInput.addEventListener('change', (e) => {
+            const idx = fileInput.dataset.uploadIndex != null ? parseInt(fileInput.dataset.uploadIndex, 10) : null;
+            const mode = fileInput.dataset.uploadMode;
+            const file = e.target.files?.[0];
+            if (!file || idx == null || idx < 0 || idx >= icons.length || !mode) {
+                e.target.value = '';
+                return;
+            }
+            const icon = icons[idx];
+            const reader = new FileReader();
+            reader.onload = () => {
+                const data = reader.result;
+                if (typeof data !== 'string' || !data.startsWith('data:')) return;
+                if (mode === 'light') {
+                    if (icon.lightSrc?.startsWith('blob:')) URL.revokeObjectURL(icon.lightSrc);
+                    localStorage.setItem(PREVIEW_PREFIX_LIGHT + icon.name, data);
+                    updateIcon(idx, { lightSrc: data });
+                } else {
+                    if (icon.darkSrc?.startsWith('blob:')) URL.revokeObjectURL(icon.darkSrc);
+                    localStorage.setItem(PREVIEW_PREFIX_DARK + icon.name, data);
+                    updateIcon(idx, { darkSrc: data });
+                }
+            };
+            reader.onerror = () => { e.target.value = ''; delete fileInput.dataset.uploadIndex; delete fileInput.dataset.uploadMode; };
+            reader.readAsDataURL(file);
+            e.target.value = '';
+            delete fileInput.dataset.uploadIndex;
+            delete fileInput.dataset.uploadMode;
+        });
+        
+        document.getElementById('btnResetAll').addEventListener('click', () => {
+            icons.forEach(i => {
+                if (i?.lightSrc?.startsWith('blob:')) URL.revokeObjectURL(i.lightSrc);
+                if (i?.darkSrc?.startsWith('blob:')) URL.revokeObjectURL(i.darkSrc);
+            });
+            ICON_FILES.forEach(f => {
+                localStorage.removeItem(PREVIEW_PREFIX_LIGHT + f);
+                localStorage.removeItem(PREVIEW_PREFIX_DARK + f);
+            });
+            icons = [];
+            loadBuiltInIcons();
+        });
+        
+        function dataUrlToBinary(dataUrl) {
+            if (!dataUrl || !dataUrl.startsWith('data:')) return null;
+            const comma = dataUrl.indexOf(',');
+            if (comma < 0) return null;
+            const header = dataUrl.slice(0, comma);
+            const payload = dataUrl.slice(comma + 1);
+            if (header.includes('base64')) {
+                try {
+                    const binary = atob(payload);
+                    const bytes = new Uint8Array(binary.length);
+                    for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+                    return bytes;
+                } catch (e) { return null; }
+            }
+            try {
+                return new TextEncoder().encode(decodeURIComponent(payload));
+            } catch (e) { return null; }
+        }
+        
+        async function downloadIconZip() {
+            if (typeof JSZip === 'undefined') { alert('JSZip not loaded'); return; }
+            const zip = new JSZip();
+            const lightFolder = zip.folder('public/app-icon/icon/light');
+            const darkFolder = zip.folder('public/app-icon/icon/dark');
+            for (const filename of ICON_FILES) {
+                const lightKey = PREVIEW_PREFIX_LIGHT + filename;
+                const darkKey = PREVIEW_PREFIX_DARK + filename;
+                const lightData = localStorage.getItem(lightKey);
+                const darkData = localStorage.getItem(darkKey);
+                const lightPath = ICON_PATH_LIGHT + filename;
+                const darkPath = ICON_PATH_DARK + filename;
+                if (lightData && lightData.startsWith('data:')) {
+                    const bin = dataUrlToBinary(lightData);
+                    if (bin) lightFolder.file(filename, bin);
+                } else {
+                    try {
+                        const r = await fetch(lightPath);
+                        if (r.ok) lightFolder.file(filename, await r.blob());
+                    } catch (e) {}
+                }
+                if (darkData && darkData.startsWith('data:')) {
+                    const bin = dataUrlToBinary(darkData);
+                    if (bin) darkFolder.file(filename, bin);
+                } else {
+                    try {
+                        const r = await fetch(darkPath);
+                        if (r.ok) darkFolder.file(filename, await r.blob());
+                    } catch (e) {}
+                }
+            }
+            const blob = await zip.generateAsync({ type: 'blob' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'icon.zip';
+            a.click();
+            URL.revokeObjectURL(a.href);
+        }
+        
+        document.getElementById('btnDownloadIcons').addEventListener('click', downloadIconZip);
+        
+        loadBuiltInIcons();
+    </script>
+</body>
+</html>

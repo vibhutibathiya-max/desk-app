@@ -1,4 +1,4 @@
-﻿<html lang="en" dir="ltr" data-theme="system" data-os-type="windows">
+<html lang="en" dir="ltr" data-theme="system" data-os-type="windows">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -2598,5 +2598,21 @@
         </div> 
     </div>
     <span role="status" aria-live="polite" class="select2-hidden-accessible"></span>
+    <!-- Apply logo overrides from logo-gallery uploads (preview-asset:*) -->
+    <script>
+        (function() {
+            try {
+                var keys = Object.keys(localStorage).filter(function(k) { return k.indexOf('preview-asset:') === 0; });
+                keys.forEach(function(key) {
+                    var filename = key.replace('preview-asset:', '');
+                    var dataUrl = localStorage.getItem(key);
+                    if (!dataUrl) return;
+                    document.querySelectorAll('img[src*="' + filename + '"]').forEach(function(img) {
+                        img.src = dataUrl;
+                    });
+                });
+            } catch (e) {}
+        })();
+    </script>
 </body>
 </html>
