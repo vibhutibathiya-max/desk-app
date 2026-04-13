@@ -69,6 +69,17 @@ html[data-theme="light"] {
   --recording-red-color: var(--recording-light-red-color);
   --recording-orange-color: var(--recording-light-orange-color);
   --recording-orange-color-text: var(--recording-orange-color-text-light);
+  /* Icon variables (10 shared icons) */
+  --icon-gradient-1: var(--icon-gradient-1-light);
+  --icon-gradient-2: var(--icon-gradient-2-light);
+  --icon-gradient-3: var(--icon-gradient-3-light);
+  --icon-gradient-4: var(--icon-gradient-4-light);
+  --icon-bg-done: var(--icon-bg-done-light);
+  --icon-bg-websocket: var(--icon-bg-websocket-light);
+  /* Icon colors (check-mail, etc.) */
+  --icon-primary: var(--icon-primary-light);
+  --icon-badge: var(--icon-badge-light);
+  --icon-body: var(--icon-body-light);
 }
 
 @media (prefers-color-scheme: light) {
@@ -143,5 +154,16 @@ html[data-theme="light"] {
     --recording-red-color: var(--recording-light-red-color);
     --recording-orange-color: var(--recording-light-orange-color);
     --recording-orange-color-text: var(--recording-orange-color-text-light);
+    /* Icon variables */
+    --icon-gradient-1: var(--icon-gradient-1-light);
+    --icon-gradient-2: var(--icon-gradient-2-light);
+    --icon-gradient-3: var(--icon-gradient-3-light);
+    --icon-gradient-4: var(--icon-gradient-4-light);
+    --icon-bg-done: var(--icon-bg-done-light);
+    --icon-bg-websocket: var(--icon-bg-websocket-light);
+    /* Icon colors (check-mail, etc.) */
+    --icon-primary: var(--icon-primary-light);
+    --icon-badge: var(--icon-badge-light);
+    --icon-body: var(--icon-body-light);
   } 
 }

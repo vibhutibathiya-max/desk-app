@@ -61,7 +61,7 @@ Add these to `whitelabel-config.json` if you want users to customize them:
 
 These load from `public/app-icon/icon/light/` and `dark/` – replace via Icon Gallery **Upload**:
 - check-mail, no-calls-found, no-contacts-found, no-favoritecontact-found
-- qr-vector, cloud-contact-banner, start-chat, api-test-connection, sip-configuration
+- qr-vector, cloud-contact-banner, start-chat, api-test-connection
 
 ---
 

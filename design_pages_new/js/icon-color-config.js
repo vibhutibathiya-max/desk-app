@@ -86,13 +86,6 @@
                 { id: 'g3', label: 'Gradient End', default: '#1F97EF', var: '--icon-api-g3', replace: ['#1F97EF'] }
             ]
         },
-        'sip-configuration.svg': {
-            colors: [
-                { id: 'g1', label: 'Gradient Start', default: '#6533E2', var: '--icon-sip-g1', replace: ['#6533E2'] },
-                { id: 'g2', label: 'Gradient Mid', default: '#7349DE', var: '--icon-sip-g2', replace: ['#7349DE'] },
-                { id: 'g3', label: 'Gradient End', default: '#1F97EF', var: '--icon-sip-g3', replace: ['#1F97EF'] }
-            ]
-        },
         'no-calls-found.svg': {
             colors: [
                 { id: 'primary', label: 'Primary', default: '#614B98', var: '--icon-nocalls-primary', replace: ['#614B98'] },
