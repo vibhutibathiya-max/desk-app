@@ -132,9 +132,28 @@
             </div>
             
             <p style="font-size:10px;color:#666;margin-top:16px;line-height:1.4">
-                <strong>Logo Gallery</strong> – Upload logos via Logo Gallery button above. Replace by same filename, export as logo.zip.<br>
-                <strong>Export Full Theme</strong> – ZIP with global.css. Extract to project root – no code changes.
+                <strong>Logo Gallery</strong> – Upload logos via Logo Gallery. Replace by same filename, export as logo.zip.<br>
+                <strong>Icon Color</strong> – Customizes inline SVG icons (done, logout, etc.). Complex icons: use Icon Gallery upload.<br>
+                <strong>Export Full Theme</strong> – ZIP with global.css + icons. Extract to project root – no code changes.
             </p>
+            <details style="margin-top:12px">
+                <summary style="cursor:pointer;font-size:11px;color:#8ecae6">Variable reference – which color controls what</summary>
+                <table class="asset-table" style="margin-top:8px;font-size:10px">
+                    <tr><th>Variable</th><th>Theme control</th></tr>
+                    <tr><td><code>--primary-color</code></td><td>Primary / Brand Color</td></tr>
+                    <tr><td><code>--icon-color</code></td><td>Icon Color (done, logout, autoStartup, etc.)</td></tr>
+                    <tr><td><code>--secondary-color</code></td><td>Secondary Color</td></tr>
+                    <tr><td><code>--sidebar-active-icon</code></td><td>Primary Color</td></tr>
+                    <tr><td><code>--main-gradient-color</code></td><td>Main Gradient</td></tr>
+                    <tr><td><code>--header-gadient-color</code></td><td>Header Gradient</td></tr>
+                    <tr><td><code>--button-gradient</code></td><td>Button Gradient</td></tr>
+                    <tr><td><code>--dynamic-bar-color</code></td><td>Dynamic Bar Color</td></tr>
+                    <tr><td><code>--dynamic-bar-icon-color</code></td><td>Dynamic Bar Icon</td></tr>
+                    <tr><td><code>--input-icon</code></td><td>Input Icon Color</td></tr>
+                    <tr><td><code>--label-color</code></td><td>Label / Link Color</td></tr>
+                    <tr><td><code>--hover-icon</code></td><td>Icon Hover Background</td></tr>
+                </table>
+            </details>
         </aside>
         
         <div class="preview-frame-wrap">
@@ -154,7 +173,6 @@
             'logo-white.svg': 'public/app-icon/logo/logo-white.svg',
             'curves.svg': 'assets/img-new/curves.svg',
             'curves-2.svg': 'assets/img-new/curves-2.svg',
-            'right-side-vector.svg': ['public/app-icon/icon/light/right-side-vector.svg', 'public/app-icon/icon/dark/right-side-vector.svg'],
             'arrow-down.svg': 'assets/img-new/arrow-down.svg',
             'online.svg': 'assets/img-new/online.svg',
             'away.svg': 'assets/img-new/away.svg',
@@ -328,12 +346,20 @@
                     colorInput.type = 'color';
                     colorInput.title = 'Click to pick color';
                     colorInput.value = toHex6(item.value) || '#614b98';
+                    const syncIconColor = () => {
+                        if (item.var === '--icon-color') {
+                            var v = (wrapper.querySelector('input[type="color"]') || wrapper.querySelector('input[type="text"]'))?.value;
+                            if (v) localStorage.setItem('whitelabel-icon-color', toHex6(v) || v);
+                        }
+                    };
                     colorInput.addEventListener('input', () => {
                         textInput.value = colorInput.value;
+                        syncIconColor();
                         injectOverrideStyle();
                     });
                     textInput.addEventListener('input', () => {
                         if (isHexColor(textInput.value)) colorInput.value = toHex6(textInput.value);
+                        syncIconColor();
                         injectOverrideStyle();
                     });
                     inputsWrap.appendChild(colorInput);
@@ -425,6 +451,12 @@
                 for (const [darkVar, aliasVar] of Object.entries(DARK_ALIAS_MAP)) {
                     if (valueByVar[darkVar] && !valueByVar[aliasVar]) lines.push(`${aliasVar}: ${valueByVar[darkVar]} !important;`);
                 }
+            }
+            const iconColorFromGallery = localStorage.getItem('whitelabel-icon-color');
+            if (iconColorFromGallery && /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/.test(iconColorFromGallery.trim())) {
+                const hex = iconColorFromGallery.trim();
+                const expanded = hex.length === 4 ? '#' + hex[1]+hex[1]+hex[2]+hex[2]+hex[3]+hex[3] : hex;
+                lines.push('--icon-color: ' + expanded + ';');
             }
             const selector = `html[data-theme="${currentTheme}"]`;
             style.textContent = lines.length ? `${selector} { ${lines.join(' ')} }` : '';
@@ -586,6 +618,7 @@
         const GLOBAL_CSS_MAP = {
             light: {
                 primaryColor: ['--primary-color', '--sidebar-active-icon', '--received-chat-bubble-file-icon-light'],
+                iconColor: ['--icon-color'],
                 secondaryColor: ['--secondary-color'],
                 mainGradientStart: ['--main-gradient-color'],
                 buttonGradient: ['--button-gradient'],
@@ -593,10 +626,14 @@
                 dynamicBarColor: ['--dynamic-bar-color'],
                 dynamicBarIconColor: ['--dynamic-bar-icon-color'],
                 crmPrimaryLight: ['--crm-primary-light'],
-                tertiary: ['--tertiary-light']
+                tertiary: ['--tertiary-light'],
+                inputIconColor: ['--input-icon'],
+                labelColor: ['--label-color'],
+                hoverIconColor: ['--hover-icon']
             },
             dark: {
                 primaryColor: ['--primary-color-dark', '--sidebar-active-icon-dark'],
+                iconColor: ['--icon-color'],
                 secondaryColor: ['--secondary-color-dark'],
                 mainGradient: ['--main-gradient-color-dark'],
                 buttonGradient: ['--button-gradient-dark'],
@@ -604,7 +641,10 @@
                 dynamicBarColor: ['--dynamic-bar-color'],
                 dynamicBarIconColor: ['--dynamic-bar-icon-color'],
                 crmPrimaryDark: ['--crm-primary-dark'],
-                tertiary: ['--tertiary-dark']
+                tertiary: ['--tertiary-dark'],
+                inputIconColor: ['--input-icon'],
+                labelColor: ['--label-color-dark'],
+                hoverIconColor: ['--hover-icon-dark']
             }
         };
         
@@ -619,6 +659,10 @@
   --dynamic-bar-icon-color: #6940de;
   --crm-primary-light: #fff;
   --tertiary-light: #7962B1;
+  --icon-color: #614b98;
+  --input-icon: #614b98;
+  --label-color: #006be0;
+  --hover-icon: #e3e3e3;
 }
 
 :root {
@@ -629,6 +673,7 @@
   --button-gradient-dark: linear-gradient(90deg, #2A2744 0%, #2D2C3A 100%);
   --crm-primary-dark: #18162C;
   --tertiary-dark: #6B6778;
+  --icon-color: #3F3D52;
 }`;
 
         function exportCss() {
@@ -673,7 +718,7 @@
             for (const [assetPath, data] of Object.entries(uploadedAssets)) {
                 zip.file(assetPath, data.file);
             }
-            const iconFiles = ['api-test-connection.svg','autoStartup.svg','blind-trasferred.svg','check-mail.svg','clear-history.svg','cloud-contact-banner.svg','done.svg','export-icon.svg','import-icon.svg','logout.svg','no-calls-found.svg','no-contacts-found.svg','no-favoritecontact-found.svg','qr-vector.svg','re-register.svg','right-side-vector.svg','sip-configuration.svg','start-chat.svg','web-socket-connection.svg'];
+            const iconFiles = ['done.svg','logout.svg','autoStartup.svg','blind-trasferred.svg','re-register.svg','clear-history.svg','export-icon.svg','import-icon.svg','web-socket-connection.svg','api-test-connection.svg','sip-configuration.svg','no-calls-found.svg','no-favoritecontact-found.svg','qr-vector.svg','check-mail.svg','cloud-contact-banner.svg','start-chat.svg','no-contacts-found.svg'];
             function dataUrlToBinary(dataUrl) {
                 if (!dataUrl || !dataUrl.startsWith('data:')) return null;
                 const comma = dataUrl.indexOf(',');
@@ -793,14 +838,30 @@
             setTimeout(() => applyAllStored(), 600);
         });
         window.addEventListener('storage', function(e) {
-            if (e.key && e.key.indexOf('preview-asset:icon-') === 0) {
-                const frame = document.getElementById('previewFrame');
-                if (frame && frame.src) { frame.src = frame.src; }
+            if (e.key && (e.key.indexOf('preview-asset:icon-') === 0 || e.key === 'whitelabel-icon-color')) {
+                if (e.key === 'whitelabel-icon-color') {
+                    applyAllStored();
+                } else {
+                    const frame = document.getElementById('previewFrame');
+                    if (frame && frame.src) { frame.src = frame.src; }
+                }
             }
         });
         
         loadConfig().then(() => {
             renderControls();
+            var iconColorFromStorage = localStorage.getItem('whitelabel-icon-color');
+            if (iconColorFromStorage && /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/.test(iconColorFromStorage.trim())) {
+                var hex = iconColorFromStorage.trim();
+                if (hex.length === 4) hex = '#' + hex[1]+hex[1]+hex[2]+hex[2]+hex[3]+hex[3];
+                ['light','dark'].forEach(function(m) {
+                    var w = document.querySelector('[data-var="--icon-color"][data-mode="' + m + '"]');
+                    if (w) {
+                        var inp = w.querySelector('input[type="text"]') || w.querySelector('input[type="color"]');
+                        if (inp) { inp.value = hex; if (inp.type === 'color') w.querySelector('input[type="text"]').value = hex; }
+                    }
+                });
+            }
             applyTheme('light');
         });
     </script>

@@ -378,6 +378,28 @@ html[data-theme="dark"] img[data-mode="dark"] {
     }
 }
 
+/* Inline SVG icons (replacement for img) – same visibility as img[data-mode] */
+.icon-svg-inline[data-mode="light"],
+.icon-svg-inline[data-mode="dark"] {
+    display: none !important;
+}
+html[data-theme="light"] .icon-svg-inline[data-mode="light"] {
+    display: inline-block !important;
+}
+@media (prefers-color-scheme: light) {
+    html:not([data-theme="light"]):not([data-theme="dark"]) .icon-svg-inline[data-mode="light"] {
+        display: inline-block !important;
+    }
+}
+html[data-theme="dark"] .icon-svg-inline[data-mode="dark"] {
+    display: inline-block !important;
+}
+@media (prefers-color-scheme: dark) {
+    html:not([data-theme="light"]):not([data-theme="dark"]) .icon-svg-inline[data-mode="dark"] {
+        display: inline-block !important;
+    }
+}
+
 /* LIGHT & DARK MODE IMAGE CHANGE :: END */
 
 /* TAB FOCUS CSS :: STARTS */

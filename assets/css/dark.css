@@ -72,6 +72,17 @@ html[data-theme="dark"] {
   --recording-red-color: var(--recording-dark-red-color);
   --recording-orange-color: var(--recording-dark-orange-color);
   --recording-orange-color-text: var(--recording-orange-color-text-dark);
+  /* Icon variables (10 shared icons) */
+  --icon-gradient-1: var(--icon-fg-dark);
+  --icon-gradient-2: var(--icon-fg-dark);
+  --icon-gradient-3: var(--icon-fg-dark);
+  --icon-gradient-4: var(--icon-fg-dark);
+  --icon-bg-done: var(--icon-bg-done-dark);
+  --icon-bg-websocket: var(--icon-bg-websocket-dark);
+  /* Icon colors (check-mail, etc.) */
+  --icon-primary: var(--icon-primary-dark);
+  --icon-badge: var(--icon-badge-dark);
+  --icon-body: var(--icon-body-dark);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -150,5 +161,16 @@ html[data-theme="dark"] {
     --recording-red-color: var(--recording-dark-red-color);
     --recording-orange-color: var(--recording-dark-orange-color);
     --recording-orange-color-text: var(--recording-orange-color-text-dark);
+    /* Icon variables */
+    --icon-gradient-1: var(--icon-fg-dark);
+    --icon-gradient-2: var(--icon-fg-dark);
+    --icon-gradient-3: var(--icon-fg-dark);
+    --icon-gradient-4: var(--icon-fg-dark);
+    --icon-bg-done: var(--icon-bg-done-dark);
+    --icon-bg-websocket: var(--icon-bg-websocket-dark);
+    /* Icon colors (check-mail, etc.) */
+    --icon-primary: var(--icon-primary-dark);
+    --icon-badge: var(--icon-badge-dark);
+    --icon-body: var(--icon-body-dark);
   }
 }
