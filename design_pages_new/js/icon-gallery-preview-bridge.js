@@ -307,29 +307,98 @@
         return t;
     }
 
+    var FETCH_OPTS = { cache: 'no-store' };
+
+    function resolveBases() {
+        var b = [document.baseURI, window.location.href, window.location.toString()]
+            .filter(Boolean);
+        return b.filter(function (u, i, a) {
+            if (!/^https?:/i.test(u) && u.indexOf('file:') !== 0) return false;
+            return a.indexOf(u) === i;
+        });
+    }
+
+    function withBust(abs) {
+        if (abs.indexOf('blob:') === 0 || abs.indexOf('data:') === 0) return abs;
+        var c = (abs || '').indexOf('?') >= 0 ? '&' : '?';
+        return abs + c + '_=' + Date.now();
+    }
+
     /**
-     * file:// often blocks fetch() to sibling paths; whitelabel may have preview-asset:icon-light:* in localStorage (same http origin only).
+     * Resolve the same on-disk /public/... file against document.baseURI, href, and origin, so Live Server and IDE preview still find the SVG.
      */
-    function loadSvgTextForIconBridgeImg(img, fetchSrc) {
-        return fetch(new URL(fetchSrc, window.location.href).href)
+    function absoluteSvgFetchTryList(relative) {
+        var re = String(relative || '');
+        var out = [];
+        var bases = resolveBases();
+        var o;
+        var bi;
+        for (bi = 0; bi < bases.length; bi++) {
+            try {
+                o = new URL(re, bases[bi]).href;
+                out.push(o);
+            } catch (e) { /* */ }
+        }
+        re = re.replace(/\\/g, '/');
+        var fromPub = re.toLowerCase().indexOf('public/');
+        if (fromPub >= 0) {
+            var sub = re.slice(fromPub);
+            if (location && location.origin) {
+                out.push(location.origin + '/' + sub.replace(/^\//, ''));
+            }
+        }
+        if (re.indexOf('check-mail.svg') !== -1 && location && location.origin) {
+            out.push(location.origin + '/public/app-icon/icon/light/check-mail.svg');
+        }
+        return out.filter(function (u, i, a) { return u && a.indexOf(u) === i; });
+    }
+
+    function fetchTextFirstUrl(urls) {
+        if (!urls || !urls.length) return Promise.resolve(null);
+        var first = urls[0];
+        if (!first) return fetchTextFirstUrl(urls.slice(1));
+        return fetch(withBust(first), FETCH_OPTS)
             .then(function (r) {
-                return r && r.ok ? r.text() : null;
+                if (r && r.ok) return r.text();
+                return null;
             })
             .catch(function () { return null; })
             .then(function (text) {
                 if (text) return text;
-                var alt = tryAlternateSvgUrl(fetchSrc);
-                if (!alt) return null;
-                return fetch(new URL(alt, window.location.href).href)
-                    .then(function (r2) { return r2 && r2.ok ? r2.text() : null; })
-                    .catch(function () { return null; });
-            })
+                return fetchTextFirstUrl(urls.slice(1));
+            });
+    }
+
+    /**
+     * file:// often blocks fetch(); IDE preview may use odd base. Try several absolute URLs and localStorage fallbacks.
+     */
+    function loadSvgTextForIconBridgeImg(img, fetchSrc) {
+        var altRel = tryAlternateSvgUrl(fetchSrc) || null;
+        var u1 = absoluteSvgFetchTryList(fetchSrc);
+        if (altRel) {
+            u1 = u1.concat(absoluteSvgFetchTryList(altRel));
+        }
+        return fetchTextFirstUrl(u1)
             .then(function (text) {
                 if (text) return text;
                 var t = trySvgTextFromPreviewStorage(img);
                 if (t) return t;
                 t = trySvgTextFromDataImgSrc(img);
                 if (t) return t;
+                if (img && img.id === 'checkMailHeroIcon' && /^https?:/i.test(String(location.protocol || ''))) {
+                    var hasColors = null;
+                    try { hasColors = localStorage.getItem(COLORS_PREFIX + SHARED_KEY); } catch (e) { /* */ }
+                    if (hasColors) {
+                        console.warn(
+                            '[desk-app icon bridge] check-mail.svg did not load for recolor. Open the repo root in Live Server (e.g. desk-app), or open:',
+                            (u1 && u1[0]) || fetchSrc
+                        );
+                    } else {
+                        console.info(
+                            '[desk-app icon bridge] Set Shared colors in design_pages_new/icon-gallery.html, same port, then refresh this page.'
+                        );
+                    }
+                }
                 return null;
             });
     }
@@ -479,6 +548,9 @@
     /* After gallery-preview-assets and other sync scripts, re-apply so img src (e.g. data: from localStorage) is re-colored. */
     window.addEventListener('load', function () {
         setTimeout(function () { run(true); }, 0);
+    });
+    window.addEventListener('pageshow', function (e) {
+        if (e.persisted) setTimeout(function () { run(true); }, 0);
     });
     if (location.protocol === 'file:') {
         console.info(

@@ -5348,12 +5348,12 @@ header .user-name.show {
     padding-top: 10px;
 }
 
-#custom_header::before {
+/* #custom_header::before {
     content: "";
     align-self: stretch;
     flex-grow: 1;
     -webkit-app-region: drag;
-}
+} */
 
 [data-os-type="windows"] #custom_header>.custom-header__box .custom-header__option>i,
 [data-os-type="linux"] #custom_header>.custom-header__box .custom-header__option>i {
