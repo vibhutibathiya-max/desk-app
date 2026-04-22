@@ -31,6 +31,7 @@
                         n = document.querySelectorAll('img[src*="' + b + '"]');
                     }
                     n.forEach(function (img) {
+                        if (img.classList && img.classList.contains('js-icon-bridge-mail')) return;
                         img.setAttribute('src', dataUrl);
                     });
                     return;
@@ -43,6 +44,7 @@
                         d = document.querySelectorAll('img[src*="' + b2 + '"]');
                     }
                     d.forEach(function (img) {
+                        if (img.classList && img.classList.contains('js-icon-bridge-mail')) return;
                         img.setAttribute('src', dataUrl);
                     });
                     return;
