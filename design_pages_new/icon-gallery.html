@@ -190,8 +190,8 @@
     <script>
         const ICON_FILES = [
             'done.svg', 'logout.svg', 'autoStartup.svg', 'blind-trasferred.svg', 're-register.svg',
-            'clear-history.svg', 'export-icon.svg', 'import-icon.svg', 'web-socket-connection.svg',
-            'api-test-connection.svg', 'sip-configuration.svg',
+            'clear-history.svg', 'web-socket-connection.svg',
+            'api-test-connection.svg',
             'no-calls-found.svg', 'no-favoritecontact-found.svg',
             'qr-vector.svg', 'check-mail.svg', 'cloud-contact-banner.svg', 'start-chat.svg', 'no-contacts-found.svg'
         ];
@@ -201,12 +201,11 @@
         /** Colors used in 2+ icons – define once, change reflects everywhere */
         const EXCLUDED_SHARED = ['#D9D9D9', '#80C9FF', '#00B4FF', '#57A1D7', '#F8A99C', '#231F20', '#2B2933', '#95B0DC', '#E1EDFF'];
         /** Icons that use hex in SVG (not CSS vars) – need applySvgColors in shared strip */
-        const ICONS_USING_HEX = ['sip-configuration.svg', 'no-calls-found.svg', 'no-favoritecontact-found.svg', 'qr-vector.svg', 'cloud-contact-banner.svg', 'start-chat.svg', 'no-contacts-found.svg'];
-        /** These 8 icons use shared vars; dark mode uses SAME colors as light (not separate dark grays) */
-        const ICONS_SAME_LIGHT_DARK = ['sip-configuration.svg', 'no-calls-found.svg', 'no-favoritecontact-found.svg', 'qr-vector.svg', 'check-mail.svg', 'cloud-contact-banner.svg', 'start-chat.svg', 'no-contacts-found.svg'];
+        const ICONS_USING_HEX = ['no-calls-found.svg', 'no-favoritecontact-found.svg', 'qr-vector.svg', 'cloud-contact-banner.svg', 'start-chat.svg', 'no-contacts-found.svg'];
+        /** These 7 icons use shared vars; dark mode uses SAME colors as light (not separate dark grays) */
+        const ICONS_SAME_LIGHT_DARK = ['no-calls-found.svg', 'no-favoritecontact-found.svg', 'qr-vector.svg', 'check-mail.svg', 'cloud-contact-banner.svg', 'start-chat.svg', 'no-contacts-found.svg'];
         const ICONS_WITH_LIGHT_DARK_COLUMNS = [];
         const EXCLUDED_COLORS_BY_ICON = {
-            'sip-configuration.svg': [...EXCLUDED_PURPLE_GRADIENT, ...EXCLUDED_SHARED, '#FFC444', '#F36F56', '#FF9085', '#FB6FBB', '#F57F53', '#444B8C', '#26264F', '#F4F7FA', '#97A6B7', '#D8DEE8', '#3E4177', '#5834D3', '#474747'],
             'no-calls-found.svg': EXCLUDED_PURPLE_GRADIENT,
             'no-favoritecontact-found.svg': [...EXCLUDED_PURPLE_GRADIENT, ...EXCLUDED_SHARED],
             'qr-vector.svg': [...EXCLUDED_PURPLE_GRADIENT, ...EXCLUDED_SHARED, '#35A2DB'],
@@ -215,7 +214,7 @@
             'start-chat.svg': [...EXCLUDED_PURPLE_GRADIENT, ...EXCLUDED_SHARED, '#6837E2'],
             'no-contacts-found.svg': [...EXCLUDED_PURPLE_GRADIENT, ...EXCLUDED_SHARED, '#15181A']
         };
-        /** Light mode – all 7 inputs affect light theme icons (18 icons share these) */
+        /** Light mode – all 7 inputs affect light theme icons (17 icons share these) */
         const SHARED_COLORS_LIGHT = [
             { id: '#6533E2', label: 'Gradient 1', default: '#6533E2', replace: ['#6533E2', '#6837E2'] },
             { id: '#7349DE', label: 'Gradient 2', default: '#7349DE' },
@@ -238,30 +237,35 @@
         const SHARED_GRADIENT_KEY = 'shared-gradient';
         const ICON_PATH_LIGHT = '../public/app-icon/icon/light/';
         const ICON_PATH_DARK = '../public/app-icon/icon/dark/';
+        /** Fallback when themed light/dark copies are missing (e.g. design bundle only has one asset) */
+        const ICON_IMG_NEW = '../assets/img-new/';
+        function iconSourceUrlsForFetch(filename, mode) {
+            const path = mode === 'light' ? ICON_PATH_LIGHT : ICON_PATH_DARK;
+            const urls = [path + filename];
+            if (filename === 'check-mail.svg') urls.push(ICON_IMG_NEW + filename);
+            return urls;
+        }
         const PREVIEW_PREFIX_LIGHT = 'preview-asset:icon-light:';
         const PREVIEW_PREFIX_DARK = 'preview-asset:icon-dark:';
         const COLORS_PREFIX = 'whitelabel-icon-colors:';
         
         /** Icon → page where it appears. Preview link opens this so user sees icon in context. */
         const ICON_TO_PAGE = {
-            'done.svg': 'setting.html#pills-reRegister',
+            'done.svg': 'setting.html#pills-testConnection',
             'logout.svg': 'setting.html#logoutModal',
             'autoStartup.svg': 'autostartup.html',
             'blind-trasferred.svg': 'call_connecting.html#blindTransferModal',
             're-register.svg': 'setting.html#pills-reRegister',
-            'clear-history.svg': 'active_call_dtmf.html',
-            'export-icon.svg': 'all_contact.html',
-            'import-icon.svg': 'all_contact.html',
-            'web-socket-connection.svg': 'setting.html#pills-testConnection',
-            'api-test-connection.svg': 'setting.html#pills-testConnection',
-            'sip-configuration.svg': 'setting.html#pills-latestConfiguration',
+            'clear-history.svg': 'clearhostory.html#allCall',
+            'web-socket-connection.svg': 'setting.html#pills-debuggingLogs',
+            'api-test-connection.svg': 'setting.html#pills-debuggingLogs',
             'no-calls-found.svg': 'call_history.html',
-            'no-favoritecontact-found.svg': 'active_call_dtmf.html',
-            'qr-vector.svg': 'checkmail.html',
+            'no-favoritecontact-found.svg': 'nofvcontactfound.html',
+            'qr-vector.svg': 'qrcode.html',
             'check-mail.svg': 'checkmail.html',
-            'cloud-contact-banner.svg': 'setting.html',
-            'start-chat.svg': 'add_group_member.html',
-            'no-contacts-found.svg': 'all_contact.html'
+            'cloud-contact-banner.svg': 'contact.html',
+            'start-chat.svg': 'startchat.html',
+            'no-contacts-found.svg': 'nofvcontactfound.html'
         };
         function getIconPreviewHref(filename) {
             return ICON_TO_PAGE[filename] || 'setting.html';
@@ -328,13 +332,24 @@
             } catch (e) { return {}; }
         }
         
+        var deskAppIconBridge = null;
+        function broadcastIconColorsToOtherWindows() {
+            try {
+                if (typeof BroadcastChannel === 'function') {
+                    if (!deskAppIconBridge) deskAppIconBridge = new BroadcastChannel('desk-app-icon-bridge');
+                    deskAppIconBridge.postMessage({ t: 'shared-colors' });
+                }
+            } catch (e) { /* */ }
+        }
         function setStoredColors(filename, obj, mode) {
             if (SHARED_GRADIENT_ICONS.includes(filename)) {
                 localStorage.setItem(COLORS_PREFIX + SHARED_GRADIENT_KEY, JSON.stringify(obj));
-                return;
+            } else {
+                const key = mode && ICONS_WITH_LIGHT_DARK_COLUMNS.includes(filename) ? filename + ':' + mode : filename;
+                localStorage.setItem(COLORS_PREFIX + key, JSON.stringify(obj));
             }
-            const key = mode && ICONS_WITH_LIGHT_DARK_COLUMNS.includes(filename) ? filename + ':' + mode : filename;
-            localStorage.setItem(COLORS_PREFIX + key, JSON.stringify(obj));
+            window.dispatchEvent(new CustomEvent('whitelabel-icon-colors-changed'));
+            broadcastIconColorsToOtherWindows();
         }
         
         /** Extract unique hex colors from SVG. One box per icon, one control per color – no repeats. */
@@ -400,6 +415,13 @@
             } catch (e) {}
             return '';
         }
+        async function fetchSvgTextFirstOf(urls) {
+            for (const u of urls) {
+                const t = await fetchSvgText(u);
+                if (t) return t;
+            }
+            return '';
+        }
         
         function svgToBlobUrl(svgText) {
             if (!svgText) return '';
@@ -427,8 +449,7 @@
             if (stored && stored.startsWith('data:')) {
                 svgText = dataUrlToSvgText(stored);
             } else {
-                const path = mode === 'light' ? ICON_PATH_LIGHT : ICON_PATH_DARK;
-                svgText = await fetchSvgText(path + filename);
+                svgText = await fetchSvgTextFirstOf(iconSourceUrlsForFetch(filename, mode));
             }
             let config = svgText ? parseSvgColors(svgText) : null;
             if (config && config.colors && EXCLUDED_COLORS_BY_ICON[filename]) {
@@ -446,10 +467,15 @@
             const prefix = mode === 'light' ? PREVIEW_PREFIX_LIGHT : PREVIEW_PREFIX_DARK;
             const stored = localStorage.getItem(prefix + filename);
             if (stored && stored.startsWith('data:')) return stored;
-            const path = mode === 'light' ? ICON_PATH_LIGHT : ICON_PATH_DARK;
-            const url = path + filename;
-            let svgText = await fetchSvgText(url);
-            if (!svgText) return path + filename;
+            const urls = iconSourceUrlsForFetch(filename, mode);
+            let url = urls[0];
+            let svgText = '';
+            for (const u of urls) {
+                url = u;
+                svgText = await fetchSvgText(u);
+                if (svgText) break;
+            }
+            if (!svgText) return url;
             const config = await getIconColorConfig(filename, mode);
             if (config) {
                 const values = { ...getDefaults(config), ...colorValues };
@@ -479,7 +505,14 @@
         
         function loadOneIcon(filename, mode, onDone) {
             const path = mode === 'light' ? ICON_PATH_LIGHT : ICON_PATH_DARK;
-            tryLoadIcon(path + filename, (u) => onDone(mode, u), () => onDone(mode, ''));
+            const primary = path + filename;
+            if (filename === 'check-mail.svg') {
+                tryLoadIcon(primary, (u) => onDone(mode, u), () => {
+                    tryLoadIcon(ICON_IMG_NEW + filename, (u2) => onDone(mode, u2), () => onDone(mode, ''));
+                });
+            } else {
+                tryLoadIcon(primary, (u) => onDone(mode, u), () => onDone(mode, ''));
+            }
         }
         
         function tryLoadIcon(url, onSuccess, onFail) {
@@ -536,8 +569,8 @@
                 const sharedVals = { ...getDefaults(sharedConfigLight), ...getDefaults(sharedConfigDark), ...sharedColorValues };
                 for (const name of SHARED_GRADIENT_ICONS) {
                     const shortName = name.replace('.svg', '');
-                    let lightSvg = await fetchSvgText(ICON_PATH_LIGHT + name);
-                    let darkSvg = await fetchSvgText(ICON_PATH_DARK + name);
+                    let lightSvg = await fetchSvgTextFirstOf(iconSourceUrlsForFetch(name, 'light'));
+                    let darkSvg = await fetchSvgTextFirstOf(iconSourceUrlsForFetch(name, 'dark'));
                     if (ICONS_USING_HEX.includes(name)) {
                         lightSvg = applySvgColors(lightSvg, sharedConfigLight, sharedVals) || lightSvg;
                         darkSvg = applySvgColors(darkSvg, sharedConfigLight, sharedVals) || darkSvg;
@@ -612,7 +645,7 @@
             const iconInfo = document.createElement('div');
             iconInfo.className = 'icon-info';
             iconInfo.innerHTML = `
-                <div class="name">Shared (18 icons) – one color change updates all</div>
+                <div class="name">Shared (17 icons) – one color change updates all</div>
                 <div class="shared-preview-wrap"></div>
             `;
             iconInfo.querySelector('.shared-preview-wrap').appendChild(sharedPreviewHtml);
@@ -777,8 +810,8 @@
                                 const lightWrap = cell.querySelector('.mini-preview.light .inline-svg-wrap');
                                 const darkWrap = cell.querySelector('.mini-preview.dark .inline-svg-wrap');
                                 if (!lightWrap || !darkWrap) continue;
-                                const lightSvg = await fetchSvgText(ICON_PATH_LIGHT + name);
-                                const darkSvg = await fetchSvgText(ICON_PATH_DARK + name);
+                                const lightSvg = await fetchSvgTextFirstOf(iconSourceUrlsForFetch(name, 'light'));
+                                const darkSvg = await fetchSvgTextFirstOf(iconSourceUrlsForFetch(name, 'dark'));
                                 const ensureSvgFit = (s) => (s && s.includes('<svg')) ? s.replace(/<svg(\s[^>]*)?>/, (m) => m.includes('preserveAspectRatio') ? m : m.replace('>', ' preserveAspectRatio="xMidYMid meet">')) : s;
                                 if (lightSvg) lightWrap.innerHTML = ensureSvgFit(applySvgColors(lightSvg, sharedConfigLight, sharedVals)?.trim()) || '';
                                 if (darkSvg) darkWrap.innerHTML = ensureSvgFit(applySvgColors(darkSvg, sharedConfigLight, sharedVals)?.trim()) || '';
@@ -902,10 +935,7 @@
                 const txt = dataUrlToSvgText(stored);
                 if (txt) return txt;
             }
-            const path = mode === 'light' ? ICON_PATH_LIGHT : ICON_PATH_DARK;
-            const r = await fetch(path + filename);
-            if (r.ok) return await r.text();
-            return '';
+            return await fetchSvgTextFirstOf(iconSourceUrlsForFetch(filename, mode));
         }
 
         /** Replace var(--icon-*) in SVG text with actual hex values from shared color storage */

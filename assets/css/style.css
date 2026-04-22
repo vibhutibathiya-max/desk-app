@@ -3994,17 +3994,25 @@ input[type="text"]::placeholder,
     margin-bottom: 0px;
 }
 
+.login-right-section:has(.device-img) {
+    display: flex;
+    flex-direction: column;
+}
+
 .login-right-section .device-img {
     width: 100%;
     display: flex;
     justify-content: center;
-
+    align-items: center;
+    flex: 1 1 auto;
+    min-height: 0;
 }
 
 .login-right-section .laptop-img {
     width: 100%;
-    position: absolute;
-    bottom: 180px;
+    height: auto;
+    display: block;
+    position: static;
 }
 
 .version-number {
@@ -9409,7 +9417,8 @@ html[data-theme="dark"] .call-detail .call-type img[alt="inbound-call"] {
     padding: 30px;
 }
 
-.connection-successfully img {
+.connection-successfully img,
+.connection-successfully svg {
     margin-bottom: 10px;
 }
 
@@ -9583,7 +9592,8 @@ html[data-theme="dark"] .call-detail .call-type img[alt="inbound-call"] {
     animation: fadeInPage ease 1.5s;
 }
 
-.re-register-content img {
+.re-register-content img,
+.re-register-content svg {
     margin-bottom: 10px;
 }
 
@@ -11610,7 +11620,7 @@ emoji-picker.dark {
 
 [class^="icon-"],
 [class*=" icon-"] {
-    position: absolute;
+    /* position: absolute; */
     bottom: 0;
     width: 100%;
     margin: auto;

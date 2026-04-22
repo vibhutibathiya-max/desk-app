@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Logo Gallery</title>
+    <title>Image Gallery</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', system-ui, sans-serif; background: #1a1a2e; color: #eee; min-height: 100vh; }
@@ -66,7 +66,7 @@
 <body>
     <div class="page-layout">
         <header class="header-bar">
-            <h1>Logo Gallery</h1>
+            <h1>image Gallery</h1>
             <button class="btn btn-secondary" id="btnUploadFolder">Upload Folder</button>
             <button class="btn btn-secondary" id="btnResetAll">Reset All</button>
             <button class="btn btn-primary" id="btnExportLogos" style="margin-left: auto;">Export Logos (ZIP)</button>
@@ -90,8 +90,13 @@
         const LOGO_FALLBACKS = {
             'logo.svg': ['../public/app-icon/logo/'],
             'logo-header.svg': ['../public/app-icon/logo/'],
-            'logo-white.svg': ['../public/app-icon/logo/'],
         };
+        /** Built-in load order for logo-white slot: primary logo path, img-new alias, trago (product) white mark */
+        const LOGO_WHITE_BUILT_IN_URLS = [
+            LOGO_PATH + 'logo-white.svg',
+            '../assets/img-new/logo-white.svg',
+            '../assets/img-new/trago-white.svg'
+        ];
         /** Logo filename -> page where it appears. Preview opens that page so user sees logo in context. Filename stays same for direct upload on export. */
         const LOGO_TO_PAGE = {
             'logo.svg': 'login.html',
@@ -159,11 +164,53 @@
                 () => loadOneLogo(filename, urls, idx + 1)
             );
         }
+        function tryLoadLogoByFullUrlList(filename, fullUrls, idx) {
+            if (idx >= fullUrls.length) return;
+            const url = fullUrls[idx];
+            tryLoadLogo(filename, url,
+                (u, img) => addLogoFromUrl(filename, u, img),
+                () => tryLoadLogoByFullUrlList(filename, fullUrls, idx + 1)
+            );
+        }
+        function tryUpdateLogoByFullUrlList(filename, fullUrls, idx, logoIndex) {
+            if (idx >= fullUrls.length) return;
+            const url = fullUrls[idx];
+            tryLoadLogo(filename, url,
+                (u, img) => {
+                    fetch(u).then(r => r.blob()).then(blob => {
+                        const sizeKB = (blob.size / 1024).toFixed(2) + ' KB';
+                        updateLogo(logoIndex, { name: filename, src: u, width: img.naturalWidth, height: img.naturalHeight, sizeKB, slot: filename });
+                    }).catch(() => {
+                        updateLogo(logoIndex, { name: filename, src: u, width: img.naturalWidth, height: img.naturalHeight, sizeKB: '—', slot: filename });
+                    });
+                },
+                () => tryUpdateLogoByFullUrlList(filename, fullUrls, idx + 1, logoIndex)
+            );
+        }
         function loadBuiltInLogos() {
             LOGO_FILES.forEach((filename) => {
+                if (filename === 'logo-white.svg') {
+                    tryLoadLogoByFullUrlList('logo-white.svg', LOGO_WHITE_BUILT_IN_URLS, 0);
+                    return;
+                }
                 const urls = [LOGO_PATH].concat(LOGO_FALLBACKS[filename] || ['../assets/img-new/']);
                 loadOneLogo(filename, urls, 0);
             });
+        }
+        function reapplyBuiltInUrlForSlot(idx, slot) {
+            if (slot === 'logo-white.svg') {
+                tryUpdateLogoByFullUrlList('logo-white.svg', LOGO_WHITE_BUILT_IN_URLS, 0, idx);
+                return;
+            }
+            const url = LOGO_PATH + slot;
+            updateLogo(idx, { name: slot, src: url, width: null, height: null, sizeKB: '—', slot });
+            fetch(url).then(r => r.blob()).then(blob => {
+                const sizeKB = (blob.size / 1024).toFixed(2) + ' KB';
+                const img = new Image();
+                img.onload = () => updateLogo(idx, { name: slot, src: url, width: img.naturalWidth, height: img.naturalHeight, sizeKB, slot });
+                img.onerror = () => {};
+                img.src = url;
+            }).catch(() => {});
         }
         
         function renderGrid() {
@@ -228,15 +275,7 @@
                     const slot = logo?.slot || logo?.name;
                     if (slot) {
                         localStorage.removeItem(PREVIEW_STORAGE_PREFIX + slot);
-                        const url = LOGO_PATH + slot;
-                        updateLogo(idx, { name: slot, src: url, width: null, height: null, sizeKB: '—', slot });
-                        fetch(url).then(r => r.blob()).then(blob => {
-                            const sizeKB = (blob.size / 1024).toFixed(2) + ' KB';
-                            const img = new Image();
-                            img.onload = () => updateLogo(idx, { name: slot, src: url, width: img.naturalWidth, height: img.naturalHeight, sizeKB, slot });
-                            img.onerror = () => {};
-                            img.src = url;
-                        }).catch(() => {});
+                        reapplyBuiltInUrlForSlot(idx, slot);
                     }
                 });
             });

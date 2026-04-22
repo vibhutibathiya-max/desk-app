@@ -88,4 +88,10 @@
     opacity: 1 !important;
 }
 
+/* Cloud Contacts row: keep provider badge + icon grouped at the end of the line */
+.contact-list-item.nav-pills .nav-link .cloud-contact-tab-trail .google-mark {
+    margin-left: 0;
+    margin-right: 0;
+}
+
 /** Css Added By Developer: End */

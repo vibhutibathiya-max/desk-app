@@ -75,12 +75,14 @@
             <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
                 <select class="page-select" id="pageSelect" style="flex:1;min-width:0;margin-bottom:0">
                     <option value="login.html">Login</option>
+                    <option value="qrcode.html">QR Login</option>
                 <option value="call_history.html">Call History</option>
                 <option value="call_connecting.html">Call Connecting</option>
                 <option value="call_connecting_video.html">Call Connecting (Video)</option>
                 <option value="active_call_dtmf.html">Active Call DTMF</option>
                 <option value="add_group_member.html">Add Group Member</option>
                 <option value="all_contact.html">All Contact</option>
+                <option value="contact.html">Contact (cloud banner)</option>
                 <option value="contact_detail.html">Contact Detail</option>
                 <option value="group_chat_edit.html">Group Chat Edit</option>
                 <option value="group_chat_with_admin_alarts.html">Group Chat Admin</option>
@@ -91,10 +93,10 @@
                 <option value="chat_loader.html">Chat Loader</option>
                 <option value="autostartup.html">Auto Startup</option>
                 <option value="setting.html">Setting</option>
-                <option value="logo-gallery.html">Logo Gallery</option>
+                <option value="logo-gallery.html">image Gallery</option>
                 <option value="icon-gallery.html">Icon Gallery</option>
                 </select>
-                <a href="logo-gallery.html" target="_blank" rel="noopener" class="btn btn-primary" style="flex-shrink:0;text-decoration:none;display:inline-flex;align-items:center">Logo Gallery</a>
+                <a href="logo-gallery.html" target="_blank" rel="noopener" class="btn btn-primary" style="flex-shrink:0;text-decoration:none;display:inline-flex;align-items:center">Image Gallery</a>
                 <a href="icon-gallery.html" target="_blank" rel="noopener" class="btn btn-primary" style="flex-shrink:0;text-decoration:none;display:inline-flex;align-items:center">Icon Gallery</a>
             </div>
             
@@ -132,7 +134,7 @@
             </div>
             
             <p style="font-size:10px;color:#666;margin-top:16px;line-height:1.4">
-                <strong>Logo Gallery</strong> – Upload logos via Logo Gallery. Replace by same filename, export as logo.zip.<br>
+                <strong>ImageGallery</strong> – Upload logos via Logo Gallery. Replace by same filename, export as logo.zip.<br>
                 <strong>Icon Color</strong> – Customizes inline SVG icons (done, logout, etc.). Complex icons: use Icon Gallery upload.<br>
                 <strong>Export Full Theme</strong> – ZIP with global.css + icons. Extract to project root – no code changes.
             </p>
@@ -198,6 +200,16 @@
             'web-socket-connection.svg': ['public/app-icon/icon/light/web-socket-connection.svg', 'public/app-icon/icon/dark/web-socket-connection.svg']
         };
         function getAssetPaths(filename) {
+            if (filename === 'logo-white.svg') {
+                return ['public/app-icon/logo/logo-white.svg', 'assets/img-new/logo-white.svg', 'assets/img-new/trago-white.svg'];
+            }
+            if (filename === 'check-mail.svg') {
+                return [
+                    'public/app-icon/icon/light/check-mail.svg',
+                    'public/app-icon/icon/dark/check-mail.svg',
+                    'assets/img-new/check-mail.svg'
+                ];
+            }
             const mapped = ASSET_PATH_MAP[filename];
             if (Array.isArray(mapped)) return mapped;
             if (mapped) return [mapped];
@@ -741,9 +753,23 @@
                 const darkPath = 'public/app-icon/icon/dark/' + filename;
                 let bin;
                 if (lightData && (bin = dataUrlToBinary(lightData))) zip.file(lightPath, bin);
-                else try { const r = await fetch('../public/app-icon/icon/light/' + filename); if (r.ok) zip.file(lightPath, await r.blob()); } catch (e) {}
+                else try {
+                    const r = await fetch('../public/app-icon/icon/light/' + filename);
+                    if (r.ok) zip.file(lightPath, await r.blob());
+                    else if (filename === 'check-mail.svg') {
+                        const f = await fetch('../assets/img-new/check-mail.svg');
+                        if (f.ok) zip.file(lightPath, await f.blob());
+                    }
+                } catch (e) {}
                 if (darkData && (bin = dataUrlToBinary(darkData))) zip.file(darkPath, bin);
-                else try { const r = await fetch('../public/app-icon/icon/dark/' + filename); if (r.ok) zip.file(darkPath, await r.blob()); } catch (e) {}
+                else try {
+                    const r = await fetch('../public/app-icon/icon/dark/' + filename);
+                    if (r.ok) zip.file(darkPath, await r.blob());
+                    else if (filename === 'check-mail.svg') {
+                        const f = await fetch('../assets/img-new/check-mail.svg');
+                        if (f.ok) zip.file(darkPath, await f.blob());
+                    }
+                } catch (e) {}
             }
             zip.file('WHITELABEL-INSTALL.txt', 'White-Label Theme Installation\n' +
                 '================================\n\n' +
