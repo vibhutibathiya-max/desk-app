@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light" dir="ltr">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8">
@@ -12,7 +12,6 @@
     <link href="../assets/css/select2.css" rel="stylesheet" />
     <link href="../assets/css/asRange.min.css" rel="stylesheet" />
     <link href="../assets/css/custom-select-input-style.css" rel="stylesheet" />
-    <script src="../assets/js/icon-svg-inline.js"></script>
 </head>
 
 <body>
@@ -20,7 +19,7 @@
         <!-- HEADER :: STARTS -->
         <header class="header d-flex align-items-center" id="myHeader">
             <div class="header-left-items d-flex justify-content-start align-items-center order-1">
-                <img src="../public/app-icon/logo/logo-header.svg" alt="ubefone" height="33">
+                <img src="../../public/app-icon/logo/logo-header.svg" alt="ubefone" height="33">
             </div>
             <div class="header-right-items d-flex justify-content-start align-items-center order-2">
                 <div class="auto-answer">
@@ -48,7 +47,7 @@
                     <div class="user-name dropdown-toggle" href="#" role="button" id="profileDropdown"
                         data-bs-auto-close="outside" data-bs-toggle="dropdown" aria-expanded="false">
                         <p class="mb-0 ext_number_box">
-                            <img class="mx-1" src="../assets/img-new/arrow-down.svg" alt="ARROW DOWN" width=""
+                            <img class="mx-1" src="../../assets/img-new/arrow-down.svg" alt="ARROW DOWN" width=""
                                 height="">
                             <span class="_extName" title="1007 Aarati">1007 Aarati</span>
                         </p>
@@ -57,7 +56,7 @@
 
                     <ul class="dropdown-menu" aria-labelledby="profileDropdown">
                         <li class="logoutEnable" lang="online" onclick="changeXmppPresence(this.lang)">
-                            <img src="../assets/img-new/online.svg" alt="ONLINE">
+                            <img src="../../assets/img-new/online.svg" alt="ONLINE">
                             <p class="__MSG__online">Online</p>
                             <!-- CHECKBOX GROUP -->
                             <div class="checkbox _checkboxStatus" id="id_checkboxOnline" style="display: block;">
@@ -67,7 +66,7 @@
                             <!-- CHECKBOX GROUP -->
                         </li>
                         <li class="logoutEnable" lang="away" onclick="changeXmppPresence(this.lang)">
-                            <img src="../assets/img-new/away.svg" alt="AWAY">
+                            <img src="../../assets/img-new/away.svg" alt="AWAY">
                             <p class="__MSG__Away">Away</p>
                             <div class="checkbox _checkboxStatus" id="id_checkboxAway" style="display: none;">
                                 <input type="checkbox" value="None" id="name2" name="check" checked="">
@@ -75,7 +74,7 @@
                             </div>
                         </li>
                         <!-- <li lang="busy" onclick="changeXmppPresence(this.lang)">
-                                <img src="../assets/img-new/busy.svg" alt="BUSY">
+                                <img src="../../assets/img-new/busy.svg" alt="BUSY">
                                 <p>Busy</p>
                                 <div class="checkbox _checkboxStatus" id="id_checkboxBusy">
                                     <input type="checkbox" value="None" id="name3"
@@ -85,7 +84,7 @@
                             </li> -->
 
                         <li class="logoutEnable" lang="dnd" onclick="changeXmppPresence(this.lang)">
-                            <img src="../assets/img-new/dnd.svg" alt="DND">
+                            <img src="../../assets/img-new/dnd.svg" alt="DND">
                             <p class="__MSG__dnd-text">DND</p>
                             <div class="checkbox _checkboxStatus" id="id_checkboxDnd" style="display: none;">
                                 <input type="checkbox" value="None" id="name4" name="check" checked="">
@@ -96,7 +95,7 @@
                         <!-- TRAG-5783 - Zain/Xlogix-Logout needs to be out of the setting Option -->
                         <li onkeydown="if(event.keyCode === 13) { $(this).trigger('click'); }" tabindex="-1"
                             data-bs-toggle="modal" data-bs-target="#logoutModal">
-                            <!-- <img src="../assets/img-new/logout-new.svg" alt="LOGOUT"> -->
+                            <!-- <img src="../../assets/img-new/logout-new.svg" alt="LOGOUT"> -->
                             <svg width="12" height="13" viewBox="0 0 12 13" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -125,7 +124,7 @@
                                 src="data:image/jpeg;base64, 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"
                                 alt="Profile"></div>
                         <span class="green-dot" id="idMainPresenceIconPresenceHeader"><img
-                                src="../assets/img-new/online.svg" alt="ONLINE" width="" height=""></span>
+                                src="../../assets/img-new/online.svg" alt="ONLINE" width="" height=""></span>
                     </div>
                 </div>
 
@@ -252,9 +251,10 @@
                                 aria-selected="true" tabindex="20">
                                 <span class="mx-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21"
-                                        fill="var(--text-dark-gray-to-white)">
+                                        fill="none">
                                         <path
-                                            d="M16.675 13.3167C15.65 13.3167 14.6583 13.15 13.7333 12.85C13.5884 12.8012 13.4326 12.794 13.2838 12.8294C13.135 12.8648 12.9992 12.9412 12.8917 13.05L11.5833 14.6917C9.225 13.5667 7.01667 11.4417 5.84167 9L7.46667 7.61667C7.69167 7.38333 7.75833 7.05833 7.66667 6.76667C7.35833 5.84167 7.2 4.85 7.2 3.825C7.2 3.375 6.825 3 6.375 3H3.49167C3.04167 3 2.5 3.2 2.5 3.825C2.5 11.5667 8.94167 18 16.675 18C17.2667 18 17.5 17.475 17.5 17.0167V14.1417C17.5 13.6917 17.125 13.3167 16.675 13.3167Z" />
+                                            d="M16.675 13.3167C15.65 13.3167 14.6583 13.15 13.7333 12.85C13.5884 12.8012 13.4326 12.794 13.2838 12.8294C13.135 12.8648 12.9992 12.9412 12.8917 13.05L11.5833 14.6917C9.225 13.5667 7.01667 11.4417 5.84167 9L7.46667 7.61667C7.69167 7.38333 7.75833 7.05833 7.66667 6.76667C7.35833 5.84167 7.2 4.85 7.2 3.825C7.2 3.375 6.825 3 6.375 3H3.49167C3.04167 3 2.5 3.2 2.5 3.825C2.5 11.5667 8.94167 18 16.675 18C17.2667 18 17.5 17.475 17.5 17.0167V14.1417C17.5 13.6917 17.125 13.3167 16.675 13.3167Z"
+                                            fill="#474747" />
                                     </svg>
                                 </span>
                                 <span class="__MSG__applicationSetting">Mobile Number</span>
@@ -266,24 +266,25 @@
                                 aria-selected="true" tabindex="20">
                                 <span class="mx-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
-                                        fill="var(--text-dark-gray-to-white)">
+                                        fill="none">
                                         <g clip-path="url(#clip0_10631_12500)">
                                             <path
                                                 d="M3.41024 19.3035C2.68961 18.5606 2.13478 17.6646 1.74575 16.6154C1.35672 15.5663 1.16209 14.4476 1.16186 13.2591C1.16186 12.0705 1.35649 10.9517 1.74575 9.90281C2.13501 8.85393 2.68984 7.95792 3.41024 7.21476C3.51401 7.10778 3.63508 7.05429 3.77344 7.05429C3.9118 7.05429 4.03287 7.10778 4.13664 7.21476L5.53755 8.65899C5.61826 8.7422 5.66288 8.84478 5.67141 8.96674C5.67994 9.08869 5.65262 9.19413 5.58943 9.28304L4.60361 10.7629C4.5229 10.8699 4.44219 10.9472 4.36147 10.9947C4.28076 11.0423 4.19429 11.066 4.10205 11.066L2.41577 11.075C2.31776 11.4137 2.24858 11.7672 2.20822 12.1355C2.16787 12.5037 2.15057 12.8813 2.15634 13.268C2.15634 13.6365 2.1779 14.0006 2.22102 14.3603C2.26414 14.72 2.33194 15.078 2.42441 15.4344L4.05016 15.4344C4.15393 15.4344 4.2607 15.4641 4.37047 15.5235C4.48023 15.583 4.56948 15.6602 4.6382 15.7553L5.58943 17.2352C5.64708 17.3422 5.67153 17.4537 5.66276 17.5697C5.654 17.6857 5.61226 17.7822 5.53755 17.8593L4.13664 19.3035C4.03286 19.4105 3.9118 19.464 3.77344 19.464C3.63508 19.464 3.51401 19.4105 3.41024 19.3035Z"
-                                                fill="" />
+                                                fill="#474747" />
                                             <path
                                                 d="M9.6368 19.3035C8.91617 18.5606 8.36134 17.6646 7.97231 16.6154C7.58329 15.5663 7.38866 14.4476 7.38843 13.2591C7.38843 12.0705 7.58305 10.9517 7.97231 9.90281C8.36157 8.85393 8.9164 7.95792 9.6368 7.21476C9.74057 7.10778 9.86164 7.05429 10 7.05429C10.1384 7.05429 10.2594 7.10778 10.3632 7.21476L11.7641 8.65899C11.8448 8.7422 11.8894 8.84478 11.898 8.96674C11.9065 9.08869 11.8792 9.19413 11.816 9.28304L10.8302 10.7629C10.7495 10.8699 10.6687 10.9472 10.588 10.9947C10.5073 11.0423 10.4208 11.066 10.3286 11.066L8.64233 11.075C8.54432 11.4137 8.47514 11.7672 8.43479 12.1355C8.39443 12.5037 8.37713 12.8813 8.3829 13.268C8.3829 13.6365 8.40446 14.0006 8.44758 14.3603C8.49071 14.72 8.5585 15.078 8.65098 15.4344H10.2767C10.3805 15.4344 10.4873 15.4641 10.597 15.5235C10.7068 15.583 10.796 15.6602 10.8648 15.7553L11.816 17.2352C11.8736 17.3422 11.8981 17.4537 11.8893 17.5697C11.8806 17.6857 11.8388 17.7822 11.7641 17.8593L10.3632 19.3035C10.2594 19.4105 10.1384 19.464 10 19.464C9.86164 19.464 9.74057 19.4105 9.6368 19.3035Z"
-                                                fill="" />
+                                                fill="#474747" />
                                             <path
                                                 d="M15.8634 19.3035C15.1427 18.5606 14.5879 17.6646 14.1989 16.6154C13.8098 15.5663 13.6152 14.4476 13.615 13.2591C13.615 12.0705 13.8096 10.9517 14.1989 9.90281C14.5881 8.85393 15.143 7.95792 15.8634 7.21476C15.9671 7.10778 16.0882 7.05429 16.2266 7.05429C16.3649 7.05429 16.486 7.10778 16.5898 7.21476L17.9907 8.65899C18.0714 8.7422 18.116 8.84478 18.1245 8.96674C18.1331 9.08869 18.1057 9.19413 18.0426 9.28304L17.0567 10.7629C16.976 10.8699 16.8953 10.9472 16.8146 10.9947C16.7339 11.0423 16.6474 11.066 16.5552 11.066L14.8689 11.075C14.7709 11.4137 14.7017 11.7672 14.6613 12.1355C14.621 12.5037 14.6037 12.8813 14.6095 13.268C14.6095 13.6365 14.631 14.0006 14.6741 14.3603C14.7173 14.72 14.7851 15.078 14.8775 15.4344L16.5033 15.4344C16.6071 15.4344 16.7138 15.4641 16.8236 15.5235C16.9334 15.583 17.0226 15.6602 17.0913 15.7553L18.0426 17.2352C18.1002 17.3422 18.1247 17.4537 18.1159 17.5697C18.1071 17.6857 18.0654 17.7822 17.9907 17.8593L16.5898 19.3035C16.486 19.4105 16.3649 19.464 16.2266 19.464C16.0882 19.464 15.9671 19.4105 15.8634 19.3035Z"
-                                                fill="" />
+                                                fill="#474747" />
                                             <rect width="1.23523" height="4.78724"
                                                 transform="matrix(0.756256 -0.654276 0.644725 0.764415 1.67773 2.84375)"
-                                                fill="" />
+                                                fill="#474747" />
                                             <rect width="1.23523" height="4.78724"
                                                 transform="matrix(-0.756256 -0.654276 -0.644725 0.764415 18.3223 2.84375)"
-                                                fill="" />
-                                            <rect x="9.38477" y="0.321777" width="1.22857" height="4.8128" fill="" />
+                                                fill="#474747" />
+                                            <rect x="9.38477" y="0.321777" width="1.22857" height="4.8128"
+                                                fill="#474747" />
                                         </g>
                                         <defs>
                                             <clipPath id="clip0_10631_12500">
@@ -301,10 +302,10 @@
                                 aria-selected="true" tabindex="20">
                                 <span class="mx-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
-                                        fill="var(--text-dark-gray-to-white)">
+                                        fill="none">
                                         <path
                                             d="M5.62435 9.1665C5.80491 9.1665 5.95435 9.10734 6.07268 8.989C6.19102 8.87067 6.24991 8.7215 6.24935 8.5415V8.12484C6.24935 7.94428 6.19018 7.79511 6.07185 7.67734C5.95352 7.55956 5.80435 7.50039 5.62435 7.49984C5.44435 7.49928 5.29518 7.55845 5.17685 7.67734C5.05852 7.79623 4.99935 7.94539 4.99935 8.12484V8.5415C4.99935 8.72206 5.05852 8.8715 5.17685 8.98984C5.29518 9.10817 5.44435 9.16706 5.62435 9.1665ZM7.70768 10.8332C7.88824 10.8332 8.03768 10.774 8.15602 10.6557C8.27435 10.5373 8.33324 10.3882 8.33268 10.2082V6.45817C8.33268 6.27762 8.27352 6.12845 8.15518 6.01067C8.03685 5.89289 7.88768 5.83373 7.70768 5.83317C7.52768 5.83261 7.37852 5.89178 7.26018 6.01067C7.14185 6.12956 7.08268 6.27873 7.08268 6.45817V10.2082C7.08268 10.3887 7.14185 10.5382 7.26018 10.6565C7.37852 10.7748 7.52768 10.8337 7.70768 10.8332ZM9.99935 12.4998C10.1799 12.4998 10.3294 12.4407 10.4477 12.3223C10.566 12.204 10.6249 12.0548 10.6244 11.8748V4.7915C10.6244 4.61095 10.5652 4.46178 10.4468 4.344C10.3285 4.22623 10.1793 4.16706 9.99935 4.1665C9.81935 4.16595 9.67018 4.22511 9.55185 4.344C9.43352 4.46289 9.37435 4.61206 9.37435 4.7915V11.8748C9.37435 12.0554 9.43352 12.2048 9.55185 12.3232C9.67018 12.4415 9.81935 12.5004 9.99935 12.4998ZM12.291 10.8332C12.4716 10.8332 12.621 10.774 12.7394 10.6557C12.8577 10.5373 12.9166 10.3882 12.916 10.2082V6.45817C12.916 6.27762 12.8568 6.12845 12.7385 6.01067C12.6202 5.89289 12.471 5.83373 12.291 5.83317C12.111 5.83261 11.9619 5.89178 11.8435 6.01067C11.7252 6.12956 11.666 6.27873 11.666 6.45817V10.2082C11.666 10.3887 11.7252 10.5382 11.8435 10.6565C11.9619 10.7748 12.111 10.8337 12.291 10.8332ZM14.3744 9.1665C14.5549 9.1665 14.7044 9.10734 14.8227 8.989C14.941 8.87067 14.9999 8.7215 14.9994 8.5415V8.12484C14.9994 7.94428 14.9402 7.79511 14.8219 7.67734C14.7035 7.55956 14.5543 7.50039 14.3744 7.49984C14.1944 7.49928 14.0452 7.55845 13.9268 7.67734C13.8085 7.79623 13.7494 7.94539 13.7494 8.12484V8.5415C13.7494 8.72206 13.8085 8.8715 13.9268 8.98984C14.0452 9.10817 14.1944 9.16706 14.3744 9.1665ZM4.99935 14.9998L3.08268 16.9165C2.81879 17.1804 2.51657 17.2396 2.17602 17.094C1.83546 16.9484 1.66546 16.6879 1.66602 16.3123V3.33317C1.66602 2.87484 1.82935 2.48262 2.15602 2.1565C2.48268 1.83039 2.87491 1.66706 3.33268 1.6665H16.666C17.1244 1.6665 17.5169 1.82984 17.8435 2.1565C18.1702 2.48317 18.3332 2.87539 18.3327 3.33317V13.3332C18.3327 13.7915 18.1696 14.184 17.8435 14.5107C17.5174 14.8373 17.1249 15.0004 16.666 14.9998H4.99935Z"
-                                            fill="" />
+                                            fill="#474747" />
                                     </svg>
                                 </span>
                                 <span>Greetings</span>
@@ -437,7 +438,7 @@
                                             fill="var(--text-dark-gray-to-white)"></path>
                                     </svg>
                                 </span>
-                                <span class="__MSG__privacyPolicy">Privacy Policy</span>
+                                <span class="__MSG__sendReports">Contact Support</span>
                             </a>
                         </li>
                     </ul>
@@ -758,126 +759,124 @@
                                 <h3>Test Connection</h3>
                             </div>
                             <div class="divider"></div>
-                            <div class="options-container">
-                                <div class="setting-options">
-                                    <table class="connection-settings">
-                                        <tr>
-                                            <td>
-                                                # Operating System
-                                            </td>
-                                            <td>
-                                                Linux version
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                # Browser
-                                            </td>
-                                            <td>
-                                                Chrome version: 100.0.4896.160
-                                                Private browsing? Nope
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                # Display resolution
-                                            </td>
-                                            <td>
-                                                1360 x 768
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                # Display aspect ration
-                                            </td>
-                                            <td>
-                                                1.77
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                # System has speakers?
-                                            </td>
-                                            <td>
-                                                Yep
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                # System has microphone?
-                                            </td>
-                                            <td>
-                                                Default
-                                                Built-in Audio Analog Stereo
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                # System has webcam?
-                                            </td>
-                                            <td>
-                                                Yep
-                                                Found webcam devices: 1 HP HD Webcam (05c8:0374)
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                # Website has webcam permissisons?
+                            <div class="setting-options">
+                                <table class="connection-settings">
+                                    <tr>
+                                        <td>
+                                            # Operating System
+                                        </td>
+                                        <td>
+                                            Linux version
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            # Browser
+                                        </td>
+                                        <td>
+                                            Chrome version: 100.0.4896.160
+                                            Private browsing? Nope
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            # Display resolution
+                                        </td>
+                                        <td>
+                                            1360 x 768
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            # Display aspect ration
+                                        </td>
+                                        <td>
+                                            1.77
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            # System has speakers?
+                                        </td>
+                                        <td>
+                                            Yep
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            # System has microphone?
+                                        </td>
+                                        <td>
+                                            Default
+                                            Built-in Audio Analog Stereo
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            # System has webcam?
+                                        </td>
+                                        <td>
+                                            Yep
+                                            Found webcam devices: 1 HP HD Webcam (05c8:0374)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            # Website has webcam permissisons?
 
-                                            </td>
-                                            <td>
-                                                Yep
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                # Website has microphone permissions?
-                                            </td>
-                                            <td>
-                                                Yep
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                # Browser allows getUserMedia on this page?
-                                            </td>
-                                            <td>
-                                                Requires HTTPs
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                # Can you change output audio devices?
-                                            </td>
-                                            <td>
-                                                Yep
-                                            </td>
-                                        </tr>
-                                    </table>
+                                        </td>
+                                        <td>
+                                            Yep
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            # Website has microphone permissions?
+                                        </td>
+                                        <td>
+                                            Yep
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            # Browser allows getUserMedia on this page?
+                                        </td>
+                                        <td>
+                                            Requires HTTPs
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            # Can you change output audio devices?
+                                        </td>
+                                        <td>
+                                            Yep
+                                        </td>
+                                    </tr>
+                                </table>
 
-                                    <!-- CONNECTION SUCCESSFULLY :: STARTS -->
-                                    <div class="connection-successfully">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="95" height="94" viewBox="0 0 95 94" fill="none" role="img" aria-label="DEBUGGING LOGS">
-<circle opacity="0.5" cx="47.7901" cy="46.837" r="46.837" fill="var(--element-active-bg)"/>
-<path d="M28.6543 46.8367L41.3582 59.5407L66.7661 34.1328" stroke="url(#paint0_linear_done_1)" stroke-width="7.11111" stroke-linecap="round" stroke-linejoin="round"/>
-<defs>
-<linearGradient id="paint0_linear_done_1" x1="77.5727" y1="46.6214" x2="10.6708" y2="46.6214" gradientUnits="userSpaceOnUse">
-<stop offset="0.163" stop-color="var(--label-icon)"/>
-<stop offset="0.334" stop-color="var(--input-icon)"/>
-<stop offset="0.715" stop-color="var(--label-icon)"/>
-</linearGradient>
-</defs>
-</svg>
-                                        <p>Complete</p>
-                                        <div class="progress">
-                                            <div class="progress-bar progress-bar-striped progress-bar-animated"
-                                                role="progressbar" aria-valuenow="75" aria-valuemin="0"
-                                                aria-valuemax="100" style="width: 75%"></div>
-                                        </div>
-                                        <p class="time">2020-10-07, 21:56:39 GMT+0530 (IST)</p>
+                                <!-- CONNECTION SUCCESSFULLY :: STARTS -->
+                                <div class="connection-successfully">
+                                    <svg width="95" height="94" viewBox="0 0 95 94" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+                                        <circle opacity="0.5" cx="47.7901" cy="46.837" r="46.837" fill="var(--icon-bg-done)"></circle>
+                                        <path d="M28.6543 46.8367L41.3582 59.5407L66.7661 34.1328" stroke="url(#paint0_linear_2_26520)" stroke-width="7.11111" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        <defs>
+                                        <linearGradient id="paint0_linear_2_26520" x1="77.5727" y1="46.6214" x2="10.6708" y2="46.6214" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0.163" stop-color="var(--icon-gradient-1)"></stop>
+                                        <stop offset="0.334" stop-color="var(--icon-gradient-2)"></stop>
+                                        <stop offset="0.715" stop-color="var(--icon-gradient-3)"></stop>
+                                        </linearGradient>
+                                        </defs>
+                                        </svg>
+                                    <p>Complete</p>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                            role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"
+                                            style="width: 75%"></div>
                                     </div>
-                                    <!-- CONNECTION SUCCESSFULLY :: ENDS -->
+                                    <p class="time">2020-10-07, 21:56:39 GMT+0530 (IST)</p>
                                 </div>
+                                <!-- CONNECTION SUCCESSFULLY :: ENDS -->
                             </div>
                         </div>
                     </div>
@@ -926,16 +925,8 @@
                             <h3>WebSocket Test</h3>
                             <div class="_wsImgColour connection-detail">
                                 <div class="_wsImg">
-                                    <svg class="ws-connecting-icon" width="94" height="94" viewBox="0 0 94 94" role="img" aria-label="Connecting" xmlns="http://www.w3.org/2000/svg">
-                                        <defs>
-                                            <linearGradient id="ws-connecting-gradient" x1="79.7" y1="49" x2="22.5" y2="49" gradientTransform="translate(0 96) scale(1 -1)" gradientUnits="userSpaceOnUse">
-                                                <stop offset="0" stop-color="var(--input-border-focused-color)"/>
-                                                <stop offset=".8" stop-color="var(--input-icon)"/>
-                                            </linearGradient>
-                                        </defs>
-                                        <circle cx="47" cy="47" r="47" fill="var(--element-active-bg)"/>
-                                        <path fill="url(#ws-connecting-gradient)" d="M67.9,37.2c0,1.5-.3,2.9-.8,4.3-.6,1.3-1.4,2.6-2.4,3.6l-6,6c-2.1,2.1-4.9,3.2-7.8,3.2s-5.8-1.2-7.8-3.2c-.2-.2-.3-.3-.4-.6,0-.2-.1-.4-.2-.7,0-.2,0-.5.1-.7,0-.2.2-.4.4-.6.2-.2.4-.3.6-.4.2,0,.4-.1.7-.1.2,0,.5,0,.7.2.2,0,.4.2.6.4,1.4,1.4,3.4,2.2,5.4,2.2s4-.8,5.4-2.2l6-6c.7-.7,1.3-1.6,1.7-2.5s.6-1.9.6-3c0-1-.2-2-.6-3-.4-.9-1-1.8-1.7-2.5-.7-.7-1.6-1.3-2.5-1.7-.9-.4-2-.6-3-.6-1,0-2,.2-3,.6-.9.4-1.8,1-2.5,1.7l-4.2,4.2c-.3.3-.8.5-1.2.4-.4,0-.9-.2-1.2-.5-.3-.3-.5-.7-.5-1.2,0-.4.1-.9.4-1.2l4.2-4.2c1.6-1.5,3.5-2.6,5.7-3,2.1-.4,4.4-.2,6.4.6,2,.8,3.8,2.3,5,4.1,1.2,1.8,1.9,4,1.9,6.1h0ZM47.1,57.7l-4.2,4.2c-1.5,1.4-3.4,2.2-5.4,2.1-2,0-3.9-.8-5.3-2.2-1.4-1.4-2.2-3.3-2.2-5.3,0-2,.7-3.9,2.1-5.4l6-6c1.4-1.4,3.4-2.2,5.4-2.2s4,.8,5.4,2.2c.3.3.8.5,1.2.4.4,0,.9-.2,1.2-.5.3-.3.5-.7.5-1.2,0-.4-.1-.9-.4-1.2-2.1-2.1-4.9-3.2-7.8-3.2s-5.8,1.2-7.8,3.2l-6,6c-1.1,1-2,2.2-2.6,3.6-.6,1.4-.9,2.8-1,4.3,0,1.5.3,3,.8,4.3.6,1.4,1.4,2.6,2.4,3.7,1.1,1.1,2.3,1.9,3.7,2.4,1.4.6,2.9.8,4.3.8,1.5,0,3-.3,4.3-.9,1.4-.6,2.6-1.5,3.6-2.6l4.2-4.2c.3-.3.5-.8.4-1.2,0-.4-.2-.9-.5-1.2-.3-.3-.7-.5-1.2-.5-.4,0-.9.1-1.2.4h0Z"/>
-                                    </svg>
+                                    <img alt="connected" src="../public/app-icon/icon/web-socket-connection.svg"
+                                        alt="CONNECTING TO WEB SOCKET" />
                                 </div>
                                 <div class="w-100 d-flex justify-content-start align-items-start flex-column">
                                     <p class="_wsAction __MSG__wsActionConnecting">Connecting to web socket</p>
@@ -954,17 +945,7 @@
                         <div class="websocket-test">
                             <h3>WebSocket Test</h3>
                             <div class="_wsImgColour connection-detail">
-                                <div class="_wsImg"><svg xmlns="http://www.w3.org/2000/svg" width="95" height="94" viewBox="0 0 95 94" fill="none" role="img" aria-label="connected">
-<circle opacity="0.5" cx="47.7901" cy="46.837" r="46.837" fill="var(--element-active-bg)"/>
-<path d="M28.6543 46.8367L41.3582 59.5407L66.7661 34.1328" stroke="url(#paint0_linear_done_2)" stroke-width="7.11111" stroke-linecap="round" stroke-linejoin="round"/>
-<defs>
-<linearGradient id="paint0_linear_done_2" x1="77.5727" y1="46.6214" x2="10.6708" y2="46.6214" gradientUnits="userSpaceOnUse">
-<stop offset="0.163" stop-color="var(--label-icon)"/>
-<stop offset="0.334" stop-color="var(--input-icon)"/>
-<stop offset="0.715" stop-color="var(--label-icon)"/>
-</linearGradient>
-</defs>
-</svg></div>
+                                <div class="_wsImg"><img alt="connected" src="../public/app-icon/icon/done.svg"></div>
                                 <div class="w-100 d-flex justify-content-start align-items-start flex-column">
                                     <p class="_wsAction __MSG__wsActionConnected">Connected</p>
                                     <div class="time">
@@ -982,10 +963,7 @@
                         <div class="websocket-test">
                             <h3>WebSocket Test</h3>
                             <div class="_wsImgColour connection-detail connection-failed">
-                                <div class="_wsImg"><svg xmlns="http://www.w3.org/2000/svg" width="95" height="95" viewBox="0 0 95 95" fill="none" role="img" aria-label="connected">
-<circle cx="47.587" cy="47.173" r="46.837" fill="#FFCFCB"/>
-<path d="M61.9576 32.8027L33.2168 61.5436M61.9576 61.5436L33.2168 32.8027L61.9576 61.5436Z" stroke="#FF4738" stroke-width="7.11111" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
+                                <div class="_wsImg"><img alt="connected" src="../assets/img-new/web-socket-failed.svg">
                                 </div>
                                 <div class="w-100 d-flex justify-content-start align-items-start flex-column">
                                     <p class="_wsAction __MSG__wsActionConnected">Failed</p>
@@ -1006,18 +984,8 @@
                             <h3>API Test</h3>
                             <div class="_wsImgColour connection-detail">
                                 <div class="_wsImg">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="94" height="95" viewBox="0 0 94 95" fill="none">
-                                        <circle cx="46.8976" cy="47.5753" r="46.837" fill="var(--element-active-bg)"/>
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M41.2847 67.2849C40.7325 67.2849 40.2847 66.8371 40.2847 66.2849V63.1167C39.018 62.5798 37.8247 61.898 36.7343 61.0794L34.0015 62.6572C33.7718 62.7898 33.4988 62.8257 33.2426 62.7571C32.9864 62.6884 32.768 62.5208 32.6354 62.2912L27.0228 52.5697C26.7467 52.0914 26.9105 51.4798 27.3888 51.2037L30.1333 49.6191C30.0479 48.957 29.9949 48.2761 29.9949 47.576C29.9949 46.8759 30.0479 46.195 30.1333 45.5329L27.3888 43.9483C26.9105 43.6722 26.7467 43.0606 27.0228 42.5823L32.6354 32.8609C32.9116 32.3826 33.5231 32.2187 34.0014 32.4949L36.7343 34.0726C37.8247 33.254 39.018 32.5722 40.2847 32.0354V28.8672C40.2847 28.3149 40.7325 27.8672 41.2847 27.8672H52.5101C53.0624 27.8672 53.5101 28.3149 53.5101 28.8672V32.0354C54.7769 32.5722 55.9702 33.254 57.0606 34.0726L59.7935 32.4949C60.2718 32.2187 60.8834 32.3826 61.1595 32.8609L66.7722 42.5823C66.9048 42.812 66.9408 43.0849 66.8721 43.3411C66.8035 43.5973 66.6359 43.8157 66.4062 43.9483L63.6616 45.5329C63.747 46.195 63.8 46.8759 63.8 47.576C63.8 48.2761 63.747 48.957 63.6616 49.6191L66.4062 51.2036C66.6359 51.3363 66.8035 51.5547 66.8721 51.8109C66.9408 52.067 66.9048 52.34 66.7722 52.5697L61.1595 62.2912C60.8834 62.7695 60.2718 62.9333 59.7935 62.6572L57.0606 61.0794C55.9702 61.8981 54.7769 62.5798 53.5101 63.1167V66.2849C53.5101 66.8371 53.0624 67.2849 52.5101 67.2849H41.2847ZM42.2847 62.4402V65.2849H51.5101V62.4402C51.5101 62.0243 51.7676 61.6518 52.1566 61.5048C53.6902 60.9253 55.1043 60.1169 56.341 59.1023C56.6629 58.8382 57.1147 58.8012 57.4753 59.0094L59.9275 60.4251L64.5402 52.4357L62.0739 51.0119C61.714 50.8041 61.5201 50.3954 61.5869 49.9852C61.7174 49.184 61.8 48.3853 61.8 47.576C61.8 46.7667 61.7174 45.9681 61.5869 45.1669C61.5201 44.7567 61.714 44.348 62.0739 44.1402L64.5402 42.7163L59.9275 34.7269L57.4753 36.1426C57.1147 36.3508 56.6629 36.3138 56.341 36.0497C55.1043 35.0352 53.6902 34.2267 52.1567 33.6473C51.7676 33.5003 51.5101 33.1278 51.5101 32.7118V29.8672H42.2847V32.7118C42.2847 33.1278 42.0273 33.5003 41.6382 33.6473C40.1047 34.2267 38.6906 35.0351 37.4538 36.0497C37.132 36.3138 36.6802 36.3508 36.3196 36.1426L33.8675 34.7269L29.2548 42.7163L31.721 44.1402C32.0809 44.348 32.2747 44.7567 32.208 45.1669C32.0775 45.9681 31.9949 46.7667 31.9949 47.576C31.9949 48.3853 32.0775 49.184 32.208 49.9852C32.2747 50.3953 32.0809 50.8041 31.721 51.0119L29.2549 52.4357L33.8675 60.4251L36.3196 59.0094C36.6802 58.8012 37.132 58.8382 37.4539 59.1023C38.6906 60.1169 40.1047 60.9253 41.6382 61.5048C42.0273 61.6518 42.2847 62.0243 42.2847 62.4402ZM46.3082 42.4457V42.4446C46.3081 42.1799 46.413 41.9259 46.6 41.7383C46.7876 41.5501 47.0424 41.4443 47.3082 41.4443H50.1633C52.2883 41.4443 54.1136 43.1625 54.1136 45.3379C54.1136 47.5133 52.2883 49.2315 50.1633 49.2315C49.7701 49.2315 49.064 49.2346 48.4538 49.2378L48.3082 49.2386V52.6994C48.3082 53.2517 47.8605 53.6994 47.3082 53.6994C46.7559 53.6994 46.3082 53.2517 46.3082 52.6994V42.4457ZM48.3226 47.2385L48.3218 47.088C48.3186 46.4617 48.3154 45.7377 48.3154 45.3379C48.3154 45.0054 48.3136 44.2804 48.3118 43.6402L48.3112 43.4443H50.1633C51.2344 43.4443 52.1136 44.3171 52.1136 45.3379C52.1136 46.3587 51.2344 47.2315 50.1633 47.2315C49.764 47.2315 49.0525 47.2347 48.4433 47.2379L48.3226 47.2385ZM56.9932 53.6994C57.5455 53.6994 57.9932 53.2517 57.9932 52.6994V42.4457C57.9932 41.8935 57.5455 41.4457 56.9932 41.4457C56.4409 41.4457 55.9932 41.8935 55.9932 42.4457V52.6994C55.9932 53.2517 56.4409 53.6994 56.9932 53.6994ZM44.4133 52.3463C44.6083 52.863 44.3475 53.44 43.8308 53.635C43.314 53.83 42.7371 53.5692 42.5421 53.0525L41.8371 51.1844H37.0293L36.3167 53.0553C36.1201 53.5714 35.5424 53.8305 35.0263 53.6339C34.5101 53.4373 34.2511 52.8596 34.4477 52.3435L38.2979 42.2342L38.3068 42.2116C38.7241 41.1913 40.1679 41.1905 40.5872 42.2092C40.5909 42.2183 40.5946 42.2275 40.598 42.2367L44.4133 52.3463ZM37.791 49.1844H41.0823L39.4442 44.8437L37.791 49.1844Z" fill="url(#paint0_linear_0_1)"/>
-                                        <defs>
-                                        <linearGradient id="paint0_linear_0_1" x1="74.3495" y1="18.4858" x2="9.64342" y2="87.615" gradientUnits="userSpaceOnUse">
-                                        <stop offset="0.163" stop-color="var(--input-border-focused-color)"/>
-                                        <stop offset="0.334" stop-color="var(--input-icon)"/>
-                                        <stop offset="0.715" stop-color="var(--input-border-focused-color)"/>
-                                        <stop offset="1" stop-color="var(--input-icon)"/>
-                                        </linearGradient>
-                                        </defs>
-                                        </svg>
+                                    <img alt="connected" src="../public/app-icon/icon/api-test-connection.svg"
+                                        alt="CONNECTING TO API" />
                                 </div>
                                 <div class="w-100 d-flex justify-content-start align-items-start flex-column">
                                     <p class="_wsAction __MSG__wsActionConnecting">Connecting to API</p>
@@ -1036,17 +1004,7 @@
                         <div class="websocket-test">
                             <h3>API Test</h3>
                             <div class="_wsImgColour connection-detail">
-                                <div class="_wsImg"><svg xmlns="http://www.w3.org/2000/svg" width="95" height="94" viewBox="0 0 95 94" fill="none" role="img" aria-label="connected">
-<circle opacity="0.5" cx="47.7901" cy="46.837" r="46.837" fill="var(--element-active-bg)"/>
-<path d="M28.6543 46.8367L41.3582 59.5407L66.7661 34.1328" stroke="url(#paint0_linear_done_3)" stroke-width="7.11111" stroke-linecap="round" stroke-linejoin="round"/>
-<defs>
-<linearGradient id="paint0_linear_done_3" x1="77.5727" y1="46.6214" x2="10.6708" y2="46.6214" gradientUnits="userSpaceOnUse">
-<stop offset="0.163" stop-color="var(--label-icon)"/>
-<stop offset="0.334" stop-color="var(--input-icon)"/>
-<stop offset="0.715" stop-color="var(--label-icon)"/>
-</linearGradient>
-</defs>
-</svg></div>
+                                <div class="_wsImg"><img alt="connected" src="../public/app-icon/icon/done.svg"></div>
                                 <div class="w-100 d-flex justify-content-start align-items-start flex-column">
                                     <p class="_wsAction __MSG__wsActionConnected">Connected</p>
                                     <div class="time">
@@ -1064,10 +1022,7 @@
                         <div class="websocket-test">
                             <h3>API Test</h3>
                             <div class="_wsImgColour connection-detail connection-failed">
-                                <div class="_wsImg"><svg xmlns="http://www.w3.org/2000/svg" width="95" height="95" viewBox="0 0 95 95" fill="none" role="img" aria-label="connected">
-                                <circle cx="47.587" cy="47.173" r="46.837" fill="#FFCFCB"/>
-                                <path d="M61.9576 32.8027L33.2168 61.5436M61.9576 61.5436L33.2168 32.8027L61.9576 61.5436Z" stroke="#FF4738" stroke-width="7.11111" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
+                                <div class="_wsImg"><img alt="connected" src="../assets/img-new/web-socket-failed.svg">
                                 </div>
                                 <div class="w-100 d-flex justify-content-start align-items-start flex-column">
                                     <p class="_wsAction __MSG__wsActionConnected">Failed</p>
@@ -1094,23 +1049,22 @@
                         <div class="divider"></div>
 
                         <div class="re-register-content">
-                            <svg width="95" height="94" viewBox="0 0 95 94" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
-                                <circle cx="47.6671" cy="46.837" r="46.837" fill="var(--icon-bg-done)"></circle>
-                                <path d="M63.9485 35.692L61.769 33.1565C59.921 31.2155 57.6974 29.6708 55.2335 28.6165C52.7696 27.5621 50.1169 27.0201 47.4369 27.0235C36.498 27.0235 27.623 35.8984 27.623 46.8373C27.623 57.7763 36.498 66.6512 47.4369 66.6512C51.5349 66.6509 55.5321 65.3806 58.8784 63.0151C62.2247 60.6496 64.7556 57.3051 66.1229 53.442" stroke="url(#paint0_linear_2_26926)" stroke-width="4.97778" stroke-miterlimit="10" stroke-linecap="round"></path>
-                                <path d="M59.5132 41.0482L68.0649 32.4966V41.0482H59.5132ZM69.4971 31.0644C69.4965 31.0649 69.4959 31.0655 69.4954 31.0661L69.4971 31.0644Z" fill="black" stroke="url(#paint1_linear_2_26926)" stroke-width="4.97778"></path>
+                            <svg width="95" height="94" viewBox="0 0 95 94" fill="none"
+                                xmlns="http://www.w3.org/2000/svg" role="img" aria-label="RE REGISTER">
+                                <circle opacity="0.5" cx="47.7901" cy="46.837" r="46.837" fill="var(--icon-bg-done)" />
+                                <path
+                                    d="M28.6543 46.8367L41.3582 59.5407L66.7661 34.1328"
+                                    stroke="url(#paint0_linear_done_reRegister_loading)" stroke-width="7.11111"
+                                    stroke-linecap="round" stroke-linejoin="round" />
                                 <defs>
-                                <linearGradient id="paint0_linear_2_26926" x1="77.0395" y1="46.5015" x2="9.45646" y2="46.5015" gradientUnits="userSpaceOnUse">
-                                <stop offset="0.163" stop-color="var(--icon-gradient-1)"></stop>
-                                <stop offset="0.334" stop-color="var(--icon-gradient-2)"></stop>
-                                <stop offset="0.715" stop-color="var(--icon-gradient-3)"></stop>
-                                </linearGradient>
-                                <linearGradient id="paint1_linear_2_26926" x1="74.727" y1="36.053" x2="48.8912" y2="36.053" gradientUnits="userSpaceOnUse">
-                                <stop offset="0.163" stop-color="var(--icon-gradient-1)"></stop>
-                                <stop offset="0.334" stop-color="var(--icon-gradient-2)"></stop>
-                                <stop offset="0.715" stop-color="var(--icon-gradient-3)"></stop>
-                                </linearGradient>
+                                    <linearGradient id="paint0_linear_done_reRegister_loading" x1="77.5727"
+                                        y1="46.6214" x2="10.6708" y2="46.6214" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0.163" stop-color="var(--icon-gradient-1)" />
+                                        <stop offset="0.334" stop-color="var(--icon-gradient-2)" />
+                                        <stop offset="0.715" stop-color="var(--icon-gradient-3)" />
+                                    </linearGradient>
                                 </defs>
-                                </svg>
+                            </svg>
                             <p>LOADING...</p>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
@@ -1147,777 +1101,589 @@
                     </div>
                     <!-- RE-REGISTER :: ENDS -->
 
-                    <!-- Send Reports :: STARTS -->
+                    <!-- Contact Support :: STARTS -->
                     <div class="tab-pane fade" id="pills-sendReports" role="tabpanel"
                         aria-labelledby="pills-sendReports-tab">
                         <div class="header">
-                            <h3>Send Reports</h3>
+                            <h3>Contact Support</h3>
                         </div>
                         <div class="divider"></div>
 
                         <div class="debugging-content py-2">
                             <button class="log-btn" data-bs-target="#sendReports" data-bs-toggle="modal">
-                                Send Report
+                               Contact Support
                             </button>
                             <button class="log-btn" data-bs-target="#sendReportsSuccessful" data-bs-toggle="modal">
-                                Send Report 2
+                                Contact Support 2
                             </button>
                             <button class="log-btn" data-bs-target="#sendReportsFailed" data-bs-toggle="modal">
-                                Send Report 3
+                               Contact Support 3
+                            </button>
+                             <button class="log-btn" data-bs-target="#new-version-downloading" data-bs-toggle="modal">
+                               Contact Support 4
                             </button>
                         </div>
                     </div>
-                    <!-- Send Reports :: ENDS -->
-                    <!-- Greetings start -->
-                    <!-- Greetings :: STARTS -->
-                    <div class="tab-pane fade" id="pills-greetings" role="tabpanel" aria-labelledby="pills-greetings">
-                        <div class="setting-container">
+                    <!-- Contact Support :: ENDS -->
+
+                    <!-- calendar :: STARTS -->
+                    <div class="tab-pane fade" id="pills-calendars" role="tabpanel"
+                        aria-labelledby="pills-calendars-tab">
+                        <div class="setting-container" id="v-pills-calendars" role="tabpanel">
                             <div class="header">
-                                <h3>Greetings</h3>
-                                <div class="add-greeting">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="16" viewBox="0 0 15 16"
-                                        fill="none">
-                                        <path d="M7.55085 3.02679L7.55113 13.3495" stroke="var(--input-icon)"
-                                            stroke-width="1.2312" />
-                                        <path d="M2.39056 8.18805L12.7132 8.18834" stroke="var(--input-icon)"
-                                            stroke-width="1.2312" />
-                                    </svg>
-                                    Add
-                                </div>
+                                <h3 class="">Calendars and contacts</h3>
                             </div>
                             <div class="divider"></div>
-                            <div class="options-container">
-                                <div class="header setting-options-heading border-0 pb-0 pt-2 h-auto">
-                                    <h3>Select voicemail greeting</h3>
+                            <div class="sync-details">
+                                <div class="text-center">
+                                    <img src="../public/app-icon/icon/light/cloud-contact-banner.svg"
+                                        class="sync-banner" alt="SYNC CONTACT" width="" height="">
+                                    <!-- Use This commented img tag for theming image -->
+                                    <!-- <img data-theme="true" data-mode="light" data-path="public/app-icon/icon/" data-src="cloud-contact-banner.svg" src="public/app-icon/icon/light/cloud-contact-banner.svg" class="sync-banner" alt="SYNC CONTACT"> -->
                                 </div>
+                                <h3 class="text-center">Keep your calendars & contacts
+                                    synced</h3>
+                                <div class="sync-with d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <img src="../assets/img-new/google.svg" alt="GOOGLE" width="" height="">
+                                        <div class="mx-2">
+                                            <p class="mb-0">Google</p>
+                                        </div>
+                                    </div>
+                                    <!-- CHECKBOX -->
+                                    <div class="checkbox" tabindex="19">
+                                        <input type="checkbox" value="google" id="google" name="google" class="chb"
+                                            checked>
+                                        <label for="google"></label>
+                                    </div>
+                                    <!-- CHECKBOX -->
+                                </div>
+                                <div class="divider my-3"></div>
+                                <div class="sync-with d-flex justify-content-between align-items-center">
+                                    <div class="d-flex justify-content-star align-items-center">
+                                        <img src="../assets/img-new/outlook.svg" alt="OUTLOOK" width="" height="">
+                                        <div class="mx-2">
+                                            <p class="mb-0">Outlook</p>
+                                        </div>
+                                    </div>
+                                    <!-- CHECKBOX -->
+                                    <div class="checkbox" tabindex="19">
+                                        <input type="checkbox" value="outlook" id="outlook" name="outlook" class="chb">
+                                        <label for="outlook"></label>
+                                    </div>
+                                    <!-- CHECKBOX -->
+                                </div>
+                                <button class="sync-btn m-auto mt-3 px-5 d-block __MSG__cloudSync">Sync</button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- calendar :: ENDS -->
+
+                    <!-- KEYBOARD SHORTCUTS :: STARTS -->
+                    <div class="tab-pane fade" id="pills-shortcuts" role="tabpanel"
+                        aria-labelledby="pills-shortcuts-tab">
+                        <div class="setting-container">
+                            <div class="header">
+                                <h3>Keyboard shortcuts</h3>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="shortcuts-container">
+                                <h3 class="shortcut-header">Message options</h3>
                                 <div class="setting-options">
-                                    <div class="d-flex justify-content-between collapsed align-items-center greetings"
-                                        data-bs-toggle="collapse" data-bs-target="#collapseOne" style="cursor:pointer;">
-                                        <!-- <strong class="text-purple">Hello Test Message</strong> -->
-                                        <!-- <span>&#9650;</span> -->
-                                        <p>Greeting Now</p>
-                                       <div class="d-flex align-items-center">
-                                         <div class="checkbox greeting-checked">
-                                                <input type="checkbox" value="None" id="id1" name="check" checked="">
-                                                <label for="id2"></label>
+                                    <p>Send message using Enter/Return key</p>
+                                    <div class="settings">
+                                        <p>Set Enter/Return as a shortcut to send messages. To insert a new line, press
+                                            Shift (⇧) + Enter/Return (↵).</p>
+                                        <div class="switch">
+                                            <div class="toggle">
+                                                <input type="checkbox" id="check-1">
+                                                <label for="check-1"></label>
                                             </div>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="7" viewBox="0 0 12 7"
-                                            fill="none" class="toggle-icon">
-                                            <path
-                                                d="M5.80615 4.46043L1.74494 0.395991C1.60071 0.252189 1.40526 0.171573 1.20159 0.171875C0.997924 0.172178 0.802716 0.253376 0.658915 0.397605C0.515113 0.541835 0.434496 0.737283 0.434799 0.940952C0.435101 1.14462 0.516299 1.33983 0.660529 1.48363L5.26233 6.08866C5.40193 6.22798 5.58989 6.30809 5.78708 6.3123C5.98427 6.31651 6.17548 6.2445 6.3209 6.11126L10.955 1.48621C11.0996 1.34241 11.1811 1.14707 11.1816 0.943157C11.1822 0.739246 11.1017 0.54347 10.9579 0.398898C10.8141 0.254325 10.6188 0.172799 10.4148 0.172254C10.2109 0.171709 10.0152 0.25219 9.87058 0.395992L5.80615 4.46043Z"
-                                                fill="currentColor" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="shortcuts-container">
+                                <h3 class="shortcut-header">Message Formatting</h3>
+                                <div class="message-formating">
+                                    <div class="column">
+                                        <div class="options">
+                                            <p>Text formatting mode</p>
+                                            <div class="option-keys">
+                                                <button>Command</button>
+                                                <button>E</button>
+                                            </div>
+                                        </div>
+                                        <div class="options">
+                                            <p>Bold</p>
+                                            <div class="option-keys">
+                                                <button>Command</button>
+                                                <button>B</button>
+                                            </div>
+                                        </div>
+                                        <div class="options">
+                                            <p>Underline</p>
+                                            <div class="option-keys">
+                                                <button>Command</button>
+                                                <button>U</button>
+                                            </div>
+                                        </div>
+                                        <div class="options">
+                                            <p>Italics</p>
+                                            <div class="option-keys">
+                                                <button>Command</button>
+                                                <button>I</button>
+                                            </div>
+                                        </div>
+                                        <div class="options">
+                                            <p>Undo changes</p>
+                                            <div class="option-keys">
+                                                <button>Command</button>
+                                                <button>Z</button>
+                                            </div>
+                                        </div>
+                                        <div class="options">
+                                            <p>Strikethrough</p>
+                                            <div class="option-keys">
+                                                <button>Command</button>
+                                                <button>Shift</button>
+                                                <button>X</button>
+                                            </div>
+                                        </div>
+                                        <div class="options">
+                                            <p>Numbered list</p>
+                                            <div class="option-keys">
+                                                <button>Command</button>
+                                                <button>Shift</button>
+                                                <button>N</button>
+                                            </div>
+                                        </div>
+                                        <div class="options">
+                                            <p>Bullet List</p>
+                                            <div class="option-keys">
+                                                <button>Command</button>
+                                                <button>Shift</button>
+                                                <button>L</button>
+                                            </div>
+                                        </div>
+                                        <div class="options">
+                                            <p>Increase indent</p>
+                                            <div class="option-keys">
+                                                <button>Command</button>
+                                                <button>Shift</button>
+                                                <button>1</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="column">
+                                        <div class="options">
+                                            <p>Decrease indent</p>
+                                            <div class="option-keys">
+                                                <button>Command</button>
+                                                <button>Shift</button>
+                                                <button>2</button>
+                                            </div>
+                                        </div>
+                                        <div class="options">
+                                            <p>Insert link</p>
+                                            <div class="option-keys">
+                                                <button>Command</button>
+                                                <button>L</button>
+                                            </div>
+                                        </div>
+                                        <div class="options">
+                                            <p>Insert horizontal line</p>
+                                            <div class="option-keys">
+                                                <button>Option</button>
+                                                <button>Shift</button>
+                                                <button>H</button>
+                                            </div>
+                                        </div>
+                                        <div class="options">
+                                            <p>Send formatted message</p>
+                                            <div class="option-keys">
+                                                <button>Command</button>
+                                                <button>Shift</button>
+                                                <button>H</button>
+                                            </div>
+                                        </div>
+                                        <div class="options">
+                                            <p>Edit previous message</p>
+                                            <div class="option-keys">
+                                                <button>Command</button>
+                                                <button>Z</button>
+                                            </div>
+                                        </div>
+                                        <div class="options">
+                                            <p>@Mention</p>
+                                            <div class="option-keys">
+                                                <button>@[a-z]</button>
+                                            </div>
+                                        </div>
+                                        <div class="options">
+                                            <p>Direct link (to a team)</p>
+                                            <div class="option-keys">
+                                                <button>#[a-z]</button>
+                                            </div>
+                                        </div>
+                                        <div class="options">
+                                            <p>Emojis (smileys)</p>
+                                            <div class="option-keys">
+                                                <button>:smile:</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="shortcuts-container">
+                                <h3 class="shortcut-header">Quick actions</h3>
+                                <div class="message-formating">
+                                    <div class="column">
+                                        <div class="options">
+                                            <p>New message</p>
+                                            <div class="option-keys">
+                                                <button>Option</button>
+                                                <button>M</button>
+                                            </div>
+                                        </div>
+                                        <div class="options">
+                                            <p>New team</p>
+                                            <div class="option-keys">
+                                                <button>Option</button>
+                                                <button>Shift</button>
+                                                <button>M</button>
+                                            </div>
+                                        </div>
+                                        <div class="options">
+                                            <p>Switch conversation</p>
+                                            <div class="option-keys">
+                                                <button>Command</button>
+                                                <button>K</button>
+                                            </div>
+                                        </div>
+                                        <div class="options">
+                                            <p>Toggle show unread</p>
+                                            <div class="option-keys">
+                                                <button>Command</button>
+                                                <button>Shift</button>
+                                                <button>U</button>
+                                            </div>
+                                        </div>
+                                        <div class="options">
+                                            <p>Search</p>
+                                            <div class="option-keys">
+                                                <button>Command</button>
+                                                <button>F</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="column">
+                                        <div class="options">
+                                            <p>Reload</p>
+                                            <div class="option-keys">
+                                                <button>Command</button>
+                                                <button>R</button>
+                                            </div>
+                                        </div>
+                                        <div class="options">
+                                            <p>Zoom in</p>
+                                            <div class="option-keys">
+                                                <button>Command</button>
+                                                <button>=</button>
+                                            </div>
+                                        </div>
+                                        <div class="options">
+                                            <p>Zoom out</p>
+                                            <div class="option-keys">
+                                                <button>Command</button>
+                                                <button>-</button>
+                                            </div>
+                                        </div>
+                                        <div class="options">
+                                            <p>Zoom out</p>
+                                            <div class="option-keys">
+                                                <button>Command</button>
+                                                <button>0</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- KEYBOARD SHORTCUTS :: ENDS -->
+                    <!-- LOGOUT MODAL :: STARTS -->
+                    <div class="modal fade logout-modal-popup" id="logoutModal" data-bs-backdrop="static"
+                        data-bs-keyboard="false" tabindex="-1" aria-labelledby="logoutModal" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content p-0">
+                                <div class="modal-header">
+                                    <h5 class="modal-title __MSG__logout_Title" id="dialPademodalLabel">LogOut</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                        tabindex="3">
+                                        <svg width="20" height="23" viewBox="0 0 22 23" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M11.3328 9.59625L2.41425 0.677734L0.646484 2.4455L9.565 11.364L0.646675 20.2823L2.41444 22.0501L11.3328 13.1318L19.6438 21.4428L21.4115 19.675L13.1005 11.364L21.4117 3.05281L19.644 1.28505L11.3328 9.59625Z"
+                                                fill="var(--white-color)" />
                                         </svg>
-                                       </div>
-                                    </div>
-                                    <div id="collapseOne" class="collapse">
-                                        <p class="greeting-msg-txt my-2">Please Leave A Message</p>
-                                        <div class="d-flex align-items-center my-4">
-                                            <!-- Play Icon -->
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="26"
-                                                viewBox="0 0 21 26" fill="none">
-                                                <path d="M0.78418 0.117188V25.7942L20.959 12.9557L0.78418 0.117188Z"
-                                                    fill="var(--input-icon)"></path>
-                                            </svg>
-                                            <span class="small voice-date-time greet-audio">0:00</span>
-
-                                            <!-- Progress Bar -->
-                                            <div class="flex-grow-1 ms-2 me-3 full-audio">
-                                                <div class="audiorange"></div>
-                                                <div class="playv-recording">
-                                                </div>
-                                            </div>
-
-                                            <span class="small voice-date-time">0:18</span>
-                                        </div>
-                                        <div class="divider"></div>
-                                        <div class="d-flex justify-content-between mt-3">
-                                         <button class="btn greeting-select p-0" data-bs-toggle="modal" data-bs-target="#greeting">SELECT</button>
-                                            <button class="btn greeting-delete p-0"  data-bs-toggle="modal" data-bs-target="#greetingdelete">DELETE</button>
-                                        </div>
-                                    </div>
+                                    </button>
                                 </div>
-
+                                <div class="modal-body">
+                                    <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M18.0864 1.02682C18.2501 1.14901 18.4897 1.39055 18.6189 1.56353C18.8502 1.87328 18.8538 1.98523 18.8538 8.92186C18.8538 15.8585 18.8502 15.9704 18.6189 16.2802C18.1726 16.8777 17.8086 17.0643 17.0882 17.0643C16.3679 17.0643 16.0039 16.8778 15.5576 16.2803C15.3275 15.9723 15.322 15.829 15.2892 9.22672C15.2709 5.52028 15.2857 2.32265 15.3223 2.12086C15.4045 1.66693 15.8808 1.08569 16.3422 0.876381C16.8033 0.667298 17.7094 0.745419 18.0864 1.02682ZM9.01656 4.09006C9.44143 4.30974 9.81002 4.86194 9.87996 5.38362C9.98213 6.14502 9.7549 6.54792 8.65787 7.55029C4.2053 11.6189 3.08333 17.7275 5.81388 23.0351C8.2207 27.7137 13.5654 30.4934 18.7399 29.7578C20.9604 29.4423 23.3302 28.4397 25.0172 27.1024C28.481 24.3565 30.339 19.7682 29.7278 15.4699C29.3002 12.4632 27.7427 9.51142 25.5841 7.61669C24.4951 6.66078 24.2799 6.04059 24.7091 5.09562C24.9649 4.5326 25.4873 4.13653 26.0788 4.05727C26.8683 3.95136 27.283 4.19255 28.6427 5.54806C30.9859 7.88407 32.4759 10.6127 33.1614 13.8236C33.5062 15.4379 33.5338 18.3525 33.2201 20.0251C32.5907 23.3821 31.0719 26.2579 28.6494 28.6797C26.2268 31.1018 23.3487 32.621 19.9928 33.2491C18.4296 33.5416 15.7432 33.5413 14.1837 33.2483C7.41516 31.9767 2.22449 26.7876 0.956377 20.0251C0.645528 18.3677 0.670474 15.4366 1.00877 13.8542C1.76556 10.3145 3.51857 7.28393 6.19409 4.88984C7.4065 3.80502 8.09039 3.6112 9.01656 4.09006Z" fill="url(#paint0_linear_2_11474)"></path>
+                                        <defs>
+                                        <linearGradient id="paint0_linear_2_11474" x1="39.5211" y1="-7.02727" x2="-14.223" y2="49.5128" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0.163" stop-color="var(--icon-gradient-1)"></stop>
+                                        <stop offset="0.334" stop-color="var(--icon-gradient-2)"></stop>
+                                        <stop offset="0.715" stop-color="var(--icon-gradient-3)"></stop>
+                                        <stop offset="1" stop-color="var(--icon-gradient-4)"></stop>
+                                        </linearGradient>
+                                        </defs>
+                                        </svg>
+                                    <p class="__MSG__LogoutConfirmMsg">Are you sure you want to logout?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="cancel-btn __MSG__cancellogout" type="button" value=""
+                                        data-bs-dismiss="modal" aria-label="Close" tabindex="1">Cancel</button>
+                                    <button class="gradient-btn _logoutConfirm __MSG__confirmlogout" type="button"
+                                        value="">Confirm</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    
-                </div>
-                <!-- Greetings :: ENDS -->
-                <!--greetings end-->
-                <!-- calendar :: STARTS -->
-                <div class="tab-pane fade" id="pills-calendars" role="tabpanel" aria-labelledby="pills-calendars-tab">
-                    <div class="setting-container" id="v-pills-calendars" role="tabpanel">
-                        <div class="header">
-                            <h3 class="">Calendars and contacts</h3>
-                        </div>
-                        <div class="divider"></div>
-                        <div class="sync-details">
-                            <div class="text-center">
-                                <img data-src="cloud-contact-banner.svg" data-mode="light" src="../public/app-icon/icon/light/cloud-contact-banner.svg" class="sync-banner"
-                                    alt="SYNC CONTACT" width="" height="">
-                                <!-- Use This commented img tag for theming image -->
-                                <!-- <img data-theme="true" data-mode="light" data-path="public/app-icon/icon/" data-src="cloud-contact-banner.svg" src="../public/app-icon/icon/light/cloud-contact-banner.svg" class="sync-banner" alt="SYNC CONTACT"> -->
-                            </div>
-                            <h3 class="text-center">Keep your calendars & contacts
-                                synced</h3>
-                            <div class="sync-with d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center">
-                                    <img src="../assets/img-new/google.svg" alt="GOOGLE" width="" height="">
-                                    <div class="mx-2">
-                                        <p class="mb-0">Google</p>
+                    <!-- LOGOUT MODAL :: ENDS -->
+                    <!-- Download New Version MODAL :: STARTS -->
+                    <div class="modal fade logout-modal-popup version-modal-popup" id="new-version"
+                        data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="new-version"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content p-0">
+                                <div class="modal-header py-1 h-auto">
+                                    <h5 class="modal-title">Install New Update</h5>
+                                    <button type="button" data-bs-dismiss="modal" aria-label="Close" class="tooltip">
+                                        <span class="tooltiptext">Close</span>
+                                        <svg width="17" height="17" viewBox="0 0 17 17" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M1.49023 15.4222L8.24579 8.66669M15.0013 1.91113L8.2445 8.66669M8.2445 8.66669L1.49023 1.91113M8.24579 8.66669L15.0013 15.4222"
+                                                stroke="var(--white-color)" stroke-width="2.13333"
+                                                stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="modal-body pb-0 px-3 pt-2 align-items-start">
+                                    <div class="download-msg-box w-100">
+                                        <p class="mb-1">Do you want to download and install update now?</p>
+                                        <h6 class="mb-0">Release Notes:</h6>
+                                        <div class="release-note-container">
+                                            <h6>v3.7.01 has released!</h6>
+                                            <p class="mb-2">
+                                                We’re constantly working to improve your tragofone
+                                                experience, here’s a summary of what has changed...
+                                            </p>
+                                            <div class="chip mb-3">Improvements</div>
+                                            <ul class="list-points mb-2">
+                                                <li>General UX improvements</li>
+                                                <li>Language support extended to Russia, Austria,
+                                                    Nigeria</li>
+                                            </ul>
+                                            <div class="chip mb-3">Fixes</div>
+                                            <p class="mb-2">
+                                                We’re constantly working to improve your tragofone
+                                                experience, here’s a summary of what has changed...
+                                            </p>
+                                            <div class="chip mb-3">Improvements</div>
+                                            <ul class="list-points mb-2">
+                                                <li>General UX improvements</li>
+                                                <li>Language support extended to Russia, Austria,
+                                                    Nigeria</li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-                                <!-- CHECKBOX -->
-                                <div class="checkbox" tabindex="19">
-                                    <input type="checkbox" value="google" id="google" name="google" class="chb" checked>
-                                    <label for="google"></label>
+                                <div class="modal-footer">
+                                    <button class="cancel-btn" type="button" data-bs-dismiss="modal" aria-label="Close"
+                                        tabindex="-1">No</button>
+                                    <button class="gradient-btn" id="confirm-download" type="button" tabindex="-1"
+                                        data-bs-dismiss="modal" data-bs-toggle="modal"
+                                        data-bs-target="#new-version-downloading">Yes</button>
                                 </div>
-                                <!-- CHECKBOX -->
                             </div>
-                            <div class="divider my-3"></div>
-                            <div class="sync-with d-flex justify-content-between align-items-center">
-                                <div class="d-flex justify-content-star align-items-center">
-                                    <img src="../assets/img-new/outlook.svg" alt="OUTLOOK" width="" height="">
-                                    <div class="mx-2">
-                                        <p class="mb-0">Outlook</p>
-                                    </div>
-                                </div>
-                                <!-- CHECKBOX -->
-                                <div class="checkbox" tabindex="19">
-                                    <input type="checkbox" value="outlook" id="outlook" name="outlook" class="chb">
-                                    <label for="outlook"></label>
-                                </div>
-                                <!-- CHECKBOX -->
-                            </div>
-                            <button class="sync-btn m-auto mt-3 px-5 d-block __MSG__cloudSync">Sync</button>
                         </div>
-
                     </div>
-                </div>
-                <!-- calendar :: ENDS -->
 
-                <!-- KEYBOARD SHORTCUTS :: STARTS -->
-                <div class="tab-pane fade" id="pills-shortcuts" role="tabpanel" aria-labelledby="pills-shortcuts-tab">
-                    <div class="setting-container">
-                        <div class="header">
-                            <h3>Keyboard shortcuts</h3>
-                        </div>
-                        <div class="divider"></div>
-                        <div class="shortcuts-container">
-                            <h3 class="shortcut-header">Message options</h3>
-                            <div class="setting-options">
-                                <p>Send message using Enter/Return key</p>
-                                <div class="settings">
-                                    <p>Set Enter/Return as a shortcut to send messages. To insert a new line, press
-                                        Shift (⇧) + Enter/Return (↵).</p>
-                                    <div class="switch">
-                                        <div class="toggle">
-                                            <input type="checkbox" id="check-1">
-                                            <label for="check-1"></label>
+                    <div class="modal fade logout-modal-popup version-modal-popup" id="new-version-downloading"
+                        data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="new-version"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content p-0">
+                                <div class="modal-header py-1 h-auto">
+                                    <h5 class="modal-title">Updating Tragofone</h5>
+                                    <button type="button" data-bs-dismiss="modal" aria-label="Close" class="tooltip">
+                                        <span class="tooltiptext">Close</span>
+                                        <svg width="17" height="17" viewBox="0 0 17 17" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M1.49023 15.4222L8.24579 8.66669M15.0013 1.91113L8.2445 8.66669M8.2445 8.66669L1.49023 1.91113M8.24579 8.66669L15.0013 15.4222"
+                                                stroke="var(--white-color)" stroke-width="2.13333"
+                                                stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="modal-body p-3 align-items-start">
+                                    <div class="downloading-msg-box d-flex w-100 flex-wrap justify-content-between">
+                                        <p class="mb-2 w-100">Downloading update<span></span></p>
+                                        <div class="progress mt-0 mb-2 w-100">
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                                role="progressbar" aria-valuenow="30" aria-valuemin="0"
+                                                aria-valuemax="100" style="width: 30%"></div>
                                         </div>
+                                        <div class="total-size">26.4 MB of 220.45 MB</div>
+                                        <div class="total-size-percentage">30%</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="shortcuts-container">
-                            <h3 class="shortcut-header">Message Formatting</h3>
-                            <div class="message-formating">
-                                <div class="column">
-                                    <div class="options">
-                                        <p>Text formatting mode</p>
-                                        <div class="option-keys">
-                                            <button>Command</button>
-                                            <button>E</button>
-                                        </div>
-                                    </div>
-                                    <div class="options">
-                                        <p>Bold</p>
-                                        <div class="option-keys">
-                                            <button>Command</button>
-                                            <button>B</button>
-                                        </div>
-                                    </div>
-                                    <div class="options">
-                                        <p>Underline</p>
-                                        <div class="option-keys">
-                                            <button>Command</button>
-                                            <button>U</button>
-                                        </div>
-                                    </div>
-                                    <div class="options">
-                                        <p>Italics</p>
-                                        <div class="option-keys">
-                                            <button>Command</button>
-                                            <button>I</button>
-                                        </div>
-                                    </div>
-                                    <div class="options">
-                                        <p>Undo changes</p>
-                                        <div class="option-keys">
-                                            <button>Command</button>
-                                            <button>Z</button>
-                                        </div>
-                                    </div>
-                                    <div class="options">
-                                        <p>Strikethrough</p>
-                                        <div class="option-keys">
-                                            <button>Command</button>
-                                            <button>Shift</button>
-                                            <button>X</button>
-                                        </div>
-                                    </div>
-                                    <div class="options">
-                                        <p>Numbered list</p>
-                                        <div class="option-keys">
-                                            <button>Command</button>
-                                            <button>Shift</button>
-                                            <button>N</button>
-                                        </div>
-                                    </div>
-                                    <div class="options">
-                                        <p>Bullet List</p>
-                                        <div class="option-keys">
-                                            <button>Command</button>
-                                            <button>Shift</button>
-                                            <button>L</button>
-                                        </div>
-                                    </div>
-                                    <div class="options">
-                                        <p>Increase indent</p>
-                                        <div class="option-keys">
-                                            <button>Command</button>
-                                            <button>Shift</button>
-                                            <button>1</button>
-                                        </div>
-                                    </div>
+                    </div>
+
+                    <div class="modal fade logout-modal-popup version-modal-popup" id="new-version-installing"
+                        data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="new-version"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content p-0">
+                                <div class="modal-header py-1 h-auto">
+                                    <h5 class="modal-title">Install New Update</h5>
                                 </div>
-                                <div class="column">
-                                    <div class="options">
-                                        <p>Decrease indent</p>
-                                        <div class="option-keys">
-                                            <button>Command</button>
-                                            <button>Shift</button>
-                                            <button>2</button>
-                                        </div>
-                                    </div>
-                                    <div class="options">
-                                        <p>Insert link</p>
-                                        <div class="option-keys">
-                                            <button>Command</button>
-                                            <button>L</button>
-                                        </div>
-                                    </div>
-                                    <div class="options">
-                                        <p>Insert horizontal line</p>
-                                        <div class="option-keys">
-                                            <button>Option</button>
-                                            <button>Shift</button>
-                                            <button>H</button>
-                                        </div>
-                                    </div>
-                                    <div class="options">
-                                        <p>Send formatted message</p>
-                                        <div class="option-keys">
-                                            <button>Command</button>
-                                            <button>Shift</button>
-                                            <button>H</button>
-                                        </div>
-                                    </div>
-                                    <div class="options">
-                                        <p>Edit previous message</p>
-                                        <div class="option-keys">
-                                            <button>Command</button>
-                                            <button>Z</button>
-                                        </div>
-                                    </div>
-                                    <div class="options">
-                                        <p>@Mention</p>
-                                        <div class="option-keys">
-                                            <button>@[a-z]</button>
-                                        </div>
-                                    </div>
-                                    <div class="options">
-                                        <p>Direct link (to a team)</p>
-                                        <div class="option-keys">
-                                            <button>#[a-z]</button>
-                                        </div>
-                                    </div>
-                                    <div class="options">
-                                        <p>Emojis (smileys)</p>
-                                        <div class="option-keys">
-                                            <button>:smile:</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="shortcuts-container">
-                            <h3 class="shortcut-header">Quick actions</h3>
-                            <div class="message-formating">
-                                <div class="column">
-                                    <div class="options">
-                                        <p>New message</p>
-                                        <div class="option-keys">
-                                            <button>Option</button>
-                                            <button>M</button>
-                                        </div>
-                                    </div>
-                                    <div class="options">
-                                        <p>New team</p>
-                                        <div class="option-keys">
-                                            <button>Option</button>
-                                            <button>Shift</button>
-                                            <button>M</button>
-                                        </div>
-                                    </div>
-                                    <div class="options">
-                                        <p>Switch conversation</p>
-                                        <div class="option-keys">
-                                            <button>Command</button>
-                                            <button>K</button>
-                                        </div>
-                                    </div>
-                                    <div class="options">
-                                        <p>Toggle show unread</p>
-                                        <div class="option-keys">
-                                            <button>Command</button>
-                                            <button>Shift</button>
-                                            <button>U</button>
-                                        </div>
-                                    </div>
-                                    <div class="options">
-                                        <p>Search</p>
-                                        <div class="option-keys">
-                                            <button>Command</button>
-                                            <button>F</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="column">
-                                    <div class="options">
-                                        <p>Reload</p>
-                                        <div class="option-keys">
-                                            <button>Command</button>
-                                            <button>R</button>
-                                        </div>
-                                    </div>
-                                    <div class="options">
-                                        <p>Zoom in</p>
-                                        <div class="option-keys">
-                                            <button>Command</button>
-                                            <button>=</button>
-                                        </div>
-                                    </div>
-                                    <div class="options">
-                                        <p>Zoom out</p>
-                                        <div class="option-keys">
-                                            <button>Command</button>
-                                            <button>-</button>
-                                        </div>
-                                    </div>
-                                    <div class="options">
-                                        <p>Zoom out</p>
-                                        <div class="option-keys">
-                                            <button>Command</button>
-                                            <button>0</button>
+                                <div class="modal-body p-3 align-items-start">
+                                    <div
+                                        class="downloading-msg-box completed d-flex w-100 flex-wrap justify-content-between">
+                                        <p class="mb-2 w-100">Installing<span></span></p>
+                                        <div class="progress mt-0 w-100">
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                                role="progressbar" aria-valuenow="100" aria-valuemin="0"
+                                                aria-valuemax="100" style="width: 100%"></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- KEYBOARD SHORTCUTS :: ENDS -->
-                <!-- LOGOUT MODAL :: STARTS -->
-                <div class="modal fade logout-modal-popup" id="logoutModal" data-bs-backdrop="static"
-                    data-bs-keyboard="false" tabindex="-1" aria-labelledby="logoutModal" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content p-0">
-                            <div class="modal-header">
-                                <h5 class="modal-title __MSG__logout_Title" id="dialPademodalLabel">LogOut</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                                    tabindex="3">
-                                    <svg width="20" height="23" viewBox="0 0 22 23" fill="none"
+                    <!-- Download New Version MODAL :: ENDS -->
+
+                    <!-- Contact Support POPUP :: Start -->
+                    <div class="modal fade largFile-modal logout-modal-popup" id="sendReports" data-bs-backdrop="static"
+                        data-bs-keyboard="false" tabindex="-1" aria-labelledby="sendReports" aria-hidden="true">
+                        <div class="modal-dialog modal-md modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">
+                                        Contact Support
+                                    </h5>
+                                    <button class="tooltip" data-bs-dismiss="modal">
+                                        <span class="tooltiptext __MSG__attachClose">Close</span>
+                                        <svg width="13" height="13" viewBox="0 0 13 13" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M1.59863 11.5029L6.65869 6.44287M11.7188 1.38281L6.65773 6.44287M6.65773 6.44287L1.59863 1.38281M6.65869 6.44287L11.7188 11.5029"
+                                                stroke="var(--white-color)" stroke-width="2.13333"
+                                                stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="modal-body pb-0">
+                                    <textarea class="form-control new-input textarea-input"
+                                        placeholder="Enter problem you faced (Optional)" rows="5"></textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="gradient-btn" type="button" data-bs-dismiss="modal">Send</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Contact Support POPUP :: End -->
+                    <!-- Contact Support Successful POPUP :: Start -->
+                    <div class="modal fade largFile-modal logout-modal-popup" id="sendReportsSuccessful"
+                        data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                        aria-labelledby="sendReportsSuccessful" aria-hidden="true">
+                        <div class="modal-dialog modal-md modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">
+                                        Successful
+                                    </h5>
+                                    <button class="tooltip" data-bs-dismiss="modal">
+                                        <span class="tooltiptext __MSG__attachClose">Close</span>
+                                        <svg width="13" height="13" viewBox="0 0 13 13" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M1.59863 11.5029L6.65869 6.44287M11.7188 1.38281L6.65773 6.44287M6.65773 6.44287L1.59863 1.38281M6.65869 6.44287L11.7188 11.5029"
+                                                stroke="var(--white-color)" stroke-width="2.13333"
+                                                stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <svg width="64" height="65" viewBox="0 0 64 65" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M11.3328 9.59625L2.41425 0.677734L0.646484 2.4455L9.565 11.364L0.646675 20.2823L2.41444 22.0501L11.3328 13.1318L19.6438 21.4428L21.4115 19.675L13.1005 11.364L21.4117 3.05281L19.644 1.28505L11.3328 9.59625Z"
+                                        <path
+                                            d="M32 63.9922C49.397 63.9922 63.5 49.8892 63.5 32.4922C63.5 15.0952 49.397 0.992188 32 0.992188C14.603 0.992188 0.5 15.0952 0.5 32.4922C0.5 49.8892 14.603 63.9922 32 63.9922Z"
+                                            fill="#26AB23" />
+                                        <path
+                                            d="M43.0504 21.4407L26.6504 37.8907C26.5504 37.9907 26.4504 37.9907 26.3004 37.9907C26.2004 37.9907 26.0504 37.9407 26.0004 37.8407L20.9504 32.5407C20.5004 32.0407 19.8504 31.7907 19.2004 31.7407C18.5004 31.7407 17.9004 31.9907 17.4004 32.4907L17.3004 32.5907C16.4504 33.5407 16.5504 35.0407 17.4504 35.9907L24.5004 43.4907C24.9504 43.9907 25.5504 44.2407 26.2504 44.2907C26.9004 44.2907 27.5504 44.0407 28.0504 43.5407L46.5504 24.9907C47.5004 24.0407 47.5004 22.4407 46.5504 21.4907C45.6004 20.4907 44.0504 20.4907 43.0504 21.4407Z"
                                             fill="var(--white-color)" />
                                     </svg>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <img data-theme="true" data-mode="light" data-path="../public/app-icon/icon/" data-src="logout.svg" src="../public/app-icon/icon/light/logout.svg" alt="LOGOUT-CONFIRM" width="" height=""><img data-theme="true" data-mode="dark" data-path="../public/app-icon/icon/" data-src="logout.svg" src="../public/app-icon/icon/dark/logout.svg" alt="LOGOUT-CONFIRM" width="" height="">
-                                <p class="__MSG__LogoutConfirmMsg">Are you sure you want to logout?</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button class="cancel-btn __MSG__cancellogout" type="button" value=""
-                                    data-bs-dismiss="modal" aria-label="Close" tabindex="1">Cancel</button>
-                                <button class="gradient-btn _logoutConfirm __MSG__confirmlogout" type="button"
-                                    value="">Confirm</button>
+                                    <p class="mb-0 pt-2">
+                                        Uploaded Successfully
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- LOGOUT MODAL :: ENDS -->
-
-                <!-- LOADER MODEL START-->
-                <!-- Loader Modal -->
-                <div class="modal fade" id="loaderModal" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content text-center p-4 border-0  d-flex flex-row align-items-center">
-                            <div class="spinner-border " role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                            <p class="m-0 ms-4">Fetching Greetings..</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!--LOADER MODEL END-->
-
-                <!-- Send Reports POPUP :: End -->
-                <!-- Send Reports Successful POPUP :: Start -->
-                <div class="modal fade largFile-modal logout-modal-popup" id="sendReportsSuccessful"
-                    data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                    aria-labelledby="sendReportsSuccessful" aria-hidden="true">
-                    <div class="modal-dialog modal-md modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">
-                                    Successful
-                                </h5>
-                                <button class="tooltip" data-bs-dismiss="modal">
-                                    <span class="tooltiptext __MSG__attachClose">Close</span>
-                                    <svg width="13" height="13" viewBox="0 0 13 13" fill="none"
+                    <!-- Contact Support Successful POPUP :: End -->
+                    <!-- Contact Support Failed POPUP :: Start -->
+                    <div class="modal fade largFile-modal logout-modal-popup" id="sendReportsFailed"
+                        data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                        aria-labelledby="sendReportsFailed" aria-hidden="true">
+                        <div class="modal-dialog modal-md modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">
+                                        Failed
+                                    </h5>
+                                    <button class="tooltip" data-bs-dismiss="modal">
+                                        <span class="tooltiptext __MSG__attachClose">Close</span>
+                                        <svg width="13" height="13" viewBox="0 0 13 13" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M1.59863 11.5029L6.65869 6.44287M11.7188 1.38281L6.65773 6.44287M6.65773 6.44287L1.59863 1.38281M6.65869 6.44287L11.7188 11.5029"
+                                                stroke="var(--white-color)" stroke-width="2.13333"
+                                                stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <svg width="64" height="64" viewBox="0 0 95 94" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="47.587" cy="46.923" r="46.837" fill="#FFCFCB" />
                                         <path
-                                            d="M1.59863 11.5029L6.65869 6.44287M11.7188 1.38281L6.65773 6.44287M6.65773 6.44287L1.59863 1.38281M6.65869 6.44287L11.7188 11.5029"
-                                            stroke="var(--white-color)" stroke-width="2.13333" stroke-linecap="round"
+                                            d="M61.9576 32.5508L33.2168 61.2916M61.9576 61.2916L33.2168 32.5508L61.9576 61.2916Z"
+                                            stroke="#FF4738" stroke-width="7.11111" stroke-linecap="round"
                                             stroke-linejoin="round" />
                                     </svg>
-                                </button>
-                            </div>
-                            <div class="modal-body text-center">
-                                <svg width="64" height="65" viewBox="0 0 64 65" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M32 63.9922C49.397 63.9922 63.5 49.8892 63.5 32.4922C63.5 15.0952 49.397 0.992188 32 0.992188C14.603 0.992188 0.5 15.0952 0.5 32.4922C0.5 49.8892 14.603 63.9922 32 63.9922Z"
-                                        fill="#26AB23" />
-                                    <path
-                                        d="M43.0504 21.4407L26.6504 37.8907C26.5504 37.9907 26.4504 37.9907 26.3004 37.9907C26.2004 37.9907 26.0504 37.9407 26.0004 37.8407L20.9504 32.5407C20.5004 32.0407 19.8504 31.7907 19.2004 31.7407C18.5004 31.7407 17.9004 31.9907 17.4004 32.4907L17.3004 32.5907C16.4504 33.5407 16.5504 35.0407 17.4504 35.9907L24.5004 43.4907C24.9504 43.9907 25.5504 44.2407 26.2504 44.2907C26.9004 44.2907 27.5504 44.0407 28.0504 43.5407L46.5504 24.9907C47.5004 24.0407 47.5004 22.4407 46.5504 21.4907C45.6004 20.4907 44.0504 20.4907 43.0504 21.4407Z"
-                                        fill="var(--white-color)" />
-                                </svg>
-                                <p class="mb-0 pt-2">
-                                    Uploaded Successfully
-                                </p>
+                                    <p class="mb-0 pt-2">
+                                        Uploading Failed
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <!-- Contact Support Failed POPUP :: End -->
                 </div>
-                <!-- Send Reports Successful POPUP :: End -->
-                <!-- Send Reports Failed POPUP :: Start -->
-                <div class="modal fade largFile-modal logout-modal-popup" id="sendReportsFailed"
-                    data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="sendReportsFailed"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-md modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">
-                                    Failed
-                                </h5>
-                                <button class="tooltip" data-bs-dismiss="modal">
-                                    <span class="tooltiptext __MSG__attachClose">Close</span>
-                                    <svg width="13" height="13" viewBox="0 0 13 13" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M1.59863 11.5029L6.65869 6.44287M11.7188 1.38281L6.65773 6.44287M6.65773 6.44287L1.59863 1.38281M6.65869 6.44287L11.7188 11.5029"
-                                            stroke="var(--white-color)" stroke-width="2.13333" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="modal-body text-center">
-                                <svg width="64" height="64" viewBox="0 0 95 94" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="47.587" cy="46.923" r="46.837" fill="#FFCFCB" />
-                                    <path
-                                        d="M61.9576 32.5508L33.2168 61.2916M61.9576 61.2916L33.2168 32.5508L61.9576 61.2916Z"
-                                        stroke="#FF4738" stroke-width="7.11111" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
-                                <p class="mb-0 pt-2">
-                                    Uploading Failed
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Send Reports Failed POPUP :: End -->
-                <div class="tab-pane fade show" id="pills-devicesSetting" role="tabpanel"
-                    aria-labelledby="pills-applicationSetting-tab">
-                    <div class="setting-container">
-                        <div class="header">
-                            <h3>Devices</h3>
-                        </div>
-                        <div class="divider"></div>
-                        <div class="options-container">
-                            <div class="header setting-options-heading border-0 pb-0 pt-2 h-auto">
-                                <h3>Audio</h3>
-                            </div>
-                            <div class="setting-options">
-                                <div class="device-application-option">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <h5 class="title mb-0">Input Device</h5>
-                                        <select
-                                            class="form-select new-select-input new-select-input2 custom-select-input"
-                                            name="audioInputDevice" id="audioInputDevice">
-                                            <option value="Default-Microphone Array" selected="">Default-Microphone
-                                                Array</option>
-                                        </select>
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <p class="mb-0">Input Volume</p>
-                                        <div class="range-input-box">
-                                            <svg width="16" height="15" viewBox="0 0 16 15" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M10.7427 3.1905V7.4703C10.7427 8.20589 10.4757 8.8356 9.94158 9.35943C9.40748 9.88326 8.76542 10.1452 8.01541 10.1452C7.26539 10.1452 6.62334 9.88326 6.08924 9.35943C5.55514 8.8356 5.28809 8.20589 5.28809 7.4703V3.1905C5.28809 2.45491 5.55514 1.8252 6.08924 1.30137C6.62334 0.77754 7.26539 0.515625 8.01541 0.515625C8.76542 0.515625 9.40748 0.77754 9.94158 1.30137C10.4757 1.8252 10.7427 2.45491 10.7427 3.1905Z"
-                                                    stroke="var(--gray-color)" stroke-width="0.981836"></path>
-                                                <path
-                                                    d="M12.9248 6.39826V7.46821C12.9248 8.69976 12.5058 9.7711 11.6677 10.6822C10.8296 11.5934 9.79407 12.1158 8.56109 12.2495V13.3529H10.7429C10.8907 13.3529 11.0185 13.4059 11.1265 13.5117C11.2344 13.6176 11.2884 13.743 11.2884 13.8879C11.2884 14.0328 11.2344 14.1582 11.1265 14.2641C11.0185 14.3699 10.8907 14.4229 10.7429 14.4229H5.2883C5.14057 14.4229 5.01273 14.3699 4.90477 14.2641C4.79682 14.1582 4.74284 14.0328 4.74284 13.8879C4.74284 13.743 4.79682 13.6176 4.90477 13.5117C5.01273 13.4059 5.14057 13.3529 5.2883 13.3529H7.47016V12.2495C6.23718 12.1158 5.20165 11.5934 4.36357 10.6822C3.52549 9.7711 3.10645 8.69976 3.10645 7.46821V6.39826C3.10645 6.25337 3.16042 6.12798 3.26838 6.0221C3.37634 5.91622 3.50418 5.86328 3.65191 5.86328C3.79964 5.86328 3.92748 5.91622 4.03544 6.0221C4.1434 6.12798 4.19737 6.25337 4.19737 6.39826V7.46821C4.19737 8.49915 4.57096 9.38102 5.31813 10.1138C6.06531 10.8466 6.96447 11.213 8.01562 11.213C9.06678 11.213 9.96594 10.8466 10.7131 10.1138C11.4603 9.38102 11.8339 8.49915 11.8339 7.46821V6.39826C11.8339 6.25337 11.8879 6.12798 11.9958 6.0221C12.1038 5.91622 12.2316 5.86328 12.3793 5.86328C12.5271 5.86328 12.6549 5.91622 12.7629 6.0221C12.8708 6.12798 12.9248 6.25337 12.9248 6.39826Z"
-                                                    fill="var(--gray-color)"></path>
-                                                <path
-                                                    d="M1.63379 0.939407L14.378 13.6836L15.1299 12.9317L2.3857 0.1875L1.63379 0.939407Z"
-                                                    fill="var(--gray-color)"></path>
-                                                <path
-                                                    d="M0.901367 1.67769L13.6456 14.4219L14.3975 13.67L1.65327 0.925781L0.901367 1.67769Z"
-                                                    fill="var(--white-color)"></path>
-                                            </svg>
-
-                                            <!-- range Input :: start -->
-                                            <input class="custom-range-input asRange d-none" type="text" min="0" max="1"
-                                                value="0" name="audioInputDeviceVolume" step="0.1">
-                                            <div class="asRange">
-                                                <div class="asRange-bar"></div>
-                                                <div class="asRange-pointer asRange-pointer-1" tabindex="0"
-                                                    style="left: 0%;"><span class="asRange-tip"
-                                                        style="display: none;">0</span></div><span
-                                                    class="asRange-selected" style="left: 0px; width: 0%;"></span>
-                                                <div class="asRange-scale">
-                                                    <ul class="asRange-scale-lines">
-                                                        <li class="asRange-scale-grid" style="left: 0%;"></li>
-                                                        <li style="left: 5%;"></li>
-                                                        <li style="left: 10%;"></li>
-                                                        <li style="left: 15%;"></li>
-                                                        <li style="left: 20%;"></li>
-                                                        <li class="asRange-scale-inlineGrid" style="left: 25%;">
-                                                        </li>
-                                                        <li style="left: 30%;"></li>
-                                                        <li style="left: 35%;"></li>
-                                                        <li style="left: 40%;"></li>
-                                                        <li style="left: 45%;"></li>
-                                                        <li class="asRange-scale-grid" style="left: 50%;"></li>
-                                                        <li style="left: 55%;"></li>
-                                                        <li style="left: 60%;"></li>
-                                                        <li style="left: 65%;"></li>
-                                                        <li style="left: 70%;"></li>
-                                                        <li class="asRange-scale-inlineGrid" style="left: 75%;">
-                                                        </li>
-                                                        <li style="left: 80%;"></li>
-                                                        <li style="left: 85%;"></li>
-                                                        <li style="left: 90%;"></li>
-                                                        <li style="left: 95%;"></li>
-                                                        <li class="asRange-scale-grid" style="left: 100%;"></li>
-                                                    </ul>
-                                                    <ul class="asRange-scale-values">
-                                                        <li style="left: 0%;"><span>0</span></li>
-                                                        <li style="left: 50%;"><span>0.5</span></li>
-                                                        <li style="left: 100%;"><span>1</span></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <!-- range Input :: end -->
-
-                                            <svg width="11" height="16" viewBox="0 0 11 16" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M8.29546 4.02644V8.30623C8.29546 9.04182 8.02841 9.67153 7.49431 10.1954C6.96021 10.7192 6.31816 10.9811 5.56814 10.9811C4.81813 10.9811 4.17607 10.7192 3.64197 10.1954C3.10787 9.67153 2.84082 9.04182 2.84082 8.30623V4.02644C2.84082 3.29085 3.10787 2.66114 3.64197 2.13731C4.17607 1.61348 4.81813 1.35156 5.56814 1.35156C6.31816 1.35156 6.96021 1.61348 7.49431 2.13731C8.02841 2.66114 8.29546 3.29085 8.29546 4.02644Z"
-                                                    stroke="var(--gray-color)" stroke-width="0.981836"></path>
-                                                <path
-                                                    d="M10.4775 7.23419V8.30414C10.4775 9.5357 10.0585 10.607 9.22041 11.5182C8.38233 12.4293 7.3468 12.9517 6.11382 13.0855V14.1889H8.29568C8.44341 14.1889 8.57125 14.2418 8.67921 14.3477C8.78717 14.4536 8.84115 14.5789 8.84115 14.7238C8.84115 14.8687 8.78717 14.9941 8.67921 15.1C8.57125 15.2059 8.44341 15.2588 8.29568 15.2588H2.84104C2.69331 15.2588 2.56546 15.2059 2.45751 15.1C2.34955 14.9941 2.29557 14.8687 2.29557 14.7238C2.29557 14.5789 2.34955 14.4536 2.45751 14.3477C2.56546 14.2418 2.69331 14.1889 2.84104 14.1889H5.02289V13.0855C3.78992 12.9517 2.75439 12.4293 1.9163 11.5182C1.07822 10.607 0.65918 9.5357 0.65918 8.30414V7.23419C0.65918 7.0893 0.713158 6.96392 0.821114 6.85804C0.929071 6.75216 1.05691 6.69922 1.20464 6.69922C1.35237 6.69922 1.48022 6.75216 1.58817 6.85804C1.69613 6.96392 1.75011 7.0893 1.75011 7.23419V8.30414C1.75011 9.33508 2.12369 10.217 2.87087 10.9498C3.61804 11.6826 4.5172 12.049 5.56836 12.049C6.61951 12.049 7.51868 11.6826 8.26585 10.9498C9.01302 10.217 9.38661 9.33508 9.38661 8.30414V7.23419C9.38661 7.0893 9.44059 6.96392 9.54854 6.85804C9.6565 6.75216 9.78434 6.69922 9.93207 6.69922C10.0798 6.69922 10.2076 6.75216 10.3156 6.85804C10.4236 6.96392 10.4775 7.0893 10.4775 7.23419Z"
-                                                    fill="var(--gray-color)"></path>
-                                            </svg>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="setting-options">
-                                <div class="device-application-option">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <h5 class="title mb-0">Output Device</h5>
-                                        <select
-                                            class="form-select new-select-input new-select-input2 custom-select-input select2-offscreen"
-                                            name="audioOutputDevice" id="audioOutputDevice" tabindex="-1" title="">
-                                            <option value="Speaker (Realtek(R)Audio)" selected="">
-                                                Speaker (Realtek(R)Audio)
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <p class="mb-0">Output Volume</p>
-                                        <div class="range-input-box">
-                                            <svg fill="none" height="15" viewBox="0 0 14 15" width="14"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M11.8924 4.44611C12.6499 5.21121 13.0755 6.24884 13.0755 7.33077C13.0755 8.4127 12.6499 9.45033 11.8924 10.2154M4.41796 4.41658L8.05014 0.748579C8.13085 0.667171 8.23364 0.611743 8.34553 0.589296C8.45742 0.56685 8.57338 0.578391 8.67878 0.622462C8.78418 0.666534 8.87428 0.741159 8.9377 0.836912C9.00113 0.932665 9.03503 1.04525 9.03513 1.16045V13.5011C9.03503 13.6163 9.00113 13.7289 8.9377 13.8246C8.87428 13.9204 8.78418 13.995 8.67878 14.0391C8.57338 14.0831 8.45742 14.0947 8.34553 14.0722C8.23364 14.0498 8.13085 13.9944 8.05014 13.913L4.41796 10.245H2.69422C2.01703 10.245 1.38294 9.85096 1.20287 9.19274C1.03782 8.58614 0.954475 7.95985 0.955081 7.33077C0.955081 6.68576 1.04127 6.06173 1.20287 5.46879C1.38294 4.8098 2.01703 4.41658 2.69422 4.41658H4.41796Z"
-                                                    stroke="var(--text-gray-to-white)" stroke-linecap="round"
-                                                    stroke-linejoin="round" stroke-width="1.12544"></path>
-                                            </svg>
-
-                                            <!-- range Input :: start -->
-                                            <input class="custom-range-input customrange" id="audioOutputDeviceVolume"
-                                                max="1" min="0" name="audioOutputDeviceVolume" step="0.1" type="text"
-                                                value="0" style="display: none;">
-                                            <div class="asRange">
-                                                <div class="asRange-bar"></div>
-                                                <div class="asRange-pointer asRange-pointer-1" tabindex="0"
-                                                    style="left: 100%;"><span class="asRange-tip"
-                                                        style="display: none;">1</span></div><span
-                                                    class="asRange-selected" style="left: 0px; width: 100%;"></span>
-                                                <div class="asRange-scale">
-                                                    <ul class="asRange-scale-lines">
-                                                        <li class="asRange-scale-grid" style="left: 0%;"></li>
-                                                        <li style="left: 5%;"></li>
-                                                        <li style="left: 10%;"></li>
-                                                        <li style="left: 15%;"></li>
-                                                        <li style="left: 20%;"></li>
-                                                        <li class="asRange-scale-inlineGrid" style="left: 25%;">
-                                                        </li>
-                                                        <li style="left: 30%;"></li>
-                                                        <li style="left: 35%;"></li>
-                                                        <li style="left: 40%;"></li>
-                                                        <li style="left: 45%;"></li>
-                                                        <li class="asRange-scale-grid" style="left: 50%;"></li>
-                                                        <li style="left: 55%;"></li>
-                                                        <li style="left: 60%;"></li>
-                                                        <li style="left: 65%;"></li>
-                                                        <li style="left: 70%;"></li>
-                                                        <li class="asRange-scale-inlineGrid" style="left: 75%;">
-                                                        </li>
-                                                        <li style="left: 80%;"></li>
-                                                        <li style="left: 85%;"></li>
-                                                        <li style="left: 90%;"></li>
-                                                        <li style="left: 95%;"></li>
-                                                        <li class="asRange-scale-grid" style="left: 100%;"></li>
-                                                    </ul>
-                                                    <ul class="asRange-scale-values">
-                                                        <li style="left: 0%;"><span>0</span></li>
-                                                        <li style="left: 50%;"><span>0.5</span></li>
-                                                        <li style="left: 100%;"><span>1</span></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <!-- range Input :: end -->
-
-                                            <svg fill="none" height="15" viewBox="0 0 17 15" width="17"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M14.0428 2.38519C14.6859 3.03465 15.196 3.80567 15.5441 4.65424C15.8922 5.5028 16.0713 6.41229 16.0713 7.33077C16.0713 8.24925 15.8922 9.15874 15.5441 10.0073C15.196 10.8559 14.6859 11.6269 14.0428 12.2763M12.0027 4.44611C12.7602 5.21121 13.1858 6.24884 13.1858 7.33077C13.1858 8.4127 12.7602 9.45033 12.0027 10.2154M4.52831 4.41658L8.16049 0.748579C8.2412 0.667171 8.34399 0.611743 8.45588 0.589296C8.56777 0.56685 8.68374 0.578391 8.78913 0.622462C8.89453 0.666534 8.98463 0.741159 9.04806 0.836912C9.11148 0.932665 9.14538 1.04525 9.14548 1.16045V13.5011C9.14538 13.6163 9.11148 13.7289 9.04806 13.8246C8.98463 13.9204 8.89453 13.995 8.78913 14.0391C8.68374 14.0831 8.56777 14.0947 8.45588 14.0722C8.34399 14.0498 8.2412 13.9944 8.16049 13.913L4.52831 10.245H2.80457C2.12738 10.245 1.49329 9.85096 1.31322 9.19274C1.14817 8.58614 1.06483 7.95985 1.06543 7.33077C1.06543 6.68576 1.15162 6.06173 1.31322 5.46879C1.49329 4.8098 2.12738 4.41658 2.80457 4.41658H4.52831Z"
-                                                    stroke="var(--text-gray-to-white)" stroke-linecap="round"
-                                                    stroke-linejoin="round" stroke-width="1.12544"></path>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="header setting-options-heading border-0 pb-0 pt-2 h-auto">
-                                <h3>Video</h3>
-                            </div>
-                            <div class="setting-options">
-                                <div class="device-application-option">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <h5 class="title mb-0">Input Device</h5>
-                                        <select
-                                            class="form-select new-select-input new-select-input2 custom-select-input select2-offscreen"
-                                            name="videoInputDevice" id="videoInputDevice" tabindex="-1" title="">
-                                            <option value="Default-Microphone Array" selected="">
-                                                Integrated Camera
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Notifications :: Start -->
-                        <div class="header setting-options-heading border-0 pb-0 pt-2 h-auto">
-                            <h3>Notifications</h3>
-                        </div>
-                        <div class="setting-options">
-                            <div class="device-application-option">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h5 class="title mb-0">Output Device</h5>
-                                    <select
-                                        class="form-select new-select-input new-select-input2 custom-select-input select2-offscreen"
-                                        name="notificationsDevice" id="notificationsDevice" tabindex="-1" title="">
-                                        <option value="" selected="">
-                                            Selected Device
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Notifications :: End -->
-                        <!-- Headset integration :: Start -->
-                        <div class="header setting-options-heading border-0 pb-0 pt-2 h-auto">
-                            <h3>Headset integration</h3>
-                        </div>
-                        <div class="setting-options">
-                            <div class="device-application-option">
-                                <div class="d-flex flex-column gap-3 align-items-start">
-                                    <select
-                                        class="form-select w-100 new-select-input new-select-input2 custom-select-input select2-offscreen"
-                                        name="headsetIntegration" id="headsetIntegration" tabindex="-1" title="">
-                                        <option value="" selected="">
-                                            None
-                                        </option>
-                                        <option value="1">
-                                            Universal Headset Driver (WebHID - 3rd party supported)
-                                        </option>
-                                        <option value="2">
-                                            Jabra (Support provided by Jabra!)
-                                        </option>
-                                        <option value="3">
-                                            Yealink
-                                        </option>
-                                        <option value="4">
-                                            Plantronics (Support provided by Plantronics!)
-                                        </option>
-                                    </select>
-                                    <div class="config-alerts info">
-                                        <p class="mb-0">Initializing headset...</p>
-                                    </div>
-                                    <div class="config-alerts danger">
-                                        <p class="mb-0">No device is connected</p>
-                                    </div>
-                                    <div class="config-alerts success">
-                                        <p class="mb-0">Jabra (Support provided by Jabra!) Connected</p>
-                                    </div>
-                                    <button class="meeting-btn m-0 align-self-start h-auto py-2">Connect
-                                        Headset</button>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Headset integration :: End -->
-                    </div>
-                    <!-- DEVICES SETTING :: ENDS -->
-                </div>
-
-
+            </section>
+            <!-- RIGHT SIDE CONTENT :: ENDS -->
         </div>
-        </section>
-        <!-- RIGHT SIDE CONTENT :: ENDS --> 
-    </div>
     </div>
     <div class="modal fade logout-modal-popup mobile-enter" id="new-version" data-bs-backdrop="static"
         data-bs-keyboard="false" tabindex="-1" aria-labelledby="new-version" aria-hidden="true">
@@ -1941,7 +1707,7 @@
                     </div>
 
                 </div>
-                <div class="modal-footer ">
+                <div class="modal-footer">
                     <button class="cancel-btn" type="button" data-bs-dismiss="modal" aria-label="Close"
                         tabindex="-1">Cancel</button>
                     <button class="gradient-btn" id="confirm-download" type="button" tabindex="-1">Submit</button>
@@ -1950,101 +1716,14 @@
         </div>
     </div>
 
-    <!-- greeting model start-->
-<div class="modal fade greeting-modal  logout-modal-popup" id="greetingdelete" tabindex="-1" aria-labelledby="greetingdelete"  aria-modal="true" role="dialog">
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="blindTransferModalLabel">Delete Greeting</h5>
-                      <button type="button" class="tooltip" data-bs-dismiss="modal" aria-label="Close">
-                        <span class="tooltiptext">Close</span>
-                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1.49902 14.7622L8.29416 7.96701M15.0893 1.17188L8.29287 7.96701M8.29287 7.96701L1.49902 1.17188M8.29416 7.96701L15.0893 14.7622" stroke="var(--white-color)" stroke-width="2.14583" stroke-linecap="round" stroke-linejoin="round"></path>
-                        </svg>                            
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                        <p class="mb-0">Are you sure you want to delete this greeting?</p>
-                          <div class="modal-footer p-0">
-                        <button aria-label="Close" class="cancel-btn __MSG__modalcancelbutton" data-bs-dismiss="modal" type="button" value="">Cancel</button>
-                        <button autofocus class="gradient-btn _fileStorageSizeLimitYes __MSG__ok" type="button" value="">Ok</button>
-                </div>
-                    </div>
-                  
-                  </div>
-                </div>
-              </div>
-              <div class="modal fade greeting-modal  logout-modal-popup" id="greeting" tabindex="-1" aria-labelledby="greeting"  aria-modal="true" role="dialog">
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="blindTransferModalLabel">Set Active Greeting</h5>
-                      <button type="button" class="tooltip" data-bs-dismiss="modal" aria-label="Close">
-                        <span class="tooltiptext">Close</span>
-                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1.49902 14.7622L8.29416 7.96701M15.0893 1.17188L8.29287 7.96701M8.29287 7.96701L1.49902 1.17188M8.29416 7.96701L15.0893 14.7622" stroke="var(--white-color)" stroke-width="2.14583" stroke-linecap="round" stroke-linejoin="round"></path>
-                        </svg>                            
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                        <p class="mb-0">Would you like to use voicemail greeting?</p>
-                          <div class="modal-footer p-0">
-                        <button aria-label="Close" class="cancel-btn __MSG__modalcancelbutton" data-bs-dismiss="modal" type="button" value="">Cancel</button>
-                        <button autofocus class="gradient-btn _fileStorageSizeLimitYes __MSG__ok" type="button" value="">Ok</button>
-                </div>
-                    </div>
-                  
-                  </div>
-                </div>
-              </div>
-    <!-- greeting model end  -->
-
-
-
-
-    <!-- Apply icon overrides from icon-gallery (preview-asset:icon-light:* / icon-dark:*) -->
-    <script>
-        function applyIconOverrides() {
-            try {
-                var mode = document.documentElement.getAttribute('data-theme') || 'light';
-                document.querySelectorAll('img[data-src][data-mode]').forEach(function(img) {
-                    var dataSrc = img.getAttribute('data-src');
-                    var imgMode = img.getAttribute('data-mode');
-                    if (!dataSrc || !imgMode) return;
-                    var key = 'preview-asset:icon-' + imgMode + ':' + dataSrc;
-                    var dataUrl = localStorage.getItem(key);
-                    if (dataUrl && dataUrl.indexOf('data:') === 0) img.src = dataUrl;
-                    else img.src = '../public/app-icon/icon/' + imgMode + '/' + dataSrc;
-                });
-            } catch (e) {}
-        }
-        applyIconOverrides();
-        window.addEventListener('storage', function(e) {
-            if (e.key && e.key.indexOf('preview-asset:icon-') === 0) applyIconOverrides();
-        });
-    </script>
     <!-- BOOTSTRAP JQUERY/POPPER JS LINK -->
     <!-- BOOTSTRAP JQUERY/POPPER JS LINK -->
     <script src="../assets/js/popper.min.js"></script>
     <script src="../assets/js/jquery.min.js" type="text/javascript"></script>
     <script src="../assets/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+    <script src="js/icon-gallery-preview-bridge.js" type="text/javascript"></script>
     <script src="../assets/js/select2.js"></script>
     <script src="../assets/js/jquery-asRange.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const greetingsTab = document.getElementById('pills-greetings-tab');
-
-            greetingsTab.addEventListener('click', function () {
-                const loaderModal = new bootstrap.Modal(document.getElementById('loaderModal'));
-                loaderModal.show();
-
-                // Simulate loading for 1.5 seconds
-                setTimeout(() => {
-                    loaderModal.hide();
-                }, 15000);
-            });
-        });
-    </script>
 
     <script>
         $(function () {
@@ -2055,20 +1734,56 @@
                 },
             });
 
-            // Activate tab or modal when opened from icon-gallery (e.g. #pills-debuggingLogs, #logoutModal)
-            const hash = window.location.hash;
-            if (hash === '#logoutModal' && typeof bootstrap !== 'undefined' && bootstrap.Modal) {
-                const logoutEl = document.getElementById('logoutModal');
-                if (logoutEl) {
-                    bootstrap.Modal.getOrCreateInstance(logoutEl).show();
+        });
+
+        (function () {
+            function applyHashNavigation() {
+                var hash = (window.location.hash || '').replace(/^#/, '');
+                if (hash === 'logoutModal') {
+                    var modalEl = document.getElementById('logoutModal');
+                    if (!modalEl) return;
+                    try {
+                        if (window.bootstrap && window.bootstrap.Modal) {
+                            window.bootstrap.Modal.getOrCreateInstance(modalEl).show();
+                        }
+                    } catch (e) { /* noop */ }
+                    return;
                 }
-            } else if (hash) {
-                const tabTrigger = document.querySelector(`[data-bs-toggle="pill"][data-bs-target="${hash}"], [data-bs-toggle="tab"][data-bs-target="${hash}"]`);
-                if (tabTrigger && bootstrap.Tab) {
-                    bootstrap.Tab.getOrCreateInstance(tabTrigger).show();
+                if (!hash || hash.indexOf('pills-') !== 0) return;
+                var triggerId = null;
+                if (hash.endsWith('-tab') && document.getElementById(hash)) {
+                    triggerId = hash;
+                } else {
+                    var candidate = hash + '-tab';
+                    if (document.getElementById(candidate)) triggerId = candidate;
+                }
+                if (!triggerId) return;
+                var trigger = document.getElementById(triggerId);
+                if (!trigger) return;
+                try {
+                    if (window.bootstrap && window.bootstrap.Tab) {
+                        window.bootstrap.Tab.getOrCreateInstance(trigger).show();
+                    } else {
+                        trigger.click();
+                    }
+                } catch (e) {
+                    trigger.click();
+                }
+                var target = trigger.getAttribute('data-bs-target');
+                var pane = target && document.getElementById(String(target).replace(/^#/, ''));
+                if (pane) {
+                    setTimeout(function () {
+                        pane.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }, 100);
                 }
             }
-        })
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', applyHashNavigation);
+            } else {
+                applyHashNavigation();
+            }
+            window.addEventListener('hashchange', applyHashNavigation);
+        })();
     </script>
 
 </body>

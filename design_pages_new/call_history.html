@@ -7,6 +7,18 @@
     <link href="../assets/css/bootstrap.min.css.map" rel="stylesheet" />
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/audioplayer.css">
+    <style>
+        #callHistory .js-icon-bridge-no-calls-found {
+            width: 300px !important;
+            height: 300px !important;
+            min-width: 300px;
+            min-height: 300px;
+            max-width: 300px;
+            max-height: 300px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+    </style>
     <script src="../assets/js/icon-svg-inline.js"></script>
 </head>
 <body>
@@ -200,9 +212,9 @@
                     </div>
                 </section>
                 <section class="right-side">
-                    <div class="call-history-screen" id="callHistory">
-                        <div class="tab-content" id="nav-tabContent">
-                            <div class="all-calls tab-pane fade show active" id="nav-all" role="tabpanel"
+                    <div class="call-history-screen d-flex h-100" id="callHistory">
+                        <div class="tab-content d-flex flex-column flex-fill" id="nav-tabContent" style="min-height:0;">
+                            <div class="all-calls tab-pane fade show active d-flex flex-column h-100" id="nav-all" role="tabpanel"
                                 aria-labelledby="nav-all-tab">
                                 <div class="header">
                                     <h3>
@@ -253,326 +265,15 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="call-history-container">
-                                    <div class="all-call-item focusableItem remove-hover">
-                                        <div class="all-call-caller">
-                                            <div class="icon">
-                                                <img src="../assets/img-new/caller.svg" alt="CALLER IMAGE" width=""
-                                                    height="">
-                                            </div>
-                                            <div class="caller-name">
-                                                <p>
-                                                    Jason Markus (5)
-                                                    <img src="../assets/img-new/video-indication.svg" alt="VIDEO CALL"
-                                                        width="" height="">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
-                                                            <path d="M7.51286 1.00098H3.00553C2.73989 1.00098 2.48512 1.1065 2.29728 1.29435C2.10943 1.48219 2.00391 1.73696 2.00391 2.0026V10.0156C2.00391 10.2813 2.10943 10.536 2.29728 10.7239C2.48512 10.9117 2.73989 11.0173 3.00553 11.0173H9.0153C9.28095 11.0173 9.53572 10.9117 9.72356 10.7239C9.9114 10.536 10.0169 10.2813 10.0169 10.0156V3.50505L7.51286 1.00098Z" stroke="var(--primary-color)" stroke-width="1.00163" stroke-linecap="round" stroke-linejoin="round"/>
-                                                            <path d="M7.01074 1.00098V3.00423C7.01074 3.26988 7.11627 3.52465 7.30411 3.71249C7.49195 3.90033 7.74672 4.00586 8.01237 4.00586H10.0156" stroke="#102D69" stroke-width="1.00163" stroke-linecap="round" stroke-linejoin="round"/>
-                                                            <path d="M5.00749 4.50781H4.00586" stroke="#102D69" stroke-width="1.00163" stroke-linecap="round" stroke-linejoin="round"/>
-                                                            <path d="M8.01237 6.51074H4.00586" stroke="#102D69" stroke-width="1.00163" stroke-linecap="round" stroke-linejoin="round"/>
-                                                            <path d="M8.01237 8.51367H4.00586" stroke="#102D69" stroke-width="1.00163" stroke-linecap="round" stroke-linejoin="round"/>
-                                                            </svg>
-                                                </p>
-                                                <p class="number">
-                                                    3267662252
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="all-call-type-time">
-                                            <div class="call-type">
-                                                <img src="../assets/img-new/outbound-ans-elsewhere.svg"
-                                                    alt="OUTBOUND CALL" width="" height="">
-                                                <p>Outbound call answer elsewhere</p>
-                                            </div>
-                                            <div class="call-duration in-recent-tab">
-                                                <p class="m-0 px-2">1 day ago</p>
-                                            </div>
-                                            <button class="lh-1 shadow-none border-0 btn p-0 call-history-btn tooltip">
-                                                <span class="tooltiptext"></span>
-                                                <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M5.7227 13.9473C6.62392 14.8485 7.77216 15.4623 9.02219 15.7109C10.2722 15.9596 11.5679 15.832 12.7454 15.3442C13.9229 14.8565 14.9294 14.0305 15.6375 12.9708C16.3456 11.9111 16.7235 10.6652 16.7235 9.39062C16.7235 8.1161 16.3456 6.87019 15.6375 5.81046C14.9294 4.75073 13.9229 3.92477 12.7454 3.43703C11.5679 2.94929 10.2722 2.82168 9.02219 3.07033C7.77216 3.31897 6.62392 3.93272 5.7227 4.83394C4.45362 6.11261 3.72798 7.83237 3.69751 9.63365V11.9221" stroke="var(--text-dark-gray-to-white)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                    <path d="M1.88281 10.5488L3.69575 12.3618L5.50868 10.5488" stroke="var(--text-dark-gray-to-white)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                    <path d="M13.2031 12.6968C12.4369 12.6968 11.6798 12.5298 10.9319 12.1958C10.184 11.8618 9.50358 11.3882 8.89056 10.7749C8.27754 10.1617 7.80405 9.48124 7.47008 8.7336C7.1361 7.98597 6.969 7.22889 6.96875 6.46237C6.96875 6.35203 7.00553 6.26008 7.07909 6.18651C7.15266 6.11295 7.24461 6.07617 7.35495 6.07617H8.84458C8.9304 6.07617 9.00703 6.10535 9.07446 6.16371C9.1419 6.22207 9.18174 6.29097 9.194 6.37042L9.43308 7.65776C9.44534 7.75584 9.44227 7.8386 9.42388 7.90603C9.40549 7.97346 9.37178 8.0317 9.32274 8.08074L8.4308 8.98187C8.5534 9.20869 8.69893 9.42778 8.86739 9.63915C9.03584 9.85052 9.22134 10.0544 9.42388 10.2508C9.61392 10.4409 9.81315 10.6172 10.0216 10.7797C10.23 10.9423 10.4507 11.0909 10.6836 11.2255L11.548 10.3612C11.6032 10.306 11.6753 10.2647 11.7643 10.2372C11.8533 10.2097 11.9406 10.202 12.0261 10.214L13.2951 10.4715C13.3809 10.496 13.4514 10.5405 13.5066 10.605C13.5617 10.6695 13.5893 10.7415 13.5893 10.8209V12.3106C13.5893 12.4209 13.5526 12.5129 13.479 12.5864C13.4054 12.66 13.3135 12.6968 13.2031 12.6968Z" fill="var(--text-dark-gray-to-white)"></path>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="all-call-item focusableItem remove-hover" data-cdr-id="17636179277a7b6af3b929eee19e8fc22885277f66" data-caller-number="102" data-duration="00:16" tabindex="19">
-                                        <div class="all-call-caller">
-                                            <div class="icon">V</div>
-                                            <div class="caller-name">
-                                                <p>VS ES 102 00:16</p>
-                                                <p class="number">
-                                                    102
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="all-call-type-time">
-                                            <div class="call-type Outbound call">
-                                                <img src="../assets/img-new/outbound-call.svg" alt="Outbound call" class="call-type-icon">
-                                                <p class="__MSG__Outbound call ">Outbound</p>
-                                            </div>
-                                            <div class="call-duration in-recent-tab">
-                                                <p class="m-0 px-2">1 day ago</p>
-                                            </div>
-                                            <button class="lh-1 shadow-none border-0 btn p-0 call-history-btn tooltip">
-                                                <span class="tooltiptext"></span>
-                                                <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M5.7227 13.9473C6.62392 14.8485 7.77216 15.4623 9.02219 15.7109C10.2722 15.9596 11.5679 15.832 12.7454 15.3442C13.9229 14.8565 14.9294 14.0305 15.6375 12.9708C16.3456 11.9111 16.7235 10.6652 16.7235 9.39062C16.7235 8.1161 16.3456 6.87019 15.6375 5.81046C14.9294 4.75073 13.9229 3.92477 12.7454 3.43703C11.5679 2.94929 10.2722 2.82168 9.02219 3.07033C7.77216 3.31897 6.62392 3.93272 5.7227 4.83394C4.45362 6.11261 3.72798 7.83237 3.69751 9.63365V11.9221" stroke="var(--text-dark-gray-to-white)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                    <path d="M1.88281 10.5488L3.69575 12.3618L5.50868 10.5488" stroke="var(--text-dark-gray-to-white)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                    <path d="M13.2031 12.6968C12.4369 12.6968 11.6798 12.5298 10.9319 12.1958C10.184 11.8618 9.50358 11.3882 8.89056 10.7749C8.27754 10.1617 7.80405 9.48124 7.47008 8.7336C7.1361 7.98597 6.969 7.22889 6.96875 6.46237C6.96875 6.35203 7.00553 6.26008 7.07909 6.18651C7.15266 6.11295 7.24461 6.07617 7.35495 6.07617H8.84458C8.9304 6.07617 9.00703 6.10535 9.07446 6.16371C9.1419 6.22207 9.18174 6.29097 9.194 6.37042L9.43308 7.65776C9.44534 7.75584 9.44227 7.8386 9.42388 7.90603C9.40549 7.97346 9.37178 8.0317 9.32274 8.08074L8.4308 8.98187C8.5534 9.20869 8.69893 9.42778 8.86739 9.63915C9.03584 9.85052 9.22134 10.0544 9.42388 10.2508C9.61392 10.4409 9.81315 10.6172 10.0216 10.7797C10.23 10.9423 10.4507 11.0909 10.6836 11.2255L11.548 10.3612C11.6032 10.306 11.6753 10.2647 11.7643 10.2372C11.8533 10.2097 11.9406 10.202 12.0261 10.214L13.2951 10.4715C13.3809 10.496 13.4514 10.5405 13.5066 10.605C13.5617 10.6695 13.5893 10.7415 13.5893 10.8209V12.3106C13.5893 12.4209 13.5526 12.5129 13.479 12.5864C13.4054 12.66 13.3135 12.6968 13.2031 12.6968Z" fill="var(--text-dark-gray-to-white)"></path>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="all-call-item focusableItem remove-hover">
-                                        <div class="all-call-caller">
-                                            <div class="icon">
-                                                AJ
-                                            </div>
-                                            <div class="caller-name">
-                                                <p>
-                                                    Alex Jamson
-                                                    <img src="../assets/img-new/audio-indication.svg" alt="AUDIO CALL"
-                                                        width="" height="">
-                                                </p>
-                                                <p class="number">
-                                                    3267662252
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="all-call-type-time">
-                                            <div class="call-type">
-                                                <img src="../assets/img-new/inbound-ans-elsewhere.svg"
-                                                    alt="INBOUND CALL" width="" height="">
-                                                <p>Inbound call answer elsewhere</p>
-                                            </div>
-                                            <div class="call-duration in-recent-tab">
-                                                <p class="m-0 px-2">1 day ago</p>
-                                            </div>
-                                            <button class="lh-1 shadow-none border-0 btn p-0 call-history-btn tooltip">
-                                                <span class="tooltiptext"></span>
-                                                <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M5.7227 13.9473C6.62392 14.8485 7.77216 15.4623 9.02219 15.7109C10.2722 15.9596 11.5679 15.832 12.7454 15.3442C13.9229 14.8565 14.9294 14.0305 15.6375 12.9708C16.3456 11.9111 16.7235 10.6652 16.7235 9.39062C16.7235 8.1161 16.3456 6.87019 15.6375 5.81046C14.9294 4.75073 13.9229 3.92477 12.7454 3.43703C11.5679 2.94929 10.2722 2.82168 9.02219 3.07033C7.77216 3.31897 6.62392 3.93272 5.7227 4.83394C4.45362 6.11261 3.72798 7.83237 3.69751 9.63365V11.9221" stroke="var(--text-dark-gray-to-white)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                    <path d="M1.88281 10.5488L3.69575 12.3618L5.50868 10.5488" stroke="var(--text-dark-gray-to-white)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                    <path d="M13.2031 12.6968C12.4369 12.6968 11.6798 12.5298 10.9319 12.1958C10.184 11.8618 9.50358 11.3882 8.89056 10.7749C8.27754 10.1617 7.80405 9.48124 7.47008 8.7336C7.1361 7.98597 6.969 7.22889 6.96875 6.46237C6.96875 6.35203 7.00553 6.26008 7.07909 6.18651C7.15266 6.11295 7.24461 6.07617 7.35495 6.07617H8.84458C8.9304 6.07617 9.00703 6.10535 9.07446 6.16371C9.1419 6.22207 9.18174 6.29097 9.194 6.37042L9.43308 7.65776C9.44534 7.75584 9.44227 7.8386 9.42388 7.90603C9.40549 7.97346 9.37178 8.0317 9.32274 8.08074L8.4308 8.98187C8.5534 9.20869 8.69893 9.42778 8.86739 9.63915C9.03584 9.85052 9.22134 10.0544 9.42388 10.2508C9.61392 10.4409 9.81315 10.6172 10.0216 10.7797C10.23 10.9423 10.4507 11.0909 10.6836 11.2255L11.548 10.3612C11.6032 10.306 11.6753 10.2647 11.7643 10.2372C11.8533 10.2097 11.9406 10.202 12.0261 10.214L13.2951 10.4715C13.3809 10.496 13.4514 10.5405 13.5066 10.605C13.5617 10.6695 13.5893 10.7415 13.5893 10.8209V12.3106C13.5893 12.4209 13.5526 12.5129 13.479 12.5864C13.4054 12.66 13.3135 12.6968 13.2031 12.6968Z" fill="var(--text-dark-gray-to-white)"></path>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="all-call-item focusableItem remove-hover missed-call">
-                                        <div class="all-call-caller">
-                                            <div class="icon">
-                                                km
-                                            </div>
-                                            <div class="caller-name">
-                                                <p>
-                                                    Karen Marcus
-                                                    <img src="../assets/img-new/video-indication.svg" alt="VIDEO CALL"
-                                                        width="" height="">
-                                                    <img src="../assets/img-new/audio-indication.svg" alt="AUDIO CALL"
-                                                        width="" height="">
-                                                </p>
-                                                <p class="number">
-                                                    3267662252
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="all-call-type-time">
-                                            <div class="call-type">
-                                                <img src="../assets/img-new/missed-call.svg" alt="MISSED CALL" width=""
-                                                    height="">
-                                                <p>Missed call</p>
-                                            </div>
-                                            <div class="call-duration in-recent-tab">
-                                                <p class="m-0 px-2">1 day ago</p>
-                                            </div>
-                                            <button class="lh-1 shadow-none border-0 btn p-0 call-history-btn tooltip" >
-                                                <span class="tooltiptext"></span>
-                                                <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M5.7227 13.9473C6.62392 14.8485 7.77216 15.4623 9.02219 15.7109C10.2722 15.9596 11.5679 15.832 12.7454 15.3442C13.9229 14.8565 14.9294 14.0305 15.6375 12.9708C16.3456 11.9111 16.7235 10.6652 16.7235 9.39062C16.7235 8.1161 16.3456 6.87019 15.6375 5.81046C14.9294 4.75073 13.9229 3.92477 12.7454 3.43703C11.5679 2.94929 10.2722 2.82168 9.02219 3.07033C7.77216 3.31897 6.62392 3.93272 5.7227 4.83394C4.45362 6.11261 3.72798 7.83237 3.69751 9.63365V11.9221" stroke="var(--text-dark-gray-to-white)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                    <path d="M1.88281 10.5488L3.69575 12.3618L5.50868 10.5488" stroke="var(--text-dark-gray-to-white)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                    <path d="M13.2031 12.6968C12.4369 12.6968 11.6798 12.5298 10.9319 12.1958C10.184 11.8618 9.50358 11.3882 8.89056 10.7749C8.27754 10.1617 7.80405 9.48124 7.47008 8.7336C7.1361 7.98597 6.969 7.22889 6.96875 6.46237C6.96875 6.35203 7.00553 6.26008 7.07909 6.18651C7.15266 6.11295 7.24461 6.07617 7.35495 6.07617H8.84458C8.9304 6.07617 9.00703 6.10535 9.07446 6.16371C9.1419 6.22207 9.18174 6.29097 9.194 6.37042L9.43308 7.65776C9.44534 7.75584 9.44227 7.8386 9.42388 7.90603C9.40549 7.97346 9.37178 8.0317 9.32274 8.08074L8.4308 8.98187C8.5534 9.20869 8.69893 9.42778 8.86739 9.63915C9.03584 9.85052 9.22134 10.0544 9.42388 10.2508C9.61392 10.4409 9.81315 10.6172 10.0216 10.7797C10.23 10.9423 10.4507 11.0909 10.6836 11.2255L11.548 10.3612C11.6032 10.306 11.6753 10.2647 11.7643 10.2372C11.8533 10.2097 11.9406 10.202 12.0261 10.214L13.2951 10.4715C13.3809 10.496 13.4514 10.5405 13.5066 10.605C13.5617 10.6695 13.5893 10.7415 13.5893 10.8209V12.3106C13.5893 12.4209 13.5526 12.5129 13.479 12.5864C13.4054 12.66 13.3135 12.6968 13.2031 12.6968Z" fill="var(--text-dark-gray-to-white)"></path>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="all-call-item focusableItem remove-hover missed-call">
-                                        <div class="all-call-caller">
-                                            <div class="icon">
-                                                mj
-                                            </div>
-                                            <div class="caller-name">
-                                                <p>
-                                                    Mathus Jeff
-                                                    <img src="../assets/img-new/video-indication.svg" alt="VIDEO CALL"
-                                                        width="" height="">
-                                                </p>
-                                                <p class="number">
-                                                    3267662252
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="all-call-type-time">
-                                            <div class="call-type">
-                                                <img src="../assets/img-new/missed-call.svg" alt="MISSED CALL" width=""
-                                                    height="">
-                                                <p>Missed call</p>
-                                            </div>
-                                            <div class="call-duration in-recent-tab">
-                                                <p class="m-0 px-2">25/01/23</p>
-                                            </div>
-                                            <button class="lh-1 shadow-none border-0 btn p-0 call-history-btn tooltip">
-                                                <span class="tooltiptext"></span>
-                                                <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M5.7227 13.9473C6.62392 14.8485 7.77216 15.4623 9.02219 15.7109C10.2722 15.9596 11.5679 15.832 12.7454 15.3442C13.9229 14.8565 14.9294 14.0305 15.6375 12.9708C16.3456 11.9111 16.7235 10.6652 16.7235 9.39062C16.7235 8.1161 16.3456 6.87019 15.6375 5.81046C14.9294 4.75073 13.9229 3.92477 12.7454 3.43703C11.5679 2.94929 10.2722 2.82168 9.02219 3.07033C7.77216 3.31897 6.62392 3.93272 5.7227 4.83394C4.45362 6.11261 3.72798 7.83237 3.69751 9.63365V11.9221" stroke="var(--text-dark-gray-to-white)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                    <path d="M1.88281 10.5488L3.69575 12.3618L5.50868 10.5488" stroke="var(--text-dark-gray-to-white)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                    <path d="M13.2031 12.6968C12.4369 12.6968 11.6798 12.5298 10.9319 12.1958C10.184 11.8618 9.50358 11.3882 8.89056 10.7749C8.27754 10.1617 7.80405 9.48124 7.47008 8.7336C7.1361 7.98597 6.969 7.22889 6.96875 6.46237C6.96875 6.35203 7.00553 6.26008 7.07909 6.18651C7.15266 6.11295 7.24461 6.07617 7.35495 6.07617H8.84458C8.9304 6.07617 9.00703 6.10535 9.07446 6.16371C9.1419 6.22207 9.18174 6.29097 9.194 6.37042L9.43308 7.65776C9.44534 7.75584 9.44227 7.8386 9.42388 7.90603C9.40549 7.97346 9.37178 8.0317 9.32274 8.08074L8.4308 8.98187C8.5534 9.20869 8.69893 9.42778 8.86739 9.63915C9.03584 9.85052 9.22134 10.0544 9.42388 10.2508C9.61392 10.4409 9.81315 10.6172 10.0216 10.7797C10.23 10.9423 10.4507 11.0909 10.6836 11.2255L11.548 10.3612C11.6032 10.306 11.6753 10.2647 11.7643 10.2372C11.8533 10.2097 11.9406 10.202 12.0261 10.214L13.2951 10.4715C13.3809 10.496 13.4514 10.5405 13.5066 10.605C13.5617 10.6695 13.5893 10.7415 13.5893 10.8209V12.3106C13.5893 12.4209 13.5526 12.5129 13.479 12.5864C13.4054 12.66 13.3135 12.6968 13.2031 12.6968Z" fill="var(--text-dark-gray-to-white)"></path>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="all-call-item focusableItem remove-hover missed-call">
-                                        <div class="all-call-caller">
-                                            <div class="icon">
-                                                u
-                                            </div>
-                                            <div class="caller-name">
-                                                <p>
-                                                    Unknown
-                                                </p>
-                                                <p class="number">
-                                                    3267662252
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="all-call-type-time">
-                                            <div class="call-type">
-                                                <img src="../assets/img-new/missed-call.svg" alt="MISSED CALL" width=""
-                                                    height="">
-                                                <p>Missed call</p>
-                                            </div>
-                                            <div class="call-duration in-recent-tab">
-                                                <p class="m-0 px-2">25/01/23</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="all-call-item focusableItem remove-hover conference-call">
-                                        <div class="all-call-caller">
-                                            <div class="icon">
-                                                <img src="../assets/img-new/caller.svg" alt="CALLER IMAGE" width=""
-                                                    height="">
-                                                <div class="second-person">
-                                                    <img src="../assets/img-new/caller-2.svg" alt="CALLER IMAGE"
-                                                        width="" height="">
-                                                </div>
-                                            </div>
-                                            <div class="caller-name">
-                                                <p>
-                                                    Karen & James
-                                                </p>
-                                                <p class="number">
-                                                    3267662252
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="all-call-type-time">
-                                            <div class="call-type">
-                                                <img src="../assets/img-new/conference.svg" alt="CONFERENCE CALL"
-                                                    width="" height="">
-                                                <p>Conference call</p>
-                                            </div>
-                                            <div class="call-duration in-recent-tab">
-                                                <p class="m-0 px-2">25/01/23</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="all-call-item focusableItem remove-hover">
-                                        <div class="all-call-caller">
-                                            <div class="icon">
-                                                AJ
-                                            </div>
-                                            <div class="caller-name">
-                                                <p>
-                                                    Alex Jamson
-                                                </p>
-                                                <p class="number">
-                                                    3267662252
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="all-call-type-time">
-                                            <div class="call-type">
-                                                <img src="../assets/img-new/inbound-call.svg" alt="INBOUND CALL"
-                                                    width="" height="">
-                                                <p>Inbound call</p>
-                                            </div>
-                                            <div class="call-duration in-recent-tab">
-                                                <p class="m-0 px-2">1:56 PM</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="all-call-item focusableItem remove-hover missed-call">
-                                        <div class="all-call-caller">
-                                            <div class="icon">
-                                                u
-                                            </div>
-                                            <div class="caller-name">
-                                                <p>
-                                                    Unknown
-                                                </p>
-                                                <p class="number">
-                                                    3267662252
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="all-call-type-time">
-                                            <div class="call-type">
-                                                <img src="../assets/img-new/missed-call.svg" alt="MISSED CALL" width=""
-                                                    height="">
-                                                <p>Missed call</p>
-                                            </div>
-                                            <div class="call-duration in-recent-tab">
-                                                <p class="m-0 px-2">25/01/23</p>
-                                            </div>
-                                            <button class="lh-1 shadow-none border-0 btn p-0 call-history-btn tooltip">
-                                                <span class="tooltiptext"></span>
-                                                <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M5.7227 13.9473C6.62392 14.8485 7.77216 15.4623 9.02219 15.7109C10.2722 15.9596 11.5679 15.832 12.7454 15.3442C13.9229 14.8565 14.9294 14.0305 15.6375 12.9708C16.3456 11.9111 16.7235 10.6652 16.7235 9.39062C16.7235 8.1161 16.3456 6.87019 15.6375 5.81046C14.9294 4.75073 13.9229 3.92477 12.7454 3.43703C11.5679 2.94929 10.2722 2.82168 9.02219 3.07033C7.77216 3.31897 6.62392 3.93272 5.7227 4.83394C4.45362 6.11261 3.72798 7.83237 3.69751 9.63365V11.9221" stroke="var(--text-dark-gray-to-white)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                    <path d="M1.88281 10.5488L3.69575 12.3618L5.50868 10.5488" stroke="var(--text-dark-gray-to-white)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                    <path d="M13.2031 12.6968C12.4369 12.6968 11.6798 12.5298 10.9319 12.1958C10.184 11.8618 9.50358 11.3882 8.89056 10.7749C8.27754 10.1617 7.80405 9.48124 7.47008 8.7336C7.1361 7.98597 6.969 7.22889 6.96875 6.46237C6.96875 6.35203 7.00553 6.26008 7.07909 6.18651C7.15266 6.11295 7.24461 6.07617 7.35495 6.07617H8.84458C8.9304 6.07617 9.00703 6.10535 9.07446 6.16371C9.1419 6.22207 9.18174 6.29097 9.194 6.37042L9.43308 7.65776C9.44534 7.75584 9.44227 7.8386 9.42388 7.90603C9.40549 7.97346 9.37178 8.0317 9.32274 8.08074L8.4308 8.98187C8.5534 9.20869 8.69893 9.42778 8.86739 9.63915C9.03584 9.85052 9.22134 10.0544 9.42388 10.2508C9.61392 10.4409 9.81315 10.6172 10.0216 10.7797C10.23 10.9423 10.4507 11.0909 10.6836 11.2255L11.548 10.3612C11.6032 10.306 11.6753 10.2647 11.7643 10.2372C11.8533 10.2097 11.9406 10.202 12.0261 10.214L13.2951 10.4715C13.3809 10.496 13.4514 10.5405 13.5066 10.605C13.5617 10.6695 13.5893 10.7415 13.5893 10.8209V12.3106C13.5893 12.4209 13.5526 12.5129 13.479 12.5864C13.4054 12.66 13.3135 12.6968 13.2031 12.6968Z" fill="var(--text-dark-gray-to-white)"></path>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="all-call-item focusableItem remove-hover missed-call">
-                                        <div class="all-call-caller">
-                                            <div class="icon">
-                                                u
-                                            </div>
-                                            <div class="caller-name">
-                                                <p>
-                                                    Unknown
-                                                </p>
-                                                <p class="number">
-                                                    3267662252
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="all-call-type-time">
-                                            <div class="call-type">
-                                                <img src="../assets/img-new/missed-call.svg" alt="MISSED CALL" width=""
-                                                    height="">
-                                                <p>Missed call</p>
-                                            </div>
-                                            <div class="call-duration in-recent-tab">
-                                                <p class="m-0 px-2">25/01/23</p>
-                                            </div>
-                                        </div>
+                                <div class="call-history-container d-flex align-items-center justify-content-center flex-grow-1 w-100" style="min-height:0;flex:1 1 auto;">
+                                    <div class="no-calls-found d-flex flex-column align-items-center justify-content-center text-center w-100 py-3">
+                                        <img class="js-icon-bridge-no-calls-found" src="../public/app-icon/icon/light/no-calls-found.svg" alt="No calls found" width="300" height="300" />
+                                        <p class="mt-3 mb-0 __MSG__no_calls_found">No calls found</p>
                                     </div>
                                 </div>
+
                             </div>
-                            <div class="tab-pane fade" id="nav-missed" role="tabpanel" aria-labelledby="nav-missed-tab">
+                            <div class="tab-pane fade d-flex flex-column h-100" id="nav-missed" role="tabpanel" aria-labelledby="nav-missed-tab">
                                 <div class="header">
                                     <h3>
                                         Call History
@@ -622,156 +323,15 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="call-history-container">
-                                    <div class="all-call-item focusableItem remove-hover missed-call">
-                                        <div class="all-call-caller">
-                                            <div class="icon">
-                                                km
-                                            </div>
-                                            <div class="caller-name">
-                                                <p>
-                                                    Karen Marcus
-                                                    <img src="../assets/img-new/video-indication.svg" alt="VIDEO CALL"
-                                                        width="" height="">
-                                                    <img src="../assets/img-new/audio-indication.svg" alt="AUDIO CALL"
-                                                        width="" height="">
-                                                </p>
-                                                <p class="number">
-                                                    3267662252
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="all-call-type-time">
-                                            <div class="call-type">
-                                                <img src="../assets/img-new/missed-call.svg" alt="MISSED CALL" width=""
-                                                    height="">
-                                                <p>Missed call</p>
-                                            </div>
-                                            <div class="call-duration in-recent-tab">
-                                                <p class="m-0 px-2">Sunday</p>
-                                            </div>
-                                            <button class="lh-1 shadow-none border-0 btn p-0 call-history-btn tooltip">
-                                                <span class="tooltiptext"></span>
-                                                <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M5.7227 13.9473C6.62392 14.8485 7.77216 15.4623 9.02219 15.7109C10.2722 15.9596 11.5679 15.832 12.7454 15.3442C13.9229 14.8565 14.9294 14.0305 15.6375 12.9708C16.3456 11.9111 16.7235 10.6652 16.7235 9.39062C16.7235 8.1161 16.3456 6.87019 15.6375 5.81046C14.9294 4.75073 13.9229 3.92477 12.7454 3.43703C11.5679 2.94929 10.2722 2.82168 9.02219 3.07033C7.77216 3.31897 6.62392 3.93272 5.7227 4.83394C4.45362 6.11261 3.72798 7.83237 3.69751 9.63365V11.9221" stroke="var(--text-dark-gray-to-white)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                    <path d="M1.88281 10.5488L3.69575 12.3618L5.50868 10.5488" stroke="var(--text-dark-gray-to-white)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                    <path d="M13.2031 12.6968C12.4369 12.6968 11.6798 12.5298 10.9319 12.1958C10.184 11.8618 9.50358 11.3882 8.89056 10.7749C8.27754 10.1617 7.80405 9.48124 7.47008 8.7336C7.1361 7.98597 6.969 7.22889 6.96875 6.46237C6.96875 6.35203 7.00553 6.26008 7.07909 6.18651C7.15266 6.11295 7.24461 6.07617 7.35495 6.07617H8.84458C8.9304 6.07617 9.00703 6.10535 9.07446 6.16371C9.1419 6.22207 9.18174 6.29097 9.194 6.37042L9.43308 7.65776C9.44534 7.75584 9.44227 7.8386 9.42388 7.90603C9.40549 7.97346 9.37178 8.0317 9.32274 8.08074L8.4308 8.98187C8.5534 9.20869 8.69893 9.42778 8.86739 9.63915C9.03584 9.85052 9.22134 10.0544 9.42388 10.2508C9.61392 10.4409 9.81315 10.6172 10.0216 10.7797C10.23 10.9423 10.4507 11.0909 10.6836 11.2255L11.548 10.3612C11.6032 10.306 11.6753 10.2647 11.7643 10.2372C11.8533 10.2097 11.9406 10.202 12.0261 10.214L13.2951 10.4715C13.3809 10.496 13.4514 10.5405 13.5066 10.605C13.5617 10.6695 13.5893 10.7415 13.5893 10.8209V12.3106C13.5893 12.4209 13.5526 12.5129 13.479 12.5864C13.4054 12.66 13.3135 12.6968 13.2031 12.6968Z" fill="var(--text-dark-gray-to-white)"></path>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="all-call-item focusableItem remove-hover missed-call">
-                                        <div class="all-call-caller">
-                                            <div class="icon">
-                                                mj
-                                            </div>
-                                            <div class="caller-name">
-                                                <p>
-                                                    Mathus Jeff
-                                                    <img src="../assets/img-new/video-indication.svg" alt="VIDEO CALL"
-                                                        width="" height="">
-                                                </p>
-                                                <p class="number">
-                                                    3267662252
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="all-call-type-time">
-                                            <div class="call-type">
-                                                <img src="../assets/img-new/missed-call.svg" alt="MISSED CALL" width=""
-                                                    height="">
-                                                <p>Missed call</p>
-                                            </div>
-                                            <div class="call-duration in-recent-tab">
-                                                <p class="m-0 px-2">25/01/23</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="all-call-item focusableItem remove-hover missed-call">
-                                        <div class="all-call-caller">
-                                            <div class="icon">
-                                                u
-                                            </div>
-                                            <div class="caller-name">
-                                                <p>
-                                                    Unknown
-                                                </p>
-                                                <p class="number">
-                                                    3267662252
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="all-call-type-time">
-                                            <div class="call-type">
-                                                <img src="../assets/img-new/missed-call.svg" alt="MISSED CALL" width=""
-                                                    height="">
-                                                <p>Missed call</p>
-                                            </div>
-                                            <div class="call-duration in-recent-tab">
-                                                <p class="m-0 px-2">25/01/23</p>
-                                            </div>
-                                        </div>
-                                    </div>                                  
-                                    <div class="all-call-item focusableItem remove-hover missed-call">
-                                        <div class="all-call-caller">
-                                            <div class="icon">
-                                                u
-                                            </div>
-                                            <div class="caller-name">
-                                                <p>
-                                                    Unknown
-                                                </p>
-                                                <p class="number">
-                                                    3267662252
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="all-call-type-time">
-                                            <div class="call-type">
-                                                <img src="../assets/img-new/missed-call.svg" alt="MISSED CALL" width=""
-                                                    height="">
-                                                <p>Missed call</p>
-                                            </div>
-                                            <div class="call-duration in-recent-tab">
-                                                <p class="m-0 px-2">25/01/23</p>
-                                            </div>
-                                            <button class="lh-1 shadow-none border-0 btn p-0 call-history-btn tooltip">
-                                                <span class="tooltiptext"></span>
-                                                <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M5.7227 13.9473C6.62392 14.8485 7.77216 15.4623 9.02219 15.7109C10.2722 15.9596 11.5679 15.832 12.7454 15.3442C13.9229 14.8565 14.9294 14.0305 15.6375 12.9708C16.3456 11.9111 16.7235 10.6652 16.7235 9.39062C16.7235 8.1161 16.3456 6.87019 15.6375 5.81046C14.9294 4.75073 13.9229 3.92477 12.7454 3.43703C11.5679 2.94929 10.2722 2.82168 9.02219 3.07033C7.77216 3.31897 6.62392 3.93272 5.7227 4.83394C4.45362 6.11261 3.72798 7.83237 3.69751 9.63365V11.9221" stroke="var(--text-dark-gray-to-white)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                    <path d="M1.88281 10.5488L3.69575 12.3618L5.50868 10.5488" stroke="var(--text-dark-gray-to-white)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                    <path d="M13.2031 12.6968C12.4369 12.6968 11.6798 12.5298 10.9319 12.1958C10.184 11.8618 9.50358 11.3882 8.89056 10.7749C8.27754 10.1617 7.80405 9.48124 7.47008 8.7336C7.1361 7.98597 6.969 7.22889 6.96875 6.46237C6.96875 6.35203 7.00553 6.26008 7.07909 6.18651C7.15266 6.11295 7.24461 6.07617 7.35495 6.07617H8.84458C8.9304 6.07617 9.00703 6.10535 9.07446 6.16371C9.1419 6.22207 9.18174 6.29097 9.194 6.37042L9.43308 7.65776C9.44534 7.75584 9.44227 7.8386 9.42388 7.90603C9.40549 7.97346 9.37178 8.0317 9.32274 8.08074L8.4308 8.98187C8.5534 9.20869 8.69893 9.42778 8.86739 9.63915C9.03584 9.85052 9.22134 10.0544 9.42388 10.2508C9.61392 10.4409 9.81315 10.6172 10.0216 10.7797C10.23 10.9423 10.4507 11.0909 10.6836 11.2255L11.548 10.3612C11.6032 10.306 11.6753 10.2647 11.7643 10.2372C11.8533 10.2097 11.9406 10.202 12.0261 10.214L13.2951 10.4715C13.3809 10.496 13.4514 10.5405 13.5066 10.605C13.5617 10.6695 13.5893 10.7415 13.5893 10.8209V12.3106C13.5893 12.4209 13.5526 12.5129 13.479 12.5864C13.4054 12.66 13.3135 12.6968 13.2031 12.6968Z" fill="var(--text-dark-gray-to-white)"></path>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="all-call-item focusableItem remove-hover missed-call">
-                                        <div class="all-call-caller">
-                                            <div class="icon">
-                                                u
-                                            </div>
-                                            <div class="caller-name">
-                                                <p>
-                                                    Unknown
-                                                </p>
-                                                <p class="number">
-                                                    3267662252
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="all-call-type-time">
-                                            <div class="call-type">
-                                                <img src="../assets/img-new/missed-call.svg" alt="MISSED CALL" width=""
-                                                    height="">
-                                                <p>Missed call</p>
-                                            </div>
-                                            <div class="call-duration in-recent-tab">
-                                                <p class="m-0 px-2">25/01/23</p>
-                                            </div>
-                                        </div>
+                                <div class="call-history-container d-flex align-items-center justify-content-center flex-grow-1 w-100" style="min-height:0;flex:1 1 auto;">
+                                    <div class="no-calls-found d-flex flex-column align-items-center justify-content-center text-center w-100 py-3">
+                                        <img class="js-icon-bridge-no-calls-found" src="../public/app-icon/icon/light/no-calls-found.svg" alt="No calls found" width="300" height="300" />
+                                        <p class="mt-3 mb-0 __MSG__no_calls_found">No calls found</p>
                                     </div>
                                 </div>
-                    </div>
+
+                            </div>
+                        </div>
                     <div class="right-call-detail" id="callDetail">
                         <div class="header">
                             <h3>
@@ -1117,21 +677,7 @@
             </div>
         </div>
     </div>
-    <!-- Apply logo overrides from logo-gallery uploads (preview-asset:*) -->
-    <script>
-        (function() {
-            try {
-                var keys = Object.keys(localStorage).filter(function(k) { return k.indexOf('preview-asset:') === 0; });
-                keys.forEach(function(key) {
-                    var filename = key.replace('preview-asset:', '');
-                    var dataUrl = localStorage.getItem(key);
-                    if (!dataUrl) return;
-                    document.querySelectorAll('img[src*="' + filename + '"]').forEach(function(img) {
-                        img.src = dataUrl;
-                    });
-                });
-            } catch (e) {}
-        })();
-    </script>
+    <script src="js/icon-gallery-preview-bridge.js" type="text/javascript"></script>
+    <script src="js/gallery-preview-assets.js" type="text/javascript"></script>
     </body>
 </html>
