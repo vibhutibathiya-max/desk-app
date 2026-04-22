@@ -250,11 +250,88 @@
         });
         keys.forEach(function (k) {
             var escaped = k.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
-            /* Light/dark app icons use var(--name) and var(--name, #fallback) — e.g. check-mail.svg */
-            var re = new RegExp('var\\(' + escaped + '\\)(?:,\\s*[^)]+)?', 'g');
+            /* Match var(--name) and var(--name, #fallback) (must match after --name, not only before) — same as icon-gallery resolveSvgVars. */
+            var re = new RegExp('var\\(' + escaped + '(?:,\\s*[^)]+)?\\)', 'g');
             out = out.replace(re, map[k]);
         });
         return out;
+    }
+
+    function dataUrlToSvgText(dataUrl) {
+        if (!dataUrl || dataUrl.indexOf('data:') !== 0) return '';
+        var comma = dataUrl.indexOf(',');
+        if (comma < 0) return '';
+        var header = dataUrl.slice(0, comma);
+        var payload = dataUrl.slice(comma + 1);
+        if (header.toLowerCase().indexOf('svg') === -1 && header.toLowerCase().indexOf('xml') === -1) return '';
+        if (header.indexOf('base64') !== -1) {
+            try {
+                var binary = atob(payload);
+                var out = '';
+                for (var i = 0; i < binary.length; i++) out += String.fromCharCode(binary.charCodeAt(i) & 0xff);
+                return out;
+            } catch (e) {
+                return '';
+            }
+        }
+        try {
+            return decodeURIComponent(payload);
+        } catch (e) {
+            return '';
+        }
+    }
+
+    var PREVIEW_L = 'preview-asset:icon-light:';
+    var PREVIEW_D = 'preview-asset:icon-dark:';
+    function trySvgTextFromPreviewStorage(img) {
+        var slot = (img.getAttribute('data-icon-slot') || '').trim();
+        if (!slot) return '';
+        var theme = (img.getAttribute('data-icon-theme') || 'light').toLowerCase();
+        var key = (theme === 'dark' ? PREVIEW_D : PREVIEW_L) + slot;
+        var raw;
+        try {
+            raw = localStorage.getItem(key);
+        } catch (e) {
+            return '';
+        }
+        if (!raw || raw.indexOf('data:') !== 0) return '';
+        var t = dataUrlToSvgText(raw) || '';
+        if (t.indexOf('<svg') === -1) return '';
+        return t;
+    }
+    function trySvgTextFromDataImgSrc(img) {
+        var s = (img.getAttribute('src') || img.src || '').trim();
+        if (s.indexOf('data:') !== 0) return '';
+        var t = dataUrlToSvgText(s) || '';
+        if (t.indexOf('<svg') === -1) return '';
+        return t;
+    }
+
+    /**
+     * file:// often blocks fetch() to sibling paths; whitelabel may have preview-asset:icon-light:* in localStorage (same http origin only).
+     */
+    function loadSvgTextForIconBridgeImg(img, fetchSrc) {
+        return fetch(new URL(fetchSrc, window.location.href).href)
+            .then(function (r) {
+                return r && r.ok ? r.text() : null;
+            })
+            .catch(function () { return null; })
+            .then(function (text) {
+                if (text) return text;
+                var alt = tryAlternateSvgUrl(fetchSrc);
+                if (!alt) return null;
+                return fetch(new URL(alt, window.location.href).href)
+                    .then(function (r2) { return r2 && r2.ok ? r2.text() : null; })
+                    .catch(function () { return null; });
+            })
+            .then(function (text) {
+                if (text) return text;
+                var t = trySvgTextFromPreviewStorage(img);
+                if (t) return t;
+                t = trySvgTextFromDataImgSrc(img);
+                if (t) return t;
+                return null;
+            });
     }
 
     function tryAlternateSvgUrl(src) {
@@ -262,7 +339,6 @@
         if (m) return src.replace(/\/icon\/([^/]+\.svg)$/, '/icon/light/$1');
         return null;
     }
-
     function resetBridgedSvgImages() {
         document.querySelectorAll('img[data-gallery-bridge="1"]').forEach(function (img) {
             var b = img.getAttribute('data-gallery-blob-url');
@@ -295,27 +371,30 @@
         }
         return o || s;
     }
+    function clearImgInlineOnerrorForBridge(img) {
+        if (img.getAttribute('data-keep-onerror') === '1') return;
+        if (img.hasAttribute('onerror') || img.onerror) {
+            try {
+                img.onerror = null;
+            } catch (e) { /* */ }
+            img.removeAttribute('onerror');
+        }
+    }
     function hydrateSvgImages(map) {
         var seen = new Set();
-        var list = document.querySelectorAll('img[src$=".svg"], img[data-gallery-src-original]');
+        var list = document.querySelectorAll('img.js-icon-bridge-mail, img[src$=".svg"], img[data-gallery-src-original]');
         list.forEach(function (img) {
             if (img.id === 'qrcodeQrVectorImg') return;
             if (img.classList && img.classList.contains('js-icon-bridge-no-calls-found')) return;
             if (seen.has(img)) return;
             seen.add(img);
+            if (img.classList && img.classList.contains('js-icon-bridge-mail')) {
+                clearImgInlineOnerrorForBridge(img);
+            }
             var fetchSrc = canonicalUrlForIconBridge(img);
             if (!fetchSrc || !shouldProcessIconPath(fetchSrc)) return;
 
-            var abs = new URL(fetchSrc, window.location.href).href;
-            fetch(abs)
-                .then(function (r) {
-                    if (r.ok) return r.text();
-                    var alt = tryAlternateSvgUrl(fetchSrc);
-                    if (!alt) return null;
-                    return fetch(new URL(alt, window.location.href).href).then(function (r2) {
-                        return r2.ok ? r2.text() : null;
-                    });
-                })
+            loadSvgTextForIconBridgeImg(img, fetchSrc)
                 .then(function (text) {
                     if (!text || text.indexOf('var(--icon') === -1) return;
                     var patched = replaceVarsInSvgText(text, map);
@@ -323,8 +402,11 @@
                     var burl = URL.createObjectURL(blob);
                     var prev = img.getAttribute('data-gallery-blob-url');
                     if (prev) URL.revokeObjectURL(prev);
+                    clearImgInlineOnerrorForBridge(img);
                     img.setAttribute('data-gallery-blob-url', burl);
                     img.setAttribute('data-gallery-bridge', '1');
+                    img.onerror = null;
+                    img.removeAttribute('onerror');
                     img.src = burl;
                 })
                 .catch(function () {});
@@ -393,4 +475,16 @@
     new MutationObserver(function () {
         run(true);
     }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+    /* After gallery-preview-assets and other sync scripts, re-apply so img src (e.g. data: from localStorage) is re-colored. */
+    window.addEventListener('load', function () {
+        setTimeout(function () { run(true); }, 0);
+    });
+    if (location.protocol === 'file:') {
+        console.info(
+            '[desk-app icon bridge] For Icon Gallery color sync, open the project over http(s) (not file://). ' +
+                'file:// often isolates localStorage per page and may block fetch() to the SVG. ' +
+                'From the repo root, run a static server (e.g. npx -y serve .) and use /design_pages_new/checkmail.html'
+        );
+    }
 })();

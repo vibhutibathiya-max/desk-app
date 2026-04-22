@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="../assets/css/style.css">
     <!-- BOOTSTRAP CSS LINK -->
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css.map">
     <!-- FONT AWESOME LINK -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     
@@ -31,16 +30,20 @@
         <!-- LOGIN CONTENT :: ENDS -->
         <!-- RIGHTSIDE CONTENT :: STARTS -->
         <div class="login-right-section check-mail">
-            <img src="../public/app-icon/logo/logo-white.svg" alt="LOGO" width="" height="" onerror="(function(m){m=m.dataset;var f=+m.s||0,b=['../assets/img-new/logo-white.svg','../assets/img-new/trago-white.svg'];if(b[f]!==void 0){m.s=f+1;this.src=b[f];}else{this.onerror=null;}})(this)">
+            <img src="../public/app-icon/logo/logo-white.svg" alt="LOGO" width="" height="">
             <p class="version">Version 3.0</p>
-            <img src="../public/app-icon/icon/light/check-mail.svg" alt="CHECK MAIL" height="" width="" onerror="if(!this.dataset.cm){this.dataset.cm=1;this.src='../assets/img-new/check-mail.svg';}else{this.onerror=null;}">
+            <!-- Must match icon-gallery: ICON_PATH_LIGHT + 'check-mail.svg' (shared-gradient / preview-asset:icon-light:check-mail.svg) -->
+            <img class="js-icon-bridge-mail" id="checkMailHeroIcon" alt="CHECK MAIL" width="" height=""
+                 data-icon-slot="check-mail.svg" data-icon-theme="light"
+                 data-gallery-src-original="../public/app-icon/icon/light/check-mail.svg"
+                 src="../public/app-icon/icon/light/check-mail.svg">
         </div>
         <!-- RIGHTSIDE CONTENT :: ENDS -->
     </div>
     <!-- MAIN CONTAINER :: ENDS -->
-    <!-- Match Icon / Logo gallery preview (colors + localStorage assets) -->
-    <script src="js/icon-gallery-preview-bridge.js" type="text/javascript"></script>
+    <!-- Match Icon / Logo gallery: apply preview-asset data URLs first, then bridge re-colors from shared-gradient storage. -->
     <script src="js/gallery-preview-assets.js" type="text/javascript"></script>
+    <script src="js/icon-gallery-preview-bridge.js" type="text/javascript"></script>
     <!-- BOOTSTRAP JS LINK -->
     <script src="../assets/js/jquery.min.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
