@@ -51,8 +51,43 @@
         .theme-toggle button { flex: 1; padding: 10px; font-size: 12px; border: 1px solid #0f3460; background: #0f3460; color: #8ecae6; border-radius: 6px; cursor: pointer; }
         .theme-toggle button.active { background: linear-gradient(270deg, #6533e2, #1f97ef); color: #fff; border-color: transparent; }
         
-        .preview-frame-wrap { flex: 1; position: relative; background: #0d0d1a; }
-        .preview-frame { width: 100%; height: 100%; border: none; display: block; }
+        .preview-frame-wrap {
+            flex: 1; display: flex; overflow: hidden; background: #080812;
+        }
+
+        /* ── Preview canvas (stage) ── */
+        .preview-canvas {
+            flex: 1; overflow: hidden; display: flex; align-items: center; justify-content: center;
+            background: radial-gradient(ellipse at 50% 50%, #0e0e24 0%, #080812 70%);
+        }
+       
+
+        /* ── Fixed-size window box ── */
+        .preview-window-outer {
+            transform-origin: center center;
+            flex-shrink: 0;
+            filter: drop-shadow(0 24px 64px rgba(0,0,0,0.8));
+        }
+        .preview-window-chrome {
+            background: #1c1c2e; border-radius: 10px 10px 0 0;
+            padding: 9px 14px; display: flex; align-items: center; gap: 10px;
+            border: 1px solid #2a2a42; border-bottom: 1px solid #111;
+            user-select: none;
+        }
+        .traffic-lights { display: flex; gap: 6px; flex-shrink: 0; }
+        .traffic-lights span { width: 12px; height: 12px; border-radius: 50%; display: block; }
+        .tl-red    { background: #ff5f57; }
+        .tl-yellow { background: #febc2e; }
+        .tl-green  { background: #28c840; }
+        .chrome-title {
+            flex: 1; text-align: center; font-size: 11px; color: #666;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .preview-window-body {
+            border: 1px solid #2a2a42; border-top: none;
+            border-radius: 0 0 8px 8px; overflow: hidden;
+        }
+        .preview-frame { display: block; border: none; background: #fff; width: 1280px; height: 780px; }
         
         .gradient-note { font-size: 10px; color: #666; margin-top: 4px; }
         .section { margin-bottom: 16px; }
@@ -96,8 +131,8 @@
                 <option value="logo-gallery.html">image Gallery</option>
                 <option value="icon-gallery.html">Icon Gallery</option>
                 </select>
-                <a href="logo-gallery.html" target="_blank" rel="noopener" class="btn btn-primary" style="flex-shrink:0;text-decoration:none;display:inline-flex;align-items:center">Image Gallery</a>
-                <a href="icon-gallery.html" target="_blank" rel="noopener" class="btn btn-primary" style="flex-shrink:0;text-decoration:none;display:inline-flex;align-items:center">Icon Gallery</a>
+                <button class="btn btn-primary" style="flex-shrink:0" onclick="loadPage('logo-gallery.html')">Image Gallery</button>
+                <button class="btn btn-primary" style="flex-shrink:0" onclick="loadPage('icon-gallery.html')">Icon Gallery</button>
             </div>
             
             <label style="font-size:12px;color:#aaa;display:block;margin-bottom:4px">Theme Mode</label>
@@ -128,7 +163,6 @@
             
             <div class="btn-group">
                 <button class="btn btn-primary" id="btnExportFull">Export Full Theme (ZIP)</button>
-                <button class="btn btn-primary" id="btnExport">Export Theme JSON</button>
                 <button class="btn btn-primary" id="btnExportCss">Export global.css</button>
                 <button class="btn btn-secondary" id="btnReset">Reset All</button>
             </div>
@@ -159,7 +193,21 @@
         </aside>
         
         <div class="preview-frame-wrap">
-            <iframe class="preview-frame" id="previewFrame" src="login.html"></iframe>
+            <div class="preview-canvas" id="previewCanvas">
+                <div class="preview-window-outer" id="previewWindowOuter">
+                    <div class="preview-window-chrome">
+                        <div class="traffic-lights">
+                            <span class="tl-red"></span>
+                            <span class="tl-yellow"></span>
+                            <span class="tl-green"></span>
+                        </div>
+                        <div class="chrome-title" id="chromeTitle">login.html</div>
+                    </div>
+                    <div class="preview-window-body">
+                        <iframe class="preview-frame" id="previewFrame" src="login.html"></iframe>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     
@@ -197,7 +245,8 @@
             're-register.svg': ['public/app-icon/icon/light/re-register.svg', 'public/app-icon/icon/dark/re-register.svg'],
             'sip-configuration.svg': ['public/app-icon/icon/light/sip-configuration.svg', 'public/app-icon/icon/dark/sip-configuration.svg'],
             'start-chat.svg': ['public/app-icon/icon/light/start-chat.svg', 'public/app-icon/icon/dark/start-chat.svg'],
-            'web-socket-connection.svg': ['public/app-icon/icon/light/web-socket-connection.svg', 'public/app-icon/icon/dark/web-socket-connection.svg']
+            'web-socket-connection.svg': ['public/app-icon/icon/light/web-socket-connection.svg', 'public/app-icon/icon/dark/web-socket-connection.svg'],
+            'right-side-vector.svg': ['public/app-icon/icon/light/right-side-vector.svg', 'public/app-icon/icon/dark/right-side-vector.svg']
         };
         function getAssetPaths(filename) {
             if (filename === 'logo-white.svg') {
@@ -607,25 +656,86 @@
             }
             return { light, dark };
         }
-        
-        function exportTheme() {
-            const { light, dark } = getExportedValues();
-            const exportData = {
-                exportedAt: new Date().toISOString(),
-                meta: config.meta || {},
-                light: {},
-                dark: {}
+
+        /* Resolves var(--icon-xxx) references inside an SVG string using the stored icon color values.
+           Mirrors resolveSvgVars() in icon-gallery.html so the full-theme ZIP bakes the same colors. */
+        function resolveIconSvgVars(svgText, mode) {
+            if (!svgText || !svgText.includes('var(--icon-')) return svgText;
+            const rep = getIconCssReplacements();
+            const g1  = rep['--icon-gradient-1-light'] || '#6533E2';
+            const g2  = rep['--icon-gradient-2-light'] || '#7349DE';
+            const g3  = rep['--icon-gradient-3-light'] || '#1F97EF';
+            const g4  = rep['--icon-gradient-4-light'] || '#57A1D7';
+            const bgD = rep['--icon-bg-done-light']    || '#E8DFFF';
+            const pri = rep['--icon-primary-light']    || '#614B98';
+            const bdg = rep['--icon-badge-light']      || '#CEBBFF';
+            const fgDk  = rep['--icon-fg-dark']              || '#D9D9D9';
+            const bwsDk = rep['--icon-bg-websocket-dark']    || '#BDBBC4';
+            const lightMap = {
+                'var(--icon-gradient-1)': g1, 'var(--icon-gradient-2)': g2,
+                'var(--icon-gradient-3)': g3, 'var(--icon-gradient-4)': g4,
+                'var(--icon-bg-done)': bgD, 'var(--icon-bg-websocket)': pri,
+                'var(--icon-primary, #614B98)': pri, 'var(--icon-primary, #7760B0)': pri,
+                'var(--icon-body, #E8DFFF)': bgD, 'var(--icon-badge, #CEBBFF)': bdg
             };
-            for (const [k, v] of Object.entries(light)) exportData.light[k] = { var: config.light[k]?.var, value: v };
-            for (const [k, v] of Object.entries(dark)) exportData.dark[k] = { var: config.dark?.[k]?.var, value: v };
-            const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = 'whitelabel-theme.json';
-            a.click();
-            URL.revokeObjectURL(a.href);
+            const darkMap = {
+                'var(--icon-fg-dark)': fgDk,
+                'var(--icon-bg-done)': fgDk, 'var(--icon-bg-websocket)': bwsDk,
+                'var(--icon-primary, #614B98)': pri, 'var(--icon-primary, #7760B0)': pri,
+                'var(--icon-body, #E8DFFF)': bgD, 'var(--icon-badge, #CEBBFF)': bdg,
+                'var(--icon-gradient-1)': fgDk, 'var(--icon-gradient-2)': fgDk,
+                'var(--icon-gradient-3)': fgDk, 'var(--icon-gradient-4)': fgDk
+            };
+            const map = mode === 'light' ? lightMap : darkMap;
+            let out = svgText;
+            for (const [k, v] of Object.entries(map)) out = out.split(k).join(v);
+            return out;
         }
-        
+
+        /* Reads icon colors from localStorage and returns { cssVar: value } pairs for regex-replacement in global.css */
+        function getIconCssReplacements() {
+            let stored = {};
+            try {
+                const raw = localStorage.getItem('whitelabel-icon-colors:shared-gradient');
+                if (raw) stored = JSON.parse(raw) || {};
+            } catch(e) {}
+
+            const def = (id) => {
+                const k = Object.keys(stored).find(x => x.toLowerCase() === id.toLowerCase());
+                return toHex6(k ? stored[k] : null) || id;
+            };
+
+            /* light */
+            const g1      = def('#6533E2');
+            const g2      = def('#7349DE');
+            const g3      = def('#1F97EF');
+            const g4      = def('#57A1D7');
+            const bgDone  = def('#E8DFFF');   /* Bg circle / Body */
+            const primary = def('#614B98');   /* Primary */
+            const badge   = def('#CEBBFF');   /* Badge */
+            /* dark */
+            const fgDark  = def('#D9D9D9');   /* Icon stroke + Bg done */
+            const bgWsDrk = def('#BDBBC4');   /* Bg websocket secondary */
+
+            return {
+                '--icon-gradient-1-light':    g1,
+                '--icon-gradient-2-light':    g2,
+                '--icon-gradient-3-light':    g3,
+                '--icon-gradient-4-light':    g4,
+                '--icon-bg-done-light':       bgDone,
+                '--icon-bg-websocket-light':  primary,
+                '--icon-primary-light':       primary,
+                '--icon-badge-light':         badge,
+                '--icon-body-light':          bgDone,
+                '--icon-fg-dark':             fgDark,
+                '--icon-bg-done-dark':        fgDark,
+                '--icon-bg-websocket-dark':   bgWsDrk,
+                '--icon-primary-dark':        primary,
+                '--icon-badge-dark':          badge,
+                '--icon-body-dark':           bgDone
+            };
+        }
+
         /* Maps whitelabel keys to CSS vars in global.css. Derived vars (based on primary, etc.) get same value. */
         const GLOBAL_CSS_MAP = {
             light: {
@@ -702,6 +812,10 @@
                     const val = dark[key];
                     if (val && globalVars) globalVars.forEach(v => { out = out.replace(varRegex(v), `$1${val}`); });
                 }
+                /* replace icon color vars in-place (same pattern as main colors above) */
+                for (const [cssVar, val] of Object.entries(getIconCssReplacements())) {
+                    if (val) out = out.replace(varRegex(cssVar), `$1${val}`);
+                }
                 const blob = new Blob([out], { type: 'text/css' });
                 const a = document.createElement('a');
                 a.href = URL.createObjectURL(blob);
@@ -726,11 +840,15 @@
                 const val = dark[key];
                 if (val && globalVars) globalVars.forEach(v => { cssContent = cssContent.replace(varRegex(v), `$1${val}`); });
             }
+            /* replace icon color vars in-place */
+            for (const [cssVar, val] of Object.entries(getIconCssReplacements())) {
+                if (val) cssContent = cssContent.replace(varRegex(cssVar), `$1${val}`);
+            }
             zip.file('assets/css/global.css', cssContent);
             for (const [assetPath, data] of Object.entries(uploadedAssets)) {
                 zip.file(assetPath, data.file);
             }
-            const iconFiles = ['done.svg','logout.svg','autoStartup.svg','blind-trasferred.svg','re-register.svg','clear-history.svg','export-icon.svg','import-icon.svg','web-socket-connection.svg','api-test-connection.svg','sip-configuration.svg','no-calls-found.svg','no-favoritecontact-found.svg','qr-vector.svg','check-mail.svg','cloud-contact-banner.svg','start-chat.svg','no-contacts-found.svg'];
+            const iconFiles = ['done.svg','logout.svg','autoStartup.svg','blind-trasferred.svg','re-register.svg','clear-history.svg','export-icon.svg','import-icon.svg','web-socket-connection.svg','api-test-connection.svg','sip-configuration.svg','no-calls-found.svg','no-favoritecontact-found.svg','qr-vector.svg','check-mail.svg','cloud-contact-banner.svg','start-chat.svg','no-contacts-found.svg','right-side-vector.svg'];
             function dataUrlToBinary(dataUrl) {
                 if (!dataUrl || !dataUrl.startsWith('data:')) return null;
                 const comma = dataUrl.indexOf(',');
@@ -755,19 +873,23 @@
                 if (lightData && (bin = dataUrlToBinary(lightData))) zip.file(lightPath, bin);
                 else try {
                     const r = await fetch('../public/app-icon/icon/light/' + filename);
-                    if (r.ok) zip.file(lightPath, await r.blob());
-                    else if (filename === 'check-mail.svg') {
+                    if (r.ok) {
+                        const svg = resolveIconSvgVars(await r.text(), 'light');
+                        zip.file(lightPath, svg);
+                    } else if (filename === 'check-mail.svg') {
                         const f = await fetch('../assets/img-new/check-mail.svg');
-                        if (f.ok) zip.file(lightPath, await f.blob());
+                        if (f.ok) zip.file(lightPath, resolveIconSvgVars(await f.text(), 'light'));
                     }
                 } catch (e) {}
                 if (darkData && (bin = dataUrlToBinary(darkData))) zip.file(darkPath, bin);
                 else try {
                     const r = await fetch('../public/app-icon/icon/dark/' + filename);
-                    if (r.ok) zip.file(darkPath, await r.blob());
-                    else if (filename === 'check-mail.svg') {
+                    if (r.ok) {
+                        const svg = resolveIconSvgVars(await r.text(), 'dark');
+                        zip.file(darkPath, svg);
+                    } else if (filename === 'check-mail.svg') {
                         const f = await fetch('../assets/img-new/check-mail.svg');
-                        if (f.ok) zip.file(darkPath, await f.blob());
+                        if (f.ok) zip.file(darkPath, resolveIconSvgVars(await f.text(), 'dark'));
                     }
                 } catch (e) {}
             }
@@ -818,8 +940,20 @@
         
         document.getElementById('pageSelect').addEventListener('change', (e) => {
             document.getElementById('previewFrame').src = e.target.value;
-            // Theme/styles applied via iframe 'load' event - no fixed timeout
+            document.getElementById('chromeTitle').textContent = e.target.value;
         });
+
+        function loadPage(page) {
+            const select = document.getElementById('pageSelect');
+            const frame  = document.getElementById('previewFrame');
+            const title  = document.getElementById('chromeTitle');
+            frame.src  = page;
+            if (title) title.textContent = page;
+            if (select) {
+                const opt = select.querySelector(`option[value="${page}"]`);
+                if (opt) select.value = page;
+            }
+        }
         
         document.getElementById('btnLight').addEventListener('click', () => {
             document.getElementById('btnLight').classList.add('active');
@@ -855,7 +989,6 @@
             applyAllStored();
         });
         
-        document.getElementById('btnExport').addEventListener('click', exportTheme);
         document.getElementById('btnExportFull').addEventListener('click', () => exportFullTheme());
         document.getElementById('btnExportCss').addEventListener('click', exportCss);
         document.getElementById('btnReset').addEventListener('click', resetAll);
@@ -889,7 +1022,25 @@
                 });
             }
             applyTheme('light');
+            scalePreviewWindow();
         });
+
+        /* ─── Auto-fit preview window ─── */
+        const PREVIEW_W = 1280, PREVIEW_H = 780, CHROME_H = 36;
+
+        function scalePreviewWindow() {
+            const canvas = document.getElementById('previewCanvas');
+            const outer  = document.getElementById('previewWindowOuter');
+            if (!canvas || !outer) return;
+            const pad    = 32;
+            const scaleX = (canvas.clientWidth  - pad) / PREVIEW_W;
+            const scaleY = (canvas.clientHeight - pad) / (PREVIEW_H + CHROME_H);
+            const scale  = Math.max(0.1, Math.min(scaleX, scaleY));
+            outer.style.transform = `scale(${scale})`;
+        }
+
+        window.addEventListener('resize', scalePreviewWindow);
+        scalePreviewWindow();
     </script>
 </body>
 </html>
