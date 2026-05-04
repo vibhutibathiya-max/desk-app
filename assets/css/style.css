@@ -11618,17 +11618,6 @@ emoji-picker.dark {
     cursor: pointer;
 }
 
-[class^="icon-"],
-[class*=" icon-"] {
-    /* position: absolute; */
-    bottom: 0;
-    width: 100%;
-    margin: auto;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
 .circle {
     fill: transparent;
