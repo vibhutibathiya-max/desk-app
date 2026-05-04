@@ -1629,8 +1629,16 @@
         span.className = 'icon-svg-inline icon-svg-inline-' + mode;
         span.setAttribute('data-mode', mode);
         span.style.verticalAlign = 'middle';
-        if (img.width) span.style.width = (img.width + (img.getAttribute('width') ? '' : 'px'));
-        if (img.height) span.style.height = (img.height + (img.getAttribute('height') ? '' : 'px'));
+        // Always use a valid CSS length (…px). Omitting 'px' when width/height attributes exist produced
+        // values like "131", which browsers reject, so the span had no size and the SVG at 100%/100% blew up.
+        var wAttr = img.getAttribute('width');
+        var hAttr = img.getAttribute('height');
+        var w = (wAttr != null && String(wAttr).trim() !== '' && !isNaN(parseFloat(wAttr))) ? parseFloat(wAttr) : 0;
+        var h = (hAttr != null && String(hAttr).trim() !== '' && !isNaN(parseFloat(hAttr))) ? parseFloat(hAttr) : 0;
+        if (!w) w = img.naturalWidth || img.width || 0;
+        if (!h) h = img.naturalHeight || img.height || 0;
+        if (w > 0) span.style.width = w + 'px';
+        if (h > 0) span.style.height = h + 'px';
         var parsed = new DOMParser().parseFromString(svgText.trim(), 'image/svg+xml');
         var svg = parsed.querySelector('svg');
         if (!svg) return;
