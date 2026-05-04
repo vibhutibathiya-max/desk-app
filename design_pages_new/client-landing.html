@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Workspace</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--crm-primary-light, #ffffff);
+            color: var(--black-to-white-text, #111111);
+            font-family: "Poppins", Arial, sans-serif;
+        }
+
+        .landing-card {
+            width: min(420px, 92vw);
+            border-radius: 12px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+            background: var(--modal-bg-color, #ffffff);
+            padding: 28px 24px;
+            text-align: center;
+        }
+
+        .landing-card h1 {
+            margin: 0 0 8px;
+            font-size: 24px;
+            color: var(--primary-color);
+        }
+
+        .landing-card p {
+            margin: 0 0 16px;
+            font-size: 14px;
+            color: var(--text-dark-gray-to-white, #474747);
+        }
+
+        .client-chip {
+            display: inline-block;
+            margin-bottom: 18px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            background: rgba(97, 75, 152, 0.12);
+            color: var(--primary-color);
+        }
+
+        .open-preview-btn {
+            width: 100%;
+            border: none;
+            border-radius: 6px;
+            height: 42px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #ffffff;
+            cursor: pointer;
+            background: var(--btn-gradient, linear-gradient(270deg, #6533e2 0.26%, #7349de 30.28%, #1f97ef 97.16%));
+        }
+    </style>
+</head>
+<body>
+    <main class="landing-card">
+        <h1>Login Successful</h1>
+        <p id="welcomeText">Preparing your client workspace...</p>
+        <div id="clientChip" class="client-chip">Client: default</div>
+        <button id="openPreviewBtn" class="open-preview-btn" type="button">Open White-Label Preview</button>
+    </main>
+
+    <script>
+        (function() {
+            var DEFAULT_CLIENT = 'default';
+
+            function normalizeClientCode(value) {
+                var code = String(value || '').trim().toLowerCase();
+                return code.replace(/[^a-z0-9_-]/g, '') || DEFAULT_CLIENT;
+            }
+
+            function getParam(name) {
+                try {
+                    return new URL(window.location.href).searchParams.get(name);
+                } catch (e) {
+                    return null;
+                }
+            }
+
+            var client = normalizeClientCode(getParam('client'));
+            var user = String(getParam('user') || '').trim();
+            localStorage.setItem('active-client-code', client);
+
+            var chip = document.getElementById('clientChip');
+            if (chip) chip.textContent = 'Client: ' + client;
+
+            var welcome = document.getElementById('welcomeText');
+            if (welcome && user) {
+                welcome.textContent = 'Welcome ' + user + '. Continue to white-label preview.';
+            }
+
+            function openPreview() {
+                window.location.href = 'whitelabel-preview.html?client=' + encodeURIComponent(client);
+            }
+
+            var btn = document.getElementById('openPreviewBtn');
+            if (btn) btn.addEventListener('click', openPreview);
+
+            setTimeout(openPreview, 900);
+        })();
+    </script>
+</body>
+</html>

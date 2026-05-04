@@ -3,406 +3,720 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/wl-client-localstorage-ns.js"></script>
     <title>Image Gallery</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', system-ui, sans-serif; background: #1a1a2e; color: #eee; min-height: 100vh; }
-        
+
         .page-layout { display: flex; flex-direction: column; min-height: 100vh; }
-        
+
         .header-bar {
             background: #16213e; border-bottom: 1px solid #0f3460;
-            padding: 16px 24px; flex-shrink: 0; display: flex; align-items: center; gap: 16px;
+            padding: 16px 24px; flex-shrink: 0; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
         }
         .header-bar h1 { font-size: 18px; color: #8ecae6; font-weight: 600; }
-        
+
         .btn { padding: 10px 20px; font-size: 13px; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; }
         .btn-primary { background: linear-gradient(270deg, #6533e2, #1f97ef); color: #fff; }
         .btn-primary:hover { opacity: 0.9; }
         .btn-secondary { background: #0f3460; color: #8ecae6; }
         .btn-secondary:hover { background: #1a4a6e; }
-        
+
         input[type="file"] { display: none; }
-        
+
         .preview-section {
             flex: 1; padding: 24px; overflow-y: auto; background: #0d0d1a;
         }
-        .preview-section h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: #8ecae6; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #0f3460; }
-        
+
+        .section-heading {
+            font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #8ecae6;
+            margin: 0 0 14px; padding-bottom: 8px; border-bottom: 1px solid #0f3460;
+        }
+        .section-heading + .section-heading { margin-top: 32px; }
+
+        .section-block { margin-bottom: 32px; }
+
+        /* ── Logo grid ── */
         .logo-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;
         }
         .logo-card {
             background: #16213e; border: 1px solid #0f3460; border-radius: 8px;
             overflow: hidden; transition: border-color 0.2s;
         }
         .logo-card:hover { border-color: #8ecae6; }
-        
-        .logo-preview {
-            padding: 20px; min-height: 120px; display: flex; align-items: center; justify-content: center;
-            background: #0f3460; border-bottom: 1px solid #0f3460;
+
+        /* Dual swatch – light left, dark right */
+        .logo-preview-row { display: flex; height: 130px; }
+        .logo-preview-swatch {
+            flex: 1; padding: 12px; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; gap: 6px;
+            border-bottom: 1px solid #0f3460; overflow: hidden;
         }
-        .logo-preview img {
-            max-width: 100%; max-height: 100px; object-fit: contain;
+        .logo-preview-swatch.lp-dark  { background: #111827; border-left: 1px solid #0f3460; }
+        .logo-preview-swatch img { max-width: 100%; max-height: 80px; object-fit: contain; flex-shrink: 0; }
+        .swatch-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.5px; flex-shrink: 0; }
+        .lp-light .swatch-label { color: #555; }
+        .lp-dark  .swatch-label { color: #666; }
+
+        /* ── Device image card ── */
+        .device-card { max-width: 640px; }
+        .device-card .logo-preview-row { height: 200px; }
+        .device-card .logo-preview-swatch img { max-height: 160px; }
+        .device-card .logo-preview-swatch { padding: 16px; }
+
+        /* ── Lightbox modal – removed; using page preview instead ── */
+
+        /* ── In-page preview overlay ── */
+        .pg-overlay {
+            display: none; position: fixed; inset: 0; z-index: 9999;
+            background: rgba(0,0,0,0.88);
         }
-        
-        .logo-info {
-            padding: 12px 16px; font-size: 12px; color: #e0e0e0;
+        .pg-overlay.open { display: block; }
+        .pg-win {
+            position: absolute; display: flex; flex-direction: column;
+            transform-origin: top left;
+            filter: drop-shadow(0 32px 80px rgba(0,0,0,0.9));
         }
+        .pg-chrome {
+            background: #1c1c2e; border-radius: 10px 10px 0 0;
+            padding: 9px 14px; display: flex; align-items: center; gap: 10px;
+            border: 1px solid #2a2a42; border-bottom: 1px solid #111; user-select: none; flex-shrink: 0;
+        }
+        .pg-traffic { display: flex; gap: 6px; flex-shrink: 0; }
+        .pg-traffic span { width: 12px; height: 12px; border-radius: 50%; display: block; }
+        .pg-title { flex: 1; text-align: center; font-size: 11px; color: #666; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .pg-close {
+            background: #0f3460; color: #8ecae6; border: none; border-radius: 4px;
+            padding: 3px 10px; font-size: 12px; font-weight: 600; cursor: pointer; flex-shrink: 0;
+        }
+        .pg-close:hover { background: #1a4a6e; }
+        .pg-body {
+            border: 1px solid #2a2a42; border-top: none; border-radius: 0 0 8px 8px;
+            overflow: hidden; flex-shrink: 0;
+        }
+        .pg-frame { display: block; border: none; width: 1280px; height: 780px; background: #fff; }
+
+        .logo-info { padding: 12px 16px; font-size: 12px; color: #e0e0e0; }
         .logo-info .name { font-weight: 600; color: #fff; margin-bottom: 6px; word-break: break-all; }
-        .logo-info .meta { color: #888; }
+        .logo-info .meta { color: #888; margin-bottom: 8px; }
         .logo-info .meta span { display: inline-block; margin-right: 12px; }
-        
+
         .logo-actions { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
         .logo-actions .btn { padding: 6px 12px; font-size: 11px; }
-        
-        .empty-state {
-            text-align: center; padding: 60px 20px; color: #666;
+
+        /* Device variant upload rows */
+        .variant-actions { display: flex; gap: 12px; margin-top: 10px; flex-wrap: wrap; }
+        .variant-group { flex: 1; min-width: 110px; }
+        .variant-group-label {
+            font-size: 10px; color: #aaa; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;
         }
+        .variant-group .btn { width: 100%; padding: 6px 12px; font-size: 11px; }
+        .variant-meta { font-size: 10px; color: #666; margin-top: 4px; }
+
+        .empty-state { text-align: center; padding: 60px 20px; color: #666; }
         .empty-state p { margin-top: 12px; font-size: 14px; }
     </style>
 </head>
 <body>
     <div class="page-layout">
         <header class="header-bar">
-            <h1>image Gallery</h1>
+            <a href="whitelabel-preview.html" target="_top" class="btn btn-secondary" style="text-decoration:none">← Back</a>
+            <h1>Image Gallery</h1>
             <button class="btn btn-secondary" id="btnUploadFolder">Upload Folder</button>
             <button class="btn btn-secondary" id="btnResetAll">Reset All</button>
-            <button class="btn btn-primary" id="btnExportLogos" style="margin-left: auto;">Export Logos (ZIP)</button>
+            <button class="btn btn-primary" id="btnExportLogos" style="margin-left:auto">Export Images (ZIP)</button>
         </header>
-        
-        <input type="file" id="fileInput" accept=".svg,.png,.jpg,.jpeg,.gif,.webp">
-        <input type="file" id="folderInput" webkitdirectory directory multiple accept=".svg,.png,.jpg,.jpeg,.gif,.webp" style="display:none">
+
+        <!-- Hidden file inputs -->
+        <input type="file" id="fileInput"        accept=".svg,.png,.jpg,.jpeg,.gif,.webp">
+        <input type="file" id="folderInput"      accept=".svg,.png,.jpg,.jpeg,.gif,.webp" webkitdirectory directory multiple style="display:none">
+        <input type="file" id="deviceLightInput" accept=".svg,.png,.jpg,.jpeg,.gif,.webp" style="display:none">
+        <input type="file" id="deviceDarkInput"  accept=".svg,.png,.jpg,.jpeg,.gif,.webp" style="display:none">
+
         <section class="preview-section">
-            <h2>Preview</h2>
-            <div id="logoGrid" class="logo-grid"></div>
-            <div id="emptyState" class="empty-state">
-                <p>Logos load from the logo folder. Use Upload Folder to replace all by same filename, or Upload on each card.</p>
+            <!-- Logo images -->
+            <div class="section-block">
+                <h2 class="section-heading">Logo Images</h2>
+                <div id="logoGrid" class="logo-grid">
+                    <div id="emptyState" class="empty-state">
+                        <p>Logos load from the logo folder. Use "Upload Folder" to replace by filename, or "Upload" on each card.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Device / Laptop image -->
+            <div class="section-block">
+                <h2 class="section-heading">Device / Laptop Image</h2>
+                <p style="font-size:14px;color:#ffffff;margin-bottom:14px">
+                    Used on the Login &amp; Auto-Startup screens. Separate light and dark variants are supported, and the uploaded file size should be 552*440px.
+                </p>
+                <div id="deviceGrid" class="logo-grid"></div>
             </div>
         </section>
     </div>
-    
+
     <script src="../assets/js/jszip.js"></script>
     <script>
+        /* ===== LOGO CONFIG ===== */
         const LOGO_FILES = ['logo.svg', 'logo-header.svg', 'logo-white.svg'];
-        const LOGO_PATH = '../public/app-icon/logo/';
+        const LOGO_PATH  = '../public/app-icon/logo/';
         const LOGO_FALLBACKS = {
-            'logo.svg': ['../public/app-icon/logo/'],
+            'logo.svg':        ['../public/app-icon/logo/'],
             'logo-header.svg': ['../public/app-icon/logo/'],
         };
-        /** Built-in load order for logo-white slot: primary logo path, img-new alias, trago (product) white mark */
         const LOGO_WHITE_BUILT_IN_URLS = [
             LOGO_PATH + 'logo-white.svg',
             '../assets/img-new/logo-white.svg',
             '../assets/img-new/trago-white.svg'
         ];
-        /** Logo filename -> page where it appears. Preview opens that page so user sees logo in context. Filename stays same for direct upload on export. */
         const LOGO_TO_PAGE = {
-            'logo.svg': 'login.html',
+            'logo.svg':        'login.html',
             'logo-header.svg': 'call_history.html',
-            'logo-white.svg': 'spashscreen.html',
+            'logo-white.svg':  'spashscreen.html',
+        };
+        const LOGO_TO_EXPORT_PATH = {
+            'logo.svg':        'public/app-icon/logo/logo.svg',
+            'logo-header.svg': 'public/app-icon/logo/logo-header.svg',
+            'logo-white.svg':  'public/app-icon/logo/logo-white.svg',
         };
         const PREVIEW_STORAGE_PREFIX = 'preview-asset:';
-        /** Slot -> export path in project. Matches public/app-icon/logo/ structure. */
-        const LOGO_TO_EXPORT_PATH = {
-            'logo.svg': 'public/app-icon/logo/logo.svg',
-            'logo-header.svg': 'public/app-icon/logo/logo-header.svg',
-            'logo-white.svg': 'public/app-icon/logo/logo-white.svg',
-        };
+
+        /* ===== DEVICE IMAGE CONFIG ===== */
+        const DEVICE_IMAGES = [
+            {
+                slot:            'right-side-vector.svg',
+                label:           'Device / Laptop Image',
+                lightUrl:        '../public/app-icon/icon/light/right-side-vector.svg',
+                darkUrl:         '../public/app-icon/icon/dark/right-side-vector.svg',
+                lightKey:        'preview-asset:icon-light:right-side-vector.svg',
+                darkKey:         'preview-asset:icon-dark:right-side-vector.svg',
+                lightExportPath: 'public/app-icon/icon/light/right-side-vector.svg',
+                darkExportPath:  'public/app-icon/icon/dark/right-side-vector.svg',
+                previewPage:     'login.html'
+            }
+        ];
+
         let logos = [];
-        const fileInput = document.getElementById('fileInput');
-        const folderInput = document.getElementById('folderInput');
-        
-        function formatSize(bytes) {
-            if (bytes < 1024) return bytes + ' B';
-            return (bytes / 1024).toFixed(2) + ' KB';
-        }
-        
+        let deviceImages = [];
+
+        const fileInput        = document.getElementById('fileInput');
+        const folderInput      = document.getElementById('folderInput');
+        const deviceLightInput = document.getElementById('deviceLightInput');
+        const deviceDarkInput  = document.getElementById('deviceDarkInput');
+
+        /* ===== LOGO HELPERS ===== */
         function addLogo(data) {
-            const { name, src, width, height, sizeKB } = data;
-            logos.push({ name, src, width, height, sizeKB, slot: name });
-            renderGrid();
+            logos.push({ ...data, slot: data.name });
+            renderLogoGrid();
         }
-        
         function updateLogo(index, data) {
             if (logos[index]?.src?.startsWith('blob:')) URL.revokeObjectURL(logos[index].src);
             const slot = logos[index]?.slot || logos[index]?.name;
             logos[index] = { ...data, slot };
-            renderGrid();
+            renderLogoGrid();
         }
-        
-        function getDimensionsFromSvg(svgText) {
-            const w = svgText.match(/width="(\d+)"/)?.[1];
-            const h = svgText.match(/height="(\d+)"/)?.[1];
-            const vb = svgText.match(/viewBox="[^"]*\d+\s+(\d+)\s+(\d+)\s+(\d+)"/);
-            return {
-                width: w ? parseInt(w, 10) : (vb ? parseInt(vb[2], 10) : null),
-                height: h ? parseInt(h, 10) : (vb ? parseInt(vb[3], 10) : null)
-            };
-        }
-        
-        function tryLoadLogo(filename, url, onSuccess, onFail) {
+        function tryLoad(url, onOk, onFail) {
             const img = new Image();
-            img.onload = () => onSuccess(url, img);
+            img.onload  = () => onOk(url, img);
             img.onerror = () => onFail();
             img.src = url;
         }
         function addLogoFromUrl(filename, url, img) {
-            fetch(url).then(r => r.blob()).then(blob => {
-                const sizeKB = (blob.size / 1024).toFixed(2) + ' KB';
-                addLogo({ name: filename, src: url, width: img.naturalWidth, height: img.naturalHeight, sizeKB });
+            fetch(url).then(r => r.blob()).then(b => {
+                addLogo({ name: filename, src: url, width: img.naturalWidth, height: img.naturalHeight, sizeKB: (b.size/1024).toFixed(2)+' KB' });
             }).catch(() => {
                 addLogo({ name: filename, src: url, width: img.naturalWidth, height: img.naturalHeight, sizeKB: '—' });
             });
         }
-        function loadOneLogo(filename, urls, idx) {
+        function loadOneLogo(filename, bases, idx) {
+            if (idx >= bases.length) return;
+            tryLoad(bases[idx] + filename,
+                (u, i) => addLogoFromUrl(filename, u, i),
+                ()     => loadOneLogo(filename, bases, idx + 1)
+            );
+        }
+        function tryLoadByFullList(filename, urls, idx, cb) {
             if (idx >= urls.length) return;
-            const url = urls[idx] + filename;
-            tryLoadLogo(filename, url,
-                (u, img) => addLogoFromUrl(filename, u, img),
-                () => loadOneLogo(filename, urls, idx + 1)
+            tryLoad(urls[idx],
+                (u, i) => cb(u, i),
+                ()     => tryLoadByFullList(filename, urls, idx + 1, cb)
             );
         }
-        function tryLoadLogoByFullUrlList(filename, fullUrls, idx) {
-            if (idx >= fullUrls.length) return;
-            const url = fullUrls[idx];
-            tryLoadLogo(filename, url,
-                (u, img) => addLogoFromUrl(filename, u, img),
-                () => tryLoadLogoByFullUrlList(filename, fullUrls, idx + 1)
-            );
-        }
-        function tryUpdateLogoByFullUrlList(filename, fullUrls, idx, logoIndex) {
-            if (idx >= fullUrls.length) return;
-            const url = fullUrls[idx];
-            tryLoadLogo(filename, url,
-                (u, img) => {
-                    fetch(u).then(r => r.blob()).then(blob => {
-                        const sizeKB = (blob.size / 1024).toFixed(2) + ' KB';
-                        updateLogo(logoIndex, { name: filename, src: u, width: img.naturalWidth, height: img.naturalHeight, sizeKB, slot: filename });
-                    }).catch(() => {
-                        updateLogo(logoIndex, { name: filename, src: u, width: img.naturalWidth, height: img.naturalHeight, sizeKB: '—', slot: filename });
-                    });
-                },
-                () => tryUpdateLogoByFullUrlList(filename, fullUrls, idx + 1, logoIndex)
-            );
-        }
-        function loadBuiltInLogos() {
-            LOGO_FILES.forEach((filename) => {
-                if (filename === 'logo-white.svg') {
-                    tryLoadLogoByFullUrlList('logo-white.svg', LOGO_WHITE_BUILT_IN_URLS, 0);
-                    return;
-                }
-                const urls = [LOGO_PATH].concat(LOGO_FALLBACKS[filename] || ['../assets/img-new/']);
-                loadOneLogo(filename, urls, 0);
-            });
-        }
-        function reapplyBuiltInUrlForSlot(idx, slot) {
+        function reapplyBuiltIn(idx, slot) {
             if (slot === 'logo-white.svg') {
-                tryUpdateLogoByFullUrlList('logo-white.svg', LOGO_WHITE_BUILT_IN_URLS, 0, idx);
+                tryLoadByFullList('logo-white.svg', LOGO_WHITE_BUILT_IN_URLS, 0, (u, i) => {
+                    fetch(u).then(r => r.blob()).then(b => {
+                        updateLogo(idx, { name: slot, src: u, width: i.naturalWidth, height: i.naturalHeight, sizeKB: (b.size/1024).toFixed(2)+' KB', slot });
+                    }).catch(() => updateLogo(idx, { name: slot, src: u, width: i.naturalWidth, height: i.naturalHeight, sizeKB: '—', slot }));
+                });
                 return;
             }
             const url = LOGO_PATH + slot;
             updateLogo(idx, { name: slot, src: url, width: null, height: null, sizeKB: '—', slot });
-            fetch(url).then(r => r.blob()).then(blob => {
-                const sizeKB = (blob.size / 1024).toFixed(2) + ' KB';
-                const img = new Image();
-                img.onload = () => updateLogo(idx, { name: slot, src: url, width: img.naturalWidth, height: img.naturalHeight, sizeKB, slot });
-                img.onerror = () => {};
-                img.src = url;
+            fetch(url).then(r => r.blob()).then(b => {
+                const i = new Image();
+                i.onload = () => updateLogo(idx, { name: slot, src: url, width: i.naturalWidth, height: i.naturalHeight, sizeKB: (b.size/1024).toFixed(2)+' KB', slot });
+                i.src = url;
             }).catch(() => {});
         }
-        
-        function renderGrid() {
-            const grid = document.getElementById('logoGrid');
+        function loadBuiltInLogos() {
+            LOGO_FILES.forEach(f => {
+                if (f === 'logo-white.svg') {
+                    tryLoadByFullList('logo-white.svg', LOGO_WHITE_BUILT_IN_URLS, 0,
+                        (u, i) => addLogoFromUrl('logo-white.svg', u, i));
+                    return;
+                }
+                loadOneLogo(f, [LOGO_PATH].concat(LOGO_FALLBACKS[f] || ['../assets/img-new/']), 0);
+            });
+        }
+
+        /* ===== RENDER LOGO CARDS ===== */
+        function renderLogoGrid() {
+            const grid  = document.getElementById('logoGrid');
             const empty = document.getElementById('emptyState');
-            grid.innerHTML = '';
-            
+            Array.from(grid.querySelectorAll('.logo-card')).forEach(c => c.remove());
+
             logos.forEach((logo, index) => {
                 const card = document.createElement('div');
                 card.className = 'logo-card';
-                const dimStr = (logo.width != null && logo.height != null)
-                    ? `${logo.width} × ${logo.height}` : '—';
-                const esc = (s) => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-                const displayName = (logo.slot || logo.name);
-                const escName = esc(displayName);
-                const escSrc = esc(logo.src);
+                const esc      = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+                const dimStr   = (logo.width != null && logo.height != null) ? `${logo.width} × ${logo.height}` : '—';
+                const name     = esc(logo.slot || logo.name);
+                const src      = esc(logo.src);
                 card.innerHTML = `
-                    <div class="logo-preview">
-                        <img src="${escSrc}" alt="${escName}" loading="lazy">
+                    <div class="logo-preview-row">
+                        <div class="logo-preview-swatch lp-light">
+                            <img src="${src}" alt="${name}" loading="lazy">
+                            <span class="swatch-label">Light</span>
+                        </div>
+                        <div class="logo-preview-swatch lp-dark">
+                            <img src="${src}" alt="${name}" loading="lazy">
+                            <span class="swatch-label">Dark</span>
+                        </div>
                     </div>
                     <div class="logo-info">
-                        <div class="name">${escName}</div>
+                        <div class="name">${name}</div>
                         <div class="meta">
                             <span>Dimensions: ${dimStr}</span>
-                            <span>Size: ${logo.sizeKB}</span>
+                            <span>Size: ${esc(logo.sizeKB)}</span>
                         </div>
                         <div class="logo-actions">
-                            <button class="btn btn-primary btn-upload" data-index="${index}">Upload</button>
-                            <button class="btn btn-secondary btn-preview" data-index="${index}">Preview</button>
-                            <button class="btn btn-secondary btn-clear-override" data-index="${index}" title="Clear preview override">Clear</button>
+                            <button class="btn btn-primary  btn-upload"          data-index="${index}">Upload</button>
+                            <button class="btn btn-secondary btn-preview-light"   data-index="${index}">Preview ☀️</button>
+                            <button class="btn btn-secondary btn-preview-dark"    data-index="${index}">Preview 🌙</button>
+                            <button class="btn btn-secondary btn-clear-override"  data-index="${index}" title="Clear override">Clear</button>
                         </div>
-                    </div>
-                `;
-                grid.appendChild(card);
+                    </div>`;
+                grid.insertBefore(card, empty);
             });
-            
+
             grid.querySelectorAll('.btn-upload').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    const idx = parseInt(btn.dataset.index, 10);
-                    fileInput.dataset.uploadIndex = idx;
+                    fileInput.dataset.uploadIndex = btn.dataset.index;
                     fileInput.click();
                 });
             });
-            grid.querySelectorAll('.btn-preview').forEach(btn => {
+            grid.querySelectorAll('.btn-preview-light').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    const idx = parseInt(btn.dataset.index, 10);
-                    const logo = logos[idx];
+                    const logo = logos[parseInt(btn.dataset.index, 10)];
                     if (!logo) return;
-                    const slot = logo.slot || logo.name;
-                    const page = LOGO_TO_PAGE[slot];
-                    if (page) {
-                        window.open(page, '_blank', 'noopener');
-                    } else {
-                        if (logo.src) window.open(logo.src, '_blank', 'noopener');
-                    }
+                    const page = LOGO_TO_PAGE[logo.slot || logo.name];
+                    if (page) openPagePreview(page, 'light');
+                    else if (logo.src) window.open(logo.src, '_blank', 'noopener');
+                });
+            });
+            grid.querySelectorAll('.btn-preview-dark').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const logo = logos[parseInt(btn.dataset.index, 10)];
+                    if (!logo) return;
+                    const page = LOGO_TO_PAGE[logo.slot || logo.name];
+                    if (page) openPagePreview(page, 'dark');
+                    else if (logo.src) window.open(logo.src, '_blank', 'noopener');
                 });
             });
             grid.querySelectorAll('.btn-clear-override').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    const idx = parseInt(btn.dataset.index, 10);
-                    const logo = logos[idx];
-                    const slot = logo?.slot || logo?.name;
-                    if (slot) {
-                        localStorage.removeItem(PREVIEW_STORAGE_PREFIX + slot);
-                        reapplyBuiltInUrlForSlot(idx, slot);
+                    const idx  = parseInt(btn.dataset.index, 10);
+                    const slot = logos[idx]?.slot || logos[idx]?.name;
+                    if (slot) { localStorage.removeItem(PREVIEW_STORAGE_PREFIX + slot); reapplyBuiltIn(idx, slot); }
+                });
+            });
+
+            empty.style.display = logos.length ? 'none' : 'block';
+        }
+
+        /* ===== DEVICE IMAGE HELPERS ===== */
+        function loadDeviceImage(cfg, idx) {
+            while (deviceImages.length <= idx) deviceImages.push(null);
+            const entry = {
+                slot:         cfg.slot,
+                label:        cfg.label,
+                lightSrc:     localStorage.getItem(cfg.lightKey) || null,
+                darkSrc:      localStorage.getItem(cfg.darkKey)  || null,
+                lightSizeKB:  localStorage.getItem(cfg.lightKey) ? 'Uploaded' : '—',
+                darkSizeKB:   localStorage.getItem(cfg.darkKey)  ? 'Uploaded' : '—'
+            };
+            deviceImages[idx] = entry;
+
+            const needLight = !entry.lightSrc;
+            const needDark  = !entry.darkSrc;
+            let pending     = (needLight ? 1 : 0) + (needDark ? 1 : 0);
+
+            const done = () => { if (--pending <= 0) renderDeviceGrid(); };
+
+            if (!pending) { renderDeviceGrid(); return; }
+
+            if (needLight) {
+                const img = new Image();
+                img.onload = () => {
+                    entry.lightSrc = cfg.lightUrl;
+                    fetch(cfg.lightUrl).then(r => r.blob())
+                        .then(b => { entry.lightSizeKB = (b.size/1024).toFixed(2)+' KB'; done(); })
+                        .catch(() => done());
+                };
+                img.onerror = done;
+                img.src = cfg.lightUrl;
+            }
+            if (needDark) {
+                const img = new Image();
+                img.onload = () => {
+                    entry.darkSrc = cfg.darkUrl;
+                    fetch(cfg.darkUrl).then(r => r.blob())
+                        .then(b => { entry.darkSizeKB = (b.size/1024).toFixed(2)+' KB'; done(); })
+                        .catch(() => done());
+                };
+                img.onerror = done;
+                img.src = cfg.darkUrl;
+            }
+        }
+        function loadAllDeviceImages() {
+            deviceImages = [];
+            DEVICE_IMAGES.forEach((cfg, idx) => loadDeviceImage(cfg, idx));
+        }
+
+        /* ===== RENDER DEVICE CARDS ===== */
+        function renderDeviceGrid() {
+            const grid = document.getElementById('deviceGrid');
+            grid.innerHTML = '';
+
+            deviceImages.forEach((entry, idx) => {
+                if (!entry) return;
+                const cfg  = DEVICE_IMAGES[idx];
+                const card = document.createElement('div');
+                card.className = 'logo-card device-card';
+                const esc     = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+                const lSrc    = entry.lightSrc || '';
+                const dSrc    = entry.darkSrc  || '';
+                const noImg   = '<span style="color:#666;font-size:11px">No image</span>';
+                card.innerHTML = `
+                    <div class="logo-preview-row">
+                        <div class="logo-preview-swatch lp-light">
+                            ${lSrc ? `<img src="${esc(lSrc)}" alt="Light" loading="lazy">` : noImg}
+                            <span class="swatch-label">☀️ Light Mode</span>
+                        </div>
+                        <div class="logo-preview-swatch lp-dark">
+                            ${dSrc ? `<img src="${esc(dSrc)}" alt="Dark" loading="lazy">` : noImg}
+                            <span class="swatch-label">🌙 Dark Mode</span>
+                        </div>
+                    </div>
+                    <div class="logo-info">
+                        <div class="name">${esc(entry.label || entry.slot)}</div>
+                        <div class="meta">
+                            <span>File: <code style="background:#0f3460;padding:1px 5px;border-radius:3px;font-size:10px">${esc(entry.slot)}</code></span>
+                        </div>
+                        <div class="variant-actions">
+                            <div class="variant-group">
+                                <div class="variant-group-label">☀️ Light Mode</div>
+                                <button class="btn btn-primary btn-upload-light" data-idx="${idx}">Upload Light</button>
+                                <div class="variant-meta" id="lightMeta-${idx}">${esc(entry.lightSizeKB)}</div>
+                            </div>
+                            <div class="variant-group">
+                                <div class="variant-group-label">🌙 Dark Mode</div>
+                                <button class="btn btn-primary btn-upload-dark" data-idx="${idx}">Upload Dark</button>
+                                <div class="variant-meta" id="darkMeta-${idx}">${esc(entry.darkSizeKB)}</div>
+                            </div>
+                            <div class="variant-group" style="flex:0 0 auto">
+                                <div class="variant-group-label">&nbsp;</div>
+                                <button class="btn btn-secondary btn-device-preview-light" data-idx="${idx}">Preview ☀️</button>
+                            </div>
+                            <div class="variant-group" style="flex:0 0 auto">
+                                <div class="variant-group-label">&nbsp;</div>
+                                <button class="btn btn-secondary btn-device-preview-dark" data-idx="${idx}">Preview 🌙</button>
+                            </div>
+                            <div class="variant-group" style="flex:0 0 auto">
+                                <div class="variant-group-label">&nbsp;</div>
+                                <button class="btn btn-secondary btn-device-clear" data-idx="${idx}">Clear</button>
+                            </div>
+                        </div>
+                    </div>`;
+                grid.appendChild(card);
+            });
+
+            grid.querySelectorAll('.btn-upload-light').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    deviceLightInput.dataset.deviceIdx = btn.dataset.idx;
+                    deviceLightInput.click();
+                });
+            });
+            grid.querySelectorAll('.btn-upload-dark').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    deviceDarkInput.dataset.deviceIdx = btn.dataset.idx;
+                    deviceDarkInput.click();
+                });
+            });
+            grid.querySelectorAll('.btn-device-preview-light').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const i   = parseInt(btn.dataset.idx, 10);
+                    const cfg = DEVICE_IMAGES[i];
+                    const entry = deviceImages[i];
+                    if (!cfg) return;
+                    const ov = entry?.lightSrc
+                        ? [{ selector: 'img.laptop-img[data-mode="light"]', src: entry.lightSrc }]
+                        : null;
+                    openPagePreview(cfg.previewPage, 'light', ov);
+                });
+            });
+            grid.querySelectorAll('.btn-device-preview-dark').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const i   = parseInt(btn.dataset.idx, 10);
+                    const cfg = DEVICE_IMAGES[i];
+                    const entry = deviceImages[i];
+                    if (!cfg) return;
+                    const ov = entry?.darkSrc
+                        ? [{ selector: 'img.laptop-img[data-mode="dark"]', src: entry.darkSrc }]
+                        : null;
+                    openPagePreview(cfg.previewPage, 'dark', ov);
+                });
+            });
+            grid.querySelectorAll('.btn-device-clear').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const cfg = DEVICE_IMAGES[parseInt(btn.dataset.idx, 10)];
+                    if (cfg) {
+                        localStorage.removeItem(cfg.lightKey);
+                        localStorage.removeItem(cfg.darkKey);
+                        loadAllDeviceImages();
                     }
                 });
             });
-            
-            empty.style.display = logos.length ? 'none' : 'block';
         }
-        
-        fileInput.addEventListener('change', (e) => {
-            const idx = fileInput.dataset.uploadIndex != null ? parseInt(fileInput.dataset.uploadIndex, 10) : null;
-            const file = e.target.files?.[0];
-            if (!file || idx == null || idx < 0 || idx >= logos.length) {
-                e.target.value = '';
+
+        /* ===== PAGE PREVIEW OVERLAY ===== */
+        const PG_W = 1280, PG_H = 780, PG_CHROME_H = 40;
+
+        function openPagePreview(page, theme, assetOverrides) {
+            const overlay = document.getElementById('pgOverlay');
+            const frame   = document.getElementById('pgFrame');
+            const titleEl = document.getElementById('pgTitle');
+            if (!overlay || !frame) return;
+            if (titleEl) titleEl.textContent = (theme === 'dark' ? '🌙 ' : '☀️ ') + page;
+            /* assign onload BEFORE setting src to avoid race condition */
+            frame.onload = () => {
+                try {
+                    frame.contentDocument.documentElement.setAttribute('data-theme', theme);
+                    if (assetOverrides) {
+                        assetOverrides.forEach(({ selector, src }) => {
+                            frame.contentDocument.querySelectorAll(selector).forEach(el => { el.src = src; });
+                        });
+                    }
+                } catch(e) {}
+            };
+            frame.src = page;
+            overlay.classList.add('open');
+            scalePgWin();
+        }
+
+        function scalePgWin() {
+            const win = document.getElementById('pgWin');
+            if (!win) return;
+            const totalH = PG_H + PG_CHROME_H;
+            const pad    = 80;
+            const scaleX = (window.innerWidth  - pad) / PG_W;
+            const scaleY = (window.innerHeight - pad) / totalH;
+            const scale  = Math.max(0.15, Math.min(scaleX, scaleY));
+            const scaledW = Math.round(PG_W    * scale);
+            const scaledH = Math.round(totalH  * scale);
+            win.style.width          = PG_W + 'px';
+            win.style.transform      = `scale(${scale})`;
+            win.style.left           = Math.round((window.innerWidth  - scaledW) / 2) + 'px';
+            win.style.top            = Math.round((window.innerHeight - scaledH) / 2) + 'px';
+        }
+
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('#pgClose')) {
+                document.getElementById('pgOverlay')?.classList.remove('open');
+                document.getElementById('pgFrame').src = '';
                 return;
             }
-            const slot = logos[idx]?.slot || logos[idx]?.name;
-            const sizeKB = (file.size / 1024).toFixed(2) + ' KB';
+            if (e.target.id === 'pgOverlay') {
+                e.target.classList.remove('open');
+                document.getElementById('pgFrame').src = '';
+            }
+        });
+        window.addEventListener('resize', () => {
+            if (document.getElementById('pgOverlay')?.classList.contains('open')) scalePgWin();
+        });
+
+        /* ===== FILE INPUT HANDLERS ===== */
+        fileInput.addEventListener('change', (e) => {
+            const idx  = fileInput.dataset.uploadIndex != null ? parseInt(fileInput.dataset.uploadIndex, 10) : null;
+            const file = e.target.files?.[0];
+            if (!file || idx == null || idx < 0 || idx >= logos.length) { e.target.value = ''; return; }
+            const slot   = logos[idx]?.slot || logos[idx]?.name;
+            const sizeKB = (file.size/1024).toFixed(2)+' KB';
             const reader = new FileReader();
             reader.onload = () => {
-                const dataUrl = reader.result;
-                if (slot) localStorage.setItem(PREVIEW_STORAGE_PREFIX + slot, dataUrl);
+                if (slot) localStorage.setItem(PREVIEW_STORAGE_PREFIX + slot, reader.result);
                 const url = URL.createObjectURL(file);
                 const img = new Image();
-                img.onload = () => {
-                    updateLogo(idx, {
-                        name: slot,
-                        src: url,
-                        width: img.naturalWidth,
-                        height: img.naturalHeight,
-                        sizeKB,
-                        slot
-                    });
-                };
-                img.onerror = () => {
-                    updateLogo(idx, { name: slot, src: url, width: null, height: null, sizeKB, slot });
-                };
+                img.onload  = () => updateLogo(idx, { name: slot, src: url, width: img.naturalWidth, height: img.naturalHeight, sizeKB, slot });
+                img.onerror = () => updateLogo(idx, { name: slot, src: url, width: null, height: null, sizeKB, slot });
                 img.src = url;
             };
             reader.readAsDataURL(file);
             e.target.value = '';
             delete fileInput.dataset.uploadIndex;
         });
-        
+
+        function handleDeviceUpload(input, mode) {
+            const idx  = input.dataset.deviceIdx != null ? parseInt(input.dataset.deviceIdx, 10) : null;
+            const file = input.files?.[0];
+            if (!file || idx == null || !DEVICE_IMAGES[idx]) { input.value = ''; return; }
+            const cfg    = DEVICE_IMAGES[idx];
+            const sizeKB = (file.size/1024).toFixed(2)+' KB';
+            const reader = new FileReader();
+            reader.onload = () => {
+                const dataUrl = reader.result;
+                const key     = mode === 'light' ? cfg.lightKey : cfg.darkKey;
+                localStorage.setItem(key, dataUrl);
+                if (mode === 'light') { deviceImages[idx].lightSrc = dataUrl; deviceImages[idx].lightSizeKB = sizeKB; }
+                else                  { deviceImages[idx].darkSrc  = dataUrl; deviceImages[idx].darkSizeKB  = sizeKB; }
+                renderDeviceGrid();
+            };
+            reader.readAsDataURL(file);
+            input.value = '';
+        }
+
+        deviceLightInput.addEventListener('change', () => handleDeviceUpload(deviceLightInput, 'light'));
+        deviceDarkInput.addEventListener ('change', () => handleDeviceUpload(deviceDarkInput,  'dark'));
+
+        /* ===== FOLDER UPLOAD ===== */
         document.getElementById('btnUploadFolder').addEventListener('click', () => folderInput.click());
         folderInput.addEventListener('change', (e) => {
-            const files = Array.from(e.target.files || []);
-            let applied = 0;
-            files.forEach(file => {
-                const name = file.name;
-                if (!/\.(svg|png|jpg|jpeg|gif|webp)$/i.test(name)) return;
-                const idx = logos.findIndex(l => (l.slot || l.name) === name);
+            Array.from(e.target.files || []).forEach(file => {
+                if (!/\.(svg|png|jpg|jpeg|gif|webp)$/i.test(file.name)) return;
+                const idx = logos.findIndex(l => (l.slot || l.name) === file.name);
                 if (idx < 0) return;
-                const slot = logos[idx]?.slot || logos[idx]?.name;
-                const sizeKB = (file.size / 1024).toFixed(2) + ' KB';
+                const slot   = logos[idx]?.slot || logos[idx]?.name;
+                const sizeKB = (file.size/1024).toFixed(2)+' KB';
                 const reader = new FileReader();
                 reader.onload = () => {
-                    const dataUrl = reader.result;
-                    if (slot) localStorage.setItem(PREVIEW_STORAGE_PREFIX + slot, dataUrl);
+                    if (slot) localStorage.setItem(PREVIEW_STORAGE_PREFIX + slot, reader.result);
                     const url = URL.createObjectURL(file);
                     const img = new Image();
-                    img.onload = () => {
-                        updateLogo(idx, { name: slot, src: url, width: img.naturalWidth, height: img.naturalHeight, sizeKB, slot });
-                        applied++;
-                    };
-                    img.onerror = () => {
-                        updateLogo(idx, { name: slot, src: url, width: null, height: null, sizeKB, slot });
-                        applied++;
-                    };
+                    img.onload  = () => updateLogo(idx, { name: slot, src: url, width: img.naturalWidth, height: img.naturalHeight, sizeKB, slot });
+                    img.onerror = () => updateLogo(idx, { name: slot, src: url, width: null, height: null, sizeKB, slot });
                     img.src = url;
                 };
                 reader.readAsDataURL(file);
             });
             e.target.value = '';
         });
-        
+
+        /* ===== RESET ===== */
         document.getElementById('btnResetAll').addEventListener('click', () => {
             logos.forEach(l => { if (l?.src?.startsWith('blob:')) URL.revokeObjectURL(l.src); });
             LOGO_FILES.forEach(f => localStorage.removeItem(PREVIEW_STORAGE_PREFIX + f));
+            DEVICE_IMAGES.forEach(cfg => { localStorage.removeItem(cfg.lightKey); localStorage.removeItem(cfg.darkKey); });
             logos = [];
             loadBuiltInLogos();
+            loadAllDeviceImages();
         });
-        
-        loadBuiltInLogos();
-        
-        document.getElementById('btnExportLogos').addEventListener('click', async function() {
-            if (typeof JSZip === 'undefined') {
-                alert('JSZip not loaded. Add script: src="../assets/js/jszip.js"');
-                return;
-            }
-            if (logos.length === 0) {
-                alert('No logos to export. Wait for logos to load or refresh the page.');
-                return;
-            }
+
+        /* ===== EXPORT ZIP ===== */
+        document.getElementById('btnExportLogos').addEventListener('click', async () => {
+            if (typeof JSZip === 'undefined') { alert('JSZip not loaded.'); return; }
+            if (!logos.length && !deviceImages.length) { alert('No images to export.'); return; }
+
             const zip = new JSZip();
+
+            // Logos
             for (const logo of logos) {
-                const slot = logo.slot || logo.name;
+                const slot       = logo.slot || logo.name;
                 const exportPath = LOGO_TO_EXPORT_PATH[slot] || 'public/app-icon/logo/' + slot;
+                const stored     = localStorage.getItem(PREVIEW_STORAGE_PREFIX + slot);
                 let blob;
-                const stored = localStorage.getItem(PREVIEW_STORAGE_PREFIX + slot);
-                if (stored && stored.startsWith('data:')) {
-                    const res = await fetch(stored);
-                    blob = await res.blob();
-                } else if (logo.src && logo.src.startsWith('blob:')) {
-                    const res = await fetch(logo.src);
-                    blob = await res.blob();
-                } else {
-                    try {
-                        const res = await fetch(logo.src);
-                        blob = await res.blob();
-                    } catch (e) {
-                        console.warn('Could not fetch:', logo.src);
-                        continue;
-                    }
-                }
-                zip.file(exportPath, blob);
+                try {
+                    if (stored?.startsWith('data:'))       { const r = await fetch(stored);   blob = await r.blob(); }
+                    else if (logo.src?.startsWith('blob:')){ const r = await fetch(logo.src); blob = await r.blob(); }
+                    else                                   { const r = await fetch(logo.src); if (r.ok) blob = await r.blob(); }
+                } catch(e) { console.warn('Skip logo:', slot); continue; }
+                if (blob) zip.file(exportPath, blob);
             }
-            zip.file('LOGO-INSTALL.txt', 'Logo Export – Installation\n' +
-                '================================\n\n' +
+
+            // Device images – light + dark separately
+            for (let i = 0; i < DEVICE_IMAGES.length; i++) {
+                const cfg   = DEVICE_IMAGES[i];
+                const entry = deviceImages[i];
+                if (!entry) continue;
+
+                const lightData = localStorage.getItem(cfg.lightKey);
+                const darkData  = localStorage.getItem(cfg.darkKey);
+
+                if (lightData?.startsWith('data:')) {
+                    const r = await fetch(lightData); zip.file(cfg.lightExportPath, await r.blob());
+                } else if (entry.lightSrc) {
+                    try { const r = await fetch(entry.lightSrc); if (r.ok) zip.file(cfg.lightExportPath, await r.blob()); } catch(e){}
+                }
+
+                if (darkData?.startsWith('data:')) {
+                    const r = await fetch(darkData); zip.file(cfg.darkExportPath, await r.blob());
+                } else if (entry.darkSrc) {
+                    try { const r = await fetch(entry.darkSrc); if (r.ok) zip.file(cfg.darkExportPath, await r.blob()); } catch(e){}
+                }
+            }
+
+            zip.file('LOGO-INSTALL.txt',
+                'Image Gallery Export – Installation\n' +
+                '=====================================\n\n' +
                 '1. Extract this ZIP to your project ROOT directory.\n' +
                 '2. Overwrite existing files when prompted.\n' +
-                '3. Logos use original filenames (logo.svg, etc.) – no code changes needed.\n');
+                '3. No code changes required.\n\n' +
+                'Contents:\n' +
+                '  public/app-icon/logo/            → logo.svg, logo-header.svg, logo-white.svg\n' +
+                '  public/app-icon/icon/light/       → right-side-vector.svg (light mode laptop)\n' +
+                '  public/app-icon/icon/dark/        → right-side-vector.svg (dark mode laptop)\n');
+
             const zipBlob = await zip.generateAsync({ type: 'blob' });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(zipBlob);
-            a.download = 'logo.zip';
+            const a       = document.createElement('a');
+            a.href        = URL.createObjectURL(zipBlob);
+            a.download    = 'logo.zip';
             a.click();
             URL.revokeObjectURL(a.href);
         });
+
+        /* ===== INIT ===== */
+        loadBuiltInLogos();
+        loadAllDeviceImages();
     </script>
+
+    <!-- In-page preview overlay -->
+    <div class="pg-overlay" id="pgOverlay">
+        <div class="pg-win" id="pgWin">
+            <div class="pg-chrome">
+                <div class="pg-traffic">
+                    <span style="background:#ff5f57"></span>
+                    <span style="background:#febc2e"></span>
+                    <span style="background:#28c840"></span>
+                </div>
+                <div class="pg-title" id="pgTitle">preview</div>
+                <button class="pg-close" id="pgClose">✕ Close</button>
+            </div>
+            <div class="pg-body" id="pgBody">
+                <iframe class="pg-frame" id="pgFrame" src="" title="Preview"></iframe>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

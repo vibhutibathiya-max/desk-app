@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/wl-client-localstorage-ns.js"></script>
 
     <link rel="stylesheet" href="../assets/css/style.css">
     <script src="../assets/js/icon-svg-inline.js"></script>
@@ -13,7 +14,35 @@
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css.map">
     <!-- FONT AWESOME LINK -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
-
+    <style>
+    .logout-modal-popup .modal-body img[data-src="autoStartup.svg"] {
+        width: 34px !important;
+        height: 33px !important;
+        min-width: 34px !important;
+        max-width: 34px !important;
+        min-height: 33px !important;
+        max-height: 33px !important;
+        object-fit: contain;
+        display: block;
+    }
+    #autostartupModal .modal-body .icon-svg-inline[data-mode] {
+        width: 34px !important;
+        height: 33px !important;
+        min-width: 34px !important;
+        max-width: 34px !important;
+        min-height: 33px !important;
+        max-height: 33px !important;
+        flex: 0 0 auto;
+    }
+    html[data-theme="light"] #autostartupModal .modal-body .icon-svg-inline[data-mode="light"] { display: inline-block !important; }
+    html[data-theme="light"] #autostartupModal .modal-body .icon-svg-inline[data-mode="dark"] { display: none !important; }
+    html[data-theme="dark"] #autostartupModal .modal-body .icon-svg-inline[data-mode="dark"] { display: inline-block !important; }
+    html[data-theme="dark"] #autostartupModal .modal-body .icon-svg-inline[data-mode="light"] { display: none !important; }
+    #autostartupModal .modal-body .icon-svg-inline[data-mode] svg {
+        width: 100% !important;
+        height: 100% !important;
+    }
+    </style>
 </head>
 
 <body>
@@ -116,8 +145,8 @@ tabindex="-1" aria-labelledby="autostartupModal" aria-hidden="true">
            </button>
        </div>
        <div class="modal-body">
-           <img data-theme="true" data-mode="light" data-path="../public/app-icon/icon/" data-src="autoStartup.svg" src="../public/app-icon/icon/light/autoStartup.svg" alt="autoStartup-CONFIRM" width="" height="">
-           <img data-theme="true" data-mode="dark" data-path="../public/app-icon/icon/" data-src="autoStartup.svg" src="../public/app-icon/icon/dark/autoStartup.svg" alt="autoStartup-CONFIRM" width="" height="">
+           <img data-theme="true" data-mode="light" data-path="../public/app-icon/icon/" data-src="autoStartup.svg" src="../public/app-icon/icon/light/autoStartup.svg" alt="autoStartup-CONFIRM" width="34" height="33" style="object-fit:contain;">
+           <img data-theme="true" data-mode="dark" data-path="../public/app-icon/icon/" data-src="autoStartup.svg" src="../public/app-icon/icon/dark/autoStartup.svg" alt="autoStartup-CONFIRM" width="34" height="33" style="object-fit:contain;">
            <p class="__MSG__autoStartupConfirmMsg mb-0">Do you want auto start function?</p>
        </div>
        <div class="modal-footer">
@@ -136,7 +165,7 @@ tabindex="-1" aria-labelledby="autostartupModal" aria-hidden="true">
     <script>
         (function() {
             try {
-                var keys = Object.keys(localStorage).filter(function(k) { return k.indexOf('preview-asset:') === 0 && k.indexOf('icon-light:') === -1 && k.indexOf('icon-dark:') === -1; });
+                var keys = (window.__wl_ls_keysMatching ? window.__wl_ls_keysMatching('preview-asset:') : Object.keys(localStorage).filter(function(k) { return k.indexOf('preview-asset:') === 0; })).filter(function(k) { return k.indexOf('icon-light:') === -1 && k.indexOf('icon-dark:') === -1; });
                 keys.forEach(function(key) {
                     var filename = key.replace('preview-asset:', '');
                     var dataUrl = localStorage.getItem(key);
@@ -165,9 +194,11 @@ tabindex="-1" aria-labelledby="autostartupModal" aria-hidden="true">
         }
         applyIconOverrides();
         window.addEventListener('storage', function(e) {
-            if (e.key && e.key.indexOf('preview-asset:icon-') === 0) applyIconOverrides();
+            var logical = window.__wl_physicalKeyToLogical ? window.__wl_physicalKeyToLogical(e.key || '') : (e.key || '');
+            if (logical && logical.indexOf('preview-asset:icon-') === 0) applyIconOverrides();
         });
     </script>
+    <script src="js/icon-gallery-preview-bridge.js" type="text/javascript"></script>
     <!-- BOOTSTRAP JS LINK -->
     <script src="../assets/js/jquery.min.js"></script>
     <script src="../assets/js/bootstrap.bundle.min.js"></script>

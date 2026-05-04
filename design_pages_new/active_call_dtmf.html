@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/wl-client-localstorage-ns.js"></script>
     <link rel="stylesheet" href="../assets/css/style.css">
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="../assets/css/bootstrap.min.css.map" rel="stylesheet" />
@@ -845,7 +846,7 @@
     <script>
         (function() {
             try {
-                var keys = Object.keys(localStorage).filter(function(k) { return k.indexOf('preview-asset:') === 0; });
+                var keys = (window.__wl_ls_keysMatching ? window.__wl_ls_keysMatching('preview-asset:') : Object.keys(localStorage).filter(function(k) { return k.indexOf('preview-asset:') === 0; }));
                 keys.forEach(function(key) {
                     var filename = key.replace('preview-asset:', '');
                     var dataUrl = localStorage.getItem(key);

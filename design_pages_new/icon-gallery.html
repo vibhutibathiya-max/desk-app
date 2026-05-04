@@ -3,8 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/wl-client-localstorage-ns.js"></script>
     <title>Icon Gallery</title>
+    <!-- Load only global.css so --icon-*-light variables are defined from the file (no full app styles) -->
+    <link rel="stylesheet" href="../assets/css/global.css">
     <style>
+        /* Bridge icon consumption vars to their source vars at :root level.
+           This makes var(--icon-primary) etc. resolve from global.css even without data-theme="light".
+           The gallery's color picker still wins via style.setProperty (inline styles beat stylesheets). */
+        :root {
+          --icon-gradient-1: var(--icon-gradient-1-light);
+          --icon-gradient-2: var(--icon-gradient-2-light);
+          --icon-gradient-3: var(--icon-gradient-3-light);
+          --icon-gradient-4: var(--icon-gradient-4-light);
+          --icon-bg-done: var(--icon-bg-done-light);
+          --icon-bg-websocket: var(--icon-bg-websocket-light);
+          --icon-primary: var(--icon-primary-light);
+          --icon-badge: var(--icon-badge-light);
+          --icon-body: var(--icon-body-light);
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', system-ui, sans-serif; background: #1a1a2e; color: #eee; min-height: 100vh; }
         
@@ -44,28 +61,28 @@
         .preview-section { flex: 1; padding: 24px; overflow-y: auto; background: #0d0d1a; }
         .preview-section h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: #8ecae6; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #0f3460; }
         
-        .icon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
+        .icon-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
         .icon-card {
             background: #16213e; border: 1px solid #0f3460; border-radius: 8px;
             overflow: hidden; transition: border-color 0.2s;
         }
         .icon-card:hover { border-color: #8ecae6; }
         
-        .icon-preview-row { display: flex; min-height: 90px; }
+        .icon-preview-row { display: flex; height: 160px; }
         .icon-preview-swatch {
             flex: 1; padding: 12px; display: flex; align-items: center; justify-content: center;
-            border-bottom: 1px solid #0f3460;
+            border-bottom: 1px solid #0f3460; overflow: hidden;
         }
         .icon-preview-swatch.light { background: #f5f5f5; }
         .icon-preview-swatch.dark { background: #0d0d1a; border-left: 1px solid #0f3460; }
-        .icon-preview-swatch img { max-width: 156px; height: 156px; object-fit: contain; }
+        .icon-preview-swatch img { max-width: 100%; max-height: 120px; width: auto; object-fit: contain; }
         
         .icon-info { padding: 12px 16px; font-size: 12px; color: #e0e0e0; }
         .icon-info .name { font-weight: 600; color: #fff; margin-bottom: 4px; word-break: break-all; }
         .icon-info .icon-preview-link {
-            font-size: 11px; color: #57a1d7; text-decoration: none; display: inline-block; margin-bottom: 8px;
+            font-size: 13px; padding: 4px 10px; margin-bottom: 8px;
         }
-        .icon-info .icon-preview-link:hover { text-decoration: underline; color: #8ecae6; }
+        .icon-info .icon-preview-link:hover { opacity: 0.85; }
         
         .icon-colors { margin-top: 10px; padding-top: 10px; border-top: 1px solid #0f3460; }
         .icon-colors summary { cursor: pointer; color: #8ecae6; font-size: 11px; }
@@ -86,8 +103,42 @@
         .empty-state { text-align: center; padding: 60px 20px; color: #666; }
         .empty-state p { margin-top: 12px; font-size: 14px; }
         
-        .no-colors-hint { font-size: 10px; color: #666; margin-top: 6px; }
+        .no-colors-hint { font-size: 12px; color: #666; margin-top: 6px; }
         .icon-card.shared-gradient-card { grid-column: 1 / -1; width: 100%; }
+
+        /* ── In-page preview overlay ── */
+        .icon-prev-overlay {
+            display: none; position: fixed; inset: 0; z-index: 9999;
+            background: rgba(0,0,0,0.88);
+        }
+        .icon-prev-overlay.open { display: block; }
+        .icon-prev-win {
+            position: absolute; display: flex; flex-direction: column;
+            transform-origin: top left;
+            filter: drop-shadow(0 32px 80px rgba(0,0,0,0.9));
+        }
+        .icon-prev-chrome {
+            background: #1c1c2e; border-radius: 10px 10px 0 0;
+            padding: 9px 14px; display: flex; align-items: center; gap: 10px;
+            border: 1px solid #2a2a42; border-bottom: 1px solid #111; user-select: none;
+            flex-shrink: 0;
+        }
+        .icon-prev-traffic { display: flex; gap: 6px; flex-shrink: 0; }
+        .icon-prev-traffic span { width: 12px; height: 12px; border-radius: 50%; display: block; }
+        .icon-prev-title {
+            flex: 1; text-align: center; font-size: 11px; color: #666;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .icon-prev-close {
+            background: #0f3460; color: #8ecae6; border: none; border-radius: 4px;
+            padding: 3px 10px; font-size: 12px; font-weight: 600; cursor: pointer; flex-shrink: 0;
+        }
+        .icon-prev-close:hover { background: #1a4a6e; }
+        .icon-prev-body {
+            border: 1px solid #2a2a42; border-top: none; border-radius: 0 0 8px 8px;
+            overflow: hidden; flex-shrink: 0;
+        }
+        .icon-prev-frame { display: block; border: none; width: 1280px; height: 780px; background: #fff; }
         .preview-area { flex: 1; overflow-y: auto; background: #0d0d1a; display: flex; flex-direction: column; }
         .preview-area .header-bar {
             background: #16213e; border-bottom: 1px solid #0f3460;
@@ -99,19 +150,19 @@
             margin-bottom: 24px; padding: 20px 0; width: 100%;
         }
         .shared-icon-cell {
-            flex: 1 1 calc(20% - 20px); min-width: 140px; display: flex; flex-direction: column; gap: 10px; padding: 16px;
+            flex: 1 1 calc(33.33% - 20px); min-width: 140px; display: flex; flex-direction: column; gap: 10px; padding: 16px;
             background: #0f3460; border-radius: 8px; border: 1px solid #1a4a6e;
         }
         .shared-icon-cell .icon-name { font-size: 11px; color: #8ecae6; word-break: break-all; text-align: center; font-weight: 500; }
         .shared-icon-cell .icon-preview-link {
-            font-size: 10px; color: #57a1d7; text-decoration: none; display: block; text-align: center; margin-top: 6px;
+            font-size: 12px; display: block; text-align: center; margin-top: 4px; padding: 3px 8px;
         }
-        .shared-icon-cell .icon-preview-link:hover { text-decoration: underline; color: #8ecae6; }
+        .shared-icon-cell .icon-preview-link:hover { opacity: 0.85; }
         .shared-icon-cell .preview-pair {
-            display: flex; gap: 10px; align-items: stretch; min-height: 140px;
+            display: flex; gap: 10px; align-items: stretch; height: 140px;
         }
         .shared-icon-cell .preview-pair .mini-preview {
-            flex: 1; min-width: 70px; min-height: 140px; height: 140px; border-radius: 6px; overflow: hidden; border: 1px solid #1a4a6e;
+            flex: 1; min-width: 60px; height: 140px; border-radius: 6px; overflow: hidden; border: 1px solid #1a4a6e;
             display: flex; align-items: center; justify-content: center;
         }
         .shared-icon-cell .preview-pair .mini-preview img,
@@ -165,7 +216,6 @@
             </div>
             
             <div class="section">
-                <button class="btn btn-secondary" id="btnClearAll" style="width:100%;margin-bottom:8px" title="Clear overrides for all 18">Clear All</button>
                 <button class="btn btn-primary" id="btnDownloadIcons" style="width:100%;margin-bottom:8px">Download Icons (icon.zip)</button>
                 <button class="btn btn-secondary" id="btnResetAll" style="width:100%">Reset All</button>
             </div>
@@ -173,6 +223,7 @@
         
         <div class="preview-area">
             <header class="header-bar">
+                <a href="whitelabel-preview.html" target="_top" class="btn btn-secondary" style="text-decoration:none">← Back</a>
                 <h1>Icon Gallery</h1>
             </header>
             
@@ -214,7 +265,7 @@
             'start-chat.svg': [...EXCLUDED_PURPLE_GRADIENT, ...EXCLUDED_SHARED, '#6837E2'],
             'no-contacts-found.svg': [...EXCLUDED_PURPLE_GRADIENT, ...EXCLUDED_SHARED, '#15181A']
         };
-        /** Light mode – all 7 inputs affect light theme icons (17 icons share these) */
+        /** Light mode – shared inputs affect all icons that use these hexes (incl. no-calls-found, no-contacts, no-favorite) */
         const SHARED_COLORS_LIGHT = [
             { id: '#6533E2', label: 'Gradient 1', default: '#6533E2', replace: ['#6533E2', '#6837E2'] },
             { id: '#7349DE', label: 'Gradient 2', default: '#7349DE' },
@@ -222,7 +273,9 @@
             { id: '#57A1D7', label: 'Gradient 4', default: '#57A1D7' },
             { id: '#E8DFFF', label: 'Bg circle / Body', default: '#E8DFFF' },
             { id: '#614B98', label: 'Primary', default: '#614B98', replace: ['#614B98', '#7760B0'] },
-            { id: '#CEBBFF', label: 'Badge (check-mail)', default: '#CEBBFF' }
+            { id: '#CEBBFF', label: 'Badge (check-mail)', default: '#CEBBFF' },
+            { id: '#C5DBFF', label: 'Empty state accent', default: '#C5DBFF', replace: ['#C5DBFF'] },
+            { id: '#15181A', label: 'Illustration ink', default: '#15181A', replace: ['#15181A', '#4F4D56'] }
         ];
         /** Dark mode – all inputs affect dark theme icons */
         const SHARED_COLORS_DARK = [
@@ -603,17 +656,25 @@
                     const nameEl = document.createElement('div');
                     nameEl.className = 'icon-name';
                     nameEl.textContent = shortName;
-                    const previewLink = document.createElement('a');
-                    previewLink.className = 'icon-preview-link';
                     const previewHref = getIconPreviewHref(name);
-                    previewLink.href = previewHref;
-                    previewLink.target = '_blank';
-                    previewLink.rel = 'noopener noreferrer';
-                    previewLink.textContent = 'Preview';
-                    previewLink.title = 'Open page where this icon is used: ' + previewHref;
+                    const previewBtnLight = document.createElement('button');
+                    previewBtnLight.type = 'button';
+                    previewBtnLight.className = 'btn btn-secondary icon-preview-link btn-icon-preview';
+                    previewBtnLight.dataset.href = previewHref;
+                    previewBtnLight.dataset.title = shortName;
+                    previewBtnLight.dataset.theme = 'light';
+                    previewBtnLight.textContent = 'Preview ☀️';
+                    const previewBtnDark = document.createElement('button');
+                    previewBtnDark.type = 'button';
+                    previewBtnDark.className = 'btn btn-secondary icon-preview-link btn-icon-preview';
+                    previewBtnDark.dataset.href = previewHref;
+                    previewBtnDark.dataset.title = shortName;
+                    previewBtnDark.dataset.theme = 'dark';
+                    previewBtnDark.textContent = 'Preview 🌙';
                     cell.appendChild(pair);
                     cell.appendChild(nameEl);
-                    cell.appendChild(previewLink);
+                    cell.appendChild(previewBtnLight);
+                    cell.appendChild(previewBtnDark);
                     strip.appendChild(cell);
                 }
                 return strip;
@@ -646,7 +707,7 @@
             const iconInfo = document.createElement('div');
             iconInfo.className = 'icon-info';
             iconInfo.innerHTML = `
-                <div class="name">Shared (17 icons) – one color change updates all</div>
+                <div class="name">Shared colors – one change updates every icon that uses each hex</div>
                 <div class="shared-preview-wrap"></div>
             `;
             iconInfo.querySelector('.shared-preview-wrap').appendChild(sharedPreviewHtml);
@@ -746,7 +807,8 @@
                     </div>
                     <div class="icon-info">
                         <div class="name">${escName}</div>
-                        <a class="icon-preview-link" href="${escPreviewHref}" target="_blank" rel="noopener noreferrer" title="Open page where this icon is used">Preview</a>
+                        <button class="btn btn-secondary icon-preview-link btn-icon-preview" data-href="${escPreviewHref}" data-title="${escName}" data-theme="light" title="Preview light mode">Preview ☀️</button>
+                        <button class="btn btn-secondary icon-preview-link btn-icon-preview" data-href="${escPreviewHref}" data-title="${escName}" data-theme="dark" title="Preview dark mode">Preview 🌙</button>
                         ${colorsHtml}
                         <div class="icon-actions">
                             <button class="btn btn-secondary btn-clear-override" data-index="${index}" title="Clear">Clear</button>
@@ -869,16 +931,6 @@
                 empty.style.display = 'block';
             }
         }
-        
-        document.getElementById('btnClearAll')?.addEventListener('click', () => {
-            SHARED_GRADIENT_ICONS.forEach(name => {
-                localStorage.removeItem(PREVIEW_PREFIX_LIGHT + name);
-                localStorage.removeItem(PREVIEW_PREFIX_DARK + name);
-                delete colorConfigCache[name];
-            });
-            setStoredColors(SHARED_GRADIENT_ICONS[0], {});
-            scheduleRenderGrid();
-        });
         
         document.getElementById('btnResetAll').addEventListener('click', () => {
             icons.forEach(i => {
@@ -1021,17 +1073,87 @@
             if (livePreviewReloadTimer) clearTimeout(livePreviewReloadTimer);
             livePreviewReloadTimer = setTimeout(() => {
                 livePreviewReloadTimer = 0;
-                const frame = document.getElementById('livePreviewFrame');
-                if (frame && frame.src) frame.src = frame.src;
+                const frame   = document.getElementById('iconPrevFrame');
+                const overlay = document.getElementById('iconPrevOverlay');
+                if (frame && frame.src && overlay?.classList.contains('open')) {
+                    const src = frame.src; frame.src = ''; frame.src = src;
+                }
             }, 400);
         }
-        function updateLivePreviewSrc() {
-            const page = document.getElementById('livePreviewPage')?.value || 'setting.html';
-            const frame = document.getElementById('livePreviewFrame');
-            if (!frame) return;
-            frame.src = page;
+
+        /* ── In-page preview overlay ── */
+        const IPREV_W = 1280, IPREV_H = 780, IPREV_CHROME_H = 40;
+        function buildIconPreviewUrl(href, theme) {
+            try {
+                const u = new URL(href, window.location.href);
+                u.searchParams.set('_icon_preview_theme', theme || 'light');
+                u.searchParams.set('_icon_preview_t', String(Date.now()));
+                return u.toString();
+            } catch (e) {
+                const sep = href.includes('?') ? '&' : '?';
+                return href + sep + '_icon_preview_theme=' + encodeURIComponent(theme || 'light') + '&_icon_preview_t=' + Date.now();
+            }
         }
-        document.getElementById('livePreviewPage')?.addEventListener('change', updateLivePreviewSrc);
+        function openIconPreview(href, title, theme) {
+            const overlay = document.getElementById('iconPrevOverlay');
+            const frame   = document.getElementById('iconPrevFrame');
+            const titleEl = document.getElementById('iconPrevTitle');
+            if (!overlay || !frame) return;
+            if (titleEl) titleEl.textContent = (theme === 'dark' ? '🌙 ' : theme === 'light' ? '☀️ ' : '') + (title || href);
+            try {
+                if (theme && frame.contentDocument?.documentElement) {
+                    frame.contentDocument.documentElement.setAttribute('data-theme', theme);
+                    frame.contentDocument.documentElement.dataset.theme = theme;
+                }
+            } catch(e) {}
+            /* set onload BEFORE src to avoid race condition */
+            frame.onload = () => {
+                try {
+                    if (theme && frame.contentDocument?.documentElement) {
+                        frame.contentDocument.documentElement.setAttribute('data-theme', theme);
+                        frame.contentDocument.documentElement.dataset.theme = theme;
+                    }
+                } catch(e) {}
+            };
+            frame.src = buildIconPreviewUrl(href, theme);
+            overlay.classList.add('open');
+            scaleIconPrevWin();
+        }
+        function scaleIconPrevWin() {
+            const win = document.getElementById('iconPrevWin');
+            if (!win) return;
+            const totalH = IPREV_H + IPREV_CHROME_H;
+            const pad    = 80;
+            const scaleX = (window.innerWidth  - pad) / IPREV_W;
+            const scaleY = (window.innerHeight - pad) / totalH;
+            const scale  = Math.max(0.15, Math.min(scaleX, scaleY));
+            const scaledW = Math.round(IPREV_W  * scale);
+            const scaledH = Math.round(totalH   * scale);
+            win.style.width     = IPREV_W + 'px';
+            win.style.transform = `scale(${scale})`;
+            win.style.left      = Math.round((window.innerWidth  - scaledW) / 2) + 'px';
+            win.style.top       = Math.round((window.innerHeight - scaledH) / 2) + 'px';
+        }
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('#iconPrevClose')) {
+                document.getElementById('iconPrevOverlay')?.classList.remove('open');
+                const frame = document.getElementById('iconPrevFrame');
+                if (frame) frame.src = '';
+                return;
+            }
+            if (e.target.id === 'iconPrevOverlay') {
+                e.target.classList.remove('open');
+                const frame = document.getElementById('iconPrevFrame');
+                if (frame) frame.src = '';
+                return;
+            }
+            const btn = e.target.closest('.btn-icon-preview');
+            if (!btn) return;
+            openIconPreview(btn.dataset.href, btn.dataset.title, btn.dataset.theme);
+        });
+        window.addEventListener('resize', () => {
+            if (document.getElementById('iconPrevOverlay')?.classList.contains('open')) scaleIconPrevWin();
+        });
         
         document.getElementById('btnLight')?.addEventListener('click', () => {
             document.getElementById('btnLight')?.classList.add('active');
@@ -1052,5 +1174,23 @@
         
         loadBuiltInIcons();
     </script>
+
+    <!-- In-page preview overlay -->
+    <div class="icon-prev-overlay" id="iconPrevOverlay">
+        <div class="icon-prev-win" id="iconPrevWin">
+            <div class="icon-prev-chrome">
+                <div class="icon-prev-traffic">
+                    <span style="background:#ff5f57"></span>
+                    <span style="background:#febc2e"></span>
+                    <span style="background:#28c840"></span>
+                </div>
+                <div class="icon-prev-title" id="iconPrevTitle">preview</div>
+                <button class="icon-prev-close" id="iconPrevClose">✕ Close</button>
+            </div>
+            <div class="icon-prev-body" id="iconPrevBody">
+                <iframe class="icon-prev-frame" id="iconPrevFrame" src="" title="Icon Preview"></iframe>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

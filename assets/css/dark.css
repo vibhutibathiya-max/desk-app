@@ -3,9 +3,7 @@ html[data-theme="dark"] {
   --main-gradient: var(--main-gradient-color-dark);
   --header-gadient: var(--header-gadient-color-dark);
   --btn-gradient: var(--button-gradient-dark);
-  /* text colors - also override direct var usage (e.g. SVG stroke/fill) */
-  --black-color: var(--black-color-dark);
-  --primary-color: var(--primary-color-dark);
+  /* text colors */
   --white-color: var(--white-color-dark);
   --black-to-white-text: var(--black-color-dark);
   --text-dark-gray-to-white: var(--text-dark-gray-dark);
@@ -67,22 +65,13 @@ html[data-theme="dark"] {
   --tertiary-color: var(--tertiary-dark);
   --blur-bg: var(--blur-bg-dark);
   --login-bg-color: var(--login-bg-color-dark);
+  --new-login-btn-bg-color: var(--new-login-btn-bg-color-dark);
   --login-version-color: var(--login-version-color-dark);
-  --curves-bg-image: var(--curves-bg-image-dark);
   --recording-red-color: var(--recording-dark-red-color);
   --recording-orange-color: var(--recording-dark-orange-color);
   --recording-orange-color-text: var(--recording-orange-color-text-dark);
-  /* Icon variables (10 shared icons) */
-  --icon-gradient-1: var(--icon-fg-dark);
-  --icon-gradient-2: var(--icon-fg-dark);
-  --icon-gradient-3: var(--icon-fg-dark);
-  --icon-gradient-4: var(--icon-fg-dark);
-  --icon-bg-done: var(--icon-bg-done-dark);
-  --icon-bg-websocket: var(--icon-bg-websocket-dark);
-  /* Icon colors (check-mail, etc.) */
-  --icon-primary: var(--icon-primary-dark);
-  --icon-badge: var(--icon-badge-dark);
-  --icon-body: var(--icon-body-dark);
+  --dial-pad-transparent-bg: rgba(29, 28, 49, 0.9);
+
 }
 
 @media (prefers-color-scheme: dark) {
@@ -91,9 +80,7 @@ html[data-theme="dark"] {
     --main-gradient: var(--main-gradient-color-dark);
     --header-gadient: var(--header-gadient-color-dark);
     --btn-gradient: var(--button-gradient-dark);
-    /* text colors - also override direct var usage */
-    --black-color: var(--black-color-dark);
-    --primary-color: var(--primary-color-dark);
+    /* text colors */
     --white-color: var(--white-color-dark);
     --black-to-white-text: var(--black-color-dark);
     --text-dark-gray-to-white: var(--text-dark-gray-dark);
@@ -156,21 +143,11 @@ html[data-theme="dark"] {
     --blur-bg: var(--blur-bg-dark);
     --highlight-txt:var(--highlight-txt-dark);
     --login-bg-color: var(--login-bg-color-dark);
+    --new-login-btn-bg-color: var(--new-login-btn-bg-color-dark);
     --login-version-color: var(--login-version-color-dark);
-    --curves-bg-image: var(--curves-bg-image-dark);
     --recording-red-color: var(--recording-dark-red-color);
     --recording-orange-color: var(--recording-dark-orange-color);
     --recording-orange-color-text: var(--recording-orange-color-text-dark);
-    /* Icon variables */
-    --icon-gradient-1: var(--icon-fg-dark);
-    --icon-gradient-2: var(--icon-fg-dark);
-    --icon-gradient-3: var(--icon-fg-dark);
-    --icon-gradient-4: var(--icon-fg-dark);
-    --icon-bg-done: var(--icon-bg-done-dark);
-    --icon-bg-websocket: var(--icon-bg-websocket-dark);
-    /* Icon colors (check-mail, etc.) */
-    --icon-primary: var(--icon-primary-dark);
-    --icon-badge: var(--icon-badge-dark);
-    --icon-body: var(--icon-body-dark);
+    --dial-pad-transparent-bg: rgba(29, 28, 49, 0.9);
   }
 }
