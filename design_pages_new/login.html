@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/wl-client-localstorage-ns.js"></script>
 
     <link rel="stylesheet" href="../assets/css/style.css">
     <!-- BOOTSTRAP CSS LINK -->
@@ -100,7 +101,7 @@
     <script>
         (function() {
             try {
-                var keys = Object.keys(localStorage).filter(function(k) { return k.indexOf('preview-asset:') === 0 && k.indexOf('icon-light:') === -1 && k.indexOf('icon-dark:') === -1; });
+                var keys = (window.__wl_ls_keysMatching ? window.__wl_ls_keysMatching('preview-asset:') : Object.keys(localStorage).filter(function(k) { return k.indexOf('preview-asset:') === 0; })).filter(function(k) { return k.indexOf('icon-light:') === -1 && k.indexOf('icon-dark:') === -1; });
                 keys.forEach(function(key) {
                     var filename = key.replace('preview-asset:', '');
                     var dataUrl = localStorage.getItem(key);
@@ -129,7 +130,8 @@
         }
         applyIconOverrides();
         window.addEventListener('storage', function(e) {
-            if (e.key && e.key.indexOf('preview-asset:icon-') === 0) applyIconOverrides();
+            var logical = window.__wl_physicalKeyToLogical ? window.__wl_physicalKeyToLogical(e.key || '') : (e.key || '');
+            if (logical && logical.indexOf('preview-asset:icon-') === 0) applyIconOverrides();
         });
     </script>
     <!-- BOOTSTRAP JS LINK -->

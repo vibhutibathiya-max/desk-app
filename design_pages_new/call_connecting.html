@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/wl-client-localstorage-ns.js"></script>
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="../assets/css/bootstrap.min.css.map" rel="stylesheet">
     <link href="../assets/css/style.css" rel="stylesheet">
@@ -1641,24 +1642,12 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
-                                <path d="M41.1522 29.7668C38.1941 29.7668 35.3322 29.2952 32.6627 28.4464C32.2445 28.3074 31.7948 28.2868 31.3652 28.3869C30.9356 28.487 30.5435 28.7037 30.2337 29.0123L26.458 33.6571C19.652 30.4741 13.2789 24.4617 9.88795 17.5534L14.5776 13.6395C15.2269 12.9793 15.4193 12.0598 15.1548 11.2346C14.2649 8.61744 13.808 5.81167 13.808 2.9116C13.808 1.6384 12.7258 0.577393 11.4271 0.577393H3.10602C1.80735 0.577393 0.244141 1.14326 0.244141 2.9116C0.244141 24.8154 18.8343 43.0175 41.1522 43.0175C42.8597 43.0175 43.5331 41.5321 43.5331 40.2353V32.101C43.5331 30.8278 42.4508 29.7668 41.1522 29.7668Z" fill="url(#paint0_linear_2_2448)"></path>
-                                <path d="M43.5332 8.42431L35.6863 0.577393V5.06134C27.8394 6.18233 24.4765 11.7873 23.3555 17.3922C26.1579 13.4687 30.0814 11.6752 35.6863 11.6752V16.2712L43.5332 8.42431Z" fill="url(#paint1_linear_2_2448)"></path>
-                                <defs>
-                                <linearGradient id="paint0_linear_2_2448" x1="55.8076" y1="21.4378" x2="-20.1822" y2="21.4378" gradientUnits="userSpaceOnUse">
-                                <stop offset="0.163" stop-color="var(--icon-gradient-1)"></stop>
-                                <stop offset="0.334" stop-color="var(--icon-gradient-2)"></stop>
-                                <stop offset="0.715" stop-color="var(--icon-gradient-3)"></stop>
-                                </linearGradient>
-                                <linearGradient id="paint1_linear_2_2448" x1="47.2863" y1="-3.42453" x2="20.36" y2="30.5784" gradientUnits="userSpaceOnUse">
-                                <stop offset="0.163" stop-color="var(--icon-gradient-1)"></stop>
-                                <stop offset="0.334" stop-color="var(--icon-gradient-2)"></stop>
-                                <stop offset="0.715" stop-color="var(--icon-gradient-3)"></stop>
-                                <stop offset="1" stop-color="var(--icon-gradient-4)"></stop>
-                                </linearGradient>
-                                </defs>
-                                </svg>
-                            <!-- <span data-icon="blind-trasferred" data-icon-width="44px" data-icon-height="44px" style="display:inline-block;width:44px;height:44px;vertical-align:middle"></span> -->
+                            <img data-theme="true" data-mode="light" data-path="../public/app-icon/icon/"
+                                data-src="blind-trasferred.svg" src="../public/app-icon/icon/light/blind-trasferred.svg"
+                                alt="blind-transfer" width="44" height="44">
+                            <img data-theme="true" data-mode="dark" data-path="../public/app-icon/icon/"
+                                data-src="blind-trasferred.svg" src="../public/app-icon/icon/dark/blind-trasferred.svg"
+                                alt="blind-transfer" width="44" height="44">
                             <p><span class="__MSG__leftDialpadCallTransferDetails">Call is Transferred to</span> <span
                                     id="transferToName"></span></p>
                         </div>
@@ -2597,7 +2586,7 @@
     <script>
         (function() {
             try {
-                var keys = Object.keys(localStorage).filter(function(k) { return k.indexOf('preview-asset:') === 0 && k.indexOf('icon-light:') === -1 && k.indexOf('icon-dark:') === -1; });
+                var keys = (window.__wl_ls_keysMatching ? window.__wl_ls_keysMatching('preview-asset:') : Object.keys(localStorage).filter(function(k) { return k.indexOf('preview-asset:') === 0; })).filter(function(k) { return k.indexOf('icon-light:') === -1 && k.indexOf('icon-dark:') === -1; });
                 keys.forEach(function(key) {
                     var filename = key.replace('preview-asset:', '');
                     var dataUrl = localStorage.getItem(key);
@@ -2626,9 +2615,11 @@
         }
         applyIconOverrides();
         window.addEventListener('storage', function(e) {
-            if (e.key && e.key.indexOf('preview-asset:icon-') === 0) applyIconOverrides();
+            var logical = window.__wl_physicalKeyToLogical ? window.__wl_physicalKeyToLogical(e.key || '') : (e.key || '');
+            if (logical && logical.indexOf('preview-asset:icon-') === 0) applyIconOverrides();
         });
     </script>
+    <script src="js/icon-gallery-preview-bridge.js" type="text/javascript"></script>
     <script src="../assets/js/jquery.min.js"></script>
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
     <script>

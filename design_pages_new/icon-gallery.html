@@ -3,8 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/wl-client-localstorage-ns.js"></script>
     <title>Icon Gallery</title>
+    <!-- Load only global.css so --icon-*-light variables are defined from the file (no full app styles) -->
+    <link rel="stylesheet" href="../assets/css/global.css">
     <style>
+        /* Bridge icon consumption vars to their source vars at :root level.
+           This makes var(--icon-primary) etc. resolve from global.css even without data-theme="light".
+           The gallery's color picker still wins via style.setProperty (inline styles beat stylesheets). */
+        :root {
+          --icon-gradient-1: var(--icon-gradient-1-light);
+          --icon-gradient-2: var(--icon-gradient-2-light);
+          --icon-gradient-3: var(--icon-gradient-3-light);
+          --icon-gradient-4: var(--icon-gradient-4-light);
+          --icon-bg-done: var(--icon-bg-done-light);
+          --icon-bg-websocket: var(--icon-bg-websocket-light);
+          --icon-primary: var(--icon-primary-light);
+          --icon-badge: var(--icon-badge-light);
+          --icon-body: var(--icon-body-light);
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', system-ui, sans-serif; background: #1a1a2e; color: #eee; min-height: 100vh; }
         
@@ -199,7 +216,6 @@
             </div>
             
             <div class="section">
-                <button class="btn btn-secondary" id="btnClearAll" style="width:100%;margin-bottom:8px" title="Clear overrides for all 18">Clear All</button>
                 <button class="btn btn-primary" id="btnDownloadIcons" style="width:100%;margin-bottom:8px">Download Icons (icon.zip)</button>
                 <button class="btn btn-secondary" id="btnResetAll" style="width:100%">Reset All</button>
             </div>
@@ -249,7 +265,7 @@
             'start-chat.svg': [...EXCLUDED_PURPLE_GRADIENT, ...EXCLUDED_SHARED, '#6837E2'],
             'no-contacts-found.svg': [...EXCLUDED_PURPLE_GRADIENT, ...EXCLUDED_SHARED, '#15181A']
         };
-        /** Light mode – all 7 inputs affect light theme icons (17 icons share these) */
+        /** Light mode – shared inputs affect all icons that use these hexes (incl. no-calls-found, no-contacts, no-favorite) */
         const SHARED_COLORS_LIGHT = [
             { id: '#6533E2', label: 'Gradient 1', default: '#6533E2', replace: ['#6533E2', '#6837E2'] },
             { id: '#7349DE', label: 'Gradient 2', default: '#7349DE' },
@@ -257,7 +273,9 @@
             { id: '#57A1D7', label: 'Gradient 4', default: '#57A1D7' },
             { id: '#E8DFFF', label: 'Bg circle / Body', default: '#E8DFFF' },
             { id: '#614B98', label: 'Primary', default: '#614B98', replace: ['#614B98', '#7760B0'] },
-            { id: '#CEBBFF', label: 'Badge (check-mail)', default: '#CEBBFF' }
+            { id: '#CEBBFF', label: 'Badge (check-mail)', default: '#CEBBFF' },
+            { id: '#C5DBFF', label: 'Empty state accent', default: '#C5DBFF', replace: ['#C5DBFF'] },
+            { id: '#15181A', label: 'Illustration ink', default: '#15181A', replace: ['#15181A', '#4F4D56'] }
         ];
         /** Dark mode – all inputs affect dark theme icons */
         const SHARED_COLORS_DARK = [
@@ -689,7 +707,7 @@
             const iconInfo = document.createElement('div');
             iconInfo.className = 'icon-info';
             iconInfo.innerHTML = `
-                <div class="name">Shared (15 icons) – one color change updates all</div>
+                <div class="name">Shared colors – one change updates every icon that uses each hex</div>
                 <div class="shared-preview-wrap"></div>
             `;
             iconInfo.querySelector('.shared-preview-wrap').appendChild(sharedPreviewHtml);
@@ -914,16 +932,6 @@
             }
         }
         
-        document.getElementById('btnClearAll')?.addEventListener('click', () => {
-            SHARED_GRADIENT_ICONS.forEach(name => {
-                localStorage.removeItem(PREVIEW_PREFIX_LIGHT + name);
-                localStorage.removeItem(PREVIEW_PREFIX_DARK + name);
-                delete colorConfigCache[name];
-            });
-            setStoredColors(SHARED_GRADIENT_ICONS[0], {});
-            scheduleRenderGrid();
-        });
-        
         document.getElementById('btnResetAll').addEventListener('click', () => {
             icons.forEach(i => {
                 if (i?.lightSrc?.startsWith('blob:')) URL.revokeObjectURL(i.lightSrc);
@@ -1075,19 +1083,39 @@
 
         /* ── In-page preview overlay ── */
         const IPREV_W = 1280, IPREV_H = 780, IPREV_CHROME_H = 40;
+        function buildIconPreviewUrl(href, theme) {
+            try {
+                const u = new URL(href, window.location.href);
+                u.searchParams.set('_icon_preview_theme', theme || 'light');
+                u.searchParams.set('_icon_preview_t', String(Date.now()));
+                return u.toString();
+            } catch (e) {
+                const sep = href.includes('?') ? '&' : '?';
+                return href + sep + '_icon_preview_theme=' + encodeURIComponent(theme || 'light') + '&_icon_preview_t=' + Date.now();
+            }
+        }
         function openIconPreview(href, title, theme) {
             const overlay = document.getElementById('iconPrevOverlay');
             const frame   = document.getElementById('iconPrevFrame');
             const titleEl = document.getElementById('iconPrevTitle');
             if (!overlay || !frame) return;
             if (titleEl) titleEl.textContent = (theme === 'dark' ? '🌙 ' : theme === 'light' ? '☀️ ' : '') + (title || href);
+            try {
+                if (theme && frame.contentDocument?.documentElement) {
+                    frame.contentDocument.documentElement.setAttribute('data-theme', theme);
+                    frame.contentDocument.documentElement.dataset.theme = theme;
+                }
+            } catch(e) {}
             /* set onload BEFORE src to avoid race condition */
             frame.onload = () => {
                 try {
-                    if (theme) frame.contentDocument.documentElement.setAttribute('data-theme', theme);
+                    if (theme && frame.contentDocument?.documentElement) {
+                        frame.contentDocument.documentElement.setAttribute('data-theme', theme);
+                        frame.contentDocument.documentElement.dataset.theme = theme;
+                    }
                 } catch(e) {}
             };
-            frame.src = href;
+            frame.src = buildIconPreviewUrl(href, theme);
             overlay.classList.add('open');
             scaleIconPrevWin();
         }
@@ -1109,10 +1137,14 @@
         document.addEventListener('click', (e) => {
             if (e.target.closest('#iconPrevClose')) {
                 document.getElementById('iconPrevOverlay')?.classList.remove('open');
+                const frame = document.getElementById('iconPrevFrame');
+                if (frame) frame.src = '';
                 return;
             }
             if (e.target.id === 'iconPrevOverlay') {
                 e.target.classList.remove('open');
+                const frame = document.getElementById('iconPrevFrame');
+                if (frame) frame.src = '';
                 return;
             }
             const btn = e.target.closest('.btn-icon-preview');

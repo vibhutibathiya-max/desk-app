@@ -12,9 +12,11 @@
 
     function apply() {
         try {
-            var keys = Object.keys(localStorage).filter(function (k) {
-                return k.indexOf(PREFIX) === 0;
-            });
+            var keys = (window.__wl_ls_keysMatching
+                ? window.__wl_ls_keysMatching(PREFIX)
+                : Object.keys(localStorage).filter(function (k) {
+                    return k.indexOf(PREFIX) === 0;
+                }));
             keys.sort(function (a, b) {
                 var oa = a.indexOf(ICON_L) === 0 ? 0 : a.indexOf(ICON_D) === 0 ? 1 : 2;
                 var ob = b.indexOf(ICON_L) === 0 ? 0 : b.indexOf(ICON_D) === 0 ? 1 : 2;
@@ -60,6 +62,7 @@
 
     apply();
     window.addEventListener('storage', function (e) {
-        if (e.key && e.key.indexOf(PREFIX) === 0) apply();
+        var logical = window.__wl_physicalKeyToLogical ? window.__wl_physicalKeyToLogical(e.key || '') : (e.key || '');
+        if (logical && logical.indexOf(PREFIX) === 0) apply();
     });
 })();

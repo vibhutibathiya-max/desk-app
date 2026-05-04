@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/wl-client-localstorage-ns.js"></script>
     <title>White-Label Theme Preview</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -74,8 +75,11 @@
             border: 1px solid #2a2a42; border-bottom: 1px solid #111;
             user-select: none;
         }
-        .traffic-lights { display: flex; gap: 6px; flex-shrink: 0; }
+        .traffic-lights { display: flex; gap: 6px; flex-shrink: 0; align-items: center; }
         .traffic-lights span { width: 12px; height: 12px; border-radius: 50%; display: block; }
+        .traffic-lights span.tl-red { cursor: pointer; }
+        .traffic-lights span.tl-red:hover { filter: brightness(1.12); box-shadow: 0 0 0 1px rgba(255,255,255,0.25); }
+        .traffic-lights .preview-close-hint { font-size: 10px; color: #666; margin-left: 6px; user-select: none; }
         .tl-red    { background: #ff5f57; }
         .tl-yellow { background: #febc2e; }
         .tl-green  { background: #28c840; }
@@ -105,10 +109,14 @@
     <div class="preview-layout">
         <aside class="theme-panel">
             <h2>White-Label Theme</h2>
+            <div style="font-size:11px;color:#b6c7d6;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:8px;">
+                <span id="clientSessionLabel">Client: -</span>
+                <button class="btn btn-secondary" id="clientLogoutBtn" style="padding:5px 10px;font-size:10px;">Logout</button>
+            </div>
             
             <label style="font-size:12px;color:#aaa;display:block;margin-bottom:4px">Preview Page</label>
-            <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
-                <select class="page-select" id="pageSelect" style="flex:1;min-width:0;margin-bottom:0">
+            <div style="margin-bottom:15px">
+                <select class="page-select" id="pageSelect" style="flex:1;min-width:0;margin-bottom:15px">
                     <option value="login.html">Login</option>
                     <option value="qrcode.html">QR Login</option>
                 <option value="call_history.html">Call History</option>
@@ -135,7 +143,7 @@
                 <button class="btn btn-primary" style="flex-shrink:0" onclick="loadPage('icon-gallery.html')">Icon Gallery</button>
             </div>
             
-            <label style="font-size:12px;color:#aaa;display:block;margin-bottom:4px">Theme Mode</label>
+            <label style="font-size:12px;color:#aaa;display:block;margin-bottom:14px">Theme Mode</label>
             <div class="theme-toggle">
                 <button type="button" id="btnLight" class="active">Light</button>
                 <button type="button" id="btnDark">Dark</button>
@@ -162,34 +170,10 @@
             </div>
             
             <div class="btn-group">
-                <button class="btn btn-primary" id="btnExportFull">Export Full Theme (ZIP)</button>
                 <button class="btn btn-primary" id="btnExportCss">Export global.css</button>
                 <button class="btn btn-secondary" id="btnReset">Reset All</button>
             </div>
-            
-            <p style="font-size:10px;color:#666;margin-top:16px;line-height:1.4">
-                <strong>ImageGallery</strong> – Upload logos via Logo Gallery. Replace by same filename, export as logo.zip.<br>
-                <strong>Icon Color</strong> – Customizes inline SVG icons (done, logout, etc.). Complex icons: use Icon Gallery upload.<br>
-                <strong>Export Full Theme</strong> – ZIP with global.css + icons. Extract to project root – no code changes.
-            </p>
-            <details style="margin-top:12px">
-                <summary style="cursor:pointer;font-size:11px;color:#8ecae6">Variable reference – which color controls what</summary>
-                <table class="asset-table" style="margin-top:8px;font-size:10px">
-                    <tr><th>Variable</th><th>Theme control</th></tr>
-                    <tr><td><code>--primary-color</code></td><td>Primary / Brand Color</td></tr>
-                    <tr><td><code>--icon-color</code></td><td>Icon Color (done, logout, autoStartup, etc.)</td></tr>
-                    <tr><td><code>--secondary-color</code></td><td>Secondary Color</td></tr>
-                    <tr><td><code>--sidebar-active-icon</code></td><td>Primary Color</td></tr>
-                    <tr><td><code>--main-gradient-color</code></td><td>Main Gradient</td></tr>
-                    <tr><td><code>--header-gadient-color</code></td><td>Header Gradient</td></tr>
-                    <tr><td><code>--button-gradient</code></td><td>Button Gradient</td></tr>
-                    <tr><td><code>--dynamic-bar-color</code></td><td>Dynamic Bar Color</td></tr>
-                    <tr><td><code>--dynamic-bar-icon-color</code></td><td>Dynamic Bar Icon</td></tr>
-                    <tr><td><code>--input-icon</code></td><td>Input Icon Color</td></tr>
-                    <tr><td><code>--label-color</code></td><td>Label / Link Color</td></tr>
-                    <tr><td><code>--hover-icon</code></td><td>Icon Hover Background</td></tr>
-                </table>
-            </details>
+     
         </aside>
         
         <div class="preview-frame-wrap">
@@ -197,9 +181,10 @@
                 <div class="preview-window-outer" id="previewWindowOuter">
                     <div class="preview-window-chrome">
                         <div class="traffic-lights">
-                            <span class="tl-red"></span>
+                            <span class="tl-red" id="previewCloseBtn" role="button" tabindex="0" title="Reset preview: Light mode + fresh load (clears stuck theme in iframe)"></span>
                             <span class="tl-yellow"></span>
                             <span class="tl-green"></span>
+                            <span class="preview-close-hint">Reset</span>
                         </div>
                         <div class="chrome-title" id="chromeTitle">login.html</div>
                     </div>
@@ -211,9 +196,10 @@
         </div>
     </div>
     
-    <script src="../assets/js/jszip.js"></script>
     <script>
         const CONFIG_URL = 'whitelabel-config.json';
+        const AUTH_STORAGE_KEY = 'wl-active-client';
+        const CLIENT_STATE_KEY_PREFIX = 'wl-client-preview-state:';
         let config = { light: {}, dark: {} };
         let currentTheme = 'light';
         const ASSET_PATH_MAP = {
@@ -264,6 +250,28 @@
             if (mapped) return [mapped];
             return ['assets/img-new/' + filename];
         }
+
+        function getActiveClient() {
+            return (localStorage.getItem(AUTH_STORAGE_KEY) || '').trim();
+        }
+
+        function getClientStateKey(client) {
+            return CLIENT_STATE_KEY_PREFIX + String(client || '').toLowerCase();
+        }
+
+        function requireClientSession() {
+            const client = getActiveClient();
+            if (!client) {
+                window.location.href = 'common-client-login.html';
+                return null;
+            }
+            return client;
+        }
+
+        function updateClientSessionUi(client) {
+            const label = document.getElementById('clientSessionLabel');
+            if (label) label.textContent = 'Client: ' + client;
+        }
         
         async function loadConfig() {
             const res = await fetch(CONFIG_URL);
@@ -274,6 +282,29 @@
         function parseGradientColors(str) {
             const matches = (str || '').match(/#[0-9A-Fa-f]{6}|#[0-9A-Fa-f]{3}(?![0-9A-Fa-f])/g);
             return matches ? [...matches.slice(0, 4)].map(c => toHex6(c) || c) : ['#6533e2', '#7349de', '#1f97ef'];
+        }
+
+        function setControlValue(mode, item, value) {
+            if (!item || value === undefined || value === null) return;
+            const wrapper = document.querySelector(`[data-var="${item.var}"][data-mode="${mode}"]`);
+            if (!wrapper) return;
+            if (item.type === 'gradient') {
+                const colors = parseGradientColors(String(value));
+                const colorInputs = wrapper.querySelectorAll('input[type="color"]');
+                const textInputs = wrapper.querySelectorAll('input[type="text"]');
+                colors.forEach((col, index) => {
+                    const hex = toHex6(col) || col;
+                    if (colorInputs[index]) colorInputs[index].value = hex;
+                    if (textInputs[index]) textInputs[index].value = hex;
+                });
+                const angleMatch = String(value).match(/(\d+(?:\.\d+)?deg)/);
+                if (angleMatch) wrapper.dataset.angle = angleMatch[1];
+                return;
+            }
+            const textInput = wrapper.querySelector('input[type="text"]');
+            const colorInput = wrapper.querySelector('input[type="color"]');
+            if (textInput) textInput.value = String(value);
+            if (colorInput && isHexColor(String(value))) colorInput.value = toHex6(String(value));
         }
         function toHex6(hex) {
             if (!hex || !/^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/.test(String(hex).trim())) return hex;
@@ -468,6 +499,7 @@
         }
         
         const OVERRIDE_STYLE_ID = 'whitelabel-overrides';
+        const DUAL_MODE_ICON_FIX_ID = 'whitelabel-dual-mode-icon-fix';
         const UPLOADED_STYLE_ID = 'whitelabel-uploaded-css';
         let uploadedCssContent = null;
         let uploadedAssets = {}; // path -> { file, blobUrl }
@@ -479,6 +511,18 @@
         }
         /** Dark-mode vars that elements use directly (e.g. SVGs use --primary-color, not --primary-color-dark) */
         const DARK_ALIAS_MAP = { '--primary-color-dark': '--primary-color', '--black-color-dark': '--black-color', '--gray-color-dark': '--gray-color', '--text-dark-gray-dark': '--text-dark-gray', '--white-color-dark': '--white-color' };
+
+        /** Normalize #rgb / #rrggbb for comparison so Input Icon can track Primary like light.css (--input-icon: var(--primary-color)). */
+        function normalizeHex(hex) {
+            if (!hex || typeof hex !== 'string') return '';
+            let h = hex.trim();
+            if (!/^#/i.test(h)) return h.toLowerCase();
+            if (h.length === 4) {
+                return ('#' + h[1] + h[1] + h[2] + h[2] + h[3] + h[3]).toLowerCase();
+            }
+            return h.toLowerCase();
+        }
+
         function injectOverrideStyle() {
             const doc = getFrameDoc();
             if (!doc || !doc.documentElement) return;
@@ -505,7 +549,23 @@
                 } else {
                     const input = wrapper.querySelector('input[type="text"]') || wrapper.querySelector('input[type="color"]');
                     const val = input ? input.value : item.value;
-                    if (val) { lines.push(`${item.var}: ${val};`); valueByVar[item.var] = val; }
+                    if (val) {
+                        valueByVar[item.var] = val;
+                        /* Light: defer --input-icon so it can stay var(--primary-color) when colors match (fixes SVG fill="var(--input-icon)" not updating after Primary change). */
+                        if (currentTheme === 'light' && item.var === '--input-icon') continue;
+                        lines.push(`${item.var}: ${val};`);
+                    }
+                }
+            }
+            if (currentTheme === 'light') {
+                const p = valueByVar['--primary-color'];
+                const i = valueByVar['--input-icon'];
+                if (i !== undefined && i !== '') {
+                    if (p && normalizeHex(p) === normalizeHex(i)) {
+                        lines.push('--input-icon: var(--primary-color);');
+                    } else {
+                        lines.push(`--input-icon: ${i};`);
+                    }
                 }
             }
             if (currentTheme === 'dark') {
@@ -522,6 +582,44 @@
             const selector = `html[data-theme="${currentTheme}"]`;
             style.textContent = lines.length ? `${selector} { ${lines.join(' ')} }` : '';
         }
+
+        /** Dual-mode icons (img[data-mode] / .icon-svg-inline[data-mode]) rely on html[data-theme].
+         * In flex modal bodies, visibility can fail to update when theme toggles from the parent frame;
+         * bump specificity so light/dark asset swaps match the preview theme (e.g. autoStartup modal). */
+        function injectDualModeIconThemeFix(doc) {
+            if (!doc || !doc.head) return;
+            let fix = doc.getElementById(DUAL_MODE_ICON_FIX_ID);
+            if (!fix) {
+                fix = doc.createElement('style');
+                fix.id = DUAL_MODE_ICON_FIX_ID;
+                doc.head.appendChild(fix);
+            }
+            fix.textContent = [
+                'html[data-theme="light"] .logout-modal-popup .modal-body img[data-mode="light"],',
+                'html[data-theme="light"] .logout-modal-popup .modal-body .icon-svg-inline[data-mode="light"] { display: inline-block !important; }',
+                'html[data-theme="light"] .logout-modal-popup .modal-body img[data-mode="dark"],',
+                'html[data-theme="light"] .logout-modal-popup .modal-body .icon-svg-inline[data-mode="dark"] { display: none !important; }',
+                'html[data-theme="dark"] .logout-modal-popup .modal-body img[data-mode="dark"],',
+                'html[data-theme="dark"] .logout-modal-popup .modal-body .icon-svg-inline[data-mode="dark"] { display: inline-block !important; }',
+                'html[data-theme="dark"] .logout-modal-popup .modal-body img[data-mode="light"],',
+                'html[data-theme="dark"] .logout-modal-popup .modal-body .icon-svg-inline[data-mode="light"] { display: none !important; }'
+            ].join(' ');
+        }
+
+        /** Red “close” dot: snap panel to Light and force a fresh iframe load (cache-bust) so preview matches theme controls; avoids reload() quirks on file://. */
+        function closePreviewClearTheme() {
+            var btnL = document.getElementById('btnLight');
+            var btnD = document.getElementById('btnDark');
+            if (btnL) btnL.classList.add('active');
+            if (btnD) btnD.classList.remove('active');
+            applyTheme('light');
+            var frame = document.getElementById('previewFrame');
+            var sel = document.getElementById('pageSelect');
+            if (!frame) return;
+            var page = (sel && sel.value) ? sel.value : 'login.html';
+            var base = page.replace(/^([^?#]+).*$/, '$1');
+            frame.src = base + '?_wl_prev_reset=' + Date.now();
+        }
         
         function applyTheme(theme) {
             currentTheme = theme;
@@ -529,7 +627,12 @@
             const darkSection = document.getElementById('darkColorsSection');
             if (lightSection) lightSection.style.display = theme === 'light' ? 'block' : 'none';
             if (darkSection) darkSection.style.display = theme === 'dark' ? 'block' : 'none';
-            applyAllStored();
+            /* Re-apply immediately and on short delays: iframe contentDocument can be null briefly
+               after navigation or style injection; if applyAllStored fails, data-theme stays on the old
+               value (e.g. dark) while the panel shows Light — looks “stuck” on dark. */
+            applyAllStored(0);
+            requestAnimationFrame(() => applyAllStored(0));
+            [30, 90, 200, 450].forEach((ms) => setTimeout(() => applyAllStored(0), ms));
         }
         
         function getGradientValueFromWrapper(wrapper) {
@@ -611,22 +714,21 @@
         }
         
         
-        let applyRetryCount = 0;
-        function applyAllStored() {
+        function applyAllStored(attempt) {
+            const n = attempt === undefined ? 0 : attempt;
             const doc = getFrameDoc();
             if (!doc || !doc.documentElement) {
-                if (applyRetryCount < 3) {
-                    applyRetryCount++;
-                    setTimeout(() => applyAllStored(), 300);
+                if (n < 30) {
+                    setTimeout(() => applyAllStored(n + 1), 45);
                 }
                 return;
             }
-            applyRetryCount = 0;
             doc.documentElement.setAttribute('data-theme', currentTheme);
             doc.documentElement.dataset.theme = currentTheme;
             if (uploadedCssContent) injectUploadedStyle();
             else removeUploadedStyle();
             injectOverrideStyle();
+            injectDualModeIconThemeFix(doc);
             applyUploadedAssets();
         }
         
@@ -657,39 +759,55 @@
             return { light, dark };
         }
 
-        /* Resolves var(--icon-xxx) references inside an SVG string using the stored icon color values.
-           Mirrors resolveSvgVars() in icon-gallery.html so the full-theme ZIP bakes the same colors. */
-        function resolveIconSvgVars(svgText, mode) {
-            if (!svgText || !svgText.includes('var(--icon-')) return svgText;
-            const rep = getIconCssReplacements();
-            const g1  = rep['--icon-gradient-1-light'] || '#6533E2';
-            const g2  = rep['--icon-gradient-2-light'] || '#7349DE';
-            const g3  = rep['--icon-gradient-3-light'] || '#1F97EF';
-            const g4  = rep['--icon-gradient-4-light'] || '#57A1D7';
-            const bgD = rep['--icon-bg-done-light']    || '#E8DFFF';
-            const pri = rep['--icon-primary-light']    || '#614B98';
-            const bdg = rep['--icon-badge-light']      || '#CEBBFF';
-            const fgDk  = rep['--icon-fg-dark']              || '#D9D9D9';
-            const bwsDk = rep['--icon-bg-websocket-dark']    || '#BDBBC4';
-            const lightMap = {
-                'var(--icon-gradient-1)': g1, 'var(--icon-gradient-2)': g2,
-                'var(--icon-gradient-3)': g3, 'var(--icon-gradient-4)': g4,
-                'var(--icon-bg-done)': bgD, 'var(--icon-bg-websocket)': pri,
-                'var(--icon-primary, #614B98)': pri, 'var(--icon-primary, #7760B0)': pri,
-                'var(--icon-body, #E8DFFF)': bgD, 'var(--icon-badge, #CEBBFF)': bdg
+        function saveClientState() {
+            const activeClient = getActiveClient();
+            if (!activeClient) return;
+            const pageSelect = document.getElementById('pageSelect');
+            const state = {
+                currentTheme: currentTheme,
+                selectedPage: pageSelect ? pageSelect.value : 'login.html',
+                uploadedCssContent: uploadedCssContent || null,
+                values: getExportedValues()
             };
-            const darkMap = {
-                'var(--icon-fg-dark)': fgDk,
-                'var(--icon-bg-done)': fgDk, 'var(--icon-bg-websocket)': bwsDk,
-                'var(--icon-primary, #614B98)': pri, 'var(--icon-primary, #7760B0)': pri,
-                'var(--icon-body, #E8DFFF)': bgD, 'var(--icon-badge, #CEBBFF)': bdg,
-                'var(--icon-gradient-1)': fgDk, 'var(--icon-gradient-2)': fgDk,
-                'var(--icon-gradient-3)': fgDk, 'var(--icon-gradient-4)': fgDk
-            };
-            const map = mode === 'light' ? lightMap : darkMap;
-            let out = svgText;
-            for (const [k, v] of Object.entries(map)) out = out.split(k).join(v);
-            return out;
+            localStorage.setItem(getClientStateKey(activeClient), JSON.stringify(state));
+        }
+
+        function restoreClientState(client) {
+            if (!client) return false;
+            let state = null;
+            try {
+                const raw = localStorage.getItem(getClientStateKey(client));
+                if (raw) state = JSON.parse(raw);
+            } catch (e) {}
+            if (!state || !state.values) return false;
+
+            Object.entries(state.values.light || {}).forEach(([key, value]) => {
+                if (config.light && config.light[key]) setControlValue('light', config.light[key], value);
+            });
+            Object.entries(state.values.dark || {}).forEach(([key, value]) => {
+                if (config.dark && config.dark[key]) setControlValue('dark', config.dark[key], value);
+            });
+
+            if (typeof state.uploadedCssContent === 'string' && state.uploadedCssContent.trim()) {
+                uploadedCssContent = state.uploadedCssContent;
+                const uploadedFileName = document.getElementById('uploadedFileName');
+                const clearBtn = document.getElementById('btnClearUploaded');
+                if (uploadedFileName) uploadedFileName.textContent = 'Loaded: saved client CSS';
+                if (clearBtn) clearBtn.style.display = 'inline-block';
+            }
+
+            const pageSelect = document.getElementById('pageSelect');
+            const selectedPage = state.selectedPage || 'login.html';
+            if (pageSelect && pageSelect.querySelector(`option[value="${selectedPage}"]`)) {
+                pageSelect.value = selectedPage;
+            }
+            loadPage(selectedPage);
+
+            const theme = state.currentTheme === 'dark' ? 'dark' : 'light';
+            document.getElementById('btnLight').classList.toggle('active', theme === 'light');
+            document.getElementById('btnDark').classList.toggle('active', theme === 'dark');
+            applyTheme(theme);
+            return true;
         }
 
         /* Reads icon colors from localStorage and returns { cssVar: value } pairs for regex-replacement in global.css */
@@ -751,7 +869,8 @@
                 tertiary: ['--tertiary-light'],
                 inputIconColor: ['--input-icon'],
                 labelColor: ['--label-color'],
-                hoverIconColor: ['--hover-icon']
+                hoverIconColor: ['--hover-icon'],
+                newLoginBtnBg: ['--new-login-btn-bg-color-light']
             },
             dark: {
                 primaryColor: ['--primary-color-dark', '--sidebar-active-icon-dark'],
@@ -770,7 +889,7 @@
             }
         };
         
-        const GLOBAL_CSS_FALLBACK = `/* Main product defaults - 9 whitelabel vars */
+        const GLOBAL_CSS_FALLBACK = `/* Main product defaults (whitelabel theme vars) */
 :root {
   --primary-color: #614b98;
   --secondary-color: #57a1d7;
@@ -785,6 +904,7 @@
   --input-icon: #614b98;
   --label-color: #006be0;
   --hover-icon: #e3e3e3;
+  --new-login-btn-bg-color-light: #614b98;
 }
 
 :root {
@@ -796,6 +916,7 @@
   --crm-primary-dark: #18162C;
   --tertiary-dark: #6B6778;
   --icon-color: #3F3D52;
+  --new-login-btn-bg-color-dark: #3F3D52;
 }`;
 
         function exportCss() {
@@ -824,88 +945,6 @@
                 URL.revokeObjectURL(a.href);
             };
             fetch('../assets/css/global.css').then(r => r.text()).then(doExport).catch(() => doExport(GLOBAL_CSS_FALLBACK));
-        }
-        
-        async function exportFullTheme() {
-            const zip = new JSZip();
-            const { light, dark } = getExportedValues();
-            const varRegex = (v) => new RegExp(`(${v.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}:\\s*)[^;]+`, 'gs');
-            let cssContent = await fetch('../assets/css/global.css').then(r => r.text()).catch(() => GLOBAL_CSS_FALLBACK);
-            if (!cssContent) cssContent = GLOBAL_CSS_FALLBACK;
-            for (const [key, globalVars] of Object.entries(GLOBAL_CSS_MAP.light)) {
-                const val = light[key];
-                if (val && globalVars) globalVars.forEach(v => { cssContent = cssContent.replace(varRegex(v), `$1${val}`); });
-            }
-            for (const [key, globalVars] of Object.entries(GLOBAL_CSS_MAP.dark)) {
-                const val = dark[key];
-                if (val && globalVars) globalVars.forEach(v => { cssContent = cssContent.replace(varRegex(v), `$1${val}`); });
-            }
-            /* replace icon color vars in-place */
-            for (const [cssVar, val] of Object.entries(getIconCssReplacements())) {
-                if (val) cssContent = cssContent.replace(varRegex(cssVar), `$1${val}`);
-            }
-            zip.file('assets/css/global.css', cssContent);
-            for (const [assetPath, data] of Object.entries(uploadedAssets)) {
-                zip.file(assetPath, data.file);
-            }
-            const iconFiles = ['done.svg','logout.svg','autoStartup.svg','blind-trasferred.svg','re-register.svg','clear-history.svg','export-icon.svg','import-icon.svg','web-socket-connection.svg','api-test-connection.svg','sip-configuration.svg','no-calls-found.svg','no-favoritecontact-found.svg','qr-vector.svg','check-mail.svg','cloud-contact-banner.svg','start-chat.svg','no-contacts-found.svg','right-side-vector.svg'];
-            function dataUrlToBinary(dataUrl) {
-                if (!dataUrl || !dataUrl.startsWith('data:')) return null;
-                const comma = dataUrl.indexOf(',');
-                if (comma < 0) return null;
-                const payload = dataUrl.slice(comma + 1);
-                if (dataUrl.slice(0, comma).includes('base64')) {
-                    try {
-                        const binary = atob(payload);
-                        const bytes = new Uint8Array(binary.length);
-                        for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
-                        return bytes;
-                    } catch (e) { return null; }
-                }
-                try { return new TextEncoder().encode(decodeURIComponent(payload)); } catch (e) { return null; }
-            }
-            for (const filename of iconFiles) {
-                const lightData = localStorage.getItem('preview-asset:icon-light:' + filename);
-                const darkData = localStorage.getItem('preview-asset:icon-dark:' + filename);
-                const lightPath = 'public/app-icon/icon/light/' + filename;
-                const darkPath = 'public/app-icon/icon/dark/' + filename;
-                let bin;
-                if (lightData && (bin = dataUrlToBinary(lightData))) zip.file(lightPath, bin);
-                else try {
-                    const r = await fetch('../public/app-icon/icon/light/' + filename);
-                    if (r.ok) {
-                        const svg = resolveIconSvgVars(await r.text(), 'light');
-                        zip.file(lightPath, svg);
-                    } else if (filename === 'check-mail.svg') {
-                        const f = await fetch('../assets/img-new/check-mail.svg');
-                        if (f.ok) zip.file(lightPath, resolveIconSvgVars(await f.text(), 'light'));
-                    }
-                } catch (e) {}
-                if (darkData && (bin = dataUrlToBinary(darkData))) zip.file(darkPath, bin);
-                else try {
-                    const r = await fetch('../public/app-icon/icon/dark/' + filename);
-                    if (r.ok) {
-                        const svg = resolveIconSvgVars(await r.text(), 'dark');
-                        zip.file(darkPath, svg);
-                    } else if (filename === 'check-mail.svg') {
-                        const f = await fetch('../assets/img-new/check-mail.svg');
-                        if (f.ok) zip.file(darkPath, resolveIconSvgVars(await f.text(), 'dark'));
-                    }
-                } catch (e) {}
-            }
-            zip.file('WHITELABEL-INSTALL.txt', 'White-Label Theme Installation\n' +
-                '================================\n\n' +
-                '1. Extract this ZIP to your project ROOT directory.\n' +
-                '2. Overwrite existing files when prompted.\n' +
-                '3. No code changes required - assets and CSS are replaced.\n\n' +
-                'Contents: assets/css/global.css (colors) + uploaded images (logo, icons from Logo/Icon Gallery).\n' +
-                'Icons: public/app-icon/icon/light/*.svg and dark/*.svg\n');
-            const blob = await zip.generateAsync({ type: 'blob' });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = 'whitelabel-theme.zip';
-            a.click();
-            URL.revokeObjectURL(a.href);
         }
         
         function resetAll() {
@@ -941,6 +980,7 @@
         document.getElementById('pageSelect').addEventListener('change', (e) => {
             document.getElementById('previewFrame').src = e.target.value;
             document.getElementById('chromeTitle').textContent = e.target.value;
+            saveClientState();
         });
 
         function loadPage(page) {
@@ -959,14 +999,74 @@
             document.getElementById('btnLight').classList.add('active');
             document.getElementById('btnDark').classList.remove('active');
             applyTheme('light');
+            saveClientState();
         });
         
         document.getElementById('btnDark').addEventListener('click', () => {
             document.getElementById('btnDark').classList.add('active');
             document.getElementById('btnLight').classList.remove('active');
             applyTheme('dark');
+            saveClientState();
         });
+
+        var previewCloseBtn = document.getElementById('previewCloseBtn');
+        if (previewCloseBtn) {
+            previewCloseBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                closePreviewClearTheme();
+            });
+            previewCloseBtn.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    closePreviewClearTheme();
+                }
+            });
+        }
         
+        /* Parse CSS variable values from uploaded global.css and populate all color picker inputs */
+        function importFromCssText(cssText) {
+            if (!cssText) return;
+            // Extract all --var-name: value pairs from the CSS
+            const parsed = {};
+            const re = /--([\w-]+)\s*:\s*([^;}\n]+)/g;
+            let m;
+            while ((m = re.exec(cssText)) !== null) {
+                parsed['--' + m[1].trim()] = m[2].trim();
+            }
+            function populateInputs(cfgEntries, mode) {
+                for (const [key, item] of Object.entries(cfgEntries || {})) {
+                    if (item.type === 'image') continue;
+                    // Try item.var first, then all vars from GLOBAL_CSS_MAP
+                    const candidates = [item.var, ...(GLOBAL_CSS_MAP[mode]?.[key] || [])].filter(Boolean);
+                    let val = null;
+                    for (const v of candidates) { if (parsed[v]) { val = parsed[v].trim(); break; } }
+                    if (!val) continue;
+                    const wrapper = document.querySelector(`[data-var="${item.var}"][data-mode="${mode}"]`);
+                    if (!wrapper) continue;
+                    if (item.type === 'gradient') {
+                        const colors = parseGradientColors(val);
+                        const colorInputs = wrapper.querySelectorAll('input[type="color"]');
+                        const textInputs  = wrapper.querySelectorAll('input[type="text"]');
+                        colors.forEach((col, i) => {
+                            const h = toHex6(col) || col;
+                            if (colorInputs[i]) colorInputs[i].value = h;
+                            if (textInputs[i])  textInputs[i].value  = h;
+                        });
+                        const angleMatch = val.match(/(\d+(?:\.\d+)?deg)/);
+                        if (angleMatch) wrapper.dataset.angle = angleMatch[1];
+                    } else {
+                        const colorIn = wrapper.querySelector('input[type="color"]');
+                        const textIn  = wrapper.querySelector('input[type="text"]');
+                        const hex = toHex6(val);
+                        if (colorIn && hex) colorIn.value = hex;
+                        if (textIn) textIn.value = val;
+                    }
+                }
+            }
+            populateInputs(config.light, 'light');
+            populateInputs(config.dark,  'dark');
+        }
+
         document.getElementById('btnUploadStyle').addEventListener('click', () => document.getElementById('styleFileInput').click());
         document.getElementById('styleFileInput').addEventListener('change', (e) => {
             const file = e.target.files?.[0];
@@ -976,7 +1076,9 @@
                 uploadedCssContent = ev.target?.result || null;
                 document.getElementById('uploadedFileName').textContent = 'Loaded: ' + file.name;
                 document.getElementById('btnClearUploaded').style.display = 'inline-block';
+                importFromCssText(uploadedCssContent);
                 applyAllStored();
+                saveClientState();
             };
             reader.readAsText(file);
             e.target.value = '';
@@ -986,19 +1088,37 @@
             document.getElementById('uploadedFileName').textContent = '';
             document.getElementById('btnClearUploaded').style.display = 'none';
             document.getElementById('styleFileInput').value = '';
+            renderControls();
             applyAllStored();
+            saveClientState();
         });
         
-        document.getElementById('btnExportFull').addEventListener('click', () => exportFullTheme());
         document.getElementById('btnExportCss').addEventListener('click', exportCss);
-        document.getElementById('btnReset').addEventListener('click', resetAll);
+        document.getElementById('btnReset').addEventListener('click', () => {
+            resetAll();
+            setTimeout(saveClientState, 250);
+        });
+
+        const activeClientOnLoad = requireClientSession();
+        if (activeClientOnLoad) updateClientSessionUi(activeClientOnLoad);
+        const logoutBtn = document.getElementById('clientLogoutBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', function() {
+                localStorage.removeItem(AUTH_STORAGE_KEY);
+                window.location.href = 'common-client-login.html';
+            });
+        }
         
         document.getElementById('previewFrame').addEventListener('load', () => {
-            setTimeout(() => applyAllStored(), 600);
+            applyAllStored(0);
+            requestAnimationFrame(() => applyAllStored(0));
+            [30, 90, 200, 450].forEach((ms) => setTimeout(() => applyAllStored(0), ms));
+            setTimeout(() => applyAllStored(0), 120);
         });
         window.addEventListener('storage', function(e) {
-            if (e.key && (e.key.indexOf('preview-asset:icon-') === 0 || e.key === 'whitelabel-icon-color')) {
-                if (e.key === 'whitelabel-icon-color') {
+            var logical = window.__wl_physicalKeyToLogical ? window.__wl_physicalKeyToLogical(e.key || '') : (e.key || '');
+            if (logical && (logical.indexOf('preview-asset:icon-') === 0 || logical === 'whitelabel-icon-color')) {
+                if (logical === 'whitelabel-icon-color') {
                     applyAllStored();
                 } else {
                     const frame = document.getElementById('previewFrame');
@@ -1009,6 +1129,7 @@
         
         loadConfig().then(() => {
             renderControls();
+            const restoredClientState = activeClientOnLoad ? restoreClientState(activeClientOnLoad) : false;
             var iconColorFromStorage = localStorage.getItem('whitelabel-icon-color');
             if (iconColorFromStorage && /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/.test(iconColorFromStorage.trim())) {
                 var hex = iconColorFromStorage.trim();
@@ -1021,8 +1142,14 @@
                     }
                 });
             }
-            applyTheme('light');
+            if (!restoredClientState) applyTheme('light');
             scalePreviewWindow();
+            const themePanel = document.querySelector('.theme-panel');
+            if (themePanel) {
+                themePanel.addEventListener('input', function() {
+                    saveClientState();
+                });
+            }
         });
 
         /* ─── Auto-fit preview window ─── */

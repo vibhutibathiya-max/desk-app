@@ -767,7 +767,7 @@
 <path d="M94.5 0.5H0.5V94.5H94.5V0.5Z" fill="white"/>
 </mask>
 <g mask="url(#mask0_1_668)">
-<path opacity="0.1" d="M47.5 94.5C73.4574 94.5 94.5 73.4574 94.5 47.5C94.5 21.5426 73.4574 0.5 47.5 0.5C21.5426 0.5 0.5 21.5426 0.5 47.5C0.5 73.4574 21.5426 94.5 47.5 94.5Z" fill="var(--icon-bg-done)"/>
+<path opacity="0.1" d="M47.5 94.5C73.4574 94.5 94.5 73.4574 94.5 47.5C94.5 21.5426 73.4574 0.5 47.5 0.5C21.5426 0.5 0.5 21.5426 0.5 47.5C0.5 73.4574 21.5426 94.5 47.5 94.5Z" fill="var(--icon-bg-websocket)"/>
 <path d="M28.4443 47.5008L41.1483 60.2047L66.5561 34.7969" stroke="var(--icon-fg-dark)" stroke-width="7.11111" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </g>
@@ -803,7 +803,7 @@
 </svg>`,
     're-register.svg': `<svg width="95" height="95" viewBox="0 0 95 95" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
 <g clip-path="url(#clip0_1_833)">
-<path opacity="0.1" d="M47.5 94.3371C73.3674 94.3371 94.337 73.3674 94.337 47.5001C94.337 21.6327 73.3674 0.663086 47.5 0.663086C21.6327 0.663086 0.663025 21.6327 0.663025 47.5001C0.663025 73.3674 21.6327 94.3371 47.5 94.3371Z" fill="var(--icon-fg-dark)"/>
+<path opacity="0.1" d="M47.5 94.3371C73.3674 94.3371 94.337 73.3674 94.337 47.5001C94.337 21.6327 73.3674 0.663086 47.5 0.663086C21.6327 0.663086 0.663025 21.6327 0.663025 47.5001C0.663025 73.3674 21.6327 94.3371 47.5 94.3371Z" fill="var(--icon-bg-websocket)"/>
 <path d="M63.7824 36.3551L61.6028 33.8196C59.7548 31.8786 57.5313 30.3339 55.0674 29.2796C52.6035 28.2252 49.9508 27.6832 47.2708 27.6865C36.3319 27.6865 27.4569 36.5615 27.4569 47.5004C27.4569 58.4393 36.3319 67.3143 47.2708 67.3143C51.3688 67.314 55.3659 66.0437 58.7122 63.6782C62.0585 61.3127 64.5895 57.9682 65.9567 54.1051" stroke="var(--icon-fg-dark)" stroke-width="4.97778" stroke-miterlimit="10" stroke-linecap="round"/>
 <path d="M59.3464 41.7113L67.8981 33.1597V41.7113H59.3464Z" fill="black"/>
 <path d="M69.3303 31.7274C69.3297 31.728 69.3291 31.7286 69.3285 31.7292M59.3464 41.7113L67.8981 33.1597V41.7113H59.3464Z" stroke="var(--icon-fg-dark)" stroke-width="4.97778"/>
@@ -1598,8 +1598,33 @@
         return null;
     }
 
+    /** Give every defs id / url(#id) a unique suffix so multiple inline SVGs in one document
+     *  do not share gradient/clip IDs (e.g. autoStartup light url(#paint0_linear_998_237) was resolving to the wrong defs). */
+    var svgInlineUniqueSeq = 0;
+    function uniquifySvgDefIds(svgText) {
+        if (!svgText) return svgText;
+        var ids = [];
+        var idRe = /\bid="([^"]+)"/g;
+        var mm;
+        while ((mm = idRe.exec(svgText)) !== null) {
+            if (ids.indexOf(mm[1]) === -1) ids.push(mm[1]);
+        }
+        if (!ids.length) return svgText;
+        var suf = '_wl' + (++svgInlineUniqueSeq);
+        ids.sort(function (a, b) { return b.length - a.length; });
+        var out = svgText;
+        ids.forEach(function (oldId) {
+            var newId = oldId + suf;
+            out = out.split('id="' + oldId + '"').join('id="' + newId + '"');
+            var esc = oldId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            out = out.replace(new RegExp('url\\(#' + esc + '\\)', 'g'), 'url(#' + newId + ')');
+        });
+        return out;
+    }
+
     function replaceWithInlineSvg(img, svgText, mode) {
         if (!svgText || !svgText.trim()) return;
+        svgText = uniquifySvgDefIds(svgText.trim());
         var span = document.createElement('span');
         span.className = 'icon-svg-inline icon-svg-inline-' + mode;
         span.setAttribute('data-mode', mode);
@@ -1619,13 +1644,13 @@
     }
 
     function run() {
-        injectIconVariableOverrides();
-
         var imgs = document.querySelectorAll('img[data-src][data-mode], img[src*="app-icon/icon/"]');
         var processed = new Set();
         imgs.forEach(function (img) {
             // Keep as <img>: bridge + CSS size (e.g. 300×300 on call history). Inlining with width/height 100% would fill .no-calls-found { height:100% } and blow up the graphic.
             if (img.classList && img.classList.contains('js-icon-bridge-no-calls-found')) return;
+            // Same as gallery preview + public/app-icon files: hero must match ICON_PATH_LIGHT/DARK check-mail.svg, not bundled duplicate markup.
+            if (img.classList && img.classList.contains('js-icon-bridge-mail')) return;
             var info = isThemeIcon(img);
             if (!info || processed.has(img)) return;
             processed.add(img);

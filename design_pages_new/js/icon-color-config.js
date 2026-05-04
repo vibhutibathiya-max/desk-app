@@ -89,7 +89,8 @@
         'no-calls-found.svg': {
             colors: [
                 { id: 'primary', label: 'Primary', default: '#614B98', var: '--icon-nocalls-primary', replace: ['#614B98'] },
-                { id: 'accent', label: 'Accent', default: '#C5DBFF', var: '--icon-nocalls-accent', replace: ['#C5DBFF'] }
+                { id: 'accent', label: 'Soft fill (Gradient 4)', default: '#57A1D7', var: '--icon-nocalls-accent', replace: ['#57A1D7', '#C5DBFF'] },
+                { id: 'ink', label: 'Illustration ink', default: '#15181A', var: '--icon-nocalls-ink', replace: ['#15181A', '#4F4D56'] }
             ]
         },
         'no-contacts-found.svg': {

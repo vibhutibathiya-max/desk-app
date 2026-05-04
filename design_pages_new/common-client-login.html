@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/wl-client-localstorage-ns.js"></script>
+    <title>Sign in</title>
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: "Segoe UI", Tahoma, sans-serif;
+            background: #f7f8fc;
+            color: #1f2937;
+        }
+
+        .layout {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 440px;
+        }
+
+        .left {
+            padding: 48px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: linear-gradient(140deg, #ffffff 0%, #f2f5ff 100%);
+            border-right: 1px solid #e5e9f4;
+        }
+
+        .left h1 {
+            margin: 0 0 10px;
+            font-size: 36px;
+            line-height: 1.2;
+        }
+
+        .left p {
+            margin: 0;
+            max-width: 520px;
+            color: #5f6778;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .right {
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            background: #f7f8fc;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 360px;
+            background: #fff;
+            border: 1px solid #e3e8f3;
+            border-radius: 12px;
+            padding: 24px 22px;
+            box-shadow: 0 14px 28px rgba(20, 31, 56, 0.08);
+        }
+
+        .card h2 {
+            margin: 0 0 6px;
+            font-size: 22px;
+        }
+
+        .muted {
+            margin: 0 0 18px;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .field { margin-bottom: 12px; }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            height: 42px;
+            border: 1px solid #ccd5e6;
+            border-radius: 8px;
+            padding: 0 12px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #2f63da;
+            box-shadow: 0 0 0 3px rgba(47, 99, 218, 0.12);
+        }
+
+        .error {
+            min-height: 18px;
+            margin: 4px 0 12px;
+            color: #b42318;
+            font-size: 12px;
+        }
+
+        button {
+            width: 100%;
+            height: 42px;
+            border: 0;
+            border-radius: 8px;
+            background: #2f63da;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        button:hover { background: #2656c3; }
+
+        @media (max-width: 900px) {
+            .layout { grid-template-columns: 1fr; }
+            .left { display: none; }
+            .right { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <section class="left">
+            <h1>Theme preview sign-in</h1>
+            <p>Sign in with your username and password to open the preview.</p>
+        </section>
+
+        <section class="right">
+            <form class="card" id="commonLoginForm">
+                <h2>Sign in</h2>
+                <p class="muted">Use your username and password to continue.</p>
+
+                <div class="field">
+                    <label for="usernameInput">Username</label>
+                    <input id="usernameInput" type="text" autocomplete="username" placeholder="Username" required>
+                </div>
+
+                <div class="field">
+                    <label for="passwordInput">Password</label>
+                    <input id="passwordInput" type="password" autocomplete="current-password" placeholder="Password" required>
+                </div>
+
+                <div class="error" id="errorText"></div>
+                <button type="submit">Sign in</button>
+            </form>
+        </section>
+    </div>
+
+    <script>
+        (function() {
+            var AUTH_STORAGE_KEY = "wl-active-client";
+            var LOGIN_TIME_KEY = "wl-last-login-time";
+            var form = document.getElementById("commonLoginForm");
+            var usernameInput = document.getElementById("usernameInput");
+            var passwordInput = document.getElementById("passwordInput");
+            var errorText = document.getElementById("errorText");
+
+            function normalizeClient(value) {
+                return String(value || "").trim().replace(/\s+/g, " ");
+            }
+
+            form.addEventListener("submit", function(event) {
+                event.preventDefault();
+                errorText.textContent = "";
+
+                var username = normalizeClient(usernameInput.value);
+                var password = String(passwordInput.value || "").trim();
+
+                if (!username || !password) {
+                    errorText.textContent = "Username and password are required.";
+                    return;
+                }
+
+                localStorage.setItem(AUTH_STORAGE_KEY, username);
+                localStorage.setItem(LOGIN_TIME_KEY, String(Date.now()));
+                window.location.href = "whitelabel-preview.html";
+            });
+        })();
+    </script>
+</body>
+</html>

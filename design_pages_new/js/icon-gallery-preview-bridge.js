@@ -97,7 +97,9 @@
         { id: '#57A1D7', default: '#57A1D7' },
         { id: '#E8DFFF', default: '#E8DFFF' },
         { id: '#614B98', default: '#614B98', replace: ['#614B98', '#7760B0'] },
-        { id: '#CEBBFF', default: '#CEBBFF' }
+        { id: '#CEBBFF', default: '#CEBBFF' },
+        { id: '#C5DBFF', default: '#C5DBFF', replace: ['#C5DBFF'] },
+        { id: '#15181A', default: '#15181A', replace: ['#15181A', '#4F4D56'] }
     ];
     var BRIDGE_SHARED_COLORS_DARK = [
         { id: '#D9D9D9', default: '#D9D9D9' },
@@ -151,6 +153,43 @@
         if (o) img.setAttribute('src', o);
     }
 
+    function ensureNoCallsFoundAssetPair(img) {
+        var L = img.getAttribute('data-bridge-nocalls-light');
+        var D = img.getAttribute('data-bridge-nocalls-dark');
+        if (L && D) {
+            return;
+        }
+        var seed =
+            L ||
+            img.getAttribute('data-bridge-hex-src-original') ||
+            img.getAttribute('src') ||
+            '';
+        if (seed.indexOf('blob:') === 0 || seed.indexOf('data:') === 0) {
+            seed = '';
+        }
+        if (!seed) {
+            return;
+        }
+        if (seed.indexOf('/light/') !== -1) {
+            img.setAttribute('data-bridge-nocalls-light', seed);
+            img.setAttribute('data-bridge-nocalls-dark', seed.replace('/light/', '/dark/'));
+        } else if (seed.indexOf('/dark/') !== -1) {
+            img.setAttribute('data-bridge-nocalls-dark', seed);
+            img.setAttribute('data-bridge-nocalls-light', seed.replace('/dark/', '/light/'));
+        } else {
+            img.setAttribute('data-bridge-nocalls-light', seed);
+            img.setAttribute('data-bridge-nocalls-dark', seed);
+        }
+    }
+
+    function getNoCallsFoundThemeFileUrl(img) {
+        ensureNoCallsFoundAssetPair(img);
+        var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        return isDark
+            ? img.getAttribute('data-bridge-nocalls-dark') || img.getAttribute('data-bridge-nocalls-light') || ''
+            : img.getAttribute('data-bridge-nocalls-light') || img.getAttribute('data-bridge-nocalls-dark') || '';
+    }
+
     function resetNoCallsFoundHexImgs() {
         document.querySelectorAll('img.js-icon-bridge-no-calls-found').forEach(function (img) {
             var b = img.getAttribute('data-bridge-hex-blob-url');
@@ -158,8 +197,13 @@
                 try { URL.revokeObjectURL(b); } catch (e) { /* noop */ }
                 img.removeAttribute('data-bridge-hex-blob-url');
             }
-            var o = img.getAttribute('data-bridge-hex-src-original');
-            if (o) img.setAttribute('src', o);
+            var fileUrl = getNoCallsFoundThemeFileUrl(img);
+            if (fileUrl) {
+                img.setAttribute('src', fileUrl);
+            } else {
+                var o = img.getAttribute('data-bridge-hex-src-original');
+                if (o) img.setAttribute('src', o);
+            }
         });
     }
     function hydrateQrVectorImg() {
@@ -198,12 +242,16 @@
     }
 
     /**
-     * no-calls-found.svg uses hex (same as gallery shared-gradient strip for ICONS_USING_HEX).
+     * no-calls-found.svg: light asset uses #C5DBFF soft fills; dark asset uses #57A1D7 for the same shapes so
+     * Gradient 4 updates in dark preview. Always load the file that matches html[data-theme], then apply
+     * the same shared-gradient hex map (icon-gallery) for whitelabel.
      */
     function hydrateNoCallsFoundImgs() {
         document.querySelectorAll('img.js-icon-bridge-no-calls-found').forEach(function (img) {
-            if (!img.getAttribute('data-bridge-hex-src-original')) {
-                img.setAttribute('data-bridge-hex-src-original', img.getAttribute('src') || '');
+            ensureNoCallsFoundAssetPair(img);
+            var curSrc = img.getAttribute('src') || '';
+            if (!img.getAttribute('data-bridge-hex-src-original') && curSrc.indexOf('blob:') !== 0 && curSrc.indexOf('data:') !== 0) {
+                img.setAttribute('data-bridge-hex-src-original', curSrc);
             }
             var stored = readStoredShared() || {};
             var config = {
@@ -217,7 +265,7 @@
                 getDefaults({ colors: BRIDGE_SHARED_COLORS_DARK }),
                 stored
             );
-            var srcAttr = img.getAttribute('data-bridge-hex-src-original') || img.getAttribute('src') || '';
+            var srcAttr = getNoCallsFoundThemeFileUrl(img) || img.getAttribute('data-bridge-hex-src-original') || '';
             var abs = new URL(srcAttr, window.location.href).href;
             fetch(abs)
                 .then(function (r) {
@@ -512,8 +560,9 @@
     }
 
     window.addEventListener('storage', function (e) {
-        if (!e.key || e.key.indexOf(COLORS_PREFIX) !== 0) return;
-        if (e.key === COLORS_PREFIX + SHARED_KEY) run(true);
+        var logical = window.__wl_physicalKeyToLogical ? window.__wl_physicalKeyToLogical(e.key || '') : (e.key || '');
+        if (!logical || logical.indexOf(COLORS_PREFIX) !== 0) return;
+        if (logical === COLORS_PREFIX + SHARED_KEY) run(true);
     });
 
     /* Icon Gallery in another tab cannot dispatch to this page; `storage` usually fires, but

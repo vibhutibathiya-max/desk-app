@@ -3,6 +3,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/wl-client-localstorage-ns.js"></script>
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="../assets/css/bootstrap.min.css.map" rel="stylesheet">
     <link href="../assets/css/style.css" rel="stylesheet">
@@ -1705,7 +1706,7 @@
                                 </svg>
                             </button>
                         </div>
-                        <div class="modal-body">
+                        <!-- <div class="modal-body">
                             <img data-theme="true" data-mode="light" data-path="../public/app-icon/icon/"
                                 data-src="autoStartup.svg" src="../public/app-icon/icon/light/autoStartup.svg"
                                 alt="autoStartup-CONFIRM" width="" height=""><img data-theme="true" data-mode="dark"
@@ -1713,7 +1714,7 @@
                                 src="../public/app-icon/icon/dark/autoStartup.svg" alt="autoStartup-CONFIRM" width=""
                                 height="">
                             <p class="__MSG__autoStartupConfirmMsg mb-0">Do you want auto start function?</p>
-                        </div>
+                        </div> -->
                         <div class="modal-footer">
                             <button class="cancel-btn __MSG__autoStartupNo" type="button"
                                 value="" data-bs-dismiss="modal" aria-label="Close">No</button>
@@ -2614,7 +2615,7 @@
     <script>
         (function() {
             try {
-                var keys = Object.keys(localStorage).filter(function(k) { return k.indexOf('preview-asset:') === 0; });
+                var keys = (window.__wl_ls_keysMatching ? window.__wl_ls_keysMatching('preview-asset:') : Object.keys(localStorage).filter(function(k) { return k.indexOf('preview-asset:') === 0; }));
                 keys.forEach(function(key) {
                     var filename = key.replace('preview-asset:', '');
                     var dataUrl = localStorage.getItem(key);
