@@ -1,8 +1,7 @@
 /**
- * Applies Logo Gallery / Icon Gallery "preview" uploads from localStorage so
- * static design pages show the same assets as the galleries. Fixes matching for
- * keys like preview-asset:icon-light:check-mail.svg (old inline scripts only
- * used preview-asset:filename and could not find icons).
+ * Applies Logo Gallery preview uploads from localStorage so static design pages
+ * match preview assets. Handles keys like preview-asset:icon-light:check-mail.svg
+ * (not only preview-asset:filename).
  */
 (function () {
     'use strict';

@@ -1533,7 +1533,7 @@
         return '#' + h.toLowerCase();
     }
 
-    /** Decode data URL from Icon Gallery (upload / export preview) to SVG text */
+    /** Decode data URL from whitelabel preview-asset localStorage to SVG text */
     function dataUrlToSvgText(dataUrl) {
         if (!dataUrl || dataUrl.indexOf('data:') !== 0) return '';
         var comma = dataUrl.indexOf(',');
@@ -1657,7 +1657,7 @@
         imgs.forEach(function (img) {
             // Keep as <img>: bridge + CSS size (e.g. 300×300 on call history). Inlining with width/height 100% would fill .no-calls-found { height:100% } and blow up the graphic.
             if (img.classList && img.classList.contains('js-icon-bridge-no-calls-found')) return;
-            // Same as gallery preview + public/app-icon files: hero must match ICON_PATH_LIGHT/DARK check-mail.svg, not bundled duplicate markup.
+            // Match public/app-icon check-mail.svg; bridge handles hero recolor, not duplicate inline markup.
             if (img.classList && img.classList.contains('js-icon-bridge-mail')) return;
             var info = isThemeIcon(img);
             if (!info || processed.has(img)) return;
