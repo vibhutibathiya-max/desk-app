@@ -71,7 +71,13 @@ html[data-theme="light"] {
   --recording-orange-color: var(--recording-light-orange-color);
   --recording-orange-color-text: var(--recording-orange-color-text-light);
   --dial-pad-transparent-bg: rgba(255, 255, 255, 0.95);
-
+ /* --- Icon Theme Mapping --- */
+ --icon-gradient-1: var(--icon-gradient-1-light);
+ --icon-gradient-2: var(--icon-gradient-2-light);
+ --icon-gradient-3: var(--icon-gradient-3-light);
+ --icon-bg-done: var(--icon-bg-done-light);
+ --icon-primary: var(--icon-primary-light);
+ --icon-accent-light: var(--icon-accent-light-color-light);
 }
 
 @media (prefers-color-scheme: light) {
@@ -148,6 +154,12 @@ html[data-theme="light"] {
     --recording-orange-color: var(--recording-light-orange-color);
     --recording-orange-color-text: var(--recording-orange-color-text-light);
     --dial-pad-transparent-bg: rgba(255, 255, 255, 0.95);
-
+ /* --- Icon Theme Mapping --- */
+  --icon-gradient-1: var(--icon-gradient-1-light);
+  --icon-gradient-2: var(--icon-gradient-2-light);
+  --icon-gradient-3: var(--icon-gradient-3-light);
+  --icon-bg-done: var(--icon-bg-done-light);
+  --icon-primary: var(--icon-primary-light);
+ --icon-accent-light: var(--icon-accent-light-color-light);
   } 
 }

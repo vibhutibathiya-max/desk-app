@@ -30,12 +30,25 @@
         .control-row input[type="text"]:focus { outline: none; border-color: #8ecae6; }
         .control-row.gradient-row { flex-direction: column; align-items: stretch; margin-bottom: 14px; }
         .control-row.gradient-row label { flex: none; margin-bottom: 6px; }
-        .gradient-colors { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-        .gradient-color-item { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
-        .gradient-color-item span { font-size: 10px; color: #888; min-width: 30px; }
-        .gradient-color-item input[type="color"] { width: 52px; height: 44px; min-width: 52px; border: 2px solid #0f3460; cursor: pointer; border-radius: 6px; padding: 2px; }
-        .gradient-color-item input[type="color"]:hover { border-color: #8ecae6; }
-        .gradient-color-item input[type="text"] { width: 88px; padding: 10px; font-size: 12px; background: #0f3460; border: 2px solid #0f3460; color: #fff; border-radius: 6px; }
+        /* Stacked rows + swatches (.color-swatch-wrap) */
+        .gradient-colors { display: flex; flex-direction: column; gap: 8px; align-items: stretch; }
+        .gradient-color-item { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+        .gradient-color-item .gradient-swatch-label { flex: 0 0 52px; font-size: 11px; color: #aaa; line-height: 1.2; }
+        .gradient-color-item .color-swatch-wrap {
+            position: relative; flex-shrink: 0; width: 44px; height: 36px; cursor: pointer;
+            border-radius: 6px; overflow: hidden; border: 2px solid #0f3460;
+        }
+        .gradient-color-item .color-swatch-wrap:hover { border-color: #8ecae6; }
+        .gradient-color-item .color-swatch-wrap .color-swatch-bg { position: absolute; inset: 0; border-radius: 4px; pointer-events: none; }
+        .gradient-color-item .color-swatch-wrap input[type="color"] {
+            position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer;
+            padding: 0; border: none; background: transparent;
+        }
+        .gradient-color-item input[type="text"] {
+            flex: 1; min-width: 0; padding: 8px 10px; font-size: 12px; background: #0f3460;
+            border: 2px solid #0f3460; color: #fff; border-radius: 6px;
+        }
+        .gradient-color-item input[type="text"]:focus { outline: none; border-color: #8ecae6; }
         
         .btn { padding: 8px 16px; font-size: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; }
         .btn-primary { background: linear-gradient(270deg, #6533e2, #1f97ef); color: #fff; }
@@ -137,10 +150,11 @@
                 <option value="autostartup.html">Auto Startup</option>
                 <option value="setting.html">Setting</option>
                 <option value="logo-gallery.html">image Gallery</option>
-                <option value="icon-gallery.html">Icon Gallery</option>
+                <option value="No_Favorites_Contacts _Found.html">No Favorites Contacts Found</option>
+                <option value="checkmail.html">Check Mail</option>
+                <option value="startchat.html">Start Chat</option>
                 </select>
                 <button class="btn btn-primary" style="flex-shrink:0" onclick="loadPage('logo-gallery.html')">Image Gallery</button>
-                <button class="btn btn-primary" style="flex-shrink:0" onclick="loadPage('icon-gallery.html')">Icon Gallery</button>
             </div>
             
             <label style="font-size:12px;color:#aaa;display:block;margin-bottom:14px">Theme Mode</label>
@@ -214,25 +228,7 @@
             'away.svg': 'assets/img-new/away.svg',
             'busy.svg': 'assets/img-new/busy.svg',
             'dnd.svg': 'assets/img-new/dnd.svg',
-            'api-test-connection.svg': ['public/app-icon/icon/light/api-test-connection.svg', 'public/app-icon/icon/dark/api-test-connection.svg'],
-            'autoStartup.svg': ['public/app-icon/icon/light/autoStartup.svg', 'public/app-icon/icon/dark/autoStartup.svg'],
-            'blind-trasferred.svg': ['public/app-icon/icon/light/blind-trasferred.svg', 'public/app-icon/icon/dark/blind-trasferred.svg'],
-            'check-mail.svg': ['public/app-icon/icon/light/check-mail.svg', 'public/app-icon/icon/dark/check-mail.svg'],
-            'clear-history.svg': ['public/app-icon/icon/light/clear-history.svg', 'public/app-icon/icon/dark/clear-history.svg'],
-            'cloud-contact-banner.svg': ['public/app-icon/icon/light/cloud-contact-banner.svg', 'public/app-icon/icon/dark/cloud-contact-banner.svg'],
-            'done.svg': ['public/app-icon/icon/light/done.svg', 'public/app-icon/icon/dark/done.svg'],
-            'export-icon.svg': ['public/app-icon/icon/light/export-icon.svg', 'public/app-icon/icon/dark/export-icon.svg'],
-            'import-icon.svg': ['public/app-icon/icon/light/import-icon.svg', 'public/app-icon/icon/dark/import-icon.svg'],
-            'logout.svg': ['public/app-icon/icon/light/logout.svg', 'public/app-icon/icon/dark/logout.svg'],
-            'no-calls-found.svg': ['public/app-icon/icon/light/no-calls-found.svg', 'public/app-icon/icon/dark/no-calls-found.svg'],
-            'no-contacts-found.svg': ['public/app-icon/icon/light/no-contacts-found.svg', 'public/app-icon/icon/dark/no-contacts-found.svg'],
-            'no-favoritecontact-found.svg': ['public/app-icon/icon/light/no-favoritecontact-found.svg', 'public/app-icon/icon/dark/no-favoritecontact-found.svg'],
-            'qr-vector.svg': ['public/app-icon/icon/light/qr-vector.svg', 'public/app-icon/icon/dark/qr-vector.svg'],
-            're-register.svg': ['public/app-icon/icon/light/re-register.svg', 'public/app-icon/icon/dark/re-register.svg'],
-            'sip-configuration.svg': ['public/app-icon/icon/light/sip-configuration.svg', 'public/app-icon/icon/dark/sip-configuration.svg'],
-            'start-chat.svg': ['public/app-icon/icon/light/start-chat.svg', 'public/app-icon/icon/dark/start-chat.svg'],
-            'web-socket-connection.svg': ['public/app-icon/icon/light/web-socket-connection.svg', 'public/app-icon/icon/dark/web-socket-connection.svg'],
-            'right-side-vector.svg': ['public/app-icon/icon/light/right-side-vector.svg', 'public/app-icon/icon/dark/right-side-vector.svg']
+         
         };
         function getAssetPaths(filename) {
             if (filename === 'logo-white.svg') {
@@ -291,11 +287,13 @@
             if (item.type === 'gradient') {
                 const colors = parseGradientColors(String(value));
                 const colorInputs = wrapper.querySelectorAll('input[type="color"]');
-                const textInputs = wrapper.querySelectorAll('input[type="text"]');
+                const textInputs = wrapper.querySelectorAll('.gradient-color-item input[type="text"]');
+                const swatchBgs = wrapper.querySelectorAll('.gradient-color-item .color-swatch-bg');
                 colors.forEach((col, index) => {
                     const hex = toHex6(col) || col;
                     if (colorInputs[index]) colorInputs[index].value = hex;
                     if (textInputs[index]) textInputs[index].value = hex;
+                    if (swatchBgs[index] && isHexColor(hex)) swatchBgs[index].style.background = hex;
                 });
                 const angleMatch = String(value).match(/(\d+(?:\.\d+)?deg)/);
                 if (angleMatch) wrapper.dataset.angle = angleMatch[1];
@@ -339,7 +337,6 @@
                 const colors = parseGradientColors(item.value);
                 const angle = (item.value || '').match(/(\d+(?:\.\d+)?deg)/)?.[1] || '270deg';
                 wrapper.dataset.angle = angle;
-                const gradientVars = item.gradientVars || [item.var];
                 const gradientEl = document.createElement('div');
                 gradientEl.className = 'gradient-colors';
                 
@@ -347,15 +344,22 @@
                 colors.forEach((col, i) => {
                     const itemEl = document.createElement('div');
                     itemEl.className = 'gradient-color-item';
-                    const span = document.createElement('span');
-                    span.textContent = labels[i];
+                    const labelEl = document.createElement('span');
+                    labelEl.className = 'gradient-swatch-label';
+                    labelEl.textContent = labels[i];
+                    const swatchWrap = document.createElement('div');
+                    swatchWrap.className = 'color-swatch-wrap';
+                    const swatchBg = document.createElement('span');
+                    swatchBg.className = 'color-swatch-bg';
+                    const hex0 = toHex6(col) || col;
+                    swatchBg.style.background = isHexColor(hex0) ? hex0 : '#6533e2';
                     const colorInput = document.createElement('input');
                     colorInput.type = 'color';
-                    colorInput.value = col;
+                    colorInput.value = isHexColor(hex0) ? hex0 : '#6533e2';
                     colorInput.title = 'Click to pick color';
                     const textInput = document.createElement('input');
                     textInput.type = 'text';
-                    textInput.value = col;
+                    textInput.value = hex0;
                     textInput.placeholder = '#000000';
                     textInput.title = 'Enter hex (e.g. #ff0000)';
                     const updateGradient = () => {
@@ -364,19 +368,22 @@
                         hex = toHex6(hex) || hex;
                         colorInput.value = hex;
                         textInput.value = hex;
+                        swatchBg.style.background = hex;
                         const allColorInputs = gradientEl.querySelectorAll('input[type="color"]');
                         const collected = Array.from(allColorInputs).map(inp => (inp.value || '').trim()).filter(Boolean);
-                        const grad = buildGradient(collected.length ? collected : [hex], angle);
+                        buildGradient(collected.length ? collected : [hex], angle);
                         injectOverrideStyle();
                     };
+                    swatchWrap.appendChild(swatchBg);
+                    swatchWrap.appendChild(colorInput);
                     colorInput.addEventListener('input', updateGradient);
                     colorInput.addEventListener('change', updateGradient);
                     textInput.addEventListener('input', () => {
                         if (isHexColor(textInput.value)) colorInput.value = toHex6(textInput.value);
                         updateGradient();
                     });
-                    itemEl.appendChild(span);
-                    itemEl.appendChild(colorInput);
+                    itemEl.appendChild(labelEl);
+                    itemEl.appendChild(swatchWrap);
                     itemEl.appendChild(textInput);
                     gradientEl.appendChild(itemEl);
                 });
@@ -542,8 +549,6 @@
                     const val = getGradientValueFromWrapper(wrapper);
                     if (val) {
                         const vars = new Set(item.gradientVars || [item.var]);
-                        if (key === 'buttonGradient') vars.add('--btn-gradient');
-                        if (key === 'headerGradient') vars.add('--header-gadient');
                         vars.forEach(v => { lines.push(`${v}: ${val};`); valueByVar[v] = val; });
                     }
                 } else {
@@ -573,9 +578,15 @@
                     if (valueByVar[darkVar] && !valueByVar[aliasVar]) lines.push(`${aliasVar}: ${valueByVar[darkVar]} !important;`);
                 }
             }
-            const iconColorFromGallery = localStorage.getItem('whitelabel-icon-color');
-            if (iconColorFromGallery && /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/.test(iconColorFromGallery.trim())) {
-                const hex = iconColorFromGallery.trim();
+            /* Auto-sync: --icon-primary / --icon-primary-light always follow primary color */
+            const _iconPrimaryVal = valueByVar['--primary-color'] || valueByVar['--primary-color-dark'];
+            if (_iconPrimaryVal) {
+                lines.push(`--icon-primary-light: ${_iconPrimaryVal};`);
+                lines.push(`--icon-primary: ${_iconPrimaryVal};`);
+            }
+            const iconColorFromStorage = localStorage.getItem('whitelabel-icon-color');
+            if (iconColorFromStorage && /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/.test(iconColorFromStorage.trim())) {
+                const hex = iconColorFromStorage.trim();
                 const expanded = hex.length === 4 ? '#' + hex[1]+hex[1]+hex[2]+hex[2]+hex[3]+hex[3] : hex;
                 lines.push('--icon-color: ' + expanded + ';');
             }
@@ -641,7 +652,7 @@
             const colors = [];
             items.forEach(it => {
                 const inp = it.querySelector('input[type="color"]') || it.querySelector('input[type="text"]');
-                if (inp?.value) colors.push(inp.value);
+                if (inp?.value) colors.push(toHex6(inp.value) || inp.value);
             });
             const angle = wrapper?.dataset?.angle || '270deg';
             return colors.length ? buildGradient(colors, angle) : null;
@@ -781,11 +792,25 @@
             } catch (e) {}
             if (!state || !state.values) return false;
 
-            Object.entries(state.values.light || {}).forEach(([key, value]) => {
-                if (config.light && config.light[key]) setControlValue('light', config.light[key], value);
+            const LEGACY_LIGHT_GRADIENT_KEYS = ['mainGradientStart', 'headerGradient', 'buttonGradient'];
+            const LEGACY_DARK_GRADIENT_KEYS = ['mainGradient', 'headerGradient', 'buttonGradient'];
+            const gl = state.values.light || {};
+            const gd = state.values.dark || {};
+            const brandLight = gl.brandGradient || LEGACY_LIGHT_GRADIENT_KEYS.map((k) => gl[k]).find(Boolean);
+            const brandDark = gd.brandGradient || LEGACY_DARK_GRADIENT_KEYS.map((k) => gd[k]).find(Boolean);
+            if (brandLight && config.light && config.light.brandGradient) {
+                setControlValue('light', config.light.brandGradient, brandLight);
+            }
+            if (brandDark && config.dark && config.dark.brandGradient) {
+                setControlValue('dark', config.dark.brandGradient, brandDark);
+            }
+            Object.entries(gl).forEach(([key, value]) => {
+                if (!config.light || !config.light[key] || LEGACY_LIGHT_GRADIENT_KEYS.includes(key)) return;
+                setControlValue('light', config.light[key], value);
             });
-            Object.entries(state.values.dark || {}).forEach(([key, value]) => {
-                if (config.dark && config.dark[key]) setControlValue('dark', config.dark[key], value);
+            Object.entries(gd).forEach(([key, value]) => {
+                if (!config.dark || !config.dark[key] || LEGACY_DARK_GRADIENT_KEYS.includes(key)) return;
+                setControlValue('dark', config.dark[key], value);
             });
 
             if (typeof state.uploadedCssContent === 'string' && state.uploadedCssContent.trim()) {
@@ -842,13 +867,11 @@
                 '--icon-gradient-4-light':    g4,
                 '--icon-bg-done-light':       bgDone,
                 '--icon-bg-websocket-light':  primary,
-                '--icon-primary-light':       primary,
                 '--icon-badge-light':         badge,
                 '--icon-body-light':          bgDone,
                 '--icon-fg-dark':             fgDark,
                 '--icon-bg-done-dark':        fgDark,
                 '--icon-bg-websocket-dark':   bgWsDrk,
-                '--icon-primary-dark':        primary,
                 '--icon-badge-dark':          badge,
                 '--icon-body-dark':           bgDone
             };
@@ -857,12 +880,10 @@
         /* Maps whitelabel keys to CSS vars in global.css. Derived vars (based on primary, etc.) get same value. */
         const GLOBAL_CSS_MAP = {
             light: {
-                primaryColor: ['--primary-color', '--sidebar-active-icon', '--received-chat-bubble-file-icon-light'],
+                primaryColor: ['--primary-color', '--sidebar-active-icon', '--received-chat-bubble-file-icon-light', '--icon-primary-light', '--icon-primary-dark'],
                 iconColor: ['--icon-color'],
                 secondaryColor: ['--secondary-color'],
-                mainGradientStart: ['--main-gradient-color'],
-                buttonGradient: ['--button-gradient'],
-                headerGradient: ['--header-gadient-color'],
+                brandGradient: ['--main-gradient-color', '--header-gadient-color', '--button-gradient'],
                 dynamicBarColor: ['--dynamic-bar-color'],
                 dynamicBarIconColor: ['--dynamic-bar-icon-color'],
                 crmPrimaryLight: ['--crm-primary-light'],
@@ -876,9 +897,7 @@
                 primaryColor: ['--primary-color-dark', '--sidebar-active-icon-dark'],
                 iconColor: ['--icon-color'],
                 secondaryColor: ['--secondary-color-dark'],
-                mainGradient: ['--main-gradient-color-dark'],
-                buttonGradient: ['--button-gradient-dark'],
-                headerGradient: ['--header-gadient-color-dark'],
+                brandGradient: ['--main-gradient-color-dark', '--header-gadient-color-dark', '--button-gradient-dark'],
                 dynamicBarColor: ['--dynamic-bar-color'],
                 dynamicBarIconColor: ['--dynamic-bar-icon-color'],
                 crmPrimaryDark: ['--crm-primary-dark'],
@@ -1046,11 +1065,13 @@
                     if (item.type === 'gradient') {
                         const colors = parseGradientColors(val);
                         const colorInputs = wrapper.querySelectorAll('input[type="color"]');
-                        const textInputs  = wrapper.querySelectorAll('input[type="text"]');
+                        const textInputs = wrapper.querySelectorAll('.gradient-color-item input[type="text"]');
+                        const swatchBgs = wrapper.querySelectorAll('.gradient-color-item .color-swatch-bg');
                         colors.forEach((col, i) => {
                             const h = toHex6(col) || col;
                             if (colorInputs[i]) colorInputs[i].value = h;
-                            if (textInputs[i])  textInputs[i].value  = h;
+                            if (textInputs[i]) textInputs[i].value = h;
+                            if (swatchBgs[i] && isHexColor(h)) swatchBgs[i].style.background = h;
                         });
                         const angleMatch = val.match(/(\d+(?:\.\d+)?deg)/);
                         if (angleMatch) wrapper.dataset.angle = angleMatch[1];
