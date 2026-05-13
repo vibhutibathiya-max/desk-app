@@ -46,7 +46,7 @@ html[data-theme="light"] {
   --sidebar-bg: var(--sidebar);
   --sidebar-item-hover-bg: var(--sidebar-hover);
   --sidebar-item-active-bg: var(--sidebar-active-bg);
-  --sidebar-item-active-icon: var(--sidebar-active-icon);
+  --sidebar-item-active-icon: var(--primary-color);
   /* border color */
   --divider-border: var(--separator);
   /* Chat */
@@ -75,6 +75,7 @@ html[data-theme="light"] {
  --icon-gradient-1: var(--icon-gradient-1-light);
  --icon-gradient-2: var(--icon-gradient-2-light);
  --icon-gradient-3: var(--icon-gradient-3-light);
+ --icon-gradient-4: var(--icon-gradient-4-light);
  --icon-bg-done: var(--icon-bg-done-light);
  --icon-primary: var(--icon-primary-light);
  --icon-accent-light: var(--icon-accent-light-color-light);
@@ -128,7 +129,7 @@ html[data-theme="light"] {
     --sidebar-bg: var(--sidebar);
     --sidebar-item-hover-bg: var(--sidebar-hover);
     --sidebar-item-active-bg: var(--sidebar-active-bg);
-    --sidebar-item-active-icon: var(--sidebar-active-icon);
+    --sidebar-item-active-icon: var(--primary-color);
     /* border color */
     --divider-border: var(--separator);
     /* Chat */
@@ -158,8 +159,9 @@ html[data-theme="light"] {
   --icon-gradient-1: var(--icon-gradient-1-light);
   --icon-gradient-2: var(--icon-gradient-2-light);
   --icon-gradient-3: var(--icon-gradient-3-light);
+  --icon-gradient-4: var(--icon-gradient-4-light);
   --icon-bg-done: var(--icon-bg-done-light);
   --icon-primary: var(--icon-primary-light);
- --icon-accent-light: var(--icon-accent-light-color-light);
+  --icon-accent-light: var(--icon-accent-light-color-light);
   } 
 }

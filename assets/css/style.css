@@ -19362,7 +19362,7 @@ p#netsapiensDeviceId {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.small-header-btn{
+.small-header-btn {
     background: var(--call-btn-bg);
     border-radius: 50%;
     width: 25px;
@@ -19373,6 +19373,8 @@ p#netsapiensDeviceId {
     border: none;
     display: block !important;
     margin-left: 10px;
+    align-items: center !important;
+    padding: 5px 3px;
 }
 
 [dir="rtl"] .small-header-btn{

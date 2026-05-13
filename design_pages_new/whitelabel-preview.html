@@ -152,6 +152,8 @@
                 <option value="No_Favorites_Contacts _Found.html">No Favorites Contacts Found</option>
                 <option value="checkmail.html">Check Mail</option>
                 <option value="startchat.html">Start Chat</option>
+                <option value="clearhostory.html">Clear History</option>
+                <option value="logout.html">Logout</option>
                 </select>
                 <button class="btn btn-primary" style="flex-shrink:0" onclick="loadPage('logo-gallery.html')">Image Gallery</button>
             </div>
@@ -549,13 +551,29 @@
                     if (val) {
                         const vars = new Set(item.gradientVars || [item.var]);
                         vars.forEach(v => { lines.push(`${v}: ${val};`); valueByVar[v] = val; });
+
+                        // Sync individual stop vars so icon SVGs that chain via
+                        // --icon-gradient-X-light → var(--gradient-X-color) also update.
+                        const stopColors = getGradientColorsFromWrapper(wrapper);
+                        const isLight = currentTheme === 'light';
+                        const stopVarNames = isLight
+                            ? ['--gradient-1-color', '--gradient-2-color', '--gradient-3-color', '--gradient-4-color']
+                            : ['--gradient-1-color-dark', '--gradient-2-color-dark', '--gradient-3-color-dark', '--gradient-4-color-dark'];
+                        const iconVarNames = isLight
+                            ? ['--icon-gradient-1-light', '--icon-gradient-2-light', '--icon-gradient-3-light', '--icon-gradient-4-light']
+                            : ['--icon-gradient-1-dark', '--icon-gradient-2-dark', '--icon-gradient-3-dark', '--icon-gradient-4-dark'];
+                        stopColors.forEach((col, i) => {
+                            if (!col) return;
+                            if (stopVarNames[i]) { lines.push(`${stopVarNames[i]}: ${col};`); valueByVar[stopVarNames[i]] = col; }
+                            if (iconVarNames[i]) { lines.push(`${iconVarNames[i]}: ${col};`); valueByVar[iconVarNames[i]] = col; }
+                        });
                     }
                 } else {
                     const input = wrapper.querySelector('input[type="text"]') || wrapper.querySelector('input[type="color"]');
                     const val = input ? input.value : item.value;
                     if (val) {
                         valueByVar[item.var] = val;
-                        /* Light: defer --input-icon so it can stay var(--primary-color) when colors match (fixes SVG fill="var(--input-icon)" not updating after Primary change). */
+                        /* Light: defer --input-icon so it can stay var(--primary-color) when colors match. */
                         if (currentTheme === 'light' && item.var === '--input-icon') continue;
                         lines.push(`${item.var}: ${val};`);
                     }
@@ -656,6 +674,19 @@
             const angle = wrapper?.dataset?.angle || '270deg';
             return colors.length ? buildGradient(colors, angle) : null;
         }
+
+        /** Returns individual stop hex colors from a gradient wrapper (same order as the swatches). */
+        function getGradientColorsFromWrapper(wrapper) {
+            const items = wrapper?.querySelectorAll('.gradient-color-item');
+            if (!items?.length) return [];
+            const colors = [];
+            items.forEach(it => {
+                const inp = it.querySelector('input[type="color"]') || it.querySelector('input[type="text"]');
+                if (inp?.value) colors.push(toHex6(inp.value) || inp.value);
+            });
+            return colors;
+        }
+
         function injectUploadedStyle() {
             const doc = getFrameDoc();
             if (!doc || !doc.documentElement || !uploadedCssContent) return;
@@ -1041,6 +1072,15 @@
             });
         }
         
+        /* Resolve var(--xxx) references in a CSS value string using a parsed-vars dictionary */
+        function resolveVars(val, parsedVars, depth) {
+            if (!val || (depth || 0) > 8) return val;
+            return val.replace(/var\(\s*(--[\w-]+)\s*\)/g, function(_, v) {
+                const resolved = parsedVars[v];
+                return resolved ? resolveVars(resolved.trim(), parsedVars, (depth || 0) + 1) : _;
+            });
+        }
+
         /* Parse CSS variable values from uploaded global.css and populate all color picker inputs */
         function importFromCssText(cssText) {
             if (!cssText) return;
@@ -1062,7 +1102,9 @@
                     const wrapper = document.querySelector(`[data-var="${item.var}"][data-mode="${mode}"]`);
                     if (!wrapper) continue;
                     if (item.type === 'gradient') {
-                        const colors = parseGradientColors(val);
+                        // Resolve var() references so #hex values are extractable
+                        const resolvedVal = resolveVars(val, parsed);
+                        const colors = parseGradientColors(resolvedVal);
                         const colorInputs = wrapper.querySelectorAll('input[type="color"]');
                         const textInputs = wrapper.querySelectorAll('.gradient-color-item input[type="text"]');
                         const swatchBgs = wrapper.querySelectorAll('.gradient-color-item .color-swatch-bg');
@@ -1072,7 +1114,7 @@
                             if (textInputs[i]) textInputs[i].value = h;
                             if (swatchBgs[i] && isHexColor(h)) swatchBgs[i].style.background = h;
                         });
-                        const angleMatch = val.match(/(\d+(?:\.\d+)?deg)/);
+                        const angleMatch = resolvedVal.match(/(\d+(?:\.\d+)?deg)/);
                         if (angleMatch) wrapper.dataset.angle = angleMatch[1];
                     } else {
                         const colorIn = wrapper.querySelector('input[type="color"]');
@@ -1162,7 +1204,15 @@
                     }
                 });
             }
-            if (!restoredClientState) applyTheme('light');
+            if (!restoredClientState) {
+                // Auto-populate swatches from the actual global.css so any saved
+                // changes to CSS variables (e.g. --gradient-1-color) are reflected
+                // immediately without a manual upload.
+                fetch('../assets/css/global.css')
+                    .then(function(r) { return r.text(); })
+                    .then(function(css) { importFromCssText(css); applyTheme('light'); })
+                    .catch(function() { applyTheme('light'); });
+            }
             scalePreviewWindow();
             const themePanel = document.querySelector('.theme-panel');
             if (themePanel) {

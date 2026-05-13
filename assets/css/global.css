@@ -61,11 +61,10 @@
   --curves-bg-image: url(../img-new/curves.svg);
   --new-login-btn-bg-color-light: #614b98; /* For Tragfone and all other clients, this value is the same as --primary-color. Only TCL uses --secondary-color. */
 
-  --icon-gradient-1-light: var(--gradient-1-color); /* --gradient-color-1 */
-
-  --icon-gradient-2-light: var(--gradient-2-color); /* --gradient-color-2 */
-
-  --icon-gradient-3-light: var(--gradient-3-color); /* --gradient-color-3 */
+  --icon-gradient-1-light: var(--gradient-1-color);
+  --icon-gradient-2-light: var(--gradient-2-color);
+  --icon-gradient-3-light: var(--gradient-3-color);
+  --icon-gradient-4-light: var(--gradient-4-color);
 
   --icon-primary-light: var(--primary-color); /* desk primary color */
 
@@ -136,9 +135,10 @@
   --curves-bg-image-dark: url(../img-new/curves.svg);
   --new-login-btn-bg-color-dark: #3F3D52; /* For Tragfone and all other clients, this value is the same as --primary-color-dark. Only TCL uses --secondary-color-dark. */
 
-  --icon-gradient-1-dark: var(--white-color);
-  --icon-gradient-2-dark: var(--white-color);
-  --icon-gradient-3-dark: var(--white-color);
+  --icon-gradient-1-dark: var(--white-color-dark);
+  --icon-gradient-2-dark: var(--white-color-dark);
+  --icon-gradient-3-dark: var(--white-color-dark);
+  --icon-gradient-4-dark: var(--white-color-dark);
   --icon-primary-dark: var(--icon-primary-light);
   --icon-accent-light-color-dark: var(--icon-accent-light-color-light);
   --icon-bg-done-dark: #D9D9D9;
