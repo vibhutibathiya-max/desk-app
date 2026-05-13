@@ -72,9 +72,10 @@ html[data-theme="dark"] {
   --recording-orange-color-text: var(--recording-orange-color-text-dark);
   --dial-pad-transparent-bg: rgba(29, 28, 49, 0.9);
   /* --- Icon Theme Mapping --- */
-  --icon-gradient-1: var(--icon-gradient-1-dark);
-  --icon-gradient-2: var(--icon-gradient-2-dark);
-  --icon-gradient-3: var(--icon-gradient-3-dark);
+  --icon-gradient-1: var(--white-color);
+  --icon-gradient-2: var(--white-color);
+  --icon-gradient-3: var(--white-color);
+  --icon-gradient-4: var(--white-color);
   --icon-bg-done: var(--icon-bg-done-dark);
   --icon-primary: var(--icon-primary-dark);
   --icon-accent-light: var(--icon-accent-light-color-dark);
@@ -158,9 +159,10 @@ html[data-theme="dark"] {
 
 
      /* --- Icon Theme Mapping --- */
-  --icon-gradient-1: var(--icon-gradient-1-dark);
-  --icon-gradient-2: var(--icon-gradient-2-dark);
-  --icon-gradient-3: var(--icon-gradient-3-dark);
+  --icon-gradient-1: var(--white-color);
+  --icon-gradient-2: var(--white-color);
+  --icon-gradient-3: var(--white-color);
+  --icon-gradient-4: var(--white-color);
   --icon-bg-done: var(--icon-bg-done-dark);
   --icon-primary: var(--icon-primary-dark);
   --icon-accent-light: var(--icon-accent-light-color-dark);
