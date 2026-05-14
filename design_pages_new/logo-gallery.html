@@ -609,11 +609,12 @@
             if (!file || idx == null || idx < 0 || idx >= logos.length) { e.target.value = ''; return; }
             const slot   = logos[idx]?.slot || logos[idx]?.name;
             let validationError = null;
-            try {
-                validationError = await validateLogoDimensions(file, slot);
-            } catch (err) {
-                validationError = err?.message || 'Unable to validate uploaded logo dimensions.';
-            }
+            // Temporarily disabled: logo size validation.
+            // try {
+            //     validationError = await validateLogoDimensions(file, slot);
+            // } catch (err) {
+            //     validationError = err?.message || 'Unable to validate uploaded logo dimensions.';
+            // }
             if (validationError) {
                 alert(validationError);
                 e.target.value = '';
@@ -678,11 +679,12 @@
                 if (idx < 0) continue;
                 const slot = logos[idx]?.slot || logos[idx]?.name;
                 let validationError = null;
-                try {
-                    validationError = await validateLogoDimensions(file, slot);
-                } catch (err) {
-                    validationError = err?.message || 'Unable to validate logo dimensions during folder upload.';
-                }
+                // Temporarily disabled: logo size validation.
+                // try {
+                //     validationError = await validateLogoDimensions(file, slot);
+                // } catch (err) {
+                //     validationError = err?.message || 'Unable to validate logo dimensions during folder upload.';
+                // }
                 if (validationError) {
                     alert(validationError);
                     continue;
