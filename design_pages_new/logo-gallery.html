@@ -139,6 +139,9 @@
             <!-- Logo images -->
             <div class="section-block">
                 <h2 class="section-heading">Logo Images</h2>
+                <p style="font-size:14px;color:#ffffff;margin-bottom:14px">
+                    Allowed logo sizes: logo.svg (129 x 43), logo-header.svg (42 x 50), logo-white.svg (294 x 98).
+                </p>
                 <div id="logoGrid" class="logo-grid">
                     <div id="emptyState" class="empty-state">
                         <p>Logos load from the logo folder. Use "Upload Folder" to replace by filename, or "Upload" on each card.</p>
@@ -150,7 +153,7 @@
             <div class="section-block">
                 <h2 class="section-heading">Device / Laptop Image</h2>
                 <p style="font-size:14px;color:#ffffff;margin-bottom:14px">
-                    Used on the Login &amp; Auto-Startup screens. Separate light and dark variants are supported, and the uploaded file size should be 552*440px.
+                    Used on the Login &amp; Auto-Startup screens. Separate light and dark variants are supported, and the uploaded file size must be 552 x 440px.
                 </p>
                 <div id="deviceGrid" class="logo-grid"></div>
             </div>
@@ -182,8 +185,14 @@
             'logo-white.svg':  'public/app-icon/logo/logo-white.svg',
         };
         const PREVIEW_STORAGE_PREFIX = 'preview-asset:';
+        const REQUIRED_LOGO_DIMS = {
+            'logo.svg': { width: 129, height: 43 },
+            'logo-header.svg': { width: 42, height: 50 },
+            'logo-white.svg': { width: 294, height: 98 }
+        };
 
         /* ===== DEVICE IMAGE CONFIG ===== */
+        const REQUIRED_DEVICE_DIMENSIONS = { width: 552, height: 440 };
         const DEVICE_IMAGES = [
             {
                 slot:            'right-side-vector.svg',
@@ -205,6 +214,41 @@
         const folderInput      = document.getElementById('folderInput');
         const deviceLightInput = document.getElementById('deviceLightInput');
         const deviceDarkInput  = document.getElementById('deviceDarkInput');
+
+        function getDimensions(file) {
+            return new Promise((resolve, reject) => {
+                const imageUrl = URL.createObjectURL(file);
+                const img = new Image();
+                img.onload = () => {
+                    const dimensions = { width: img.naturalWidth, height: img.naturalHeight };
+                    URL.revokeObjectURL(imageUrl);
+                    resolve(dimensions);
+                };
+                img.onerror = () => {
+                    URL.revokeObjectURL(imageUrl);
+                    reject(new Error('Unable to read image dimensions.'));
+                };
+                img.src = imageUrl;
+            });
+        }
+
+        async function validateLogoDimensions(file, slot) {
+            const required = REQUIRED_LOGO_DIMS[slot];
+            if (!required) return null;
+            const actual = await getDimensions(file);
+            if (actual.width !== required.width || actual.height !== required.height) {
+                return `Invalid size for ${slot}. Allowed size is ${required.width} x ${required.height}px only.`;
+            }
+            return null;
+        }
+
+        async function validateDeviceDimensions(file) {
+            const actual = await getDimensions(file);
+            if (actual.width !== REQUIRED_DEVICE_DIMENSIONS.width || actual.height !== REQUIRED_DEVICE_DIMENSIONS.height) {
+                return `Invalid size for device/laptop image. Allowed size is ${REQUIRED_DEVICE_DIMENSIONS.width} x ${REQUIRED_DEVICE_DIMENSIONS.height}px only.`;
+            }
+            return null;
+        }
 
         /* ===== LOGO HELPERS ===== */
         function addLogo(data) {
@@ -559,11 +603,23 @@
         });
 
         /* ===== FILE INPUT HANDLERS ===== */
-        fileInput.addEventListener('change', (e) => {
+        fileInput.addEventListener('change', async (e) => {
             const idx  = fileInput.dataset.uploadIndex != null ? parseInt(fileInput.dataset.uploadIndex, 10) : null;
             const file = e.target.files?.[0];
             if (!file || idx == null || idx < 0 || idx >= logos.length) { e.target.value = ''; return; }
             const slot   = logos[idx]?.slot || logos[idx]?.name;
+            let validationError = null;
+            try {
+                validationError = await validateLogoDimensions(file, slot);
+            } catch (err) {
+                validationError = err?.message || 'Unable to validate uploaded logo dimensions.';
+            }
+            if (validationError) {
+                alert(validationError);
+                e.target.value = '';
+                delete fileInput.dataset.uploadIndex;
+                return;
+            }
             const sizeKB = (file.size/1024).toFixed(2)+' KB';
             const reader = new FileReader();
             reader.onload = () => {
@@ -579,10 +635,21 @@
             delete fileInput.dataset.uploadIndex;
         });
 
-        function handleDeviceUpload(input, mode) {
+        async function handleDeviceUpload(input, mode) {
             const idx  = input.dataset.deviceIdx != null ? parseInt(input.dataset.deviceIdx, 10) : null;
             const file = input.files?.[0];
             if (!file || idx == null || !DEVICE_IMAGES[idx]) { input.value = ''; return; }
+            let validationError = null;
+            try {
+                validationError = await validateDeviceDimensions(file);
+            } catch (err) {
+                validationError = err?.message || 'Unable to validate uploaded device image dimensions.';
+            }
+            if (validationError) {
+                alert(validationError);
+                input.value = '';
+                return;
+            }
             const cfg    = DEVICE_IMAGES[idx];
             const sizeKB = (file.size/1024).toFixed(2)+' KB';
             const reader = new FileReader();
@@ -603,12 +670,23 @@
 
         /* ===== FOLDER UPLOAD ===== */
         document.getElementById('btnUploadFolder').addEventListener('click', () => folderInput.click());
-        folderInput.addEventListener('change', (e) => {
-            Array.from(e.target.files || []).forEach(file => {
-                if (!/\.(svg|png|jpg|jpeg|gif|webp)$/i.test(file.name)) return;
+        folderInput.addEventListener('change', async (e) => {
+            const files = Array.from(e.target.files || []);
+            for (const file of files) {
+                if (!/\.(svg|png|jpg|jpeg|gif|webp)$/i.test(file.name)) continue;
                 const idx = logos.findIndex(l => (l.slot || l.name) === file.name);
-                if (idx < 0) return;
-                const slot   = logos[idx]?.slot || logos[idx]?.name;
+                if (idx < 0) continue;
+                const slot = logos[idx]?.slot || logos[idx]?.name;
+                let validationError = null;
+                try {
+                    validationError = await validateLogoDimensions(file, slot);
+                } catch (err) {
+                    validationError = err?.message || 'Unable to validate logo dimensions during folder upload.';
+                }
+                if (validationError) {
+                    alert(validationError);
+                    continue;
+                }
                 const sizeKB = (file.size/1024).toFixed(2)+' KB';
                 const reader = new FileReader();
                 reader.onload = () => {
@@ -620,7 +698,7 @@
                     img.src = url;
                 };
                 reader.readAsDataURL(file);
-            });
+            }
             e.target.value = '';
         });
 
