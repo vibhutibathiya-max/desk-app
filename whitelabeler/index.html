@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content="Tragofone — mobile communications app" />
+    <meta name="theme-color" content="#5834D3" />
+    <title>Tragofone</title>
+
+    <script src="js/theme/theme.defaults.js"></script>
+    <script src="js/theme/theme.js"></script>
+    <script src="js/theme/ThemeManager.js"></script>
+    <script src="js/theme/theme-loader.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Nunito+Sans:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/page.css" />
+    <link rel="stylesheet" href="css/image-gallery.css" />
+  </head>
+  <body>
+    <div class="preview-chrome">
+      <nav class="screen-nav" aria-label="Screen navigation">
+        <label class="screen-nav__label" for="screen-select">Screens</label>
+        <select class="screen-nav__select" id="screen-select" name="screen" disabled>
+          <option value="splash" selected>Loading screens…</option>
+        </select>
+      </nav>
+    </div>
+
+    <div class="preview-shell">
+      <div class="device-viewport" id="device-viewport" aria-live="polite"></div>
+    </div>
+
+    <script src="node_modules/jszip/dist/jszip.min.js" defer></script>
+    <script src="js/assets/export-config.js"></script>
+    <script src="js/assets/ios-asset-config.js"></script>
+    <script src="js/assets/asset-registry.js" defer></script>
+    <script src="js/assets/ios-asset-manager.js" defer></script>
+    <script src="js/assets/asset-manager.js" defer></script>
+    <script src="js/assets/asset-resolver.js" defer></script>
+    <script src="js/assets/export-theme-package.js" defer></script>
+    <script src="js/assets/package-export.js" defer></script>
+    <script src="js/assets/asset-export.js" defer></script>
+    <script src="js/assets/image-gallery.js" defer></script>
+    <script src="js/theme/rn-theme-template.js" defer></script>
+    <script src="js/theme/export-theme.js" defer></script>
+    <script src="js/theme/theme-file-parser.js" defer></script>
+    <script src="js/theme/theme-settings.js" defer></script>
+    <script src="js/screens-manifest.js"></script>
+    <script src="js/screen-loader.js" defer></script>
+    <script src="js/screen-nav.js" defer></script>
+  </body>
+</html>

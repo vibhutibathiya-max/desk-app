@@ -1,0 +1,12 @@
+/**
+ * Splash screen — page-specific overrides
+ */
+
+.splash .app-screen__body {
+  padding-block-end: var(--space-12);
+}
+
+.splash .app-screen__footer {
+  flex-shrink: 0;
+  padding-block-end: 7.5rem; /* ~120px from bottom of frame */
+}

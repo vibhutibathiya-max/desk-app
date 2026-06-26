@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>com.transistorsoft.fetch</string>
+		<string>com.transistorsoft.tragofone</string>
+	</array>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>$(APP_DISPLAY_NAME)</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(APP_DISPLAY_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>UIFileSharingEnabled</key>
+	<true/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Need to access camera for video call and QR code scanning.</string>
+	<key>NSContactsUsageDescription</key>
+	<string>This information will be use for Audio and Video calling. Your contacts are neighter stored on server nor shared with any thirdparty. </string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>FaceID Permission need to access for open app lock. </string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Need to access location for share your current location.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app needs to access your microphone for audio call.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Allow photo access to share your photos to set profile picture</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Allow photo access to share your photos to set profile picture</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>AntDesign.ttf</string>
+		<string>Entypo.ttf</string>
+		<string>EvilIcons.ttf</string>
+		<string>Feather.ttf</string>
+		<string>FontAwesome.ttf</string>
+		<string>FontAwesome5_Brands.ttf</string>
+		<string>FontAwesome5_Regular.ttf</string>
+		<string>FontAwesome5_Solid.ttf</string>
+		<string>Foundation.ttf</string>
+		<string>Ionicons.ttf</string>
+		<string>MaterialIcons.ttf</string>
+		<string>MaterialCommunityIcons.ttf</string>
+		<string>SimpleLineIcons.ttf</string>
+		<string>Octicons.ttf</string>
+		<string>Zocial.ttf</string>
+		<string>ProductSans-Bold.ttf</string>
+		<string>ProductSans-Light.ttf</string>
+		<string>ProductSans-Regular.ttf</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>processing</string>
+		<string>remote-notification</string>
+		<string>voip</string>
+		<string>audio</string>
+	</array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>mailto</string>
+		<string>message</string>
+		<string>readdle-spark</string>
+		<string>airmail</string>
+		<string>ms-outlook</string>
+		<string>googlegmail</string>
+		<string>inbox-gmail</string>
+		<string>ymail</string>
+		<string>superhuman</string>
+		<string>yandexmail</string>
+		<string>fastmail</string>
+		<string>protonmail</string>
+		<string>szn-email</string>
+	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen.xib</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>This app requires access to media library features for audio playback support.</string>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>armv7</string>
+	</array>
+	<key>UIRequiresFullScreen</key>
+	<true/>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Need to access Bluetooth devices to communicate in call</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Need to access Bluetooth devices to communicate in call</string>
+	<key>UIUserInterfaceStyle</key>
+	<string>Automatic</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>sharedattachmentscheme</string>
+			</array>
+		</dict>
+	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+	<dict>
+		<key>CFBundleURLSchemes</key>
+		<array>
+		<string>tragofonesso</string> <!-- This needs to be changed for each tenet and need to be taken from App PCS Support Details Sheet  -->
+		<string>tragofonecommands</string>
+		</array>
+	</dict>
+	</array>
+  <key>NSLocalNetworkUsageDescription</key>
+  <string>$(PRODUCT_NAME) uses local network to discover best transmission path for audio and video.</string>
+</dict>
+</plist>

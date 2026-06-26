@@ -1,0 +1,125 @@
+<!-- Login -->
+<section
+  class="screen-panel login"
+  data-screen="login"
+  aria-label="Login screen"
+  hidden
+>
+  <main class="app-screen app-screen--login" role="main" aria-labelledby="login-title">
+    <h1 id="login-title" class="visually-hidden">Login</h1>
+
+    <img
+      class="login-logo"
+      data-asset-key="LOGIN_LOGO"
+      src="assets/images/login/logo.png"
+      alt="Tragofone"
+      width="273"
+      height="89"
+      decoding="async"
+    />
+
+    <div class="login-panel-shell">
+      <section class="login-panel" aria-label="Login form">
+        <h2 class="login-form__title" aria-hidden="true">Login</h2>
+        <p class="login-form__subtitle" aria-hidden="true">Login with username and password</p>
+
+        <form class="login-form" action="#" method="post" novalidate>
+          <div class="login-field login-field--username">
+            <label class="visually-hidden" for="login-username">Username</label>
+            <img
+              class="login-field__icon login-field__icon--user"
+              src="assets/icons/login/user.png"
+              alt=""
+              width="21"
+              height="21"
+              aria-hidden="true"
+            />
+            <input
+              class="login-field__control"
+              id="login-username"
+              name="username"
+              type="text"
+              placeholder="Username"
+              autocomplete="username"
+            />
+          </div>
+
+          <div class="login-field login-field--password">
+            <label class="visually-hidden" for="login-password">Password</label>
+            <img
+              class="login-field__icon login-field__icon--lock"
+              src="assets/icons/login/lock.png"
+              alt=""
+              width="21"
+              height="27"
+              aria-hidden="true"
+            />
+            <input
+              class="login-field__control"
+              id="login-password"
+              name="password"
+              type="password"
+              placeholder="Password"
+              autocomplete="current-password"
+            />
+            <button
+              type="button"
+              class="login-field__toggle"
+              aria-label="Show password"
+              aria-pressed="false"
+            >
+              <img
+                class="login-field__toggle-icon"
+                src="assets/icons/login/eye.png"
+                alt=""
+                width="20"
+                height="14"
+                aria-hidden="true"
+              />
+            </button>
+          </div>
+
+          <button type="submit" class="btn btn--primary login-form__submit">Login</button>
+
+          <p class="login-forgot">
+            Forgot Password?
+            <a class="link link--accent" href="#">Click Here</a>
+          </p>
+
+          <button type="button" class="btn btn--secondary login-form__otp">
+            <span class="login-form__otp-icon-wrap" aria-hidden="true">
+              <img
+                class="login-form__otp-icon"
+                src="assets/icons/login/key.png"
+                alt=""
+                width="18.146"
+                height="9.898"
+              />
+            </span>
+            Login with OTP
+          </button>
+
+          <button type="button" class="btn btn--secondary login-form__signup">Sign Up</button>
+        </form>
+      </section>
+    </div>
+
+    <p class="login-powered">
+      <span class="login-powered__label">Powered by</span>
+      <span class="login-powered__brand">Tragofone</span>
+    </p>
+
+    <div class="app-screen__corner" aria-hidden="true">
+      <span class="app-badge">
+        <img
+          class="app-badge__icon"
+          data-asset-key="APP_BADGE"
+          src="assets/icons/app-badge.svg"
+          alt=""
+          width="24"
+          height="24"
+        />
+      </span>
+    </div>
+  </main>
+</section>

@@ -1,0 +1,63 @@
+<!-- Incoming Call -->
+<section
+  class="screen-panel incoming-call"
+  data-screen="incoming-call"
+  aria-label="Incoming call screen"
+  hidden
+>
+  <main class="app-screen app-screen--call" role="main" aria-labelledby="incoming-call-title">
+    <h1 id="incoming-call-title" class="visually-hidden">Incoming call</h1>
+
+    <p class="call-status">Incoming call from</p>
+
+    <div class="call-avatar" aria-hidden="true">
+      <span class="call-avatar__initials">AL</span>
+    </div>
+
+    <div class="call-contact">
+      <p class="call-contact__name">Andrew Lewis</p>
+      <p class="call-contact__detail">8989233455</p>
+    </div>
+
+    <div class="incoming-call-actions" role="group" aria-label="Incoming call actions">
+      <button type="button" class="incoming-action" aria-label="Hold and accept call">
+        <span class="incoming-action__circle">
+          <img
+            class="incoming-action__icon"
+            src="assets/images/call/icon-call-green.png"
+            alt=""
+            width="28"
+            height="28"
+          />
+          <span class="incoming-action__badge incoming-action__badge--pause" aria-hidden="true"></span>
+        </span>
+        <span class="incoming-action__label">Hold &amp; Accept</span>
+      </button>
+
+      <button type="button" class="incoming-action" aria-label="Decline call">
+        <img
+          class="incoming-action__decline-icon"
+          src="assets/images/call/end-call.png"
+          alt=""
+          width="68"
+          height="68"
+        />
+        <span class="incoming-action__label">Decline</span>
+      </button>
+
+      <button type="button" class="incoming-action" aria-label="End and accept call">
+        <span class="incoming-action__circle">
+          <img
+            class="incoming-action__icon"
+            src="assets/images/call/icon-call-green.png"
+            alt=""
+            width="28"
+            height="28"
+          />
+          <span class="incoming-action__badge incoming-action__badge--decline" aria-hidden="true"></span>
+        </span>
+        <span class="incoming-action__label">End &amp; Accept</span>
+      </button>
+    </div>
+  </main>
+</section>

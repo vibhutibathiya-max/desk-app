@@ -1,0 +1,81 @@
+<!-- MMS — MP3 -->
+<section
+  class="screen-panel mms-chat mms-chat--mp3"
+  data-screen="mms-mp3"
+  aria-label="MMS audio sending with Steve"
+  hidden
+>
+  <main class="app-screen app-screen--home app-screen--mms-chat" role="main" aria-labelledby="mms-mp3-title">
+    <h1 id="mms-mp3-title" class="visually-hidden">Steve</h1>
+
+    <button type="button" class="mms-chat__back" aria-label="Go back">
+      <img class="mms-chat__back-icon" src="assets/icons/sms/back.svg" alt="" width="23" height="21" />
+    </button>
+
+    <p class="mms-chat__heading" aria-hidden="true">Steve</p>
+
+    <button type="button" class="mms-chat__search" aria-label="Search messages">
+      <img class="mms-chat__search-icon" src="assets/icons/chats-search.png" alt="" width="24" height="24" />
+    </button>
+
+    <div class="mms-panel-shell">
+      <section class="mms-panel" aria-label="Message thread">
+        <div class="sms-chat-thread">
+          <time class="sms-chat-timestamp sms-chat-timestamp--incoming" datetime="2025-07-23T20:38">
+            Fri, July 23, 08:38 PM
+          </time>
+          <p class="sms-chat-bubble sms-chat-bubble--incoming sms-chat-bubble--incoming-1">
+            Hey men you should go for interview and give your Best on the same, All the Best!
+          </p>
+
+          <time class="sms-chat-timestamp sms-chat-timestamp--incoming" datetime="2025-07-28T20:38">
+            Wed, 28 July , 08:38 PM
+          </time>
+          <p class="sms-chat-bubble sms-chat-bubble--incoming sms-chat-bubble--incoming-2">
+            How abut the meeting tomorrow?
+          </p>
+
+          <time class="sms-chat-timestamp sms-chat-timestamp--outgoing" datetime="2025-07-28T20:40">
+            Wed, 28 July , 08:40 PM
+          </time>
+          <p class="sms-chat-bubble sms-chat-bubble--outgoing">
+            How abut the meeting tomorrow?
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <div class="mms-composer">
+      <div class="mms-composer__preview mms-composer__preview--audio">
+        <button type="button" class="mms-composer__remove" aria-label="Remove attachment">×</button>
+        <button type="button" class="mms-audio__play" aria-label="Play audio">
+          <img
+            class="mms-audio__play-icon"
+            src="assets/icons/mms/play.png"
+            alt=""
+            width="20"
+            height="20"
+          />
+        </button>
+        <span class="mms-audio__time">0:00 / 0:18</span>
+        <div class="mms-audio__track" aria-hidden="true">
+          <div class="mms-audio__progress"></div>
+        </div>
+        <img
+          class="mms-audio__volume-icon"
+          src="assets/icons/mms/volume.png"
+          alt=""
+          width="19"
+          height="16"
+          aria-hidden="true"
+        />
+      </div>
+      <button type="button" class="mms-composer__attach" aria-label="Attach file">
+        <img class="mms-composer__attach-icon" src="assets/icons/sms/attach.png" alt="" width="14" height="23" />
+      </button>
+      <button type="button" class="mms-composer__send" aria-label="Send message">
+        <img class="mms-composer__send-icon" src="assets/icons/sms/send.png" alt="" width="28" height="28" />
+      </button>
+    </div>
+  </main>
+</section>

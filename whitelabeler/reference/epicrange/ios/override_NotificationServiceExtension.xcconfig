@@ -1,0 +1,15 @@
+//
+//  override_NotificationServiceExtension.xcconfig
+//  TragofoneNew
+//
+//  Created by Krupanshu Sharma on 28/06/25.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+PRODUCT_BUNDLE_IDENTIFIER = com.tragofone.app.NotificationServiceExtension
+PRODUCT_NAME = NotificationServiceExtension
+MARKETING_VERSION = 5.13.12
+CURRENT_PROJECT_VERSION = 1
+APP_GROUP = group.com.tragofone.app

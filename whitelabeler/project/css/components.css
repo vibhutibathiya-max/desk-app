@@ -1,0 +1,61 @@
+/**
+ * Reusable UI components
+ */
+
+/* -------------------------------------------------------------------------- */
+/* BrandLogo — primary mark (icon only)                                       */
+/* -------------------------------------------------------------------------- */
+
+.brand-logo {
+  width: var(--brand-logo-size);
+  height: auto;
+  color: var(--color-foreground-on-brand);
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* -------------------------------------------------------------------------- */
+/* BrandWordmark — horizontal lockup (icon + text)                            */
+/* -------------------------------------------------------------------------- */
+
+.brand-wordmark {
+  width: var(--brand-wordmark-width);
+  height: auto;
+  color: var(--color-foreground-on-brand);
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* -------------------------------------------------------------------------- */
+/* AppBadge — small corner utility indicator                                  */
+/* -------------------------------------------------------------------------- */
+
+.app-badge {
+  display: block;
+  width: var(--app-badge-size);
+  height: var(--app-badge-size);
+  color: var(--color-foreground-muted-on-brand);
+}
+
+.app-badge__icon {
+  width: 100%;
+  height: 100%;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Visually hidden — accessible text for screen readers                       */
+/* -------------------------------------------------------------------------- */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

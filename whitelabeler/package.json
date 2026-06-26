@@ -1,0 +1,13 @@
+{
+  "name": "tragofone-screens",
+  "private": true,
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "node server.mjs 8080",
+    "generate:export-manifest": "node scripts/generate-export-manifest.mjs"
+  },
+  "dependencies": {
+    "jszip": "^3.10.1",
+    "sharp": "^0.35.2"
+  }
+}

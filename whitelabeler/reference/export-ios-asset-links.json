@@ -1,0 +1,7 @@
+{
+  "IOS_APP_ICON": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset",
+  "IOS_APP_CALL_KIT_ICON": "ios/TragofoneNew/Images.xcassets/appCallKitIcon.imageset/appCallKitIcon.png",
+  "IOS_GRADIENT_IOS": "ios/TragofoneNew/Images.xcassets/gradient_ios.imageset/gradient_ios.png",
+  "IOS_IMAGE_NAME": "ios/TragofoneNew/Images.xcassets/imageName.imageset/imageName.png",
+  "IOS_LOGO_WHITE_BG": "ios/TragofoneNew/Images.xcassets/logo_white_bg.imageset/logo_white_bg.png"
+}

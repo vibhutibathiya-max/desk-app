@@ -1,0 +1,113 @@
+<!-- Ongoing Call -->
+<section
+  class="screen-panel ongoing-call"
+  data-screen="ongoing-call"
+  aria-label="Ongoing call screen"
+  hidden
+>
+  <main class="app-screen app-screen--call" role="main" aria-labelledby="ongoing-call-title">
+    <h1 id="ongoing-call-title" class="visually-hidden">Ongoing call</h1>
+
+    <div class="ongoing-call__header">
+      <div class="call-avatar call-avatar--inline" aria-hidden="true">
+        <span class="call-avatar__initials">AL</span>
+      </div>
+
+      <div class="call-contact call-contact--inline">
+        <p class="call-contact__name">Andrew Lewis</p>
+        <p class="call-contact__detail">811</p>
+        <p class="call-contact__timer" aria-live="polite">02:00</p>
+      </div>
+    </div>
+
+    <div class="call-controls" role="group" aria-label="Call controls">
+      <div class="call-control call-control--mute">
+        <button type="button" class="call-control__btn" aria-label="Mute">
+          <img
+            class="call-control__icon"
+            src="assets/images/call/control-mute.png"
+            alt=""
+            width="107"
+            height="107"
+          />
+        </button>
+        <span class="call-control__label">Mute</span>
+      </div>
+
+      <div class="call-control call-control--keypad">
+        <button type="button" class="call-control__btn" aria-label="Keypad">
+          <img
+            class="call-control__icon"
+            src="assets/images/call/control-keypad.png"
+            alt=""
+            width="107"
+            height="107"
+          />
+        </button>
+        <span class="call-control__label">Keypad</span>
+      </div>
+
+      <div class="call-control call-control--speaker">
+        <button type="button" class="call-control__btn" aria-label="Speaker">
+          <img
+            class="call-control__icon"
+            src="assets/images/call/control-speaker.png"
+            alt=""
+            width="107"
+            height="107"
+          />
+        </button>
+        <span class="call-control__label">Speaker</span>
+      </div>
+
+      <div class="call-control call-control--transfer">
+        <button type="button" class="call-control__btn" aria-label="Transfer">
+          <img
+            class="call-control__icon"
+            src="assets/images/call/control-transfer.png"
+            alt=""
+            width="107"
+            height="107"
+          />
+        </button>
+        <span class="call-control__label">Transfer</span>
+      </div>
+
+      <div class="call-control call-control--hold">
+        <button type="button" class="call-control__btn" aria-label="Hold">
+          <img
+            class="call-control__icon"
+            src="assets/images/call/control-hold.png"
+            alt=""
+            width="107"
+            height="107"
+          />
+        </button>
+        <span class="call-control__label">Hold</span>
+      </div>
+
+      <div class="call-control call-control--conference">
+        <button type="button" class="call-control__btn" aria-label="Conference">
+          <img
+            class="call-control__icon"
+            src="assets/images/call/control-conference.png"
+            alt=""
+            width="107"
+            height="107"
+          />
+        </button>
+        <span class="call-control__label">Conference</span>
+      </div>
+    </div>
+
+    <button type="button" class="end-call-btn" aria-label="End call">
+      <img
+        class="end-call-btn__icon"
+        src="assets/images/call/end-call.png"
+        alt=""
+        width="72"
+        height="72"
+      />
+    </button>
+  </main>
+</section>

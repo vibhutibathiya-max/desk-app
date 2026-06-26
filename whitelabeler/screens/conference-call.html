@@ -1,0 +1,107 @@
+<!-- Conference Call -->
+<section
+  class="screen-panel conference-call"
+  data-screen="conference-call"
+  aria-label="Conference call screen"
+  hidden
+>
+  <main class="app-screen app-screen--call" role="main" aria-labelledby="conference-call-title">
+    <h1 id="conference-call-title" class="visually-hidden">Conference call</h1>
+
+    <p class="conference-call__title">Conference Call</p>
+    <p class="conference-call__timer" aria-live="polite">02:00</p>
+
+    <ul class="conference-participants" role="list">
+      <li class="conference-participant conference-participant--1">
+        <img
+          class="conference-participant__avatar"
+          src="assets/images/call/participant-avatar.png"
+          alt=""
+          width="48"
+          height="49"
+        />
+        <span class="conference-participant__id">811</span>
+        <button type="button" class="conference-participant__hangup" aria-label="Remove participant 811">
+          <img
+            class="conference-participant__hangup-icon"
+            src="assets/images/call/end-call.png"
+            alt=""
+            width="40"
+            height="40"
+          />
+        </button>
+      </li>
+
+      <li class="conference-participant conference-participant--2">
+        <img
+          class="conference-participant__avatar"
+          src="assets/images/call/participant-avatar.png"
+          alt=""
+          width="48"
+          height="49"
+        />
+        <span class="conference-participant__id">830</span>
+        <button type="button" class="conference-participant__hangup" aria-label="Remove participant 830">
+          <img
+            class="conference-participant__hangup-icon"
+            src="assets/images/call/end-call.png"
+            alt=""
+            width="40"
+            height="40"
+          />
+        </button>
+      </li>
+    </ul>
+
+    <div class="call-controls" role="group" aria-label="Call controls">
+      <div class="call-control call-control--mute">
+        <button type="button" class="call-control__btn" aria-label="Mute">
+          <img
+            class="call-control__icon"
+            src="assets/images/call/control-mute.png"
+            alt=""
+            width="107"
+            height="107"
+          />
+        </button>
+        <span class="call-control__label">Mute</span>
+      </div>
+
+      <div class="call-control call-control--keypad">
+        <button type="button" class="call-control__btn" aria-label="Keypad">
+          <img
+            class="call-control__icon"
+            src="assets/images/call/control-keypad.png"
+            alt=""
+            width="107"
+            height="107"
+          />
+        </button>
+        <span class="call-control__label">Keypad</span>
+      </div>
+
+      <div class="call-control call-control--speaker">
+        <button type="button" class="call-control__btn" aria-label="Speaker">
+          <img
+            class="call-control__icon"
+            src="assets/images/call/control-speaker.png"
+            alt=""
+            width="107"
+            height="107"
+          />
+        </button>
+        <span class="call-control__label">Speaker</span>
+      </div>
+    </div>
+
+    <button type="button" class="end-call-btn" aria-label="End call">
+      <img
+        class="end-call-btn__icon"
+        src="assets/images/call/end-call.png"
+        alt=""
+        width="72"
+        height="72"
+      />
+    </button>
+  </main>
+</section>
