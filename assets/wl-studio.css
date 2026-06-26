@@ -1,0 +1,35 @@
+/**
+ * Tragofone White-Label Studio — shared design tokens.
+ *
+ * One palette for the whole studio (hub, login, chooser, and both editor
+ * chromes) so the mobile and desktop tools read as one website.
+ */
+:root {
+  --wl-bg: #0f1020;
+  --wl-bg-2: #1a1a2e;
+  --wl-backdrop:
+    radial-gradient(1200px 600px at 20% -10%, #2a2350 0%, transparent 60%),
+    radial-gradient(1000px 500px at 100% 0%, #15314a 0%, transparent 55%),
+    linear-gradient(160deg, var(--wl-bg) 0%, var(--wl-bg-2) 100%);
+
+  --wl-panel: rgba(255, 255, 255, 0.05);
+  --wl-panel-solid: #16182e;
+  --wl-elevated: rgba(255, 255, 255, 0.04);
+  --wl-border: rgba(255, 255, 255, 0.12);
+  --wl-border-strong: rgba(255, 255, 255, 0.24);
+
+  --wl-text: #eef0f6;
+  --wl-muted: #9aa0b4;
+
+  --wl-accent: #8ecae6;
+  --wl-accent-2: #b794f6;
+  --wl-gradient: linear-gradient(135deg, var(--wl-accent), var(--wl-accent-2));
+  --wl-on-accent: #14152b;
+
+  --wl-success: #7dcea0;
+  --wl-error: #f28b82;
+
+  --wl-radius: 12px;
+  --wl-radius-sm: 8px;
+  --wl-shadow: 0 18px 48px rgba(0, 0, 0, 0.35);
+}

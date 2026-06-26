@@ -19,6 +19,7 @@
       rel="stylesheet"
     />
 
+    <link rel="stylesheet" href="../assets/wl-studio.css" />
     <link rel="stylesheet" href="css/variables.css" />
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/layout.css" />
@@ -34,7 +35,35 @@
           <option value="splash" selected>Loading screens…</option>
         </select>
       </nav>
+      <div class="session-bar" style="display:flex;align-items:center;gap:10px;font-size:12px;width:100%;background:var(--wl-panel,rgba(255,255,255,.05));color:var(--wl-text,#fff);padding:9px 12px;border:1px solid var(--wl-border,rgba(255,255,255,.12));border-radius:var(--wl-radius,12px);backdrop-filter:blur(10px);box-shadow:var(--wl-shadow,0 18px 48px rgba(0,0,0,.35));">
+        <span style="opacity:.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Signed in as <strong id="wl-client-name" style="color:#8ecae6;">—</strong></span>
+        <a href="../choose.html" style="margin-left:auto;color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.25);padding:6px 12px;border-radius:8px;white-space:nowrap;">Switch</a>
+        <button type="button" id="wl-logout-btn" style="cursor:pointer;border:0;background:linear-gradient(135deg,#8ecae6,#b794f6);color:#14152b;font-weight:700;padding:6px 14px;border-radius:8px;font-family:inherit;font-size:12px;white-space:nowrap;">Logout</button>
+      </div>
     </div>
+
+    <script>
+      (function () {
+        var AUTH_STORAGE_KEY = "wl-active-client";
+        var client = localStorage.getItem(AUTH_STORAGE_KEY);
+        if (!client) {
+          window.location.replace("../index.html");
+          return;
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+          var nameEl = document.getElementById("wl-client-name");
+          if (nameEl) nameEl.textContent = client;
+          var btn = document.getElementById("wl-logout-btn");
+          if (btn) {
+            btn.addEventListener("click", function () {
+              localStorage.removeItem(AUTH_STORAGE_KEY);
+              localStorage.removeItem("wl-last-login-time");
+              window.location.replace("../index.html");
+            });
+          }
+        });
+      })();
+    </script>
 
     <div class="preview-shell">
       <div class="device-viewport" id="device-viewport" aria-live="polite"></div>

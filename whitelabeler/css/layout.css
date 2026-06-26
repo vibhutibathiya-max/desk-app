@@ -10,7 +10,9 @@ body {
   font-family: var(--font-family-brand);
   font-weight: var(--font-weight-medium);
   color: var(--color-foreground-on-brand);
-  background-color: var(--color-canvas);
+  background-color: var(--wl-bg, #0f1020);
+  background-image: var(--wl-backdrop);
+  background-attachment: fixed;
 }
 
 /**

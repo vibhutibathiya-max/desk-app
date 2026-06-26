@@ -1,16 +1,226 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="0; url=design_pages_new/whitelabel-preview.html">
-    <title>White-Label Theme Preview</title>
-    <style>
-        body { font-family: system-ui, sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; background: #1a1a2e; color: #eee; }
-        a { color: #8ecae6; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign in — Tragofone White-Label Studio</title>
+  <link rel="stylesheet" href="assets/wl-studio.css" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      color: var(--wl-text, #eef0f6);
+      background-color: var(--wl-bg, #0f1020);
+      background-image: var(--wl-backdrop);
+      display: grid;
+      place-items: center;
+      padding: 32px;
+    }
+    .card {
+      width: 100%;
+      max-width: 400px;
+      background: var(--wl-panel, rgba(255,255,255,.05));
+      border: 1px solid var(--wl-border, rgba(255,255,255,.10));
+      border-radius: 18px;
+      padding: 32px 30px;
+      backdrop-filter: blur(8px);
+      box-shadow: var(--wl-shadow, 0 24px 60px rgba(0,0,0,.35));
+    }
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--wl-accent, #8ecae6);
+      border: 1px solid var(--wl-border, rgba(255,255,255,.12));
+      padding: 5px 12px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+    }
+    h1 { margin: 0 0 22px; font-size: 1.45rem; }
+    .tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 22px;
+      background: rgba(0,0,0,.25);
+      padding: 4px;
+      border-radius: 12px;
+    }
+    .tab {
+      flex: 1;
+      padding: 9px 0;
+      border: 0;
+      border-radius: 9px;
+      background: transparent;
+      color: var(--wl-muted, #9aa0b4);
+      font: inherit;
+      font-weight: 600;
+      font-size: .9rem;
+      cursor: pointer;
+      transition: background .15s ease, color .15s ease;
+    }
+    .tab.active {
+      background: var(--wl-gradient, linear-gradient(135deg, #8ecae6, #b794f6));
+      color: var(--wl-on-accent, #14152b);
+    }
+    label { display: block; margin-bottom: 6px; font-size: .82rem; font-weight: 600; color: var(--wl-muted, #9aa0b4); }
+    .field { margin-bottom: 16px; }
+    input {
+      width: 100%;
+      height: 44px;
+      border: 1px solid var(--wl-border, rgba(255,255,255,.14));
+      border-radius: 10px;
+      padding: 0 13px;
+      font-size: 14px;
+      color: var(--wl-text, #eef0f6);
+      background: rgba(0,0,0,.25);
+      outline: none;
+    }
+    input:focus { border-color: var(--wl-accent, #8ecae6); box-shadow: 0 0 0 3px rgba(142,202,230,.18); }
+    .msg { min-height: 18px; margin: 2px 0 14px; font-size: 12px; }
+    .msg.error { color: var(--wl-error, #ff8a80); }
+    .msg.ok { color: var(--wl-success, #7dcea0); }
+    button.submit {
+      width: 100%;
+      height: 46px;
+      border: 0;
+      border-radius: 10px;
+      background: var(--wl-gradient, linear-gradient(135deg, #8ecae6, #b794f6));
+      color: var(--wl-on-accent, #14152b);
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: filter .15s ease;
+    }
+    button.submit:hover { filter: brightness(1.07); }
+    .hidden { display: none; }
+  </style>
 </head>
 <body>
-    <p>Redirecting to <a href="design_pages_new/whitelabel-preview.html">White-Label Theme Preview</a>...</p>
+  <div class="card">
+    <span class="badge">Tragofone White-Label Studio</span>
+    <h1 id="cardTitle">Welcome back</h1>
+
+    <div class="tabs">
+      <button type="button" class="tab active" id="tabSignin">Sign in</button>
+      <button type="button" class="tab" id="tabSignup">Sign up</button>
+    </div>
+
+    <!-- Sign in -->
+    <form id="signinForm">
+      <div class="field">
+        <label for="siUser">Username</label>
+        <input id="siUser" type="text" autocomplete="username" placeholder="Username" />
+      </div>
+      <div class="field">
+        <label for="siPass">Password</label>
+        <input id="siPass" type="password" autocomplete="current-password" placeholder="Password" />
+      </div>
+      <div class="msg" id="siMsg"></div>
+      <button type="submit" class="submit">Sign in</button>
+    </form>
+
+    <!-- Sign up -->
+    <form id="signupForm" class="hidden">
+      <div class="field">
+        <label for="suUser">Username</label>
+        <input id="suUser" type="text" autocomplete="username" placeholder="Choose a username" />
+      </div>
+      <div class="field">
+        <label for="suPass">Password</label>
+        <input id="suPass" type="password" autocomplete="new-password" placeholder="Create a password" />
+      </div>
+      <div class="field">
+        <label for="suPass2">Confirm password</label>
+        <input id="suPass2" type="password" autocomplete="new-password" placeholder="Re-enter password" />
+      </div>
+      <div class="msg" id="suMsg"></div>
+      <button type="submit" class="submit">Create account</button>
+    </form>
+  </div>
+
+  <script>
+    (function () {
+      var AUTH_STORAGE_KEY = "wl-active-client";
+      var LOGIN_TIME_KEY = "wl-last-login-time";
+      var USERS_KEY = "wl-users";
+
+      // Already signed in -> straight to the chooser.
+      if (localStorage.getItem(AUTH_STORAGE_KEY)) {
+        window.location.replace("choose.html");
+        return;
+      }
+
+      function getUsers() {
+        try { return JSON.parse(localStorage.getItem(USERS_KEY)) || {}; }
+        catch (e) { return {}; }
+      }
+      function saveUsers(users) {
+        localStorage.setItem(USERS_KEY, JSON.stringify(users));
+      }
+      function normalize(v) {
+        return String(v || "").trim().replace(/\s+/g, " ");
+      }
+      function login(username) {
+        localStorage.setItem(AUTH_STORAGE_KEY, username);
+        localStorage.setItem(LOGIN_TIME_KEY, String(Date.now()));
+        window.location.href = "choose.html";
+      }
+
+      // --- Tab switching ---
+      var tabSignin = document.getElementById("tabSignin");
+      var tabSignup = document.getElementById("tabSignup");
+      var signinForm = document.getElementById("signinForm");
+      var signupForm = document.getElementById("signupForm");
+      var title = document.getElementById("cardTitle");
+
+      function show(mode) {
+        var isSignin = mode === "signin";
+        tabSignin.classList.toggle("active", isSignin);
+        tabSignup.classList.toggle("active", !isSignin);
+        signinForm.classList.toggle("hidden", !isSignin);
+        signupForm.classList.toggle("hidden", isSignin);
+        title.textContent = isSignin ? "Welcome back" : "Create your account";
+      }
+      tabSignin.addEventListener("click", function () { show("signin"); });
+      tabSignup.addEventListener("click", function () { show("signup"); });
+
+      // --- Sign in ---
+      var siMsg = document.getElementById("siMsg");
+      signinForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        siMsg.className = "msg error";
+        var u = normalize(document.getElementById("siUser").value);
+        var p = String(document.getElementById("siPass").value || "");
+        if (!u || !p) { siMsg.textContent = "Username and password are required."; return; }
+        var users = getUsers();
+        var key = u.toLowerCase();
+        if (!users[key]) { siMsg.textContent = "No account found. Please sign up first."; return; }
+        if (users[key].password !== p) { siMsg.textContent = "Incorrect password."; return; }
+        login(users[key].username);
+      });
+
+      // --- Sign up ---
+      var suMsg = document.getElementById("suMsg");
+      signupForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        suMsg.className = "msg error";
+        var u = normalize(document.getElementById("suUser").value);
+        var p = String(document.getElementById("suPass").value || "");
+        var p2 = String(document.getElementById("suPass2").value || "");
+        if (!u || !p) { suMsg.textContent = "Username and password are required."; return; }
+        if (p.length < 4) { suMsg.textContent = "Password must be at least 4 characters."; return; }
+        if (p !== p2) { suMsg.textContent = "Passwords do not match."; return; }
+        var users = getUsers();
+        var key = u.toLowerCase();
+        if (users[key]) { suMsg.textContent = "That username already exists. Please sign in."; return; }
+        users[key] = { username: u, password: p };
+        saveUsers(users);
+        login(u);
+      });
+    })();
+  </script>
 </body>
 </html>

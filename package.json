@@ -1,0 +1,9 @@
+{
+  "name": "desk-app-whitelabel-hub",
+  "private": true,
+  "description": "Unified hub serving both the mobile and desktop Tragofone white-label tools.",
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "node server.mjs 8080"
+  }
+}
