@@ -5,29 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="js/wl-client-localstorage-ns.js"></script>
     <title>White-Label Theme Preview</title>
+    <link rel="stylesheet" href="../assets/wl-studio.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; background: #1a1a2e; color: #eee; min-height: 100vh; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--wl-bg, #0f1020);
+            background-image: var(--wl-backdrop);
+            background-attachment: fixed;
+            color: var(--wl-text, #eee);
+            min-height: 100vh;
+        }
         
         .preview-layout { display: flex; height: 100vh; }
         
         /* Theme Panel */
         .theme-panel {
-            width: 360px; min-width: 360px; background: #16213e; border-right: 1px solid #0f3460;
+            width: 360px; min-width: 360px;
+            background: var(--wl-panel, rgba(255,255,255,0.05));
+            border-right: 1px solid var(--wl-border, #0f3460);
+            backdrop-filter: blur(10px);
             overflow-y: auto; padding: 16px; flex-shrink: 0;
         }
-        .theme-panel h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: #8ecae6; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #0f3460; }
-        .theme-panel h3 { font-size: 12px; color: #aaa; margin: 12px 0 8px; }
+        .theme-panel h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: var(--wl-accent, #8ecae6); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--wl-border, #0f3460); }
+        .theme-panel h3 { font-size: 12px; color: var(--wl-muted, #aaa); margin: 12px 0 8px; }
         
         .control-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; min-height: 44px; }
         .control-row label { flex: 0 0 120px; font-size: 12px; color: #e0e0e0; line-height: 1.2; }
         .control-row .color-inputs { display: flex; align-items: center; gap: 8px; flex: 1; }
-        .control-row input[type="color"] { width: 56px; height: 48px; min-width: 56px; border: 2px solid #0f3460; cursor: pointer; border-radius: 8px; padding: 3px; background: #0f3460; box-shadow: 0 0 0 1px rgba(255,255,255,0.1); }
-        .control-row input[type="color"]:hover { border-color: #8ecae6; }
+        .control-row input[type="color"] { width: 56px; height: 48px; min-width: 56px; border: 2px solid var(--wl-border, #0f3460); cursor: pointer; border-radius: 8px; padding: 3px; background: var(--wl-elevated, rgba(255,255,255,0.06)); box-shadow: 0 0 0 1px rgba(255,255,255,0.1); }
+        .control-row input[type="color"]:hover { border-color: var(--wl-accent, #8ecae6); }
         .control-row input[type="color"]::-webkit-color-swatch-wrapper { padding: 2px; }
         .control-row input[type="color"]::-webkit-color-swatch { border-radius: 4px; border: 1px solid rgba(255,255,255,0.2); }
-        .control-row input[type="text"] { flex: 1; min-width: 80px; max-width: 120px; padding: 10px 12px; font-size: 13px; background: #0f3460; border: 2px solid #0f3460; color: #fff; border-radius: 6px; }
-        .control-row input[type="text"]:focus { outline: none; border-color: #8ecae6; }
+        .control-row input[type="text"] { flex: 1; min-width: 80px; max-width: 120px; padding: 10px 12px; font-size: 13px; background: var(--wl-elevated, rgba(255,255,255,0.06)); border: 2px solid var(--wl-border, #0f3460); color: #fff; border-radius: 6px; }
+        .control-row input[type="text"]:focus { outline: none; border-color: var(--wl-accent, #8ecae6); }
         .control-row.gradient-row { flex-direction: column; align-items: stretch; margin-bottom: 14px; }
         .control-row.gradient-row label { flex: none; margin-bottom: 6px; }
         /* Stacked rows + swatches (.color-swatch-wrap) */
@@ -36,34 +47,35 @@
         .gradient-color-item .gradient-swatch-label { flex: 0 0 52px; font-size: 11px; color: #aaa; line-height: 1.2; }
         .gradient-color-item .color-swatch-wrap {
             position: relative; flex-shrink: 0; width: 44px; height: 36px; cursor: pointer;
-            border-radius: 6px; overflow: hidden; border: 2px solid #0f3460;
+            border-radius: 6px; overflow: hidden; border: 2px solid var(--wl-border, #0f3460);
         }
-        .gradient-color-item .color-swatch-wrap:hover { border-color: #8ecae6; }
+        .gradient-color-item .color-swatch-wrap:hover { border-color: var(--wl-accent, #8ecae6); }
         .gradient-color-item .color-swatch-wrap .color-swatch-bg { position: absolute; inset: 0; border-radius: 4px; pointer-events: none; }
         .gradient-color-item .color-swatch-wrap input[type="color"] {
             position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer;
             padding: 0; border: none; background: transparent;
         }
         .gradient-color-item input[type="text"] {
-            flex: 1; min-width: 0; padding: 8px 10px; font-size: 12px; background: #0f3460;
-            border: 2px solid #0f3460; color: #fff; border-radius: 6px;
+            flex: 1; min-width: 0; padding: 8px 10px; font-size: 12px; background: var(--wl-elevated, rgba(255,255,255,0.06));
+            border: 2px solid var(--wl-border, #0f3460); color: #fff; border-radius: 6px;
         }
-        .gradient-color-item input[type="text"]:focus { outline: none; border-color: #8ecae6; }
+        .gradient-color-item input[type="text"]:focus { outline: none; border-color: var(--wl-accent, #8ecae6); }
         
-        .btn { padding: 8px 16px; font-size: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; }
-        .btn-primary { background: linear-gradient(270deg, #6533e2, #1f97ef); color: #fff; }
-        .btn-primary:hover { opacity: 0.9; }
-        .btn-secondary { background: #0f3460; color: #8ecae6; }
-        .btn-secondary:hover { background: #1a4a6e; }
+        .btn { padding: 9px 16px; font-size: 12px; border: 1px solid transparent; border-radius: var(--wl-radius-sm, 8px); cursor: pointer; font-weight: 600; transition: filter .15s ease, background .15s ease, border-color .15s ease; }
+        .btn-primary { background: var(--wl-gradient, linear-gradient(135deg, #8ecae6, #b794f6)); color: var(--wl-on-accent, #14152b); }
+        .btn-primary:hover { filter: brightness(1.07); }
+        .btn-secondary { background: transparent; color: var(--wl-text, #eee); border-color: var(--wl-border, #0f3460); }
+        .btn-secondary:hover { background: var(--wl-elevated, rgba(255,255,255,0.06)); border-color: var(--wl-border-strong, rgba(255,255,255,0.24)); }
         
         .btn-group { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
         
-        .page-select { width: 100%; padding: 10px 12px; font-size: 13px; background: #0f3460; border: 1px solid #0f3460; color: #fff; border-radius: 6px; margin-bottom: 16px; cursor: pointer; }
-        .page-select:focus { outline: none; border-color: #8ecae6; }
+        .page-select { width: 100%; padding: 10px 12px; font-size: 13px; background: var(--wl-elevated, rgba(255,255,255,0.06)); border: 1px solid var(--wl-border, #0f3460); color: #fff; border-radius: var(--wl-radius-sm, 8px); margin-bottom: 16px; cursor: pointer; }
+        .page-select:focus { outline: none; border-color: var(--wl-accent, #8ecae6); }
+        .page-select option { background: var(--wl-panel-solid, #16182e); color: #fff; }
         
-        .theme-toggle { display: flex; gap: 4px; margin-bottom: 16px; }
-        .theme-toggle button { flex: 1; padding: 10px; font-size: 12px; border: 1px solid #0f3460; background: #0f3460; color: #8ecae6; border-radius: 6px; cursor: pointer; }
-        .theme-toggle button.active { background: linear-gradient(270deg, #6533e2, #1f97ef); color: #fff; border-color: transparent; }
+        .theme-toggle { display: flex; gap: 6px; margin-bottom: 16px; }
+        .theme-toggle button { flex: 1; padding: 10px; font-size: 12px; border: 1px solid var(--wl-border, #0f3460); background: transparent; color: var(--wl-text, #8ecae6); border-radius: var(--wl-radius-sm, 8px); cursor: pointer; font-weight: 600; }
+        .theme-toggle button.active { background: var(--wl-gradient, linear-gradient(135deg, #8ecae6, #b794f6)); color: var(--wl-on-accent, #14152b); border-color: transparent; }
         
         .preview-frame-wrap {
             flex: 1; display: flex; overflow: hidden; background: #080812;
@@ -111,7 +123,7 @@
         .asset-details { margin-top: 12px; font-size: 11px; }
         .asset-details summary { cursor: pointer; color: #8ecae6; padding: 4px 0; }
         .asset-details summary:hover { text-decoration: underline; }
-        .asset-slots-list { margin-top: 8px; padding: 8px; background: #0f3460; border-radius: 6px; color: #ccc; }
+        .asset-slots-list { margin-top: 8px; padding: 8px; background: var(--wl-elevated, rgba(255,255,255,0.06)); border: 1px solid var(--wl-border, #0f3460); border-radius: 6px; color: var(--wl-muted, #ccc); }
         .asset-table { width: 100%; font-size: 10px; border-collapse: collapse; margin: 8px 0; }
         .asset-table th, .asset-table td { padding: 4px 6px; text-align: left; border-bottom: 1px solid #1a4a6e; }
         .asset-table th { color: #8ecae6; }
@@ -122,9 +134,12 @@
     <div class="preview-layout">
         <aside class="theme-panel">
             <h2>White-Label Theme</h2>
-            <div style="font-size:11px;color:#b6c7d6;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:8px;">
+            <div style="font-size:11px;color:var(--wl-muted,#b6c7d6);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:8px;">
                 <span id="clientSessionLabel">Client: -</span>
-                <button class="btn btn-secondary" id="clientLogoutBtn" style="padding:5px 10px;font-size:10px;">Logout</button>
+                <span style="display:flex;gap:6px;">
+                    <a class="btn btn-secondary" href="../choose.html" style="padding:5px 10px;font-size:10px;text-decoration:none;">Switch</a>
+                    <button class="btn btn-secondary" id="clientLogoutBtn" style="padding:5px 10px;font-size:10px;">Logout</button>
+                </span>
             </div>
             
             <label style="font-size:12px;color:#aaa;display:block;margin-bottom:4px">Preview Page</label>
@@ -192,9 +207,13 @@
                 <p class="gradient-note" id="uploadedFileName"></p>
             </div>
             
-            <div class="btn-group">
-                <button class="btn btn-primary" id="btnExportCss">Export global.css</button>
-                <button class="btn btn-secondary" id="btnReset">Reset All</button>
+            <div class="section">
+                <h3>Export</h3>
+                <div class="btn-group">
+                    <button class="btn btn-primary" id="btnExportCss">Export global.css</button>
+                    <button class="btn btn-primary" type="button" onclick="loadPage('logo-gallery.html')">Export Images (ZIP)</button>
+                    <button class="btn btn-secondary" id="btnReset">Reset All</button>
+                </div>
             </div>
      
         </aside>
@@ -267,7 +286,7 @@
         function requireClientSession() {
             const client = getActiveClient();
             if (!client) {
-                window.location.href = 'common-client-login.html';
+                window.location.href = '../index.html';
                 return null;
             }
             return client;
@@ -1175,7 +1194,8 @@
         if (logoutBtn) {
             logoutBtn.addEventListener('click', function() {
                 localStorage.removeItem(AUTH_STORAGE_KEY);
-                window.location.href = 'common-client-login.html';
+                localStorage.removeItem('wl-last-login-time');
+                window.location.href = '../index.html';
             });
         }
         

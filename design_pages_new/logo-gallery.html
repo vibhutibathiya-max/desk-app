@@ -5,33 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="js/wl-client-localstorage-ns.js"></script>
     <title>Image Gallery</title>
+    <link rel="stylesheet" href="../assets/wl-studio.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; background: #1a1a2e; color: #eee; min-height: 100vh; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--wl-bg, #0f1020);
+            background-image: var(--wl-backdrop);
+            background-attachment: fixed;
+            color: var(--wl-text, #eee); min-height: 100vh;
+        }
 
         .page-layout { display: flex; flex-direction: column; min-height: 100vh; }
 
         .header-bar {
-            background: #16213e; border-bottom: 1px solid #0f3460;
+            background: var(--wl-panel, #16213e); border-bottom: 1px solid var(--wl-border, #0f3460);
+            backdrop-filter: blur(10px);
             padding: 16px 24px; flex-shrink: 0; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
         }
-        .header-bar h1 { font-size: 18px; color: #8ecae6; font-weight: 600; }
+        .header-bar h1 { font-size: 18px; color: var(--wl-accent, #8ecae6); font-weight: 600; }
 
-        .btn { padding: 10px 20px; font-size: 13px; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; }
-        .btn-primary { background: linear-gradient(270deg, #6533e2, #1f97ef); color: #fff; }
-        .btn-primary:hover { opacity: 0.9; }
-        .btn-secondary { background: #0f3460; color: #8ecae6; }
-        .btn-secondary:hover { background: #1a4a6e; }
+        .btn { padding: 10px 20px; font-size: 13px; border: 1px solid transparent; border-radius: var(--wl-radius-sm, 8px); cursor: pointer; font-weight: 600; transition: filter .15s ease, background .15s ease, border-color .15s ease; }
+        .btn-primary { background: var(--wl-gradient, linear-gradient(135deg, #8ecae6, #b794f6)); color: var(--wl-on-accent, #14152b); }
+        .btn-primary:hover { filter: brightness(1.07); }
+        .btn-secondary { background: transparent; color: var(--wl-text, #eee); border-color: var(--wl-border, #0f3460); }
+        .btn-secondary:hover { background: var(--wl-elevated, rgba(255,255,255,0.06)); border-color: var(--wl-border-strong, rgba(255,255,255,0.24)); }
 
         input[type="file"] { display: none; }
 
         .preview-section {
-            flex: 1; padding: 24px; overflow-y: auto; background: #0d0d1a;
+            flex: 1; padding: 24px; overflow-y: auto; background: transparent;
         }
 
         .section-heading {
-            font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #8ecae6;
-            margin: 0 0 14px; padding-bottom: 8px; border-bottom: 1px solid #0f3460;
+            font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: var(--wl-accent, #8ecae6);
+            margin: 0 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--wl-border, #0f3460);
         }
         .section-heading + .section-heading { margin-top: 32px; }
 
@@ -42,10 +50,11 @@
             display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;
         }
         .logo-card {
-            background: #16213e; border: 1px solid #0f3460; border-radius: 8px;
+            background: var(--wl-panel, #16213e); border: 1px solid var(--wl-border, #0f3460); border-radius: var(--wl-radius, 12px);
+            backdrop-filter: blur(10px);
             overflow: hidden; transition: border-color 0.2s;
         }
-        .logo-card:hover { border-color: #8ecae6; }
+        .logo-card:hover { border-color: var(--wl-accent, #8ecae6); }
 
         /* Dual swatch – light left, dark right */
         .logo-preview-row { display: flex; height: 130px; }
@@ -88,10 +97,10 @@
         .pg-traffic span { width: 12px; height: 12px; border-radius: 50%; display: block; }
         .pg-title { flex: 1; text-align: center; font-size: 11px; color: #666; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .pg-close {
-            background: #0f3460; color: #8ecae6; border: none; border-radius: 4px;
-            padding: 3px 10px; font-size: 12px; font-weight: 600; cursor: pointer; flex-shrink: 0;
+            background: var(--wl-gradient, linear-gradient(135deg, #8ecae6, #b794f6)); color: var(--wl-on-accent, #14152b); border: none; border-radius: 6px;
+            padding: 3px 10px; font-size: 12px; font-weight: 700; cursor: pointer; flex-shrink: 0;
         }
-        .pg-close:hover { background: #1a4a6e; }
+        .pg-close:hover { filter: brightness(1.07); }
         .pg-body {
             border: 1px solid #2a2a42; border-top: none; border-radius: 0 0 8px 8px;
             overflow: hidden; flex-shrink: 0;

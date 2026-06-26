@@ -18,10 +18,10 @@
   --color-link-accent: #57c4f0;
   --color-foreground-muted-on-canvas: rgba(255, 255, 255, 0.55);
 
-  /* Preview chrome (outside device frame) */
-  --color-nav-surface: #1a1a1a;
-  --color-nav-border: rgba(255, 255, 255, 0.12);
-  --color-nav-foreground: #ffffff;
+  /* Preview chrome (outside device frame) — shared studio palette */
+  --color-nav-surface: var(--wl-panel, rgba(255, 255, 255, 0.05));
+  --color-nav-border: var(--wl-border, rgba(255, 255, 255, 0.12));
+  --color-nav-foreground: var(--wl-text, #ffffff);
   --preview-shell-gap: var(--space-8);
   --screen-nav-width: 11rem;
   --screen-nav-offset-top: var(--space-6);
