@@ -1,0 +1,127 @@
+<!-- Home -->
+<section
+  class="screen-panel home"
+  data-screen="home"
+  aria-label="Home screen"
+  hidden
+>
+  <main class="app-screen app-screen--home" role="main" aria-labelledby="home-title">
+    <h1 id="home-title" class="visually-hidden">Home — Keypad</h1>
+
+    <header class="home-topbar">
+      <button type="button" class="home-topbar__menu" aria-label="Open menu">
+        <img
+          class="home-topbar__menu-icon"
+          src="assets/icons/menu.png"
+          alt=""
+          width="24"
+          height="24"
+        />
+      </button>
+      <p class="home-topbar__title">John Smith</p>
+      <label class="home-topbar__dnd">
+        <span>DND</span>
+        <input type="checkbox" class="dnd-toggle__input" name="dnd" />
+        <span class="dnd-toggle__track" aria-hidden="true"></span>
+      </label>
+    </header>
+
+    <img
+      class="home-watermark"
+      data-asset-key="HOME_WATERMARK"
+      src="assets/images/home-watermark.png"
+      alt=""
+      width="330"
+      height="110"
+      decoding="async"
+      aria-hidden="true"
+    />
+
+    <section class="home-panel" aria-label="Dial pad">
+      <div class="dial-pad" role="group" aria-label="Phone keypad">
+        <button type="button" class="dial-pad__key" aria-label="1">
+          <span class="dial-pad__digit">1</span>
+          <span class="dial-pad__letters" aria-hidden="true">&nbsp;</span>
+        </button>
+        <button type="button" class="dial-pad__key" aria-label="2, A B C">
+          <span class="dial-pad__digit">2</span>
+          <span class="dial-pad__letters">ABC</span>
+        </button>
+        <button type="button" class="dial-pad__key" aria-label="3, D E F">
+          <span class="dial-pad__digit">3</span>
+          <span class="dial-pad__letters">DEF</span>
+        </button>
+        <button type="button" class="dial-pad__key" aria-label="4, G H I">
+          <span class="dial-pad__digit">4</span>
+          <span class="dial-pad__letters">GHI</span>
+        </button>
+        <button type="button" class="dial-pad__key" aria-label="5, J K L">
+          <span class="dial-pad__digit">5</span>
+          <span class="dial-pad__letters">JKL</span>
+        </button>
+        <button type="button" class="dial-pad__key" aria-label="6, M N O">
+          <span class="dial-pad__digit">6</span>
+          <span class="dial-pad__letters">MNO</span>
+        </button>
+        <button type="button" class="dial-pad__key" aria-label="7, P Q R S">
+          <span class="dial-pad__digit">7</span>
+          <span class="dial-pad__letters">PQRS</span>
+        </button>
+        <button type="button" class="dial-pad__key" aria-label="8, T U V">
+          <span class="dial-pad__digit">8</span>
+          <span class="dial-pad__letters">TUV</span>
+        </button>
+        <button type="button" class="dial-pad__key" aria-label="9, W X Y Z">
+          <span class="dial-pad__digit">9</span>
+          <span class="dial-pad__letters">WXYZ</span>
+        </button>
+        <button type="button" class="dial-pad__key" aria-label="Star">
+          <span class="dial-pad__digit">*</span>
+          <span class="dial-pad__letters" aria-hidden="true">&nbsp;</span>
+        </button>
+        <button type="button" class="dial-pad__key" aria-label="0, plus">
+          <span class="dial-pad__digit">0</span>
+          <span class="dial-pad__letters">+</span>
+        </button>
+        <button type="button" class="dial-pad__key" aria-label="Hash">
+          <span class="dial-pad__digit">#</span>
+          <span class="dial-pad__letters" aria-hidden="true">&nbsp;</span>
+        </button>
+      </div>
+
+      <div class="home-actions">
+        <button type="button" class="voicemail-btn" aria-label="Voicemail">
+          <img
+            class="voicemail-btn__icon"
+            src="assets/icons/voicemail.svg"
+            alt=""
+            width="28"
+            height="28"
+          />
+        </button>
+        <button type="button" class="call-actions" aria-label="Start audio or video call">
+          <img
+            class="call-actions__image"
+            src="assets/images/call-actions.png"
+            alt=""
+            width="205"
+            height="79"
+            decoding="async"
+            aria-hidden="true"
+          />
+        </button>
+      </div>
+    </section>
+
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <img
+        class="bottom-nav__image"
+        src="assets/images/bottom-nav-keypad.png"
+        alt="Keypad, Contacts, Recents, Messages with 5 notifications, Chats with 2 notifications"
+        width="540"
+        height="100"
+        decoding="async"
+      />
+    </nav>
+  </main>
+</section>

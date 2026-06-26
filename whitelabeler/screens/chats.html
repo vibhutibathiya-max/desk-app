@@ -1,0 +1,286 @@
+<!-- Chats -->
+<section
+  class="screen-panel chats"
+  data-screen="chats"
+  aria-label="Chats screen"
+  hidden
+>
+  <main class="app-screen app-screen--home app-screen--chats" role="main" aria-labelledby="chats-title">
+    <h1 id="chats-title" class="visually-hidden">Chats</h1>
+
+    <header class="chats-topbar">
+      <button type="button" class="chats-topbar__menu" aria-label="Open menu">
+        <img
+          class="chats-topbar__menu-icon"
+          src="assets/icons/menu.png"
+          alt=""
+          width="24"
+          height="24"
+        />
+      </button>
+
+    </header>
+
+    <p class="chats-heading">Chats</p>
+    <p class="chats-online-label">
+      Online
+      <span class="chats-online-label__chevron" aria-hidden="true"></span>
+    </p>
+
+    <span class="chats-status-dot" aria-hidden="true"></span>
+
+    <img
+      class="chats-title-arrow"
+      src="assets/icons/chats-arrow-down.png"
+      alt=""
+      width="14"
+      height="14"
+      aria-hidden="true"
+    />
+
+    <button type="button" class="chats-settings" aria-label="Settings">
+      <img
+        class="chats-settings__icon"
+        src="assets/icons/chats-settings.png"
+        alt=""
+        width="23"
+        height="22"
+      />
+    </button>
+
+    <img
+      class="chats-search__icon"
+      src="assets/icons/chats-search.png"
+      alt=""
+      width="24"
+      height="24"
+      aria-hidden="true"
+    />
+
+    <div class="chats-search" aria-hidden="true"></div>
+
+    <input
+      class="chats-search__input"
+      type="search"
+      name="chat-search"
+      placeholder="Search"
+      aria-label="Search chats"
+      autocomplete="off"
+    />
+
+    <section class="chats-panel" aria-label="Chat list">
+      <ul class="chats-list" role="list">
+        <li class="chats-item">
+          <div class="chats-item__avatar-wrap">
+            <span class="chats-item__avatar" aria-hidden="true">S</span>
+            <span class="chats-item__presence chats-item__presence--online" aria-hidden="true"></span>
+          </div>
+          <div class="chats-item__body">
+            <p class="chats-item__name">Steve</p>
+            <p class="chats-item__preview">
+              <img class="chats-item__preview-icon" src="assets/icons/chats-read.png" alt="" width="16" height="16" />
+              <span class="chats-item__preview-text">How abut the meeting tomorrow?</span>
+            </p>
+          </div>
+          <div class="chats-item__meta">
+            <time class="chats-item__time" datetime="2026-06-10">Today</time>
+          </div>
+        </li>
+
+        <li class="chats-item">
+          <div class="chats-item__avatar-wrap">
+            <span class="chats-item__avatar chats-item__avatar--photo" aria-hidden="true">P</span>
+            <span class="chats-item__presence chats-item__presence--online" aria-hidden="true"></span>
+          </div>
+          <div class="chats-item__body">
+            <p class="chats-item__name">Peter</p>
+            <p class="chats-item__preview">
+              <img class="chats-item__preview-icon" src="assets/icons/chats-clock.png" alt="" width="16" height="16" />
+              <span class="chats-item__preview-text">Have a nice day, brother!</span>
+            </p>
+          </div>
+          <div class="chats-item__meta">
+            <time class="chats-item__time" datetime="18:00">6:00 PM</time>
+          </div>
+        </li>
+
+        <li class="chats-item">
+          <div class="chats-item__avatar-wrap">
+            <span class="chats-item__avatar" aria-hidden="true">W</span>
+            <span class="chats-item__presence chats-item__presence--offline" aria-hidden="true"></span>
+          </div>
+          <div class="chats-item__body">
+            <p class="chats-item__name">Watson</p>
+            <p class="chats-item__preview">
+              <img class="chats-item__preview-icon" src="assets/icons/chats-read.png" alt="" width="16" height="16" />
+              <span class="chats-item__preview-text">Okay, fine</span>
+            </p>
+          </div>
+          <div class="chats-item__meta">
+            <time class="chats-item__time" datetime="2026-06-09">Yesterday</time>
+            <span class="chats-item__unread" aria-label="Unread message"></span>
+          </div>
+        </li>
+
+        <li class="chats-item">
+          <div class="chats-item__avatar-wrap">
+            <span class="chats-item__avatar chats-item__avatar--photo" aria-hidden="true">J</span>
+            <span class="chats-item__presence chats-item__presence--busy" aria-hidden="true"></span>
+          </div>
+          <div class="chats-item__body">
+            <p class="chats-item__name">James</p>
+            <p class="chats-item__preview">
+              <img class="chats-item__preview-icon" src="assets/icons/chats-clock.png" alt="" width="16" height="16" />
+              <span class="chats-item__preview-text">James sent an attachment</span>
+            </p>
+          </div>
+          <div class="chats-item__meta">
+            <time class="chats-item__time" datetime="2023-09-03">09/03/23</time>
+          </div>
+        </li>
+
+        <li class="chats-item">
+          <div class="chats-item__avatar-wrap">
+            <span class="chats-item__avatar" aria-hidden="true">GN</span>
+            <span class="chats-item__presence chats-item__presence--online" aria-hidden="true"></span>
+          </div>
+          <div class="chats-item__body">
+            <p class="chats-item__name">GN ShopLco</p>
+            <p class="chats-item__preview">
+              <img class="chats-item__preview-icon" src="assets/icons/chats-clock.png" alt="" width="16" height="16" />
+              <span class="chats-item__preview-text">Hey!</span>
+            </p>
+          </div>
+          <div class="chats-item__meta">
+            <time class="chats-item__time" datetime="2023-12-03">12/03/23</time>
+          </div>
+        </li>
+
+        <li class="chats-item">
+          <div class="chats-item__avatar-wrap">
+            <span class="chats-item__avatar" aria-hidden="true">
+              <img
+                class="chats-item__avatar-icon"
+                src="assets/images/call/participant-avatar.png"
+                alt=""
+                width="24"
+                height="24"
+              />
+            </span>
+            <span class="chats-item__presence chats-item__presence--online" aria-hidden="true"></span>
+          </div>
+          <div class="chats-item__body">
+            <p class="chats-item__name">898 975 3456</p>
+            <p class="chats-item__preview">
+              <img class="chats-item__preview-icon" src="assets/icons/chats-read.png" alt="" width="16" height="16" />
+              <span class="chats-item__preview-text">You missed a voice call from 2671</span>
+            </p>
+          </div>
+          <div class="chats-item__meta">
+            <time class="chats-item__time" datetime="10:45">10:45 AM</time>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <button type="button" class="chats-fab" aria-label="New chat">
+      <img
+        class="chats-fab__icon"
+        src="assets/icons/chats-new.png"
+        alt=""
+        width="40"
+        height="37"
+      />
+    </button>
+
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <img
+        class="bottom-nav__image"
+        src="assets/images/bottom-nav-keypad.png"
+        alt="Keypad, Contacts, Recents, Messages with 5 notifications, Chats with 2 notifications"
+        width="540"
+        height="100"
+        decoding="async"
+      />
+    </nav>
+
+    <div class="status-sheet-scrim" aria-hidden="true"></div>
+
+    <section
+      class="status-sheet"
+      role="dialog"
+      aria-labelledby="change-status-title"
+      aria-modal="true"
+      aria-hidden="true"
+    >
+      <div class="status-sheet__handle" aria-hidden="true"></div>
+
+      <h2 id="change-status-title" class="status-sheet__title">Change Status</h2>
+
+      <ul class="status-sheet__options" role="listbox" aria-label="Status options">
+        <li class="status-option">
+          <button
+            type="button"
+            class="status-option__btn status-option__btn--selected"
+            role="option"
+            aria-selected="true"
+          >
+            <span class="status-option__icon status-option__icon--online" aria-hidden="true"></span>
+            <span class="status-option__label">Online</span>
+            <img
+              class="status-option__check"
+              src="assets/icons/status/check.png"
+              alt=""
+              width="24"
+              height="24"
+            />
+          </button>
+        </li>
+
+        <li class="status-option">
+          <button type="button" class="status-option__btn" role="option" aria-selected="false">
+            <img
+              class="status-option__icon-img"
+              src="assets/icons/status/away.png"
+              alt=""
+              width="24"
+              height="24"
+            />
+            <span class="status-option__label">Away</span>
+          </button>
+        </li>
+
+        <li class="status-option">
+          <button type="button" class="status-option__btn" role="option" aria-selected="false">
+            <img
+              class="status-option__icon-img"
+              src="assets/icons/status/busy.png"
+              alt=""
+              width="24"
+              height="24"
+            />
+            <span class="status-option__label">Busy</span>
+          </button>
+        </li>
+
+        <li class="status-option">
+          <button type="button" class="status-option__btn" role="option" aria-selected="false">
+            <img
+              class="status-option__icon-img"
+              src="assets/icons/status/dnd.png"
+              alt=""
+              width="24"
+              height="24"
+            />
+            <span class="status-option__label">DND</span>
+          </button>
+        </li>
+      </ul>
+
+      <div class="status-sheet__actions">
+        <button type="button" class="status-sheet__cancel">Cancel</button>
+        <button type="button" class="status-sheet__save">Save</button>
+      </div>
+    </section>
+  </main>
+</section>

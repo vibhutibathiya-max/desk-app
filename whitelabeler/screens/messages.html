@@ -1,0 +1,162 @@
+<!-- Messages -->
+<section
+  class="screen-panel messages"
+  data-screen="messages"
+  aria-label="Messages screen"
+  hidden
+>
+  <main class="app-screen app-screen--home app-screen--messages" role="main" aria-labelledby="messages-title">
+    <h1 id="messages-title" class="visually-hidden">Messages</h1>
+
+    <header class="messages-topbar">
+      <button type="button" class="messages-topbar__menu" aria-label="Open menu">
+        <img
+          class="messages-topbar__menu-icon"
+          src="assets/icons/menu.png"
+          alt=""
+          width="24"
+          height="24"
+        />
+      </button>
+    </header>
+
+    <p class="messages-heading" aria-hidden="true">Messages</p>
+
+    <button type="button" class="messages-compose" aria-label="Compose message">
+      <img
+        class="messages-compose__icon"
+        src="assets/icons/messages-compose.png"
+        alt=""
+        width="24"
+        height="24"
+      />
+    </button>
+
+    <img
+      class="messages-search__icon"
+      src="assets/icons/chats-search.png"
+      alt=""
+      width="24"
+      height="24"
+      aria-hidden="true"
+    />
+
+    <div class="messages-search" aria-hidden="true"></div>
+
+    <input
+      class="messages-search__input"
+      type="search"
+      name="message-search"
+      placeholder="Search Contacts"
+      aria-label="Search contacts"
+      autocomplete="off"
+    />
+
+    <section class="messages-panel" aria-label="Message list">
+      <ul class="messages-list" role="list">
+        <li class="messages-item">
+          <img
+            class="messages-item__avatar"
+            src="assets/images/messages/contact-peter.png"
+            alt=""
+            width="48"
+            height="48"
+          />
+          <div class="messages-item__body">
+            <p class="messages-item__name">Peter James</p>
+            <p class="messages-item__preview">Sent you a message</p>
+          </div>
+          <div class="messages-item__meta">
+            <span class="messages-item__badge" aria-label="1 unread message">1</span>
+            <time class="messages-item__time" datetime="P2D">2 days ago</time>
+          </div>
+        </li>
+
+        <li class="messages-item">
+          <img
+            class="messages-item__avatar"
+            src="assets/images/messages/contact-sam.png"
+            alt=""
+            width="48"
+            height="48"
+          />
+          <div class="messages-item__body">
+            <p class="messages-item__name">Sam Watson</p>
+            <p class="messages-item__preview">Sent you a message</p>
+          </div>
+          <div class="messages-item__meta">
+            <span class="messages-item__badge" aria-label="2 unread messages">2</span>
+            <time class="messages-item__time" datetime="2025-07-21">July 21</time>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <nav class="bottom-nav bottom-nav--tabs" aria-label="Main navigation">
+      <ul class="bottom-nav__list" role="list">
+        <li class="bottom-nav__item">
+          <button type="button" class="bottom-nav__tab" aria-label="Dialpad">
+            <img
+              class="bottom-nav__tab-icon"
+              src="assets/icons/nav/dialpad.png"
+              alt=""
+              width="56"
+              height="59"
+              decoding="async"
+            />
+          </button>
+        </li>
+        <li class="bottom-nav__item">
+          <button type="button" class="bottom-nav__tab" aria-label="Contacts">
+            <img
+              class="bottom-nav__tab-icon"
+              src="assets/icons/nav/contacts.png"
+              alt=""
+              width="68"
+              height="62"
+              decoding="async"
+            />
+          </button>
+        </li>
+        <li class="bottom-nav__item">
+          <button type="button" class="bottom-nav__tab" aria-label="Recents">
+            <img
+              class="bottom-nav__tab-icon"
+              src="assets/icons/nav/recents.png"
+              alt=""
+              width="60"
+              height="63"
+              decoding="async"
+            />
+          </button>
+        </li>
+        <li class="bottom-nav__item bottom-nav__item--active" aria-current="page">
+          <button type="button" class="bottom-nav__tab" aria-label="Messages, 5 unread">
+            <img
+              class="bottom-nav__tab-icon"
+              src="assets/icons/nav/messages-active.png"
+              alt=""
+              width="75"
+              height="63"
+              decoding="async"
+            />
+          </button>
+        </li>
+        <li class="bottom-nav__item">
+          <button type="button" class="bottom-nav__tab" aria-label="Chats, 2 unread">
+            <img
+              class="bottom-nav__tab-icon"
+              src="assets/icons/nav/chats.png"
+              alt=""
+              width="44"
+              height="63"
+              decoding="async"
+            />
+          </button>
+        </li>
+      </ul>
+      <span class="bottom-nav__badge bottom-nav__badge--messages" aria-hidden="true">5</span>
+      <span class="bottom-nav__badge bottom-nav__badge--chats" aria-hidden="true">2</span>
+    </nav>
+  </main>
+</section>

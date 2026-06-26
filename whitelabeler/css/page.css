@@ -1,0 +1,513 @@
+/**
+ * Splash screen — page-specific overrides
+ */
+
+.splash .app-screen__body {
+  padding-block-end: var(--space-12);
+}
+
+.splash .app-screen__footer {
+  flex-shrink: 0;
+  padding-block-end: 7.5rem; /* ~120px from bottom of frame */
+}
+
+.login .app-screen {
+  display: block;
+}
+
+.login .app-screen__body {
+  display: none;
+}
+
+.home .app-screen {
+  display: block;
+}
+
+.home .app-screen__body {
+  display: none;
+}
+
+.home .dial-pad {
+  position: absolute;
+  top: var(--dial-pad-top-offset);
+  left: var(--dial-pad-left);
+}
+
+.home .home-actions {
+  padding-inline: 0;
+}
+
+/**
+ * Get Started — onboarding screen
+ */
+
+.get-started .app-screen__body {
+  position: relative;
+  z-index: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 7.5rem var(--space-10);
+  padding-inline: var(--space-8);
+}
+
+.get-started .onboarding__hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.get-started .onboarding__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+  width: 100%;
+  max-width: 20rem;
+}
+
+.incoming-call .app-screen,
+.ongoing-call .app-screen {
+  display: block;
+}
+
+.incoming-call .app-screen__body,
+.ongoing-call .app-screen__body {
+  display: none;
+}
+
+/**
+ * Incoming call — Figma-exact header layout
+ */
+
+.incoming-call .call-avatar {
+  top: var(--incoming-avatar-top);
+  left: var(--incoming-avatar-left);
+  width: var(--incoming-avatar-width);
+  height: var(--incoming-avatar-height);
+  background-color: var(--call-avatar-accent-bg);
+}
+
+.incoming-call .call-avatar__initials {
+  position: absolute;
+  top: calc(var(--incoming-initials-top) - var(--incoming-avatar-top));
+  left: calc(var(--incoming-initials-left) - var(--incoming-avatar-left));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--incoming-initials-width);
+  height: var(--incoming-initials-height);
+  font-size: var(--incoming-initials-size);
+  font-weight: 400;
+  line-height: 1;
+  text-align: center;
+}
+
+.incoming-call .call-contact__name {
+  font-family: var(--font-family-display);
+  font-size: var(--incoming-name-size);
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.incoming-call .call-contact__detail {
+  font-family: var(--font-family-display);
+  font-size: var(--incoming-detail-size);
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+/**
+ * Ongoing call — Figma-exact header layout
+ */
+
+.ongoing-call__header {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.ongoing-call .call-avatar--inline {
+  top: var(--ongoing-avatar-top);
+  left: var(--ongoing-avatar-left);
+  width: var(--ongoing-avatar-width);
+  height: var(--ongoing-avatar-height);
+  background-color: var(--call-avatar-accent-bg);
+}
+
+.ongoing-call .call-avatar__initials {
+  position: absolute;
+  top: calc(var(--ongoing-initials-top) - var(--ongoing-avatar-top));
+  left: calc(var(--ongoing-initials-left) - var(--ongoing-avatar-left));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--ongoing-initials-width);
+  height: var(--ongoing-initials-height);
+  font-size: var(--ongoing-initials-size);
+  font-weight: 400;
+  line-height: 1;
+  text-align: center;
+}
+
+.ongoing-call .call-contact--inline {
+  position: absolute;
+  inset: 0;
+  width: auto;
+  margin: 0;
+  text-align: unset;
+}
+
+.ongoing-call .call-contact--inline .call-contact__name {
+  position: absolute;
+  top: var(--ongoing-name-top);
+  left: var(--ongoing-name-left);
+  width: var(--ongoing-name-width);
+  margin: 0;
+  font-size: var(--ongoing-name-size);
+  font-weight: 400;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.ongoing-call .call-contact--inline .call-contact__detail {
+  position: absolute;
+  top: var(--ongoing-detail-top);
+  left: var(--ongoing-detail-left);
+  width: var(--ongoing-detail-width);
+  margin: 0;
+  font-size: var(--ongoing-detail-size);
+  font-weight: 400;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.ongoing-call .call-contact--inline .call-contact__timer {
+  position: absolute;
+  top: var(--ongoing-timer-top);
+  left: var(--ongoing-timer-left);
+  width: var(--ongoing-timer-width);
+  margin: 0;
+  font-size: var(--ongoing-timer-size);
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.ongoing-call .call-control__btn {
+  background-color: transparent;
+}
+
+.ongoing-call .call-control__btn:hover {
+  background-color: transparent;
+  opacity: 0.88;
+}
+
+.ongoing-call .call-control__icon {
+  width: 100%;
+  height: 100%;
+  mix-blend-mode: screen;
+}
+
+.ongoing-call .end-call-btn {
+  width: 5.625rem;
+  height: 5.625rem;
+  filter: drop-shadow(0 0.5rem 1.25rem rgba(0, 0, 0, 0.28));
+}
+
+/**
+ * Conference call
+ */
+
+.conference-call .app-screen {
+  display: block;
+}
+
+.conference-call .app-screen__body {
+  display: none;
+}
+
+.conference-call .call-control--mute {
+  top: var(--conference-control-mute-top);
+  left: var(--conference-control-mute-left);
+}
+
+.conference-call .call-control--keypad {
+  top: var(--conference-control-keypad-top);
+  left: var(--conference-control-keypad-left);
+}
+
+.conference-call .call-control--speaker {
+  top: var(--conference-control-speaker-top);
+  left: var(--conference-control-speaker-left);
+}
+
+.conference-call .call-control__btn {
+  background-color: transparent;
+}
+
+.conference-call .call-control__btn:hover {
+  background-color: transparent;
+  opacity: 0.88;
+}
+
+.conference-call .call-control__icon {
+  width: 100%;
+  height: 100%;
+  mix-blend-mode: screen;
+}
+
+.conference-call .end-call-btn {
+  width: 5.625rem;
+  height: 5.625rem;
+  filter: drop-shadow(0 0.5rem 1.25rem rgba(0, 0, 0, 0.28));
+}
+
+/**
+ * Chats screen
+ */
+
+.chats .app-screen {
+  display: block;
+}
+
+.chats .app-screen__body {
+  display: none;
+}
+
+.chats-item:nth-child(1) {
+  top: var(--chats-item-first-top);
+}
+
+.chats-item:nth-child(2) {
+  top: calc(var(--chats-item-first-top) + var(--chats-item-step));
+}
+
+.chats-item:nth-child(3) {
+  top: calc(var(--chats-item-first-top) + (2 * var(--chats-item-step)));
+}
+
+.chats-item:nth-child(4) {
+  top: calc(var(--chats-item-first-top) + (3 * var(--chats-item-step)));
+}
+
+.chats-item:nth-child(5) {
+  top: calc(var(--chats-item-first-top) + (4 * var(--chats-item-step)));
+}
+
+.chats-item:nth-child(6) {
+  top: calc(var(--chats-item-first-top) + (5 * var(--chats-item-step)));
+}
+
+.device-viewport.is-change-status-open .status-sheet-scrim {
+  display: block;
+}
+
+.device-viewport.is-change-status-open .status-sheet {
+  display: flex;
+}
+
+/**
+ * Messages screen
+ */
+
+.messages .app-screen {
+  display: block;
+}
+
+.messages .app-screen__body {
+  display: none;
+}
+
+.messages-item:nth-child(1) {
+  top: var(--messages-item-first-top);
+}
+
+.messages-item:nth-child(2) {
+  top: calc(var(--messages-item-first-top) + var(--messages-item-step));
+}
+
+/**
+ * SMS chat screen
+ */
+
+.sms-chat .app-screen,
+.mms-chat .app-screen {
+  display: block;
+  background: var(--color-surface-light);
+}
+
+.sms-chat .app-screen::before,
+.mms-chat .app-screen::before {
+  z-index: 1;
+}
+
+.sms-chat .app-screen__body,
+.mms-chat .app-screen__body {
+  display: none;
+}
+
+.mms-chat {
+  --sms-chat-thread-ref-panel-top: var(--mms-panel-top);
+}
+
+.sms-chat-timestamp:nth-of-type(1),
+.mms-chat .sms-chat-timestamp:nth-of-type(1) {
+  top: var(--sms-chat-timestamp-1-top);
+}
+
+.sms-chat-timestamp:nth-of-type(2),
+.mms-chat .sms-chat-timestamp:nth-of-type(2) {
+  top: var(--sms-chat-timestamp-2-top);
+  left: var(--sms-chat-timestamp-2-left);
+  width: var(--sms-chat-timestamp-2-width);
+  height: var(--sms-chat-timestamp-2-height);
+  line-height: var(--sms-chat-timestamp-2-height);
+}
+
+.sms-chat-timestamp:nth-of-type(3),
+.mms-chat .sms-chat-timestamp:nth-of-type(3) {
+  top: var(--sms-chat-timestamp-3-top);
+}
+
+.sms-chat-bubble--incoming-1,
+.mms-chat .sms-chat-bubble--incoming-1 {
+  top: var(--sms-chat-bubble-incoming-1-top);
+  left: var(--sms-chat-bubble-incoming-1-left);
+  width: var(--sms-chat-bubble-incoming-1-width);
+  min-height: var(--sms-chat-bubble-incoming-1-height);
+}
+
+.sms-chat-bubble--incoming-2,
+.mms-chat .sms-chat-bubble--incoming-2 {
+  top: var(--sms-chat-bubble-incoming-2-top);
+  left: var(--sms-chat-bubble-incoming-2-left);
+  width: var(--sms-chat-bubble-incoming-2-width);
+  min-height: var(--sms-chat-bubble-incoming-2-height);
+}
+
+.sms-chat-bubble--outgoing,
+.mms-chat .sms-chat-bubble--outgoing {
+  top: var(--sms-chat-bubble-outgoing-top);
+  left: var(--sms-chat-bubble-outgoing-left);
+  width: var(--sms-chat-bubble-outgoing-width);
+  min-height: var(--sms-chat-bubble-outgoing-height);
+}
+
+/**
+ * Contacts screen
+ */
+
+.contacts .app-screen {
+  display: block;
+}
+
+.contacts .app-screen__body {
+  display: none;
+}
+
+.contacts-item:nth-child(1) {
+  top: calc(var(--contacts-item-1-top-screen) - var(--contacts-panel-top));
+  width: var(--contacts-item-1-width);
+  height: var(--contacts-item-1-height);
+}
+
+.contacts-item:nth-child(2) {
+  top: calc(var(--contacts-item-2-top-screen) - var(--contacts-panel-top));
+  width: var(--contacts-item-2-width);
+  height: var(--contacts-item-2-height);
+}
+
+.contacts-item:nth-child(3) {
+  top: calc(var(--contacts-item-3-top-screen) - var(--contacts-panel-top));
+  width: var(--contacts-item-3-width);
+  height: var(--contacts-item-3-height);
+}
+
+.contacts-item:nth-child(4) {
+  top: calc(
+    (var(--contacts-item-3-top-screen) - var(--contacts-panel-top)) + var(--contacts-item-row-step)
+  );
+  width: var(--contacts-item-default-width);
+  height: var(--contacts-item-default-height);
+}
+
+.contacts-item:nth-child(5) {
+  top: calc(
+    (var(--contacts-item-3-top-screen) - var(--contacts-panel-top)) +
+      (2 * var(--contacts-item-row-step))
+  );
+  width: var(--contacts-item-default-width);
+  height: var(--contacts-item-default-height);
+}
+
+.contacts-item:nth-child(6) {
+  top: calc(
+    (var(--contacts-item-3-top-screen) - var(--contacts-panel-top)) +
+      (3 * var(--contacts-item-row-step))
+  );
+  width: var(--contacts-item-default-width);
+  height: var(--contacts-item-default-height);
+}
+
+.contacts-item:nth-child(7) {
+  top: calc(
+    (var(--contacts-item-3-top-screen) - var(--contacts-panel-top)) +
+      (4 * var(--contacts-item-row-step))
+  );
+  width: var(--contacts-item-default-width);
+  height: var(--contacts-item-default-height);
+}
+
+.contacts-item:nth-child(8) {
+  top: calc(
+    (var(--contacts-item-3-top-screen) - var(--contacts-panel-top)) +
+      (5 * var(--contacts-item-row-step))
+  );
+  width: var(--contacts-item-default-width);
+  height: var(--contacts-item-default-height);
+}
+
+.contacts-item:nth-child(9) {
+  top: calc(
+    (var(--contacts-item-3-top-screen) - var(--contacts-panel-top)) +
+      (6 * var(--contacts-item-row-step))
+  );
+  width: var(--contacts-item-default-width);
+  height: var(--contacts-item-default-height);
+}
+
+.contacts-item:nth-child(10) {
+  top: calc(
+    (var(--contacts-item-3-top-screen) - var(--contacts-panel-top)) +
+      (7 * var(--contacts-item-row-step))
+  );
+  width: var(--contacts-item-default-width);
+  height: var(--contacts-item-default-height);
+}
+
+/**
+ * Settings screen
+ */
+
+.settings .app-screen {
+  display: block;
+}
+
+.settings .app-screen::before {
+  z-index: 1;
+}
+
+.settings .app-screen__body {
+  display: none;
+}
+

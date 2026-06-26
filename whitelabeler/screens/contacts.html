@@ -1,0 +1,186 @@
+<!-- Contacts -->
+<section
+  class="screen-panel contacts"
+  data-screen="contacts"
+  aria-label="Contacts screen"
+  hidden
+>
+  <main class="app-screen app-screen--home app-screen--contacts" role="main" aria-labelledby="contacts-title">
+    <h1 id="contacts-title" class="visually-hidden">Contacts</h1>
+
+    <header class="contacts-topbar">
+      <button type="button" class="contacts-topbar__menu" aria-label="Open menu">
+        <img
+          class="contacts-topbar__menu-icon"
+          src="assets/icons/menu.png"
+          alt=""
+          width="24"
+          height="24"
+        />
+      </button>
+    </header>
+
+    <p class="contacts-heading" aria-hidden="true">Contacts</p>
+
+    <nav class="contacts-tabs" aria-label="Contact filters">
+      <ul class="contacts-tabs__list" role="list">
+        <li class="contacts-tabs__item">
+          <button type="button" class="contacts-tabs__tab contacts-tabs__tab--active" aria-current="page">All</button>
+        </li>
+        <li class="contacts-tabs__item">
+          <button type="button" class="contacts-tabs__tab">Enterprise</button>
+        </li>
+        <li class="contacts-tabs__item">
+          <button type="button" class="contacts-tabs__tab">Phone</button>
+        </li>
+        <li class="contacts-tabs__item">
+          <button type="button" class="contacts-tabs__tab">Favorites</button>
+        </li>
+      </ul>
+    </nav>
+
+    <img
+      class="contacts-search__icon"
+      src="assets/icons/chats-search.png"
+      alt=""
+      width="24"
+      height="24"
+      aria-hidden="true"
+    />
+
+    <div class="contacts-search" aria-hidden="true"></div>
+
+    <input
+      class="contacts-search__input"
+      type="search"
+      name="contact-search"
+      placeholder="Search by Contact"
+      aria-label="Search by contact"
+      autocomplete="off"
+    />
+
+    <section class="contacts-panel" aria-label="Contact list">
+      <ul class="contacts-list" role="list">
+        <li class="contacts-item">
+          <span class="contacts-item__avatar" aria-hidden="true">AG</span>
+          <p class="contacts-item__name">Andrii Greer</p>
+        </li>
+        <li class="contacts-item">
+          <span class="contacts-item__avatar" aria-hidden="true">AQ</span>
+          <p class="contacts-item__name">Aiden Quinn</p>
+        </li>
+        <li class="contacts-item">
+          <img
+            class="contacts-item__avatar contacts-item__avatar--photo"
+            src="assets/images/messages/contact-peter.png"
+            alt=""
+            width="50"
+            height="51"
+          />
+          <p class="contacts-item__name">Aakash Soni</p>
+        </li>
+        <li class="contacts-item">
+          <img
+            class="contacts-item__avatar contacts-item__avatar--photo"
+            src="assets/images/messages/contact-sam.png"
+            alt=""
+            width="50"
+            height="51"
+          />
+          <p class="contacts-item__name">Birdie Mckenzie</p>
+        </li>
+        <li class="contacts-item">
+          <span class="contacts-item__avatar" aria-hidden="true">B</span>
+          <p class="contacts-item__name">Brett</p>
+        </li>
+        <li class="contacts-item">
+          <span class="contacts-item__avatar" aria-hidden="true">BM</span>
+          <p class="contacts-item__name">Bradon Mayer</p>
+        </li>
+        <li class="contacts-item">
+          <span class="contacts-item__avatar" aria-hidden="true">CP</span>
+          <p class="contacts-item__name">Christina Perez</p>
+        </li>
+        <li class="contacts-item">
+          <span class="contacts-item__avatar" aria-hidden="true">CH</span>
+          <p class="contacts-item__name">Chris Harish</p>
+        </li>
+        <li class="contacts-item">
+          <span class="contacts-item__avatar" aria-hidden="true">DS</span>
+          <p class="contacts-item__name">David Shoot</p>
+        </li>
+        <li class="contacts-item">
+          <span class="contacts-item__avatar" aria-hidden="true">D</span>
+          <p class="contacts-item__name">Demi Shoot</p>
+        </li>
+      </ul>
+    </section>
+
+    <nav class="bottom-nav bottom-nav--tabs" aria-label="Main navigation">
+      <ul class="bottom-nav__list" role="list">
+        <li class="bottom-nav__item">
+          <button type="button" class="bottom-nav__tab" aria-label="Dialpad">
+            <img
+              class="bottom-nav__tab-icon"
+              src="assets/icons/nav/dialpad.png"
+              alt=""
+              width="56"
+              height="59"
+              decoding="async"
+            />
+          </button>
+        </li>
+        <li class="bottom-nav__item bottom-nav__item--active" aria-current="page">
+          <button type="button" class="bottom-nav__tab" aria-label="Contacts">
+            <img
+              class="bottom-nav__tab-icon"
+              src="assets/icons/nav/contacts-active.png"
+              alt=""
+              width="68"
+              height="62"
+              decoding="async"
+            />
+          </button>
+        </li>
+        <li class="bottom-nav__item">
+          <button type="button" class="bottom-nav__tab" aria-label="Recents">
+            <img
+              class="bottom-nav__tab-icon"
+              src="assets/icons/nav/recents.png"
+              alt=""
+              width="60"
+              height="63"
+              decoding="async"
+            />
+          </button>
+        </li>
+        <li class="bottom-nav__item">
+          <button type="button" class="bottom-nav__tab" aria-label="Messages, 5 unread">
+            <img
+              class="bottom-nav__tab-icon"
+              src="assets/icons/nav/messages.png"
+              alt=""
+              width="75"
+              height="63"
+              decoding="async"
+            />
+          </button>
+        </li>
+        <li class="bottom-nav__item">
+          <button type="button" class="bottom-nav__tab" aria-label="Chats, 2 unread">
+            <img
+              class="bottom-nav__tab-icon"
+              src="assets/icons/nav/chats.png"
+              alt=""
+              width="44"
+              height="63"
+              decoding="async"
+            />
+          </button>
+        </li>
+      </ul>
+      <span class="bottom-nav__badge bottom-nav__badge--messages" aria-hidden="true">5</span>
+      <span class="bottom-nav__badge bottom-nav__badge--chats" aria-hidden="true">2</span>
+    </nav>
+  </main>
+</section>

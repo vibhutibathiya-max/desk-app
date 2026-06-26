@@ -1,0 +1,99 @@
+<!-- Messages Chat -->
+<section
+  class="screen-panel sms-chat"
+  data-screen="sms-chat"
+  aria-label="SMS chat with Steve"
+  hidden
+>
+  <main class="app-screen app-screen--home app-screen--sms-chat" role="main" aria-labelledby="sms-chat-title">
+    <h1 id="sms-chat-title" class="visually-hidden">Steve</h1>
+
+    <header class="sms-chat-topbar">
+      <button type="button" class="sms-chat-topbar__back" aria-label="Go back">
+        <img
+          class="sms-chat-topbar__back-icon"
+          src="assets/icons/sms/back.svg"
+          alt=""
+          width="24"
+          height="24"
+        />
+      </button>
+    </header>
+
+    <p class="sms-chat-heading" aria-hidden="true">Steve</p>
+
+    <img
+      class="sms-chat-search__icon"
+      src="assets/icons/chats-search.png"
+      alt=""
+      width="24"
+      height="24"
+      aria-hidden="true"
+    />
+
+    <div class="sms-chat-search" aria-hidden="true"></div>
+
+    <input
+      class="sms-chat-search__input"
+      type="search"
+      name="sms-search"
+      placeholder="Search Messages"
+      aria-label="Search messages"
+      autocomplete="off"
+    />
+
+    <section class="sms-chat-panel" aria-label="Message thread">
+      <div class="sms-chat-thread">
+        <time class="sms-chat-timestamp sms-chat-timestamp--incoming" datetime="2025-07-23T20:38">
+          Fri, July 23, 08:38 PM
+        </time>
+        <p class="sms-chat-bubble sms-chat-bubble--incoming sms-chat-bubble--incoming-1">
+          Hey men you should go for interview and give your Best on the same, All the Best!
+        </p>
+
+        <time class="sms-chat-timestamp sms-chat-timestamp--incoming" datetime="2025-07-28T20:38">
+          Wed, 28 July, 08:38 PM
+        </time>
+        <p class="sms-chat-bubble sms-chat-bubble--incoming sms-chat-bubble--incoming-2">
+          How abut the meeting tomorrow?
+        </p>
+
+        <time class="sms-chat-timestamp sms-chat-timestamp--outgoing" datetime="2025-07-28T20:40">
+          Wed, 28 July, 08:40 PM
+        </time>
+        <p class="sms-chat-bubble sms-chat-bubble--outgoing">
+          How abut the meeting tomorrow?
+        </p>
+      </div>
+
+      <div class="sms-chat-composer">
+        <input
+          class="sms-chat-composer__input"
+          type="text"
+          name="sms-message"
+          placeholder="Enter Message"
+          aria-label="Enter message"
+          autocomplete="off"
+        />
+        <button type="button" class="sms-chat-composer__attach" aria-label="Attach file">
+          <img
+            class="sms-chat-composer__attach-icon"
+            src="assets/icons/sms/attach.png"
+            alt=""
+            width="14"
+            height="23"
+          />
+        </button>
+        <button type="button" class="sms-chat-composer__send" aria-label="Send message">
+          <img
+            class="sms-chat-composer__send-icon"
+            src="assets/icons/sms/send.png"
+            alt=""
+            width="28"
+            height="28"
+          />
+        </button>
+      </div>
+    </section>
+  </main>
+</section>

@@ -1,0 +1,35 @@
+//
+//  brandng.xcconfig
+//  TragofoneNew
+//
+//  Created by Krupanshu Sharma on 28/06/25.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+// DEBUG
+// #include? "Pods/Target Support Files/Pods-TragofoneNew/Pods-TragofoneNew.debug.xcconfig"
+
+// Release
+#include? "Pods/Target Support Files/Pods-TragofoneNew/Pods-TragofoneNew.release.xcconfig"
+
+// Shared branding values
+BRAND_NAME = TragofoneNew
+APP_DISPLAY_NAME = Tragofone
+PRODUCT_NAME = $(BRAND_NAME)App
+
+BASE_BUNDLE_ID = com.tragofone.app
+DEVELOPMENT_TEAM = FWNRXZ6644
+MARKETING_VERSION = 5.13.12
+CURRENT_PROJECT_VERSION = 1
+CODE_SIGN_ENTITLEMENTS = TragofoneNew/TragofoneNew.entitlements
+CODE_SIGN_STYLE = Automatic
+
+// Default for main app
+PRODUCT_BUNDLE_IDENTIFIER = $(BASE_BUNDLE_ID)
+
+APP_GROUP = group.com.tragofone.app
+
+// --- Per-target overrides ---
+#include? "override_$(TARGET_NAME).xcconfig"

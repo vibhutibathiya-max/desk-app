@@ -1,0 +1,562 @@
+{
+  "packageRoot": "epicrange_only_icons",
+  "source": "epicrange_only_icons.zip",
+  "generatedAt": "2026-06-25T10:42:13.351Z",
+  "files": [
+    {
+      "zipPath": "epicrange_only_icons/android/app/src/main/ic_launcher-playstore.png",
+      "path": "android/app/src/main/ic_launcher-playstore.png",
+      "fileName": "ic_launcher-playstore.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/android/app/src/main/res/drawable-hdpi/ic_small_notif.png",
+      "path": "android/app/src/main/res/drawable-hdpi/ic_small_notif.png",
+      "fileName": "ic_small_notif.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/android/app/src/main/res/drawable-mdpi/ic_small_notif.png",
+      "path": "android/app/src/main/res/drawable-mdpi/ic_small_notif.png",
+      "fileName": "ic_small_notif.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/android/app/src/main/res/drawable-xhdpi/company_logo_white.png",
+      "path": "android/app/src/main/res/drawable-xhdpi/company_logo_white.png",
+      "fileName": "company_logo_white.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/android/app/src/main/res/drawable-xhdpi/ic_small_notif.png",
+      "path": "android/app/src/main/res/drawable-xhdpi/ic_small_notif.png",
+      "fileName": "ic_small_notif.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/android/app/src/main/res/drawable-xhdpi/splash_logo.png",
+      "path": "android/app/src/main/res/drawable-xhdpi/splash_logo.png",
+      "fileName": "splash_logo.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/android/app/src/main/res/drawable-xxhdpi/ic_small_notif.png",
+      "path": "android/app/src/main/res/drawable-xxhdpi/ic_small_notif.png",
+      "fileName": "ic_small_notif.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/android/app/src/main/res/drawable-xxxhdpi/ic_small_notif.png",
+      "path": "android/app/src/main/res/drawable-xxxhdpi/ic_small_notif.png",
+      "fileName": "ic_small_notif.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/android/app/src/main/res/drawable/background.png",
+      "path": "android/app/src/main/res/drawable/background.png",
+      "fileName": "background.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/android/app/src/main/res/mipmap-hdpi/ic_launcher_background.png",
+      "path": "android/app/src/main/res/mipmap-hdpi/ic_launcher_background.png",
+      "fileName": "ic_launcher_background.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/android/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.png",
+      "path": "android/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.png",
+      "fileName": "ic_launcher_foreground.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png",
+      "path": "android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png",
+      "fileName": "ic_launcher_round.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/android/app/src/main/res/mipmap-hdpi/ic_launcher.png",
+      "path": "android/app/src/main/res/mipmap-hdpi/ic_launcher.png",
+      "fileName": "ic_launcher.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/android/app/src/main/res/mipmap-mdpi/ic_launcher_background.png",
+      "path": "android/app/src/main/res/mipmap-mdpi/ic_launcher_background.png",
+      "fileName": "ic_launcher_background.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/android/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.png",
+      "path": "android/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.png",
+      "fileName": "ic_launcher_foreground.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png",
+      "path": "android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png",
+      "fileName": "ic_launcher_round.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/android/app/src/main/res/mipmap-mdpi/ic_launcher.png",
+      "path": "android/app/src/main/res/mipmap-mdpi/ic_launcher.png",
+      "fileName": "ic_launcher.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/android/app/src/main/res/mipmap-xhdpi/ic_launcher_background.png",
+      "path": "android/app/src/main/res/mipmap-xhdpi/ic_launcher_background.png",
+      "fileName": "ic_launcher_background.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/android/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png",
+      "path": "android/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png",
+      "fileName": "ic_launcher_foreground.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png",
+      "path": "android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png",
+      "fileName": "ic_launcher_round.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png",
+      "path": "android/app/src/main/res/mipmap-xhdpi/ic_launcher.png",
+      "fileName": "ic_launcher.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_background.png",
+      "path": "android/app/src/main/res/mipmap-xxhdpi/ic_launcher_background.png",
+      "fileName": "ic_launcher_background.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png",
+      "path": "android/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png",
+      "fileName": "ic_launcher_foreground.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png",
+      "path": "android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png",
+      "fileName": "ic_launcher_round.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png",
+      "path": "android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png",
+      "fileName": "ic_launcher.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_background.png",
+      "path": "android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_background.png",
+      "fileName": "ic_launcher_background.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png",
+      "path": "android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png",
+      "fileName": "ic_launcher_foreground.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png",
+      "path": "android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png",
+      "fileName": "ic_launcher_round.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png",
+      "path": "android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png",
+      "fileName": "ic_launcher.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/activity_loader_white.gif",
+      "path": "app/assets/images/activity_loader_white.gif",
+      "fileName": "activity_loader_white.gif"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/activity_loader.gif",
+      "path": "app/assets/images/activity_loader.gif",
+      "fileName": "activity_loader.gif"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/attachment_bg.png",
+      "path": "app/assets/images/attachment_bg.png",
+      "fileName": "attachment_bg.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/audio_notification.png",
+      "path": "app/assets/images/audio_notification.png",
+      "fileName": "audio_notification.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/blfIncoming.gif",
+      "path": "app/assets/images/blfIncoming.gif",
+      "fileName": "blfIncoming.gif"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/chat-bubble.gif",
+      "path": "app/assets/images/chat-bubble.gif",
+      "fileName": "chat-bubble.gif"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/company_logo_white_new.png",
+      "path": "app/assets/images/company_logo_white_new.png",
+      "fileName": "company_logo_white_new.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/company_logo_white.png",
+      "path": "app/assets/images/company_logo_white.png",
+      "fileName": "company_logo_white.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/contact_book.gif",
+      "path": "app/assets/images/contact_book.gif",
+      "fileName": "contact_book.gif"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/dialpad_full_logo.png",
+      "path": "app/assets/images/dialpad_full_logo.png",
+      "fileName": "dialpad_full_logo.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/document_notification.png",
+      "path": "app/assets/images/document_notification.png",
+      "fileName": "document_notification.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/done.png",
+      "path": "app/assets/images/done.png",
+      "fileName": "done.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/download.gif",
+      "path": "app/assets/images/download.gif",
+      "fileName": "download.gif"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/es.gif",
+      "path": "app/assets/images/es.gif",
+      "fileName": "es.gif"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/failed.png",
+      "path": "app/assets/images/failed.png",
+      "fileName": "failed.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/fr.gif",
+      "path": "app/assets/images/fr.gif",
+      "fileName": "fr.gif"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/gm.gif",
+      "path": "app/assets/images/gm.gif",
+      "fileName": "gm.gif"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/he.gif",
+      "path": "app/assets/images/he.gif",
+      "fileName": "he.gif"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/incoming-call-connect.gif",
+      "path": "app/assets/images/incoming-call-connect.gif",
+      "fileName": "incoming-call-connect.gif"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/it.gif",
+      "path": "app/assets/images/it.gif",
+      "fileName": "it.gif"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/nl.gif",
+      "path": "app/assets/images/nl.gif",
+      "fileName": "nl.gif"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/no_internet_connected.png",
+      "path": "app/assets/images/no_internet_connected.png",
+      "fileName": "no_internet_connected.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/outgoing-call.gif",
+      "path": "app/assets/images/outgoing-call.gif",
+      "fileName": "outgoing-call.gif"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/photo_notification_padding.png",
+      "path": "app/assets/images/photo_notification_padding.png",
+      "fileName": "photo_notification_padding.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/photo_notification.png",
+      "path": "app/assets/images/photo_notification.png",
+      "fileName": "photo_notification.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/po.gif",
+      "path": "app/assets/images/po.gif",
+      "fileName": "po.gif"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/ru.gif",
+      "path": "app/assets/images/ru.gif",
+      "fileName": "ru.gif"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/sms_buble.gif",
+      "path": "app/assets/images/sms_buble.gif",
+      "fileName": "sms_buble.gif"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/splash_bg_pattern_dark.png",
+      "path": "app/assets/images/splash_bg_pattern_dark.png",
+      "fileName": "splash_bg_pattern_dark.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/splash_bg_pattern.png",
+      "path": "app/assets/images/splash_bg_pattern.png",
+      "fileName": "splash_bg_pattern.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/tr.gif",
+      "path": "app/assets/images/tr.gif",
+      "fileName": "tr.gif"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/trago_gradient_logo.png",
+      "path": "app/assets/images/trago_gradient_logo.png",
+      "fileName": "trago_gradient_logo.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/uk.gif",
+      "path": "app/assets/images/uk.gif",
+      "fileName": "uk.gif"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/us-flag.gif",
+      "path": "app/assets/images/us-flag.gif",
+      "fileName": "us-flag.gif"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/video_notification.png",
+      "path": "app/assets/images/video_notification.png",
+      "fileName": "video_notification.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/ym.gif",
+      "path": "app/assets/images/ym.gif",
+      "fileName": "ym.gif"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/zh_ch.gif",
+      "path": "app/assets/images/zh_ch.gif",
+      "fileName": "zh_ch.gif"
+    },
+    {
+      "zipPath": "epicrange_only_icons/app/assets/images/zh_tw.gif",
+      "path": "app/assets/images/zh_tw.gif",
+      "fileName": "zh_tw.gif"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/appCallKitIcon.imageset/appCallKitIcon.png",
+      "path": "ios/TragofoneNew/Images.xcassets/appCallKitIcon.imageset/appCallKitIcon.png",
+      "fileName": "appCallKitIcon.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/100.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/100.png",
+      "fileName": "100.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/102.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/102.png",
+      "fileName": "102.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/1024.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/1024.png",
+      "fileName": "1024.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/108.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/108.png",
+      "fileName": "108.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/114.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/114.png",
+      "fileName": "114.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/120.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/120.png",
+      "fileName": "120.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/128.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/128.png",
+      "fileName": "128.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/144.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/144.png",
+      "fileName": "144.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/152.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/152.png",
+      "fileName": "152.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/16.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/16.png",
+      "fileName": "16.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/167.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/167.png",
+      "fileName": "167.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/172.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/172.png",
+      "fileName": "172.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/180.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/180.png",
+      "fileName": "180.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/196.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/196.png",
+      "fileName": "196.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/20.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/20.png",
+      "fileName": "20.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/216.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/216.png",
+      "fileName": "216.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/234.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/234.png",
+      "fileName": "234.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/256.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/256.png",
+      "fileName": "256.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/258.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/258.png",
+      "fileName": "258.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/29.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/29.png",
+      "fileName": "29.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/32.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/32.png",
+      "fileName": "32.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/40.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/40.png",
+      "fileName": "40.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/48.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/48.png",
+      "fileName": "48.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/50.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/50.png",
+      "fileName": "50.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/512.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/512.png",
+      "fileName": "512.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/55.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/55.png",
+      "fileName": "55.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/57.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/57.png",
+      "fileName": "57.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/58.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/58.png",
+      "fileName": "58.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/60.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/60.png",
+      "fileName": "60.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/64.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/64.png",
+      "fileName": "64.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/66.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/66.png",
+      "fileName": "66.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/72.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/72.png",
+      "fileName": "72.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/76.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/76.png",
+      "fileName": "76.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/80.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/80.png",
+      "fileName": "80.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/87.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/87.png",
+      "fileName": "87.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/88.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/88.png",
+      "fileName": "88.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/92.png",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/92.png",
+      "fileName": "92.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/Contents.json",
+      "path": "ios/TragofoneNew/Images.xcassets/AppIcon.appiconset/Contents.json",
+      "fileName": "Contents.json"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/Contents.json",
+      "path": "ios/TragofoneNew/Images.xcassets/Contents.json",
+      "fileName": "Contents.json"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/gradient_ios.imageset/gradient_ios.png",
+      "path": "ios/TragofoneNew/Images.xcassets/gradient_ios.imageset/gradient_ios.png",
+      "fileName": "gradient_ios.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/imageName.imageset/imageName.png",
+      "path": "ios/TragofoneNew/Images.xcassets/imageName.imageset/imageName.png",
+      "fileName": "imageName.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Images.xcassets/logo_white_bg.imageset/logo_white_bg.png",
+      "path": "ios/TragofoneNew/Images.xcassets/logo_white_bg.imageset/logo_white_bg.png",
+      "fileName": "logo_white_bg.png"
+    },
+    {
+      "zipPath": "epicrange_only_icons/ios/TragofoneNew/Info.plist",
+      "path": "ios/TragofoneNew/Info.plist",
+      "fileName": "Info.plist"
+    }
+  ]
+}

@@ -1,0 +1,630 @@
+/**
+ * Tragofone Design Tokens
+ * Source: Figma — Tragofone Mobile App (Splash Screen)
+ */
+
+:root {
+  /* Theme-driven brand tokens (injected by ThemeManager from theme.js) */
+  --color-brand-primary: var(--PRIMARY_DARK_COLOR);
+  --color-gradient-violet-deep: var(--GRADIENT_1);
+  --color-gradient-violet: var(--GRADIENT_2);
+  --color-gradient-blue-bright: var(--GRADIENT_3);
+  --color-gradient-blue-soft: var(--GRADIENT_4);
+  --color-surface-brand: var(--GRADIENT_1);
+  --color-surface-light: #ffffff;
+  --color-foreground-on-brand: #ffffff;
+  --color-foreground-on-light: #1a1a2e;
+  --color-foreground-muted-on-brand: rgba(255, 255, 255, 0.65);
+  --color-link-accent: #57c4f0;
+  --color-foreground-muted-on-canvas: rgba(255, 255, 255, 0.55);
+
+  /* Preview chrome (outside device frame) */
+  --color-nav-surface: #1a1a1a;
+  --color-nav-border: rgba(255, 255, 255, 0.12);
+  --color-nav-foreground: #ffffff;
+  --preview-shell-gap: var(--space-8);
+  --screen-nav-width: 11rem;
+  --screen-nav-offset-top: var(--space-6);
+  --screen-nav-offset-inline: var(--space-6);
+
+  /* Gradients — built from theme.js GRADIENT_* at runtime */
+  --gradient-main: var(--CSS_GRADIENT_MAIN);
+
+  --gradient-onboarding: var(--CSS_GRADIENT_ONBOARDING);
+  --onboarding-bg-image: url("../assets/images/onboarding-bg.png");
+
+  --gradient-button-primary: var(--CSS_GRADIENT_BUTTON_PRIMARY);
+
+  /* Typography */
+  --font-family-brand: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-family-dial-pad: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --home-watermark-opacity: 0.68;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-size-xs: 0.6875rem;  /* 11px */
+  --font-size-sm: 0.8125rem;  /* 13px */
+  --line-height-tight: 1.2;
+
+  /* Spacing scale (4px base) */
+  --space-1: 0.25rem;  /* 4px */
+  --space-2: 0.5rem;   /* 8px */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-5: 1.25rem;  /* 20px */
+  --space-6: 1.5rem;   /* 24px */
+  --space-8: 2rem;     /* 32px */
+  --space-10: 2.5rem;  /* 40px */
+  --space-12: 3rem;    /* 48px */
+  --space-16: 4rem;    /* 64px */
+
+  /* Layout */
+  --device-frame-width: 540px;
+  --device-frame-height: 1111px;
+  --device-frame-padding-block: var(--space-6); /* 24px top & bottom around screen */
+  --layout-max-width-mobile: var(--device-frame-width);
+  --layout-safe-area-inline: var(--space-6);
+  --layout-safe-area-block: var(--space-6);
+
+  /* Component sizing (scaled to 540px frame) */
+  --brand-logo-size: 12.5rem;       /* 200px */
+  --brand-wordmark-width: 16.25rem; /* 260px */
+  --app-badge-size: 1.5rem;
+  --app-icon-size: 10.5rem; /* 168px squircle */
+  --btn-height: 3.25rem;    /* 52px */
+
+  /* Home screen layout (540 × 1111 frame) */
+  --home-watermark-width: 330px;
+  --home-watermark-height: 110px;
+  --home-watermark-top: 172.05px;
+  --home-watermark-left: 105px;
+  --home-panel-top: 407px;
+  --home-panel-height: 704px;
+  --home-panel-radius: 30px;
+  --home-call-actions-width: 205px;
+  --home-call-actions-height: 79px;
+  --home-call-actions-top: 915.99px;
+  --home-call-actions-left: 168px;
+  --home-bottom-nav-height: 100px;
+  --home-bottom-nav-top: 1011px;
+  --bottom-nav-badge-width: 24px;
+  --bottom-nav-badge-height: 26px;
+  --bottom-nav-badge-top: 11px;
+  --bottom-nav-badge-messages-left: 382px;
+  --bottom-nav-badge-chats-left: 490px;
+  --bottom-nav-badge-font-size: 15px;
+  --color-bottom-nav-active: var(--GRADIENT_1);
+  --color-bottom-nav-badge: #f53e47;
+  --color-border-subtle: rgba(0, 0, 0, 0.08);
+  --color-call-actions: #28b42d;
+  --color-dial-key-bg: #f2f2f7;
+  --color-dial-key-text: #1c1c1e;
+  --color-dial-key-subtext: #3a3a3c;
+  --color-foreground-muted-on-light: #8e8e93;
+  --color-toggle-track: rgba(255, 255, 255, 0.35);
+  --color-toggle-thumb: #ffffff;
+
+  --gradient-home-header: var(--CSS_GRADIENT_FULL_SCREEN);
+  --gradient-contacts-header: linear-gradient(
+    223.54deg,
+    #5b4fc9 6%,
+    #6554d4 30%,
+    var(--GRADIENT_2) 58%,
+    #7a52e3 100%
+  );
+  --gradient-call: var(--gradient-home-header);
+
+  /* Call screens */
+  --font-family-display: "Product Sans", "Nunito Sans", system-ui, sans-serif;
+  --call-avatar-width: 185px;
+  --call-avatar-height: 188px;
+  --call-avatar-top: 212px;
+  --call-avatar-left: 178px;
+  --call-name-size: 2.5rem;
+  --call-control-size: 107px;
+  --call-control-mute-top: 460px;
+  --call-control-mute-left: 73px;
+  --call-control-keypad-top: 460px;
+  --call-control-keypad-left: 217px;
+  --call-control-speaker-top: 460px;
+  --call-control-speaker-left: 361px;
+  --call-control-transfer-top: 647px;
+  --call-control-transfer-left: 73px;
+  --call-control-hold-top: 647px;
+  --call-control-hold-left: 217px;
+  --call-control-conference-top: 647px;
+  --call-control-conference-left: 361px;
+  --call-end-top: 900px;
+  --call-end-size: 4.5rem;
+  --ongoing-avatar-width: 141px;
+  --ongoing-avatar-height: 144px;
+  --ongoing-avatar-top: 69px;
+  --ongoing-avatar-left: 200px;
+  --call-avatar-accent-bg: #675deb;
+  --ongoing-avatar-bg: var(--call-avatar-accent-bg);
+  --incoming-avatar-width: 185px;
+  --incoming-avatar-height: 188px;
+  --incoming-avatar-top: 212px;
+  --incoming-avatar-left: 178px;
+  --incoming-initials-top: 254.5px;
+  --incoming-initials-left: 220.5px;
+  --incoming-initials-width: 100px;
+  --incoming-initials-height: 103px;
+  --incoming-initials-size: 86px;
+  --incoming-name-size: 40px;
+  --incoming-detail-size: 28px;
+  --color-incoming-badge-pause: #26ab23;
+  --color-incoming-badge-decline: #e6404e;
+  --ongoing-initials-top: 101.5px;
+  --ongoing-initials-left: 232.5px;
+  --ongoing-initials-width: 76px;
+  --ongoing-initials-height: 79px;
+  --ongoing-initials-size: 65px;
+  --ongoing-name-top: 236px;
+  --ongoing-name-left: 141.96px;
+  --ongoing-name-width: 243px;
+  --ongoing-name-size: 40px;
+  --ongoing-detail-top: 291px;
+  --ongoing-detail-left: 250.79px;
+  --ongoing-detail-width: 37px;
+  --ongoing-detail-size: 28px;
+  --ongoing-timer-top: 350px;
+  --ongoing-timer-left: 235.13px;
+  --ongoing-timer-width: 70px;
+  --ongoing-timer-size: 25px;
+  --call-control-icon-size: 2.75rem;
+  --conference-title-top: 120px;
+  --conference-title-size: 28px;
+  --conference-timer-top: 168px;
+  --conference-timer-size: 25px;
+  --conference-participant-width: 480px;
+  --conference-participant-height: 85px;
+  --conference-participant-left: 30px;
+  --conference-participant-1-top: 268px;
+  --conference-participant-2-top: 363px;
+  --conference-participant-bg: var(--call-avatar-accent-bg);
+  --conference-participant-shadow: 0 5px 19px rgba(0, 0, 0, 0.1);
+  --conference-participant-radius: 0.75rem;
+  --conference-participant-avatar-size: 48px;
+  --conference-participant-hangup-size: 2.5rem;
+  --conference-participant-padding-inline: 18.5px;
+  --conference-control-mute-top: 655px;
+  --conference-control-keypad-top: 655px;
+  --conference-control-speaker-top: 655px;
+  --conference-control-mute-left: 73px;
+  --conference-control-keypad-left: 217px;
+  --conference-control-speaker-left: 361px;
+  --color-call-decline: #e54551;
+  --color-call-avatar-bg: rgba(255, 255, 255, 0.22);
+  --color-call-control-bg: rgba(255, 255, 255, 0.22);
+  --home-header-height: var(--home-panel-top);
+
+  --dial-pad-width: 475px;
+  --dial-pad-height: 380px;
+  --dial-pad-top: 520px;
+  --dial-pad-left: 32px;
+  --dial-pad-top-offset: calc(var(--dial-pad-top) - var(--home-panel-top));
+
+  --home-topbar-top: 3.25rem;
+  --home-topbar-inline: var(--space-6);
+
+  /* Chats screen */
+  --chats-header-height: 210px;
+  --chats-panel-top: 210px;
+  --chats-panel-height: 901px;
+  --chats-settings-top: 68px;
+  --chats-settings-left: 481px;
+  --chats-settings-width: 23.35px;
+  --chats-settings-height: 22.45px;
+  --chats-status-dot-top: 72px;
+  --chats-status-dot-left: 155px;
+  --chats-status-dot-size: 15px;
+  --chats-title-arrow-top: 74px;
+  --chats-title-arrow-left: 176px;
+  --chats-title-arrow-size: 14px;
+  --color-chats-online: #2de466;
+  --chats-search-icon-top: 149px;
+  --chats-search-icon-left: 58px;
+  --chats-search-icon-size: 24px;
+  --chats-search-text-top: 146px;
+  --chats-search-text-left: 93px;
+  --chats-search-text-min-width: 76px;
+  --chats-search-text-height: 30px;
+  --chats-search-text-size: 25px;
+  --chats-search-height: 48px;
+  --chats-search-inline: 30px;
+  --chats-presence-size: 16px;
+  --chats-presence-border: 2px solid #ffffff;
+  --chats-fab-top: 923.18px;
+  --chats-fab-left: 432.37px;
+  --chats-fab-size: 71.63px;
+  --color-chats-fab: var(--CHAT_ICON_COLOR_RECIVER);
+  --chats-new-icon-top: 940.62px;
+  --chats-new-icon-left: 448.29px;
+  --chats-new-icon-width: 39.86px;
+  --chats-new-icon-height: 36.76px;
+  --chats-heading-top: 62px;
+  --chats-heading-left: 80.83px;
+  --chats-heading-width: auto;
+  --chats-title-size: 27px;
+  --chats-online-top: 97px;
+  --chats-online-left: 82px;
+  --chats-online-width: 46px;
+  --chats-online-size: 16px;
+  --chats-item-width: 471px;
+  --chats-item-height: 55px;
+  --chats-item-step: 94px;
+  --chats-item-left: 35px;
+  --chats-item-first-top-screen: 253px;
+  --chats-item-first-top: calc(var(--chats-item-first-top-screen) - var(--chats-panel-top));
+  --chats-item-text-left: 126.64px;
+  --chats-item-avatar-size: 52px;
+  --chats-item-avatar-gap: 16px;
+  --chats-item-name-preview-gap: 6px;
+  --chats-item-preview-width: 265px;
+  --chats-preview-icon-size: 16px;
+  --chats-item-avatar-text-size: 22px;
+  --chats-item-name-size: 25px;
+  --chats-item-preview-size: 18px;
+  --chats-item-time-size: 13px;
+  --color-chats-avatar-bg: var(--CHAT_ICON_COLOR_RECIVER);
+  --color-chats-name: #141414;
+  --color-chats-preview: var(--HINT_TEXT_Y);
+  --color-chats-unread: #e6404e;
+
+  /* Messages screen */
+  --messages-header-height: 206px;
+  --messages-panel-top: 206px;
+  --messages-panel-height: 905px;
+  --messages-panel-shadow: 0 -10px 70px rgba(0, 0, 0, 0.1);
+  --messages-heading-top: 65px;
+  --messages-heading-height: 33px;
+  --messages-title-size: 27px;
+  --messages-compose-top: 69px;
+  --messages-compose-left: 480px;
+  --messages-compose-size: 24px;
+  --messages-search-icon-top: 145px;
+  --messages-search-icon-left: 58px;
+  --messages-search-icon-size: 24px;
+  --messages-search-text-top: 142px;
+  --messages-search-text-left: 99.03px;
+  --messages-search-text-min-width: 180px;
+  --messages-search-text-height: 30px;
+  --messages-search-text-size: 25px;
+  --messages-search-height: 48px;
+  --messages-search-inline: 30px;
+  --messages-item-width: 471px;
+  --messages-item-height: 55px;
+  --messages-item-step: 94px;
+  --messages-item-left: 35px;
+  --messages-item-first-top-screen: 254px;
+  --messages-item-first-top: calc(var(--messages-item-first-top-screen) - var(--messages-panel-top));
+  --messages-item-avatar-size: 48px;
+  --messages-item-avatar-gap: 26px;
+  --messages-item-name-preview-gap: 6px;
+  --messages-item-name-height: 27px;
+  --messages-item-name-size: 22px;
+  --messages-item-preview-size: 18px;
+  --messages-item-time-size: 13px;
+  --messages-item-badge-size: 28px;
+  --messages-item-badge-font-size: 18px;
+  --color-messages-badge: #f53e47;
+  --color-messages-name: #141414;
+  --color-messages-preview: var(--HINT_TEXT_Y);
+
+  /* Contacts screen */
+  --contacts-header-height: 291px;
+  --contacts-panel-top: 291px;
+  --contacts-panel-height: 820px;
+  --contacts-panel-shadow: 0 -10px 70px rgba(0, 0, 0, 0.102);
+  --color-contacts-panel-bg: #ffffff;
+  --contacts-heading-top: 65px;
+  --contacts-heading-height: 33px;
+  --contacts-title-size: 27px;
+  --contacts-tabs-top: 145px;
+  --contacts-tabs-left: 51px;
+  --contacts-tabs-width: 451px;
+  --contacts-tabs-height: 25px;
+  --contacts-tabs-gap: 64px;
+  --contacts-tabs-font-size: 20px;
+  --contacts-search-icon-top: 230px;
+  --contacts-search-icon-left: 58px;
+  --contacts-search-icon-size: 24px;
+  --contacts-search-text-top: 227px;
+  --contacts-search-text-left: 99.03px;
+  --contacts-search-text-min-width: 220px;
+  --contacts-search-text-height: 30px;
+  --contacts-search-text-size: 25px;
+  --contacts-search-height: 48px;
+  --contacts-search-inline: 30px;
+  --contacts-item-left: 36px;
+  --contacts-item-row-step: 73px;
+  --contacts-item-1-top-screen: 321px;
+  --contacts-item-1-height: 50.8px;
+  --contacts-item-1-width: 207px;
+  --contacts-item-2-top-screen: 396.8px;
+  --contacts-item-2-height: 48px;
+  --contacts-item-2-width: 208px;
+  --contacts-item-3-top-screen: 469.8px;
+  --contacts-item-3-height: 48px;
+  --contacts-item-3-width: 204px;
+  --contacts-item-default-height: 48px;
+  --contacts-item-default-width: 207px;
+  --contacts-item-avatar-size: 49.746px;
+  --contacts-item-avatar-gap: 23px;
+  --contacts-item-name-left-offset: 73px;
+  --contacts-item-name-height: 30px;
+  --contacts-item-name-size: 25px;
+  --color-contacts-name: #141414;
+  --color-contacts-avatar-bg: var(--CHAT_ICON_COLOR_RECIVER);
+  --color-contacts-tab-active: #ffffff;
+
+  /* SMS chat screen */
+  --sms-chat-header-height: 206px;
+  --sms-chat-panel-top: 206px;
+  /* Figma thread coords are measured from the SMS panel top; keep fixed for all chat panels */
+  --sms-chat-thread-ref-panel-top: 206px;
+  --sms-chat-panel-height: calc(var(--device-frame-height) - var(--sms-chat-panel-top));
+  --sms-chat-panel-shadow: 0 -10px 70px rgba(0, 0, 0, 0.1);
+  --sms-chat-heading-top: 65px;
+  --sms-chat-heading-height: 33px;
+  --sms-chat-title-size: 27px;
+  --sms-chat-search-icon-top: 145px;
+  --sms-chat-search-icon-left: 58px;
+  --sms-chat-search-icon-size: 24px;
+  --sms-chat-search-text-top: 142px;
+  --sms-chat-search-text-left: 99.03px;
+  --sms-chat-search-text-min-width: 200px;
+  --sms-chat-search-text-height: 30px;
+  --sms-chat-search-text-size: 25px;
+  --sms-chat-search-height: 48px;
+  --sms-chat-search-inline: 30px;
+  --sms-chat-timestamp-size: 13px;
+  --sms-chat-timestamp-1-top-screen: 222px;
+  --sms-chat-timestamp-1-top: calc(var(--sms-chat-timestamp-1-top-screen) - var(--sms-chat-thread-ref-panel-top));
+  --sms-chat-timestamp-2-top-screen: 345.5px;
+  --sms-chat-timestamp-2-offset-top: 28px;
+  --sms-chat-timestamp-2-top: calc(
+    var(--sms-chat-timestamp-2-top-screen) - var(--sms-chat-thread-ref-panel-top) +
+      var(--sms-chat-timestamp-2-offset-top)
+  );
+  --sms-chat-timestamp-2-left: 36px;
+  --sms-chat-timestamp-2-width: 184px;
+  --sms-chat-timestamp-2-height: 22px;
+  --sms-chat-timestamp-3-top-screen: 517px;
+  --sms-chat-timestamp-3-top: calc(var(--sms-chat-timestamp-3-top-screen) - var(--sms-chat-thread-ref-panel-top));
+  --sms-chat-timestamp-left: 35px;
+  --sms-chat-timestamp-outgoing-right: 35px;
+  --sms-chat-bubble-radius: 20px;
+  --sms-chat-bubble-text-size: 18px;
+  --sms-chat-bubble-line-height: 29px;
+  --sms-chat-bubble-padding-block: 14px;
+  --sms-chat-bubble-padding-inline: 16px;
+  --sms-chat-bubble-incoming-1-top-screen: 257px;
+  --sms-chat-bubble-incoming-1-top: calc(var(--sms-chat-bubble-incoming-1-top-screen) - var(--sms-chat-thread-ref-panel-top));
+  --sms-chat-bubble-incoming-1-left: 35px;
+  --sms-chat-bubble-incoming-1-width: 358px;
+  --sms-chat-bubble-incoming-1-height: 91px;
+  --sms-chat-bubble-incoming-2-top-screen: 399px;
+  --sms-chat-bubble-incoming-2-top: calc(var(--sms-chat-bubble-incoming-2-top-screen) - var(--sms-chat-thread-ref-panel-top));
+  --sms-chat-bubble-incoming-2-left: 35px;
+  --sms-chat-bubble-incoming-2-width: 311px;
+  --sms-chat-bubble-incoming-2-height: 66px;
+  --sms-chat-bubble-outgoing-top-screen: 552px;
+  --sms-chat-bubble-outgoing-top: calc(var(--sms-chat-bubble-outgoing-top-screen) - var(--sms-chat-thread-ref-panel-top));
+  --sms-chat-bubble-outgoing-left: 147px;
+  --sms-chat-bubble-outgoing-width: 358px;
+  --sms-chat-bubble-outgoing-height: 66px;
+  --color-sms-chat-incoming-bg: #e8e8ed;
+  --color-sms-chat-outgoing-bg: var(--CHAT_SENDER_BUBBLE_BACKGROUND);
+  --color-sms-chat-bubble-text: #141414;
+  --color-sms-chat-timestamp: #8e8e93;
+  --color-sms-chat-composer-border: #bdbdbd;
+  --color-sms-chat-composer-placeholder: #8e8e93;
+  --color-sms-chat-send: var(--CHAT_ICON_COLOR_RECIVER);
+  --sms-chat-composer-top: 819px;
+  --sms-chat-composer-left: 35px;
+  --sms-chat-composer-width: 470px;
+  --sms-chat-composer-height: 61px;
+  --sms-chat-composer-radius: 50px;
+  --sms-chat-composer-border-width: 1.5px;
+  --sms-chat-composer-input-left: 24px;
+  --sms-chat-attach-offset-top: 19px;
+  --sms-chat-attach-left: 408px;
+  --sms-chat-attach-width: 14px;
+  --sms-chat-attach-height: 23px;
+  --sms-chat-send-offset-top: 17px;
+  --sms-chat-send-left: 452.51px;
+  --sms-chat-send-size: 28px;
+
+  /* MMS chat screens */
+  --mms-screen-width: 540px;
+  --mms-screen-height: 979px;
+  --mms-screen-top: 132px;
+  --mms-header-height: 132px;
+  --mms-panel-top: 132px;
+  --mms-panel-height: 828px;
+  --mms-panel-radius: 30px;
+  --mms-panel-shadow: 0 -10px 70px #0000001a;
+  --mms-heading-top: 65px;
+  --mms-heading-height: 33px;
+  --mms-title-size: 27px;
+  --mms-back-top: 71px;
+  --mms-back-left: 36px;
+  --mms-back-width: 23px;
+  --mms-back-height: 21px;
+  --mms-search-top: 69px;
+  --mms-search-left: 481px;
+  --mms-search-size: 24px;
+  --mms-composer-top: 960px;
+  --mms-composer-left: 35px;
+  --mms-composer-width: 470px;
+  --mms-composer-height: 88px;
+  --mms-composer-radius: 50px;
+  --mms-composer-border-width: 1.5px;
+  --mms-preview-top: 12px;
+  --mms-preview-left: 16px;
+  --mms-preview-width: 280px;
+  --mms-preview-height: 64px;
+  --mms-preview-radius: 16px;
+  --mms-doc-icon-top: 1018px;
+  --mms-doc-icon-left: 86.25px;
+  --mms-doc-icon-width: 25.5px;
+  --mms-doc-icon-height: 34px;
+  --mms-attach-left: 408px;
+  --mms-send-left: 452.51px;
+  --mms-action-icon-offset-top: 30px;
+  --mms-remove-size: 22px;
+  --color-mms-incoming-bg: var(--CHAT_RECIVER_BUBBLE_BACKGROUND);
+  --color-mms-outgoing-bg: var(--CHAT_SENDER_BUBBLE_BACKGROUND);
+  --color-mms-preview-bg: var(--CHAT_SENDER_BUBBLE_BACKGROUND);
+  --color-mms-remove-bg: var(--CHAT_ICON_COLOR_RECIVER);
+  --color-mms-audio-track: var(--GRADIENT_3);
+  --color-mms-filename: #141414;
+  --mms-audio-play-size: 20px;
+  --mms-audio-volume-width: 19px;
+  --mms-audio-volume-height: 16px;
+
+  /* Settings screen */
+  --settings-screen-width: 540px;
+  --settings-header-height: 130.36px;
+  --settings-panel-top: 130.36px;
+  --settings-panel-height: 1114.63671875px;
+  --settings-panel-radius: 30px;
+  --settings-panel-shadow: 0 -10px 70px #0000001a;
+  --settings-heading-top: 65px;
+  --settings-heading-height: 33px;
+  --settings-title-size: 27px;
+  --settings-back-top: 71px;
+  --settings-back-left: 36px;
+  --settings-back-width: 26px;
+  --settings-back-height: 24px;
+  --settings-section-information-top-screen: 188.36px;
+  --settings-section-left: 33px;
+  --settings-section-height: 30px;
+  --settings-section-size: 25px;
+  --settings-item-first-top-screen: 259px;
+  --settings-item-icon-left: 36px;
+  --settings-item-text-left: 70.75px;
+  --settings-item-row-step: 47px;
+  --settings-item-height: 27px;
+  --settings-item-size: 22px;
+  --settings-item-icon-size: 23px;
+  --settings-section-after-items-gap-screen: 43.27px;
+  --settings-section-debugging-top-screen: calc(
+    var(--settings-item-first-top-screen) + (6 * var(--settings-item-row-step)) +
+      var(--settings-item-height) + var(--settings-section-after-items-gap-screen)
+  );
+  --settings-debug-item-first-top-screen: calc(
+    var(--settings-section-debugging-top-screen) + var(--settings-section-height) +
+      (var(--settings-item-first-top-screen) - var(--settings-section-information-top-screen) -
+        var(--settings-section-height))
+  );
+  --color-settings-section: var(--CHAT_ICON_COLOR_RECIVER);
+  --color-settings-item: var(--HINT_TEXT_Y);
+
+  /* Change status sheet */
+  --status-sheet-top: 578px;
+  --status-sheet-height: 533px;
+  --status-sheet-radius: 31.59px;
+  --status-sheet-padding-top: 15.8px;
+  --status-sheet-padding-inline: 31.59px;
+  --status-sheet-padding-bottom: 52.65px;
+  --status-sheet-gap: 26.33px;
+  --status-sheet-title-size: 29px;
+  --status-option-width: 476.82px;
+  --status-option-height: 75.12px;
+  --status-option-padding-block: 21.06px;
+  --status-option-gap: 21.06px;
+  --status-option-icon-size: 24px;
+  --status-sheet-save-width: 230.51px;
+  --status-sheet-save-height: 68.45px;
+  --status-sheet-save-radius: 34.23px;
+  --gradient-status-save: var(--CSS_GRADIENT_STATUS_SAVE);
+  --color-status-away: #f5a623;
+  --color-status-divider: rgba(0, 0, 0, 0.08);
+  --color-status-cancel-border: #c7c7cc;
+  --color-status-cancel-text: #8e8e93;
+  --dial-grid-gap-row: 11px;
+  --dial-grid-gap-col: 16px;
+
+  /* Border radius */
+  --radius-none: 0;
+  --radius-sm: 0.25rem;
+  --radius-lg: 1.875rem; /* 30px */
+  --radius-full: 9999px;
+
+  /* Shadows — unused on splash; reserved for app shell */
+  --shadow-none: none;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+
+  /* Motion */
+  --transition-fast: 150ms ease;
+
+  /* Login screen (540 × 1111 frame) */
+  --color-login-accent: var(--CHAT_ICON_COLOR_RECIVER);
+  --color-login-field-border: #d1d1d6;
+  --login-header-height: 303px;
+  --login-panel-top: 303px;
+  --login-panel-padding-top: 16px;
+  --login-panel-height: 808px;
+  --login-panel-radius: 30px;
+  --login-panel-shadow: 0 -10px 70px rgba(0, 0, 0, 0.1);
+  --login-logo-width: 273px;
+  --login-logo-height: 89px;
+  --login-logo-top: 81px;
+  --login-logo-left: 134px;
+  --login-title-left: 36px;
+  --login-title-width: 72px;
+  --login-title-height: 34px;
+  --login-title-size: 29px;
+  --login-subtitle-gap: 5px;
+  --login-subtitle-top-screen: 358px;
+  --login-subtitle-left: 36px;
+  --login-subtitle-width: 276px;
+  --login-subtitle-height: 22px;
+  --login-subtitle-size: 18px;
+  --login-subtitle-color: #949494;
+  --login-field-left: 35px;
+  --login-field-width: 470px;
+  --login-field-height: 61px;
+  --login-field-border-width: 1px;
+  --login-field-icon-inset: 30px;
+  --login-field-icon-gap: 14px;
+  --login-field-padding-inline-start: calc(
+    var(--login-field-icon-inset) + var(--login-lock-icon-width) + var(--login-field-icon-gap)
+  );
+  --login-field-padding-inline-end: 3.25rem;
+  --login-username-field-top-screen: 393px;
+  --login-password-field-top-screen: 479px;
+  --login-user-icon-width: 21.217px;
+  --login-user-icon-height: 21.208px;
+  --login-user-icon-left: 65px;
+  --login-user-icon-top-screen: 413.29px;
+  --login-lock-icon-width: 20.473px;
+  --login-lock-icon-height: 26.875px;
+  --login-lock-icon-left: 65px;
+  --login-lock-icon-top-screen: 496px;
+  --login-eye-icon-width: 20px;
+  --login-eye-icon-height: 14.115px;
+  --login-eye-icon-left: 460px;
+  --login-eye-icon-top-screen: 502px;
+  --login-btn-top-screen: 560px;
+  --login-forgot-top-screen: 628px;
+  --login-otp-btn-top-screen: 684px;
+  --login-otp-label-top-screen: 699.5px;
+  --login-otp-label-left: 178.08px;
+  --login-otp-gap: 12px;
+  --login-key-icon-width: 18.146px;
+  --login-key-icon-height: 9.898px;
+  --login-key-icon-rotate: -45deg;
+  --login-signup-btn-top-screen: 756px;
+  --login-powered-top-screen: 1014px;
+  --login-powered-left: 135px;
+  --login-powered-width: 270px;
+  --login-powered-height: 32px;
+  --login-powered-padding-inline: 5px;
+  --login-powered-gap: 10px;
+  --login-powered-font-size: 26px;
+}

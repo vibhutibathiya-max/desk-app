@@ -1,0 +1,207 @@
+/**
+ * Global layout primitives — shared across app screens
+ */
+
+body {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-block: var(--device-frame-padding-block);
+  font-family: var(--font-family-brand);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-foreground-on-brand);
+  background-color: var(--color-canvas);
+}
+
+/**
+ * Centers the device frame on the canvas.
+ */
+.preview-shell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/**
+ * Scaled device frame container — screens live inside this box.
+ */
+.device-viewport {
+  position: relative;
+  flex-shrink: 0;
+  width: var(--device-frame-width);
+  height: var(--device-frame-height);
+  transform: scale(
+    min(
+      1,
+      100vw / var(--device-frame-width),
+      (
+          100dvh - (2 * var(--device-frame-padding-block))
+        ) / var(--device-frame-height)
+    )
+  );
+  transform-origin: top center;
+}
+
+/**
+ * Individual screen panel — only one visible at a time.
+ */
+.screen-panel {
+  position: absolute;
+  inset: 0;
+  display: none;
+  overflow: hidden;
+}
+
+.screen-panel--active {
+  display: flex;
+}
+
+.screen-load-error {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  font-family: var(--font-family-brand);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--color-foreground-on-light);
+  text-align: center;
+  background: var(--color-surface-light);
+}
+
+.screen-load-error code {
+  font-size: 0.875rem;
+}
+
+/**
+ * Fixed mobile frame shell used by splash, auth, and onboarding flows.
+ */
+.app-screen {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  opacity: 1;
+  background: var(--gradient-main);
+}
+
+.app-screen--brand {
+  background: var(--gradient-main);
+}
+
+.app-screen--light {
+  background: var(--color-surface-light);
+  color: var(--color-foreground-on-light);
+}
+
+.app-screen--onboarding {
+  background-color: var(--color-brand-primary);
+  background-image: var(--onboarding-bg-image);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center top;
+}
+
+.app-screen--home {
+  background: var(--color-surface-light);
+}
+
+.app-screen--home::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  height: var(--home-header-height);
+  background: var(--gradient-home-header);
+  pointer-events: none;
+}
+
+.app-screen--chats::before {
+  height: var(--chats-header-height);
+}
+
+.app-screen--messages::before {
+  height: var(--messages-header-height);
+}
+
+.app-screen--sms-chat::before {
+  height: var(--sms-chat-header-height);
+}
+
+.app-screen--mms-chat::before {
+  height: var(--mms-header-height);
+  z-index: 1;
+  background: var(--gradient-contacts-header);
+}
+
+.app-screen--contacts::before {
+  height: var(--contacts-header-height);
+  background: var(--gradient-contacts-header);
+}
+
+.app-screen--settings::before {
+  height: var(--settings-header-height);
+  z-index: 1;
+  background: var(--gradient-contacts-header);
+}
+
+.app-screen--login {
+  background-color: var(--color-surface-light);
+}
+
+.app-screen--login::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  height: var(--login-header-height);
+  background: var(--gradient-home-header);
+  pointer-events: none;
+}
+
+.app-screen--call {
+  background: var(--gradient-call);
+  color: var(--color-foreground-on-brand);
+}
+
+/**
+ * Centers primary content within the safe area.
+ */
+.app-screen__body {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding-inline: var(--layout-safe-area-inline);
+}
+
+/**
+ * Anchored footer region for brand marks and legal text.
+ */
+.app-screen__footer {
+  display: flex;
+  justify-content: center;
+  padding-block-end: var(--space-10);
+  padding-inline: var(--layout-safe-area-inline);
+}
+
+/**
+ * Corner slot for utility badges (version, powered-by, etc.).
+ */
+.app-screen__corner {
+  position: absolute;
+  inset-block-end: var(--layout-safe-area-block);
+  inset-inline-start: var(--layout-safe-area-inline);
+  z-index: 1;
+}

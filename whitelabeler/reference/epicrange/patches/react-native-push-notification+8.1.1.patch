@@ -1,0 +1,710 @@
+diff --git a/node_modules/react-native-push-notification/android/build.gradle b/node_modules/react-native-push-notification/android/build.gradle
+index d6019f6..b9a7b63 100644
+--- a/node_modules/react-native-push-notification/android/build.gradle
++++ b/node_modules/react-native-push-notification/android/build.gradle
+@@ -31,7 +31,7 @@ android {
+         sourceCompatibility JavaVersion.VERSION_1_8
+         targetCompatibility JavaVersion.VERSION_1_8
+     }
+-
++    namespace = "com.dieam.reactnativepushnotification"
+     defaultConfig {
+         minSdkVersion safeExtGet('minSdkVersion', 16)
+         targetSdkVersion safeExtGet('targetSdkVersion', 28)
+diff --git a/node_modules/react-native-push-notification/android/src/main/AndroidManifest.xml b/node_modules/react-native-push-notification/android/src/main/AndroidManifest.xml
+index 85ef0b3..d5a77a4 100644
+--- a/node_modules/react-native-push-notification/android/src/main/AndroidManifest.xml
++++ b/node_modules/react-native-push-notification/android/src/main/AndroidManifest.xml
+@@ -1,4 +1,4 @@
+-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+-    package="com.dieam.reactnativepushnotification">
++<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+ 
++    <uses-permission android:name="android.permission.BROADCAST_CLOSE_SYSTEM_DIALOGS" />
+ </manifest>
+diff --git a/node_modules/react-native-push-notification/android/src/main/java/com/dieam/reactnativepushnotification/modules/RNPushNotificationActions.java b/node_modules/react-native-push-notification/android/src/main/java/com/dieam/reactnativepushnotification/modules/RNPushNotificationActions.java
+index ada9603..0e200dc 100644
+--- a/node_modules/react-native-push-notification/android/src/main/java/com/dieam/reactnativepushnotification/modules/RNPushNotificationActions.java
++++ b/node_modules/react-native-push-notification/android/src/main/java/com/dieam/reactnativepushnotification/modules/RNPushNotificationActions.java
+@@ -62,7 +62,11 @@ public class RNPushNotificationActions extends BroadcastReceiver {
+ 
+           helper.invokeApp(bundle);
+ 
+-          context.sendBroadcast(new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
++          try {
++            context.sendBroadcast(new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
++          } catch (Exception e) {
++              Log.d("RNPushNotificationActions", "onReceive: " + e);
++          }
+       } else {
+ 
+         // We need to run this on the main thread, as the React code assumes that is true.
+diff --git a/node_modules/react-native-push-notification/android/src/main/java/com/dieam/reactnativepushnotification/modules/RNPushNotificationHelper.java b/node_modules/react-native-push-notification/android/src/main/java/com/dieam/reactnativepushnotification/modules/RNPushNotificationHelper.java
+index 248ff08..6ed19a7 100644
+--- a/node_modules/react-native-push-notification/android/src/main/java/com/dieam/reactnativepushnotification/modules/RNPushNotificationHelper.java
++++ b/node_modules/react-native-push-notification/android/src/main/java/com/dieam/reactnativepushnotification/modules/RNPushNotificationHelper.java
+@@ -31,10 +31,12 @@ import androidx.core.app.NotificationCompat;
+ import androidx.core.text.HtmlCompat;
+ 
+ import com.facebook.react.bridge.Arguments;
++import com.facebook.react.bridge.ReactContext;
+ import com.facebook.react.bridge.ReadableArray;
+ import com.facebook.react.bridge.ReadableMap;
+ import com.facebook.react.bridge.WritableArray;
+ import com.facebook.react.bridge.WritableMap;
++import com.facebook.react.common.LifecycleState;
+ 
+ import org.json.JSONArray;
+ import org.json.JSONException;
+@@ -958,4 +960,33 @@ public class RNPushNotificationHelper {
+         }
+         return false;
+     }
++
++    /*Custom Change*/
++    public boolean isAppInForeground() {
++        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
++        if (activityManager == null) return false;
++
++        List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager.getRunningAppProcesses();
++        if (appProcesses == null) return false;
++
++        final String packageName = context.getPackageName();
++        for (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
++            if (
++                    appProcess.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
++                            && appProcess.processName.equals(packageName)
++            ) {
++                ReactContext reactContext;
++
++                try {
++                    reactContext = (ReactContext) context;
++                } catch (ClassCastException exception) {
++                    // Not react context so default to true
++                    return true;
++                }
++
++                return reactContext.getLifecycleState() == LifecycleState.RESUMED;
++            }
++        }
++        return false;
++    }
+ }
+diff --git a/node_modules/react-native-push-notification/android/src/main/java/com/dieam/reactnativepushnotification/modules/RNPushNotificationListenerService.java b/node_modules/react-native-push-notification/android/src/main/java/com/dieam/reactnativepushnotification/modules/RNPushNotificationListenerService.java
+index ca78c03..5841cc5 100644
+--- a/node_modules/react-native-push-notification/android/src/main/java/com/dieam/reactnativepushnotification/modules/RNPushNotificationListenerService.java
++++ b/node_modules/react-native-push-notification/android/src/main/java/com/dieam/reactnativepushnotification/modules/RNPushNotificationListenerService.java
+@@ -74,6 +74,6 @@ public class RNPushNotificationListenerService extends FirebaseMessagingService
+ 
+     @Override
+     public void onMessageReceived(RemoteMessage message) {
+-        mMessageReceivedHandler.handleReceivedMessage(message);
++        mMessageReceivedHandler.handleReceivedMessage(message, getApplicationContext());
+     }
+ }
+diff --git a/node_modules/react-native-push-notification/android/src/main/java/com/dieam/reactnativepushnotification/modules/RNReceivedMessageHandler.java b/node_modules/react-native-push-notification/android/src/main/java/com/dieam/reactnativepushnotification/modules/RNReceivedMessageHandler.java
+index 721ca40..28039e9 100644
+--- a/node_modules/react-native-push-notification/android/src/main/java/com/dieam/reactnativepushnotification/modules/RNReceivedMessageHandler.java
++++ b/node_modules/react-native-push-notification/android/src/main/java/com/dieam/reactnativepushnotification/modules/RNReceivedMessageHandler.java
+@@ -6,12 +6,18 @@ import com.google.firebase.messaging.RemoteMessage;
+ import android.app.ActivityManager;
+ import android.app.ActivityManager.RunningAppProcessInfo;
+ import android.app.Application;
++import android.app.KeyguardManager;
++import android.content.Intent;
++import android.os.Build;
+ import android.os.Bundle;
+ import android.os.Handler;
+ import android.os.Looper;
+ import android.content.Context;
++import android.os.PowerManager;
+ import android.util.Log;
+ import android.net.Uri;
++import android.view.WindowManager;
++
+ import androidx.annotation.NonNull;
+ import androidx.core.app.NotificationCompat;
+ 
+@@ -26,20 +32,556 @@ import org.json.JSONObject;
+ import java.util.Map;
+ import java.util.List;
+ import java.security.SecureRandom;
++import java.util.Objects;
+ 
+ import static android.content.Context.ACTIVITY_SERVICE;
++import static android.content.Context.POWER_SERVICE;
+ import static com.dieam.reactnativepushnotification.modules.RNPushNotification.LOG_TAG;
+ 
++import android.app.Activity;
++import android.app.Notification;
++import android.app.NotificationChannel;
++import android.app.NotificationManager;
++import android.app.PendingIntent;
++import android.content.Context;
++import android.content.Intent;
++import android.os.Build;
++import android.util.Log;
++import androidx.core.app.NotificationCompat;
++
++import org.json.JSONObject;
++
++import java.util.Map;
++import androidx.core.app.NotificationCompat;
++import androidx.core.app.NotificationManagerCompat;
++import android.app.PendingIntent;
++import org.json.JSONException;
++
++import java.io.BufferedReader;
++import java.io.File;
++import java.io.FileInputStream;
++import java.io.InputStreamReader;
++import java.util.HashSet;
++import java.util.Set;
++import android.content.SharedPreferences;
++import java.util.HashMap;
++import java.util.Map;
++import androidx.core.content.ContextCompat;
++import java.util.Locale;
++import android.content.res.Configuration;
++import android.content.Context;
++import android.content.res.Resources;
++import java.util.Locale;
++import android.service.notification.StatusBarNotification;
++import android.content.pm.ApplicationInfo;
++import java.util.Arrays;
++
++class ContactInfo {
++    public String name;
++    public String profilePic;
++
++    public ContactInfo(String name, String profilePic) {
++        this.name = name;
++        this.profilePic = profilePic;
++    }
++}
++
+ public class RNReceivedMessageHandler {
+     private FirebaseMessagingService mFirebaseMessagingService;
++    private static final Map<String, JSONObject> fileCache = new HashMap<>();
++
++    public static ContactInfo getContactInfo(Context context, String incomingNumber) {
++        File filesDir = context.getFilesDir();
++
++        File[] contactFiles = new File[] {
++            new File(filesDir, "private_contact.json"),
++            new File(filesDir, "local_contact.json"),
++            new File(filesDir, "team_contact.json"),
++            new File(filesDir, "remote_contact.json")
++        };
++
++        String[] variants = generateVariants(context, incomingNumber);
++
++        for (File file : contactFiles) {
++            ContactInfo result = searchInFile(file, variants);
++            if (result != null) return result;
++        }
++
++        Log.d("getContactInfo", "📭 No match found for: " + incomingNumber);
++        return null;
++    }
++
++    private static synchronized ContactInfo searchInFile(File file, String[] variants) {
++        try {
++
++            if (!file.exists()) {
++                Log.d("SearchFile", "File not found: " + file.getName());
++                return null;
++            }
++
++            JSONObject dict;
++
++            // Read and parse file
++            FileInputStream fis = new FileInputStream(file);
++            InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
++            BufferedReader reader = new BufferedReader(isr);
++
++            StringBuilder sb = new StringBuilder();
++            String line;
++            while ((line = reader.readLine()) != null) {
++                sb.append(line);
++            }
++
++            reader.close();
++            isr.close();
++            fis.close();
++
++            dict = new JSONObject(sb.toString());
++
++            // Match against variants
++            for (String variant : variants) {
++                if (dict.has(variant)) {
++                    JSONObject contactObj = dict.optJSONObject(variant);
++                    if (contactObj != null) {
++                        String name = contactObj.optString("name", null);
++                        String profilePic = contactObj.optString("profilePic", null);
++                        Log.d("Match", "✅ Found: " + variant + " => " + name + " in " + file.getName());
++                        return new ContactInfo(name, profilePic);
++                    }
++                }
++            }
++
++        } catch (Exception e) {
++            Log.e("ParseError", "❌ Error reading or parsing file: " + file.getName(), e);
++        }
++
++        return null;
++    }
++
+ 
+     public RNReceivedMessageHandler(@NonNull FirebaseMessagingService service) {
+         this.mFirebaseMessagingService = service;
+     }
+ 
+-    public void handleReceivedMessage(RemoteMessage message) {
++    public static String normalizeNumber(Context context, String input) {
++        // Step 1: Keep only digits and plus
++        String number = input.replaceAll("[^0-9+]", "");
++
++        // Step 2: Digits only
++        String digitsOnly = number.replaceAll("[^0-9]", "");
++
++        // Step 3: Skip if too short
++        if (digitsOnly.length() <= 8) {
++            return number;
++        }
++
++        // Step 4: Get country code from SharedPreferences
++        SharedPreferences prefs = context.getSharedPreferences("NativeStorage", Context.MODE_PRIVATE);
++        String countryCode = prefs.getString("_CustomerCountryPhone_Code", "");
++        Log.d("NormalizeNumber", "Country Code: " + countryCode);
++
++        if (countryCode.isEmpty()) return number;
++
++        // === CASE 1: +CountryCode ===
++        if (number.startsWith("+" + countryCode)) {
++            return number.substring(countryCode.length() + 1);
++        }
++
++        // === CASE 2: 00CountryCode ===
++        if (number.startsWith("00" + countryCode)) {
++            return number.substring(2 + countryCode.length());
++        }
++
++        // === CASE 3: 0CountryCode ===
++        if (number.startsWith("0" + countryCode)) {
++            return number.substring(1 + countryCode.length());
++        }
++
++        // === CASE 4: 00 ===
++        if (number.startsWith("00")) {
++            return number.substring(2);
++        }
++
++        // === CASE 5: 0 ===
++        if (number.startsWith("0")) {
++            return number.substring(1);
++        }
++
++        // === CASE 6: CountryCode ===
++        if (number.startsWith(countryCode)) {
++            return number.substring(countryCode.length());
++        }
++
++        // CASE 7: As-is
++        return number;
++    }
++
++    public static String[] generateVariants(Context context, String number) {
++        String normalized = normalizeNumber(context, number);
++        Set<String> variants = new HashSet<>();
++
++        SharedPreferences prefs = context.getSharedPreferences("NativeStorage", Context.MODE_PRIVATE);
++        String countryCode = prefs.getString("_CustomerCountryPhone_Code", "");
++
++        Log.d("GenerateVariants", "📞 Input: " + number);
++        Log.d("GenerateVariants", "🔄 Normalized: " + normalized);
++        Log.d("GenerateVariants", "🌍 Country Code: " + countryCode);
++
++        // Base variants
++        variants.add(number);
++        variants.add(normalized);
++
++        if (normalized.length() > 8 && !countryCode.isEmpty()) {
++            variants.add("+" + countryCode + normalized);
++            variants.add("0" + normalized);
++            variants.add("00" + normalized);
++            variants.add(countryCode + normalized);
++            variants.add("0" + countryCode + normalized);
++            variants.add("00" + countryCode + normalized);
++        }
++
++        String[] result = variants.toArray(new String[0]);
++        Log.d("GenerateVariants", "📋 Generated Variants: " + Arrays.toString(result)); // ✅ Correct way to log array
++
++        return result;
++    }
++
++    public static String getContactName(Context context, String incomingNumber) {
++        File filesDir = context.getFilesDir();
++        File privateFile = new File(filesDir, "private_contact.json");
++        File localFile = new File(filesDir, "local_contact.json");
++        File teamFile = new File(filesDir, "team_contact.json");
++        File remoteFile = new File(filesDir, "remote_contact.json");
++
++        String[] variants = generateVariants(context, incomingNumber);
++
++        // Search helper (compatible with all Android versions)
++        class FileSearcher {
++            String searchFile(File file) {
++                if (!file.exists()) {
++                    Log.d("SearchFile", "File not found: " + file.getName());
++                    return null;
++                }
++
++                try {
++                    FileInputStream fis = new FileInputStream(file);
++                    InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
++                    BufferedReader reader = new BufferedReader(isr);
++
++                    StringBuilder sb = new StringBuilder();
++                    String line;
++                    while ((line = reader.readLine()) != null) {
++                        sb.append(line);
++                    }
++
++                    reader.close();
++                    isr.close();
++                    fis.close();
++
++                    String content = sb.toString();
++                    JSONObject dict = new JSONObject(content);
++
++                    for (String variant : variants) {
++                        if (dict.has(variant)) {
++                            String name = dict.optString(variant);
++                            Log.d("Match", "✅ Found: " + variant + " => " + name + " in " + file.getName());
++                            return name;
++                        }
++                    }
++
++                } catch (Exception e) {
++                    Log.e("ParseError", "❌ Error reading or parsing file: " + file.getName(), e);
++                }
++
++                return null;
++            }
++        }
++
++        FileSearcher searcher = new FileSearcher();
++
++        // Search order: private -> local -> team -> remote
++        String name;
++        if ((name = searcher.searchFile(privateFile)) != null) return name;
++        if ((name = searcher.searchFile(localFile)) != null) return name;
++        if ((name = searcher.searchFile(teamFile)) != null) return name;
++        if ((name = searcher.searchFile(remoteFile)) != null) return name;
++
++        Log.d("getContactName", "📭 No match found for: " + incomingNumber);
++        return null;
++    }
++
++    private String getLocalizedString(Context context, String langCode, String key) {
++        String androidLocaleCode = mapLanguageToLocale(langCode);
++        Locale locale = new Locale(androidLocaleCode);
++        Locale.setDefault(locale);
++
++        Configuration config = new Configuration(context.getResources().getConfiguration());
++        config.setLocale(locale);  // this is key
++
++        Context localizedContext = context.createConfigurationContext(config);
++        Resources resources = localizedContext.getResources();
++
++        int resId = resources.getIdentifier(key, "string", context.getPackageName());
++        if (resId == 0) {
++            // fallback to default
++            resId = context.getResources().getIdentifier(key, "string", context.getPackageName());
++            return context.getString(resId);
++        }
++
++        return resources.getString(resId);
++    }
++
++
++    private void showIncomingCallNotification(Context context, Map<String, String> data) {
++        try {
++            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
++            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
++                StatusBarNotification[] notifications = notificationManager.getActiveNotifications();
++                for (StatusBarNotification sbn : notifications) {
++                    if (sbn.getId() == 1001) {
++                        Log.d("Notification", "Call notification is already active. Skipping.");
++                        return; // Notification already shown
++                    }
++                }
++            }
++
++            Log.d("showIncomingCallNotification", "showIncomingCallNotification");
++            
++            // 1️⃣ Convert data to JSON string
++            String notificationData = new JSONObject(data).toString();
++
++            // 2️⃣ Parse the raw value from the original map
++            String isVideoRaw = data.get("is_video"); // data is still Map<String, String>
++            String callerNumber = data.get("fromnumber");
++            String notificationUuid = data.get("uuid");
++            String callerName = "";
++            String callerProfilePic = "";
++
++            ContactInfo info = getContactInfo(context, callerNumber);
++
++            if (info != null) {
++                Log.d("Contact", "📞 Name: " + info.name);
++                Log.d("Contact", "🖼️ Profile Pic: " + info.profilePic);
++
++                callerName = info.name;
++                callerProfilePic = info.profilePic;
++            }
++
++            String fromName = data.get("from_name");
++            if ((callerName == null || callerName.isEmpty()) && fromName != null && !fromName.isEmpty()) {
++                callerName = fromName;
++                Log.d("RNPush", "Using from_name from push notification: " + fromName);
++            } else if (callerName == null || callerName.isEmpty()) {
++                callerName = callerNumber;
++                Log.d("RNPush", "Using caller number as name: " + callerNumber);
++            }
++
++            // 3️⃣ Normalize by stripping quotes and checking boolean
++            boolean isVideo = "true".equalsIgnoreCase(
++                isVideoRaw != null ? isVideoRaw.replace("'", "") : "false"
++            );
++
++            Log.d("RNPush", "isVideo: " + isVideo);
++            
++            // IMPORTANT: Show notification FIRST before starting service
++            // This ensures notification is displayed even if service is blocked by battery restrictions
++            // Use reflection to call IncomingCallNotificationManager since it's in a different package
++            try {
++                Class<?> notificationManagerClass = Class.forName("com.tragofone.app.IncomingCallNotificationManager");
++                java.lang.reflect.Method showMethod = notificationManagerClass.getMethod(
++                    "showIncomingCallNotification",
++                    Context.class,
++                    String.class,
++                    String.class,
++                    String.class,
++                    String.class,
++                    String.class,
++                    boolean.class
++                );
++                showMethod.invoke(
++                    null, // static method
++                    context,
++                    callerNumber,
++                    notificationUuid,
++                    callerName,
++                    callerProfilePic,
++                    notificationData,
++                    true // useFullScreenIntent
++                );
++                Log.d("RNPush", "✅ Incoming call notification shown directly (backup for battery restrictions)");
++            } catch (Exception e) {
++                Log.w("RNPush", "⚠️ Failed to show notification directly: " + e.getMessage());
++                // Continue anyway - RingtoneService will try to show notification
++            }
++            
++            Intent ringtoneIntent = new Intent(context, Class.forName("com.tragofone.app.RingtoneService"));
++            
++            // Pass notification data to RingtoneService
++            ringtoneIntent.putExtra("notification_data", notificationData);
++            ringtoneIntent.putExtra("caller_number", callerNumber);
++            ringtoneIntent.putExtra("caller_name", callerName);
++            ringtoneIntent.putExtra("caller_profilePic", callerProfilePic);
++            ringtoneIntent.putExtra("notification_uuid", notificationUuid);
++            
++            // Use startForegroundService() for Android 8.0+ to ensure service starts even when battery is restricted
++            // This is critical for incoming call notifications to work in restricted battery mode
++            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
++                try {
++                    context.startForegroundService(ringtoneIntent);
++                    Log.d("RNPush", "📞 RingtoneService started as foreground service (Android 8.0+)");
++                } catch (IllegalStateException e) {
++                    // Fallback to regular startService if foreground service fails
++                    Log.w("RNPush", "⚠️ Failed to start foreground service, trying regular startService: " + e.getMessage());
++                    try {
++                        context.startService(ringtoneIntent);
++                        Log.d("RNPush", "📞 RingtoneService started with regular startService (fallback)");
++                    } catch (Exception fallbackException) {
++                        Log.e("RNPush", "❌ Failed to start RingtoneService: " + fallbackException.getMessage());
++                        // Service failure - notification won't be shown
++                        Log.e("RNPush", "❌ RingtoneService failed to start - notification may not appear");
++                    }
++                }
++            } else {
++                // Android 7.1 and below - use regular startService
++                try {
++                    context.startService(ringtoneIntent);
++                    Log.d("RNPush", "📞 RingtoneService started with regular startService (Android < 8.0)");
++                } catch (Exception e) {
++                    Log.e("RNPush", "❌ Failed to start RingtoneService: " + e.getMessage());
++                    // Service failure - notification won't be shown
++                    Log.e("RNPush", "❌ RingtoneService failed to start - notification may not appear");
++                }
++            }
++            
++            // RingtoneService will handle notification display, ringtone, and vibration
++            Log.d("RNPush", "📞 RingtoneService started - it will handle notification, ringtone, and vibration");
++
++
++        } catch (Exception e) {
++            Log.e("IncomingCallNotif", "Error launching call screen", e);
++        }
++    }
++
++    public void handleReceivedMessage(RemoteMessage message, Context context) {
+         String from = message.getFrom();
+         RemoteMessage.Notification remoteNotification = message.getNotification();
++
++        Log.d("RNPush", "Received message from: " + from);
++        Log.d("RNPush", "Message data payload: " + message.getData().toString());
++
++        /*Custom Change*/
++        RNPushNotificationHelper pushNotificationHelper = new RNPushNotificationHelper(mFirebaseMessagingService.getApplication());
++        boolean isForeground = pushNotificationHelper.isAppInForeground();
++
++        if ((message.getData().containsKey("notification_type") && Objects.equals(message.getData().get("notification_type"), "cancel_call_push"))) {
++            // Dismiss existing call notification
++            Log.d("cancel_call_push", "cancel_call_push notificaion");
++            Intent intent = new Intent("com.tragofone.app.ACTION_STOP_RINGING");
++            intent.setPackage(context.getPackageName()); // VERY IMPORTANT
++            context.getApplicationContext().sendBroadcast(intent);
++
++            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
++            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
++                StatusBarNotification[] notifications = notificationManager.getActiveNotifications();
++
++                // Add this before the notification search loop
++
++                for (StatusBarNotification sbn : notifications) {
++                    if (sbn.getId() == 1001) {
++                        Notification notification = sbn.getNotification();
++                        Bundle extras = notification.extras;
++                        Log.d("Notification", "extras: " + extras.toString());
++                        String callerName = extras.getString(Notification.EXTRA_TITLE);
++                        String callerNumber = extras.getString(Notification.EXTRA_TEXT);
++                        notificationManager.cancel(1001);
++                        // Send broadcast to close the activity
++                        Log.d("BroadcastSender", "Sending DISMISS_INCOMING_CALL to package: " + context.getPackageName());
++                    }
++                }
++            }
++            Log.d("cancel_call_push", "cancel_call_push notificaion ");
++            // Send broadcast to close the activity
++            Log.d("BroadcastSender", "Sending DISMISS_INCOMING_CALL to package: " + context.getPackageName());
++            Intent dismissIntent = new Intent("DISMISS_INCOMING_CALL");
++            dismissIntent.setPackage(context.getPackageName()); // VERY IMPORTANT
++            context.sendBroadcast(dismissIntent);
++
++            return;
++        }
++        
++        if ((remoteNotification == null && isForeground) || (message.getData() != null && (message.getData().containsKey("is_im_server")
++        || (message.getData().containsKey("notification_type") && Objects.equals(message.getData().get("notification_type"), "missed_call_push"))))) {
++            return;
++        }
++        if ((message.getData().containsKey("notification_type") && Objects.equals(message.getData().get("notification_type"), "incoming_call_push"))) {
++            try {
++//            JSONObject json = new JSONObject();
++//            json.put("call_from", message.getData().get("fromnumber"));
++//            json.put("uuid", message.getData().get("uuid"));
++
++                PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
++                if (powerManager != null) {
++                    try {
++                        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(
++                            PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP,
++                            "tragofone:call"
++                        );
++
++                        wakeLock.acquire(5 * 60 * 1000L); // max 5 minutes
++                        Log.d("RNPush", "✅ WakeLock acquired successfully");
++                    } catch (Exception e) {
++                        // WakeLock might fail in restricted battery mode, but we can still proceed
++                        // The foreground service should handle keeping the device awake
++                        Log.w("RNPush", "⚠️ Failed to acquire WakeLock (may be due to battery restrictions): " + e.getMessage());
++                        Log.d("RNPush", "ℹ️ Continuing without WakeLock - foreground service will handle wake-up");
++                    }
++                }
++
++                // Intent callIntent = new Intent("com.tragofone.app.INCOMING_CALL");
++                // callIntent.setPackage("com.tragofone.app"); // Ensure it targets your app only
++                // callIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
++                // callIntent.putExtra("notification_data", new JSONObject(message.getData()).toString());
++                // context.startActivity(callIntent);
++                showIncomingCallNotification(context, message.getData());
++
++                
++
++                // try {
++                //     Intent dialogIntent = new Intent(
++                //         context,
++                //         Class.forName("com.tragofone.app.MainActivity")
++                //     );
++
++                //     // Put extras
++                //     dialogIntent.putExtra("notification_data", message.getData().toString());
++                //     if (message.getNotification() != null) {
++                //         dialogIntent.putExtra("notification_payload", message.getNotification().toString());
++                //     }
++
++                //     // Set flags for the intent
++                //     dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
++
++                //     // Start the activity
++                //     context.startActivity(dialogIntent);
++
++                // } catch (ClassNotFoundException e) {
++                //     Log.e("RNPush", "MainActivity class not found", e);
++                // }
++
++            } catch (IllegalStateException ex) {
++                Log.e(
++                        LOG_TAG,
++                        "Background messages only work if the message priority is set to 'high'",
++                        ex
++                );
++            }
++        }
++
++//        catch (JSONException e) {
++//            e.printStackTrace();
++//        }
++        /*Custom Change*/
++
+         final Bundle bundle = new Bundle();
+         // Putting it from remoteNotification first so it can be overriden if message
+         // data has it
+@@ -212,4 +754,24 @@ public class RNReceivedMessageHandler {
+ 
+         return result;
+     }
++
++    private String mapLanguageToLocale(String appLanguage) {
++        switch (appLanguage) {
++            case "ar": return "ar";
++            case "de": return "de";
++            case "du": return "nl"; // JavaScript "du" maps to Android "nl" (Dutch)
++            case "fr": return "fr";
++            case "gb": return "en-rGB"; // JavaScript "gb" maps to Android "en-rGB" (British English)
++            case "he": return "he"; // Hebrew - matches values-he directory
++            case "it": return "it";
++            case "pt": return "pt-rBR";
++            case "ru": return "ru";
++            case "tr": return "tr";
++            case "zh-cn": return "zh-rCN";
++            case "zh-tw": return "zh-rTW";
++            case "es": return "es";
++            default: return "en";
++        }
++    }
+ }
++

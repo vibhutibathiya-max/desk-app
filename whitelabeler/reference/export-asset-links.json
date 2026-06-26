@@ -1,0 +1,10 @@
+{
+  "HEADER_LOGO_DARK": "app/assets/images/company_logo_white.png",
+  "LOGIN_LOGO": "app/assets/images/dialpad_full_logo.png",
+  "APP_LOGO": "app/assets/images/trago_gradient_logo.png",
+  "AUDIO_NOTIFICATION": "app/assets/images/audio_notification.png",
+  "VIDEO_NOTIFICATION": "app/assets/images/video_notification.png",
+  "DOCUMENT_NOTIFICATION": "app/assets/images/document_notification.png",
+  "TECHNOLOGY_PATTERN": "app/assets/images/splash_bg_pattern.png",
+  "BROKEN_CONNECTION": "app/assets/images/no_internet_connected.png"
+}

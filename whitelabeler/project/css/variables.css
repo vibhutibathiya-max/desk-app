@@ -1,0 +1,71 @@
+/**
+ * Tragofone Design Tokens
+ * Source: Figma — Tragofone Mobile App (Splash Screen)
+ */
+
+:root {
+  /* Brand gradient stops */
+  --color-gradient-violet-deep: #6533e2;
+  --color-gradient-violet: #7349de;
+  --color-gradient-blue-bright: #1f97ef;
+  --color-gradient-blue-soft: #57a1d7;
+
+  /* Surfaces & foreground */
+  --color-canvas: #000000;
+  --color-surface-brand: var(--color-gradient-violet-deep);
+  --color-foreground-on-brand: #ffffff;
+  --color-foreground-muted-on-brand: rgba(255, 255, 255, 0.65);
+
+  /* Gradients */
+  --gradient-main: linear-gradient(
+    45deg,
+    var(--color-gradient-blue-soft) 0%,
+    var(--color-gradient-blue-bright) 28%,
+    var(--color-gradient-violet) 62%,
+    var(--color-gradient-violet-deep) 100%
+  );
+
+  /* Typography */
+  --font-family-brand: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --line-height-tight: 1.2;
+
+  /* Spacing scale (4px base) */
+  --space-1: 0.25rem;  /* 4px */
+  --space-2: 0.5rem;   /* 8px */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-5: 1.25rem;  /* 20px */
+  --space-6: 1.5rem;   /* 24px */
+  --space-8: 2rem;     /* 32px */
+  --space-10: 2.5rem;  /* 40px */
+  --space-12: 3rem;    /* 48px */
+  --space-16: 4rem;    /* 64px */
+
+  /* Layout */
+  --device-frame-width: 540px;
+  --device-frame-height: 1000px;
+  --device-frame-padding-block: var(--space-6); /* 24px top & bottom around screen */
+  --layout-max-width-mobile: var(--device-frame-width);
+  --layout-safe-area-inline: var(--space-6);
+  --layout-safe-area-block: var(--space-6);
+
+  /* Component sizing (scaled to 540px frame) */
+  --brand-logo-size: 12.5rem;       /* 200px */
+  --brand-wordmark-width: 16.25rem; /* 260px */
+  --app-badge-size: 1.5rem;
+
+  /* Border radius */
+  --radius-none: 0;
+  --radius-sm: 0.25rem;
+  --radius-full: 9999px;
+
+  /* Shadows — unused on splash; reserved for app shell */
+  --shadow-none: none;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+
+  /* Motion */
+  --transition-fast: 150ms ease;
+}
